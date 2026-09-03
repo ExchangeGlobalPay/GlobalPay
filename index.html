@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GlobalPay</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --orange:#ff6b00;
+    --orange2:#ff9b3d;
+    --text:#222;
+    --muted:#8b8b8b;
+    --border:#e8e8e8;
+    --bg:#f7f8fa;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-size:14px;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.page{
+    width:100%;
+    max-width:620px;
+    margin:auto;
+    background:#fff;
+    min-height:100vh;
+    padding-bottom:85px;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    height:72px;
+    padding:0 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#fff;
+    border-bottom:1px solid #eee;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#edf1f5,#d9dfe5);
+    color:#183f78;
+    font-size:27px;
+    font-weight:900;
+    font-style:italic;
+}
+
+.brand-text{
+    line-height:1.1;
+}
+
+.brand-name{
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-sub{
+    margin-top:4px;
+    font-size:10px;
+    color:#999;
+}
+
+.language-btn{
+    border:1px solid #f0d8c6;
+    background:#fff;
+    color:#dc741f;
+    border-radius:20px;
+    padding:8px 12px;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    padding:27px 20px 25px;
+    background:linear-gradient(135deg,#fff,#fff9f5);
+}
+
+.online{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:7px 11px;
+    border:1px solid #dfe6ed;
+    background:#fafcff;
+    border-radius:20px;
+    color:#9d592c;
+    font-size:11px;
+    font-weight:700;
+}
+
+.hero h1{
+    margin-top:19px;
+    font-size:31px;
+    line-height:1.2;
+    letter-spacing:-.5px;
+    font-weight:800;
+}
+
+.hero h1 span{
+    color:var(--orange);
+}
+
+.hero-description{
+    margin-top:12px;
+    max-width:520px;
+    color:#8d8d8d;
+    font-size:13px;
+    line-height:1.55;
+}
+
+/* REGISTER BUTTON */
+
+.register-btn{
+    width:100%;
+    height:48px;
+    margin-top:21px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+
+    border-radius:25px;
+
+    background:linear-gradient(
+        90deg,
+        #ff9d42,
+        #ff6800
+    );
+
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+
+    box-shadow:0 6px 15px rgba(255,105,0,.18);
+
+    border:1px solid #ff8526;
+}
+
+.register-btn:active{
+    transform:scale(.985);
+}
+
+.phone{
+    font-size:16px;
+}
+
+/* ================= SECTIONS ================= */
+
+.section{
+    padding:25px 20px 5px;
+}
+
+.section-label{
+    color:#e87525;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:7px;
+}
+
+.section-title{
+    font-size:23px;
+    line-height:1.25;
+    font-weight:800;
+    margin-bottom:17px;
+}
+
+/* ================= FEATURE CARDS ================= */
+
+.feature-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.feature-card{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:#fff;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.025);
+}
+
+.feature-icon{
+    width:42px;
+    height:42px;
+    min-width:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#f4f8ff;
+    border-radius:11px;
+
+    font-size:20px;
+}
+
+.feature-content h3{
+    font-size:15px;
+    line-height:1.25;
+    margin-bottom:5px;
+}
+
+.feature-content p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.45;
+}
+
+/* ================= TEAM ================= */
+
+.team-levels{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.team-card{
+    min-height:125px;
+    border-radius:15px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+    text-align:center;
+
+    box-shadow:0 5px 13px rgba(0,0,0,.08);
+}
+
+.team-card:nth-child(1){
+    background:linear-gradient(145deg,#3b69df,#f05a0a);
+}
+
+.team-card:nth-child(2){
+    background:linear-gradient(145deg,#f47719,#356be0);
+}
+
+.team-card:nth-child(3){
+    background:linear-gradient(145deg,#ff9a39,#ff6500);
+}
+
+.team-level{
+    font-size:10px;
+    font-weight:700;
+    margin-bottom:9px;
+}
+
+.team-percent{
+    font-size:24px;
+    font-weight:800;
+}
+
+.team-name{
+    margin-top:6px;
+    font-size:10px;
+}
+
+.team-example{
+    text-align:center;
+    color:#8c8c8c;
+    font-size:11px;
+    line-height:1.5;
+    padding:13px 4px 0;
+}
+
+/* ================= REWARD BOX ================= */
+
+.reward-box{
+    padding:16px;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:#fff;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.025);
+}
+
+.reward-item{
+    position:relative;
+    padding-left:15px;
+    margin-bottom:11px;
+
+    color:#888;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.reward-item:last-child{
+    margin-bottom:0;
+}
+
+.reward-item::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:6px;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+    background:var(--orange);
+}
+
+/* ================= STEPS ================= */
+
+.steps{
+    position:relative;
+}
+
+.steps::before{
+    content:"";
+    position:absolute;
+
+    left:18px;
+    top:19px;
+    bottom:19px;
+
+    width:2px;
+
+    background:#ff8a2b;
+}
+
+.step{
+    position:relative;
+
+    display:flex;
+    gap:12px;
+
+    margin-bottom:18px;
+}
+
+.step:last-child{
+    margin-bottom:0;
+}
+
+.step-number{
+    position:relative;
+    z-index:2;
+
+    width:38px;
+    height:38px;
+    min-width:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        145deg,
+        #ff9d3d,
+        #f45e00
+    );
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:800;
+}
+
+.step-content{
+    padding-top:2px;
+}
+
+.step-content h3{
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.step-content p{
+    color:#8d8d8d;
+    font-size:12px;
+    line-height:1.45;
+}
+
+/* ================= TRUST ================= */
+
+.trust-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.trust-card{
+    padding:15px 7px;
+    text-align:center;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:#fff;
+}
+
+.trust-icon{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.trust-card h3{
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.trust-card p{
+    color:#999;
+    font-size:10px;
+    line-height:1.4;
+}
+
+/* ================= PARTNERS ================= */
+
+.partners{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+
+    padding:13px;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+}
+
+.partner{
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid #e7e7e7;
+    border-radius:10px;
+
+    color:#777;
+    font-size:10px;
+    font-weight:700;
+}
+
+/* ================= FAQ ================= */
+
+.faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.faq{
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.faq-question{
+    width:100%;
+    min-height:55px;
+
+    border:0;
+    background:#fff;
+
+    padding:9px 12px;
+
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    text-align:left;
+    cursor:pointer;
+}
+
+.question-icon{
+    width:30px;
+    height:30px;
+    min-width:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#ff7209;
+    color:#fff;
+
+    border-radius:7px;
+
+    font-size:12px;
+    font-weight:800;
+}
+
+.question-text{
+    flex:1;
+    font-size:13px;
+    font-weight:700;
+}
+
+.faq-arrow{
+    color:#e87820;
+    font-size:18px;
+}
+
+.faq-answer{
+    display:none;
+
+    padding:0 14px 13px 51px;
+
+    color:#999;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.faq.active .faq-answer{
+    display:block;
+}
+
+/* ================= FINAL CTA ================= */
+
+.final-box{
+    margin:25px 20px;
+
+    padding:28px 18px;
+
+    text-align:center;
+
+    border:1px solid var(--border);
+    border-radius:17px;
+
+    background:#fff;
+}
+
+.final-box h2{
+    font-size:23px;
+    margin-bottom:9px;
+}
+
+.final-box p{
+    color:#999;
+    font-size:12px;
+    line-height:1.5;
+    margin-bottom:16px;
+}
+
+.final-box .register-btn{
+    margin-top:0;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    padding:0 20px 20px;
+
+    color:#aaa;
+    font-size:10px;
+}
+
+/* ================= BOTTOM BUTTON ================= */
+
+.bottom-button{
+    position:fixed;
+
+    left:50%;
+    bottom:10px;
+
+    transform:translateX(-50%);
+
+    width:calc(100% - 30px);
+    max-width:590px;
+
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:26px;
+
+    background:linear-gradient(
+        90deg,
+        #ff9d42,
+        #ff6800
+    );
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:800;
+
+    box-shadow:0 7px 20px rgba(255,90,0,.25);
+
+    z-index:1000;
+}
+
+/* ================= SMALL SCREEN ================= */
+
+@media(max-width:360px){
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .section-title{
+        font-size:21px;
+    }
+
+    .brand-name{
+        font-size:18px;
+    }
+
+    .brand-sub{
+        font-size:9px;
+    }
+
+    .language-btn{
+        padding:7px 9px;
+        font-size:10px;
+    }
+
+    .register-btn{
+        font-size:13px;
+    }
+
+    .feature-content h3{
+        font-size:14px;
+    }
+
+    .team-percent{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                G
+            </div>
+
+            <div class="brand-text">
+                <div class="brand-name">
+                    GlobalPay
+                </div>
+
+                <div class="brand-sub">
+                    Smart Earning Platform
+                </div>
+            </div>
+
+        </div>
+
+        <button class="language-btn">
+            🌐 Language
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="online">
+            🔥 Join 1,20,000+ users online
+        </div>
+
+        <h1>
+            Use Your Phone.<br>
+            <span>Earn Money Every Day.</span>
+        </h1>
+
+        <p class="hero-description">
+            Simple and convenient. Get paid quickly for all
+            tasks. One platform—no experience required.
+        </p>
+
+        <a href="login.html" class="register-btn">
+            <span class="phone">📱</span>
+            <span>Click to Register, Earn Instantly</span>
+        </a>
+
+    </section>
+
+
+    <!-- WHY GLOBALPAY -->
+
+    <section class="section">
+
+        <div class="section-label">
+            WHY GLOBALPAY
+        </div>
+
+        <h2 class="section-title">
+            Easy way to earn
+        </h2>
+
+        <div class="feature-list">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔥
+                </div>
+
+                <div class="feature-content">
+
+                    <h3>
+                        Earn 3.5% + ₹6 Per Task
+                    </h3>
+
+                    <p>
+                        Complete simple payment tasks and earn
+                        commission on every transaction.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📄
+                </div>
+
+                <div class="feature-content">
+
+                    <h3>
+                        Tasks 24/7
+                    </h3>
+
+                    <p>
+                        New tasks available all day. Work anytime,
+                        anywhere from your phone.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <div class="feature-content">
+
+                    <h3>
+                        Safe & Secure
+                    </h3>
+
+                    <p>
+                        Bank-level encryption keeps your data
+                        and earnings protected.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    👥
+                </div>
+
+                <div class="feature-content">
+
+                    <h3>
+                        Earn from Your Team
+                    </h3>
+
+                    <p>
+                        Invite friends and earn bonus commission
+                        from their tasks automatically.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎁
+                </div>
+
+                <div class="feature-content">
+
+                    <h3>
+                        Extra Bonuses
+                    </h3>
+
+                    <p>
+                        Daily rewards, referral bonuses,
+                        and special event payouts.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TEAM REWARDS -->
+
+    <section class="section">
+
+        <div class="section-label">
+            TEAM REWARDS
+        </div>
+
+        <h2 class="section-title">
+            Earn from 3 team levels
+        </h2>
+
+        <div class="team-levels">
+
+            <div class="team-card">
+
+                <div class="team-level">
+                    LEVEL A
+                </div>
+
+                <div class="team-percent">
+                    3.5%
+                </div>
+
+                <div class="team-name">
+                    ME
+                </div>
+
+            </div>
+
+
+            <div class="team-card">
+
+                <div class="team-level">
+                    LEVEL B
+                </div>
+
+                <div class="team-percent">
+                    0.3%
+                </div>
+
+                <div class="team-name">
+                    MY Friend
+                </div>
+
+            </div>
+
+
+            <div class="team-card">
+
+                <div class="team-level">
+                    LEVEL C
+                </div>
+
+                <div class="team-percent">
+                    0.1%
+                </div>
+
+                <div class="team-name">
+                    Their Friends
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="team-example">
+
+            <b>Example:</b>
+            100000 × 3.5% + 100000 × 0.3%
+            + 200000 × 0.1% = 4,000 INR.
+
+            <br>
+
+            Plus you earn ₹6 per task —
+            money to your wallet every 60 seconds.
+
+        </div>
+
+    </section>
+
+
+    <!-- REWARDS -->
+
+    <section class="section">
+
+        <div class="section-label">
+            REWARDS
+        </div>
+
+        <h2 class="section-title">
+            Whether you are an agent or an individual trader
+        </h2>
+
+        <div class="reward-box">
+
+            <div class="reward-item">
+                We offer a favorable exchange rate
+                of 1 USDT = 103 INR.
+            </div>
+
+            <div class="reward-item">
+                Individual traders can earn up to
+                3330 INR in daily rewards
+                (excluding commissions).
+            </div>
+
+            <div class="reward-item">
+                Agents can earn millions in rewards weekly.
+            </div>
+
+            <div class="reward-item">
+                Join us to learn more about even more
+                generous rewards!
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GET STARTED -->
+
+    <section class="section">
+
+        <div class="section-label">
+            GET STARTED
+        </div>
+
+        <h2 class="section-title">
+            Start in 4 easy steps
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Register & Earn
+                    </h3>
+
+                    <p>
+                        Register now and start earning
+                        with your phone number.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Add UPI Wallet
+                    </h3>
+
+                    <p>
+                        Connect to Paytm, Airtel,
+                        or PhonePe to accept supported tasks.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Do Tasks & Earn
+                    </h3>
+
+                    <p>
+                        Pick available tasks,
+                        complete payments, and earn.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Invite Friends
+                    </h3>
+
+                    <p>
+                        Share your link and earn
+                        eligible team bonuses.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TRUST -->
+
+    <section class="section">
+
+        <div class="section-label">
+            WHY TRUST US
+        </div>
+
+        <h2 class="section-title">
+            Your money is safe
+        </h2>
+
+        <div class="trust-grid">
+
+            <div class="trust-card">
+
+                <div class="trust-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Encrypted
+                </h3>
+
+                <p>
+                    End-to-end protection
+                    for every transaction.
+                </p>
+
+            </div>
+
+
+            <div class="trust-card">
+
+                <div class="trust-icon">
+                    ⚖️
+                </div>
+
+                <h3>
+                    Clear Records
+                </h3>
+
+                <p>
+                    Full history of tasks
+                    and payouts.
+                </p>
+
+            </div>
+
+
+            <div class="trust-card">
+
+                <div class="trust-icon">
+                    📞
+                </div>
+
+                <h3>
+                    24/7 Help
+                </h3>
+
+                <p>
+                    Support team ready
+                    whenever you need.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- UPI PARTNERS -->
+
+    <section class="section">
+
+        <div class="section-label">
+            UPI PARTNERS
+        </div>
+
+        <h2 class="section-title">
+            Partner UPI Wallets
+        </h2>
+
+        <div class="partners">
+
+            <div class="partner">
+                PhonePe
+            </div>
+
+            <div class="partner">
+                Airtel
+            </div>
+
+            <div class="partner">
+                MobiKwik
+            </div>
+
+            <div class="partner">
+                Freecharge
+            </div>
+
+            <div class="partner">
+                Amazon Pay
+            </div>
+
+            <div class="partner">
+                Paytm
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section class="section">
+
+        <div class="section-label">
+            FAQ
+        </div>
+
+        <h2 class="section-title">
+            Common questions
+        </h2>
+
+        <div class="faq-list">
+
+
+            <div class="faq active">
+
+                <button class="faq-question">
+
+                    <span class="question-icon">
+                        Q
+                    </span>
+
+                    <span class="question-text">
+                        Is it free to join?
+                    </span>
+
+                    <span class="faq-arrow">
+                        ⌃
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Yes. There is no joining fee.
+                    Register now and start earning right away.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <button class="faq-question">
+
+                    <span class="question-icon">
+                        Q
+                    </span>
+
+                    <span class="question-text">
+                        How do team bonuses work?
+                    </span>
+
+                    <span class="faq-arrow">
+                        ⌄
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Invite friends and receive eligible
+                    team bonuses according to the platform rules.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <button class="faq-question">
+
+                    <span class="question-icon">
+                        Q
+                    </span>
+
+                    <span class="question-text">
+                        What do I need to start?
+                    </span>
+
+                    <span class="faq-arrow">
+                        ⌄
+                    </span>
+
+                </button>
+
+                <div class="faq-answer">
+                    A phone number and a supported UPI wallet
+                    are required to get started.
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+
+    <div class="final-box">
+
+        <h2>
+            Start earning today
+        </h2>
+
+        <p>
+            Join users already using GlobalPay
+            every day.
+        </p>
+
+        <a href="login.html" class="register-btn">
+            Join Us Now
+        </a>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2025 GlobalPay. All rights reserved.
+    </div>
+
+</div>
+
+
+<!-- FIXED BOTTOM BUTTON -->
+
+<a href="login.html" class="bottom-button">
+    Register Now, Earn Now
+</a>
+
+
+<script>
+
+const faqButtons =
+document.querySelectorAll(".faq-question");
+
+faqButtons.forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        const currentFAQ =
+        this.closest(".faq");
+
+        document
+        .querySelectorAll(".faq")
+        .forEach(function(faq){
+
+            if(faq !== currentFAQ){
+                faq.classList.remove("active");
+
+                const arrow =
+                faq.querySelector(".faq-arrow");
+
+                if(arrow){
+                    arrow.textContent="⌄";
+                }
+            }
+
+        });
+
+        currentFAQ.classList.toggle("active");
+
+        const arrow =
+        currentFAQ.querySelector(".faq-arrow");
+
+        if(currentFAQ.classList.contains("active")){
+            arrow.textContent="⌃";
+        }else{
+            arrow.textContent="⌄";
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+  </html>
