@@ -1,0 +1,3476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<title>GlobalPay - Subscription</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#eef1f5;
+    color:#172033;
+}
+
+
+/* =====================================================
+   DESKTOP BACKGROUND
+===================================================== */
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    width:100%;
+    max-width:600px;
+    min-height:100vh;
+
+    background:#f8fafc;
+
+    position:relative;
+
+    overflow-x:hidden;
+
+    box-shadow:
+        0 0 35px rgba(0,0,0,.08);
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+    min-height:100vh;
+
+    padding-bottom:30px;
+
+    background-color:#f8fafc;
+
+    background-image:
+        linear-gradient(
+            rgba(226,232,240,.45) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(226,232,240,.45) 1px,
+            transparent 1px
+        );
+
+    background-size:40px 40px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    min-height:185px;
+
+    padding:18px 18px 28px;
+
+    position:relative;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #08265f,
+            #0d4ba5 58%,
+            #1378dc
+        );
+
+    overflow:hidden;
+}
+
+.header:before{
+    content:"";
+
+    position:absolute;
+
+    width:360px;
+    height:190px;
+
+    right:-150px;
+    top:-90px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.10);
+}
+
+.header:after{
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:220px;
+
+    left:-230px;
+    bottom:-160px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.10);
+}
+
+
+/* =====================================================
+   HEADER TOP
+===================================================== */
+
+.header-top{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+
+    border:1px solid rgba(255,255,255,.28);
+
+    border-radius:13px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.language{
+    height:42px;
+
+    padding:0 12px;
+
+    display:flex;
+
+    align-items:center;
+    gap:7px;
+
+    border:1px solid rgba(255,255,255,.35);
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:13px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.language-icon{
+    width:19px;
+    height:19px;
+
+    border:2px solid #fff;
+
+    border-radius:50%;
+
+    position:relative;
+}
+
+.language-icon:before{
+    content:"";
+
+    position:absolute;
+
+    left:3px;
+    right:3px;
+    top:7px;
+
+    border-top:1px solid #fff;
+}
+
+.language-icon:after{
+    content:"";
+
+    position:absolute;
+
+    width:6px;
+    height:14px;
+
+    left:4px;
+    top:0;
+
+    border-left:1px solid #fff;
+    border-right:1px solid #fff;
+
+    border-radius:50%;
+}
+
+.down{
+    width:8px;
+    height:8px;
+
+    border-right:2px solid #fff;
+    border-bottom:2px solid #fff;
+
+    transform:rotate(45deg);
+
+    margin-top:-4px;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand{
+    position:relative;
+    z-index:2;
+
+    margin-top:20px;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+}
+
+.brand-logo{
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.18);
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.brand-name{
+    font-size:29px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.brand-name span{
+    color:#49a8ff;
+}
+
+.brand-sub{
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:rgba(255,255,255,.72);
+
+    letter-spacing:.7px;
+}
+
+
+/* =====================================================
+   MY PLAN TOP BUTTON
+===================================================== */
+
+.my-plan-top{
+    position:absolute;
+
+    z-index:3;
+
+    right:17px;
+    bottom:20px;
+
+    height:45px;
+
+    padding:0 15px;
+
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    border:1px solid rgba(255,255,255,.60);
+
+    border-radius:23px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:13px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.user-icon{
+    width:18px;
+    height:18px;
+
+    border:2px solid #fff;
+
+    border-radius:50%;
+
+    position:relative;
+}
+
+.user-icon:after{
+    content:"";
+
+    position:absolute;
+
+    width:20px;
+    height:10px;
+
+    left:-3px;
+    bottom:-12px;
+
+    border:2px solid #fff;
+
+    border-bottom:0;
+
+    border-radius:12px 12px 0 0;
+}
+
+.chevron{
+    width:8px;
+    height:8px;
+
+    border-right:2px solid currentColor;
+    border-top:2px solid currentColor;
+
+    transform:rotate(45deg);
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+    padding:18px 16px 0;
+}
+
+
+/* =====================================================
+   WALLET
+===================================================== */
+
+.wallet{
+    min-height:154px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0867d8,
+            #0c45a0
+        );
+
+    color:#fff;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 10px 25px rgba(13,75,165,.20);
+}
+
+.wallet:before{
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+    height:150px;
+
+    right:-85px;
+    bottom:-80px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.12);
+}
+
+.wallet-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    position:relative;
+    z-index:2;
+}
+
+.token-icon{
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d9f1ff,
+            #65b7ff
+        );
+
+    border:3px solid rgba(255,255,255,.75);
+
+    color:#0c4b9f;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+    font-weight:900;
+
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,.8);
+}
+
+.wallet-title{
+    font-size:13px;
+
+    color:rgba(255,255,255,.75);
+
+    margin-bottom:4px;
+}
+
+.wallet-balance{
+    font-size:31px;
+    font-weight:900;
+
+    letter-spacing:-.5px;
+}
+
+.wallet-token{
+    font-size:14px;
+    font-weight:700;
+
+    margin-left:4px;
+}
+
+.wallet-info{
+    position:relative;
+    z-index:2;
+
+    margin-top:14px;
+
+    font-size:11px;
+
+    color:rgba(255,255,255,.72);
+}
+
+
+/* =====================================================
+   PLAN STATUS
+===================================================== */
+
+.plan-status{
+    margin-top:13px;
+
+    padding:15px;
+
+    background:#fff;
+
+    border:1px solid #dfe5ec;
+
+    border-radius:17px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:12px;
+}
+
+.plan-left{
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+
+    min-width:0;
+}
+
+.status-icon{
+    width:43px;
+    height:43px;
+
+    flex-shrink:0;
+
+    border-radius:13px;
+
+    background:#edf2f7;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#64748b;
+
+    font-weight:900;
+}
+
+.status-shield{
+    width:19px;
+    height:22px;
+
+    border:2px solid currentColor;
+
+    border-radius:9px 9px 11px 11px;
+
+    position:relative;
+}
+
+.status-shield:after{
+    content:"";
+
+    position:absolute;
+
+    width:7px;
+    height:4px;
+
+    border-left:2px solid currentColor;
+    border-bottom:2px solid currentColor;
+
+    transform:rotate(-45deg);
+
+    left:4px;
+    top:6px;
+}
+
+.plan-label{
+    font-size:11px;
+
+    color:#8b96a5;
+
+    margin-bottom:3px;
+}
+
+.plan-name{
+    font-size:16px;
+    font-weight:900;
+
+    color:#172033;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.plan-action{
+    height:39px;
+
+    padding:0 12px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    color:#17366c;
+
+    font-size:11px;
+    font-weight:800;
+
+    white-space:nowrap;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+    margin-top:21px;
+}
+
+.section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-size:19px;
+    font-weight:900;
+
+    color:#172033;
+}
+
+.section-desc{
+    font-size:11px;
+
+    color:#8b96a5;
+}
+
+
+/* =====================================================
+   SUBSCRIPTION GROUP
+===================================================== */
+
+.subscription-group{
+    padding:13px;
+
+    border-radius:19px;
+
+    background:#fff;
+
+    border:1px solid #e4e9ef;
+}
+
+.silver-group{
+    box-shadow:
+        0 5px 18px rgba(40,55,75,.04);
+}
+
+.golden-group{
+    border-color:#f0d18a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf7,
+            #fff8e8
+        );
+}
+
+.group-title{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:13px;
+}
+
+.group-icon{
+    width:39px;
+    height:39px;
+
+    border-radius:12px;
+
+    background:#edf2f7;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#56677d;
+
+    font-weight:900;
+}
+
+.golden-group .group-icon{
+    background:#fff0c7;
+
+    color:#c38400;
+}
+
+.group-name{
+    font-size:18px;
+    font-weight:900;
+
+    color:#14264a;
+}
+
+.group-sub{
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:#8290a2;
+}
+
+.days{
+    margin-left:auto;
+
+    padding:7px 10px;
+
+    border-radius:18px;
+
+    background:#eef2f7;
+
+    color:#41516b;
+
+    font-size:10px;
+    font-weight:800;
+}
+
+.golden-group .days{
+    background:#ffedb9;
+    color:#956200;
+}
+
+
+/* =====================================================
+   PLANS
+===================================================== */
+
+.plans{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+}
+
+.plan-card{
+    padding:13px 9px 11px;
+
+    border-radius:14px;
+
+    border:1px solid #dfe6ee;
+
+    background:#fff;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.golden-group .plan-card{
+    border-color:#f1c96e;
+
+    background:#fffdf8;
+}
+
+.plan-price{
+    font-size:22px;
+    font-weight:900;
+
+    color:#13264d;
+}
+
+.plan-token-label{
+    margin-top:2px;
+
+    font-size:10px;
+
+    color:#7e8a9a;
+}
+
+.daily{
+    margin-top:10px;
+
+    min-height:34px;
+
+    padding:7px 4px;
+
+    border-radius:9px;
+
+    background:#edf6ff;
+
+    color:#1456a0;
+
+    font-size:11px;
+    font-weight:800;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.golden-group .daily{
+    background:#fff0c8;
+    color:#956200;
+}
+
+.duration{
+    margin-top:7px;
+
+    font-size:10px;
+
+    color:#7f8996;
+}
+
+.buy-btn{
+    width:100%;
+
+    height:37px;
+
+    margin-top:10px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#0b3d83;
+
+    color:#fff;
+
+    font-size:11px;
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.buy-btn:active{
+    transform:scale(.98);
+}
+
+.golden-group .buy-btn{
+    background:#d99000;
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.info{
+    margin-top:17px;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:#edf6ff;
+
+    border:1px solid #cfe7ff;
+
+    color:#315879;
+
+    font-size:11px;
+
+    line-height:1.55;
+}
+
+.info-title{
+    font-weight:900;
+
+    color:#173f6d;
+
+    margin-bottom:4px;
+}
+
+
+/* =====================================================
+   BOTTOM
+===================================================== */
+
+.bottom{
+    margin-top:25px;
+
+    height:67px;
+
+    border-top:1px solid #e2e7ed;
+
+    background:rgba(255,255,255,.96);
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    align-items:center;
+}
+
+.bottom-item{
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    color:#7c899b;
+
+    font-size:10px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.bottom-item.active{
+    color:#0867d8;
+}
+
+.bottom-icon{
+    width:21px;
+    height:21px;
+
+    border:2px solid currentColor;
+
+    border-radius:6px;
+
+    position:relative;
+}
+
+.bottom-icon.home{
+    border-radius:4px;
+}
+
+.bottom-icon.team{
+    border-radius:50%;
+}
+
+.bottom-icon.wallet-icon{
+    border-radius:4px;
+}
+
+.bottom-icon.profile{
+    border-radius:50%;
+}
+
+
+/* =====================================================
+   MODAL BACKDROP
+===================================================== */
+
+.modal-overlay{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    background:rgba(8,20,40,.52);
+
+    backdrop-filter:blur(4px);
+
+    align-items:flex-end;
+
+    justify-content:center;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    width:100%;
+    max-width:600px;
+
+    padding:21px 18px 25px;
+
+    background:#fff;
+
+    border-radius:23px 23px 0 0;
+
+    animation:slideUp .22s ease;
+}
+
+@keyframes slideUp{
+
+    from{
+        transform:translateY(30px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+.modal-handle{
+    width:40px;
+    height:4px;
+
+    margin:0 auto 18px;
+
+    border-radius:5px;
+
+    background:#d9dee5;
+}
+
+.modal-title{
+    font-size:20px;
+    font-weight:900;
+
+    color:#172033;
+
+    text-align:center;
+}
+
+.modal-subtitle{
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:#87919e;
+
+    text-align:center;
+}
+
+.confirm-card{
+    margin-top:17px;
+
+    padding:15px;
+
+    border:1px solid #e3e8ee;
+
+    border-radius:15px;
+
+    background:#f9fafb;
+}
+
+.confirm-row{
+    display:flex;
+    justify-content:space-between;
+
+    padding:8px 0;
+
+    border-bottom:1px solid #e8ecf0;
+
+    font-size:13px;
+}
+
+.confirm-row:last-child{
+    border-bottom:0;
+}
+
+.confirm-label{
+    color:#7c8795;
+}
+
+.confirm-value{
+    font-weight:900;
+
+    color:#172033;
+}
+
+.confirm-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:17px;
+}
+
+.cancel-btn,
+.confirm-btn{
+    height:47px;
+
+    border-radius:13px;
+
+    font-size:14px;
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.cancel-btn{
+    border:1px solid #d8dee6;
+
+    background:#fff;
+
+    color:#5e6a79;
+}
+
+.confirm-btn{
+    border:0;
+
+    background:#0b3d83;
+
+    color:#fff;
+}
+
+
+/* =====================================================
+   ALERT MODAL
+===================================================== */
+
+.alert-icon{
+    width:54px;
+    height:54px;
+
+    margin:0 auto 13px;
+
+    border-radius:50%;
+
+    background:#fff3e6;
+
+    border:1px solid #ffd3a5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#e27a00;
+
+    font-size:22px;
+    font-weight:900;
+}
+
+.alert-close{
+    width:100%;
+
+    height:45px;
+
+    margin-top:17px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:#111827;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    z-index:2000;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:11px 17px;
+
+    border-radius:11px;
+
+    background:#111827;
+
+    color:#fff;
+
+    font-size:12px;
+    font-weight:800;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =====================================================
+   LANGUAGE MENU
+===================================================== */
+
+.language-menu{
+    display:none;
+
+    position:absolute;
+
+    right:17px;
+    top:68px;
+
+    z-index:20;
+
+    width:125px;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.20);
+}
+
+.language-menu.show{
+    display:block;
+}
+
+.language-menu button{
+    width:100%;
+    height:40px;
+
+    border:0;
+
+    background:#fff;
+
+    color:#27364d;
+
+    font-size:12px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.language-menu button:active{
+    background:#eef5ff;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:380px){
+
+    .content{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .header{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .brand-name{
+        font-size:26px;
+    }
+
+    .plans{
+        gap:7px;
+    }
+
+    .plan-card{
+        padding-left:6px;
+        padding-right:6px;
+    }
+
+    .plan-price{
+        font-size:20px;
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+   SAME MOBILE APP WIDTH
+===================================================== */
+
+@media(min-width:601px){
+
+    body{
+        padding:20px 0;
+    }
+
+    .app{
+        min-height:
+            calc(100vh - 40px);
+
+        border-radius:18px;
+
+        overflow:hidden;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="app">
+
+<div class="page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+            ‹
+        </button>
+
+
+        <button
+            class="language"
+            onclick="toggleLanguageMenu()">
+
+            <span class="language-icon"></span>
+
+            <span id="languageText">
+                English
+            </span>
+
+            <span class="down"></span>
+
+        </button>
+
+    </div>
+
+
+    <div class="brand">
+
+        <div class="brand-logo">
+
+            <img
+                src="Global.png"
+                alt="GlobalPay">
+
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Global<span>Pay</span>
+            </div>
+
+            <div class="brand-sub">
+                SECURE • FAST • GLOBAL
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="my-plan-top"
+        onclick="openMyPlan()">
+
+        <span class="user-icon"></span>
+
+        <span id="myPlanTopText">
+            My Plan
+        </span>
+
+        <span class="chevron"></span>
+
+    </button>
+
+
+    <div
+        class="language-menu"
+        id="languageMenu">
+
+        <button
+            onclick="changeLanguage('en')">
+            English
+        </button>
+
+        <button
+            onclick="changeLanguage('hi')">
+            हिन्दी
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="content">
+
+
+<!-- =====================================================
+     TOKEN WALLET
+===================================================== -->
+
+<section class="wallet">
+
+    <div class="wallet-top">
+
+        <div class="token-icon">
+            T
+        </div>
+
+        <div>
+
+            <div
+                class="wallet-title"
+                id="walletTitle">
+                Token Wallet
+            </div>
+
+            <div>
+
+                <span
+                    class="wallet-balance"
+                    id="walletBalance">
+                    0
+                </span>
+
+                <span class="wallet-token">
+                    Tokens
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="wallet-info"
+        id="walletInfo">
+
+        Available token balance for subscription purchases
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MY PLAN STATUS
+===================================================== -->
+
+<section class="plan-status">
+
+    <div class="plan-left">
+
+        <div class="status-icon">
+
+            <div class="status-shield"></div>
+
+        </div>
+
+        <div>
+
+            <div
+                class="plan-label"
+                id="currentPlanLabel">
+                My Plan
+            </div>
+
+            <div
+                class="plan-name"
+                id="currentPlan">
+                Inactive Plan
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="plan-action"
+        onclick="openMyPlan()"
+        id="viewPlanButton">
+
+        View Plan
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     SILVER
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <div
+            class="section-title"
+            id="silverTitle">
+            Silver Subscription
+        </div>
+
+        <div
+            class="section-desc"
+            id="silverDesc">
+            30 Days
+        </div>
+
+    </div>
+
+
+    <div class="subscription-group silver-group">
+
+        <div class="group-title">
+
+            <div class="group-icon">
+                S
+            </div>
+
+            <div>
+
+                <div class="group-name">
+                    Silver
+                </div>
+
+                <div
+                    class="group-sub"
+                    id="silverSub">
+                    Daily token rewards
+                </div>
+
+            </div>
+
+            <div class="days">
+                30 DAYS
+            </div>
+
+        </div>
+
+
+        <div class="plans">
+
+
+            <!-- 299 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    299
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    20 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Silver 299',
+                        299,
+                        20,
+                        'Silver'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 499 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    499
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    30 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Silver 499',
+                        499,
+                        30,
+                        'Silver'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 799 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    799
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    50 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Silver 799',
+                        799,
+                        50,
+                        'Silver'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 999 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    999
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    70 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Silver 999',
+                        999,
+                        70,
+                        'Silver'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 1299 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    1,299
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    85 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Silver 1299',
+                        1299,
+                        85,
+                        'Silver'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GOLDEN
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <div
+            class="section-title"
+            id="goldenTitle">
+            Golden Subscription
+        </div>
+
+        <div
+            class="section-desc">
+            30 Days
+        </div>
+
+    </div>
+
+
+    <div class="subscription-group golden-group">
+
+        <div class="group-title">
+
+            <div class="group-icon">
+                G
+            </div>
+
+            <div>
+
+                <div class="group-name">
+                    Golden
+                </div>
+
+                <div
+                    class="group-sub"
+                    id="goldenSub">
+                    Higher daily token rewards
+                </div>
+
+            </div>
+
+            <div class="days">
+                30 DAYS
+            </div>
+
+        </div>
+
+
+        <div class="plans">
+
+
+            <!-- 1500 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    1,500
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    110 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Golden 1500',
+                        1500,
+                        110,
+                        'Golden'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 2000 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    2,000
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    150 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Golden 2000',
+                        2000,
+                        150,
+                        'Golden'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 2500 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    2,500
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    200 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Golden 2500',
+                        2500,
+                        200,
+                        'Golden'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+
+            <!-- 3000 -->
+
+            <div class="plan-card">
+
+                <div class="plan-price">
+                    3,000
+                </div>
+
+                <div class="plan-token-label">
+                    Tokens
+                </div>
+
+                <div class="daily">
+                    250 Tokens / day
+                </div>
+
+                <div class="duration">
+                    30 Days
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="selectPlan(
+                        'Golden 3000',
+                        3000,
+                        250,
+                        'Golden'
+                    )">
+                    Buy Now
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INFO
+===================================================== -->
+
+<div class="info">
+
+    <div
+        class="info-title"
+        id="infoTitle">
+        Token Subscription
+    </div>
+
+    <div id="infoText">
+
+        Select a subscription using your available
+        Tokens. After confirmation, the selected
+        plan will be activated and daily Tokens
+        will become available according to the plan.
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom">
+
+    <div
+        class="bottom-item"
+        onclick="goHome()">
+
+        <div class="bottom-icon home"></div>
+
+        <span id="navHome">
+            Home
+        </span>
+
+    </div>
+
+
+    <div
+        class="bottom-item"
+        onclick="goTeam()">
+
+        <div class="bottom-icon team"></div>
+
+        <span id="navTeam">
+            Team
+        </span>
+
+    </div>
+
+
+    <div
+        class="bottom-item active">
+
+        <div class="bottom-icon">
+        </div>
+
+        <span id="navBuy">
+            Buy
+        </span>
+
+    </div>
+
+
+    <div
+        class="bottom-item"
+        onclick="goWallet()">
+
+        <div class="bottom-icon wallet-icon">
+        </div>
+
+        <span id="navWallet">
+            Wallet
+        </span>
+
+    </div>
+
+</nav>
+
+
+</div>
+</div>
+
+
+<!-- =====================================================
+     CONFIRM MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="confirmModal">
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div
+            class="modal-title"
+            id="confirmTitle">
+            Confirm Purchase
+        </div>
+
+        <div
+            class="modal-subtitle"
+            id="confirmSubtitle">
+            Please review your subscription
+        </div>
+
+
+        <div class="confirm-card">
+
+            <div class="confirm-row">
+
+                <span
+                    class="confirm-label">
+                    Plan
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="confirmPlan">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <span
+                    class="confirm-label">
+                    Purchase
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="confirmPrice">
+                    0 Tokens
+                </span>
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <span
+                    class="confirm-label">
+                    Daily Reward
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="confirmDaily">
+                    0 Tokens
+                </span>
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <span
+                    class="confirm-label">
+                    Duration
+                </span>
+
+                <span
+                    class="confirm-value">
+                    30 Days
+                </span>
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <span
+                    class="confirm-label">
+                    Balance After Purchase
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="confirmBalance">
+                    0 Tokens
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="confirm-actions">
+
+            <button
+                class="cancel-btn"
+                onclick="closeConfirm()"
+                id="cancelButton">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="confirm-btn"
+                onclick="confirmPurchase()"
+                id="confirmButton">
+
+                Confirm
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INSUFFICIENT BALANCE MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="insufficientModal">
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="alert-icon">
+            !
+        </div>
+
+        <div
+            class="modal-title"
+            id="insufficientTitle">
+            Insufficient Tokens
+        </div>
+
+        <div
+            class="modal-subtitle"
+            id="insufficientText">
+
+            You do not have enough Tokens
+            to purchase this subscription.
+
+        </div>
+
+
+        <div class="confirm-card">
+
+            <div class="confirm-row">
+
+                <span class="confirm-label">
+                    Required
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="requiredTokens">
+                    0 Tokens
+                </span>
+
+            </div>
+
+
+            <div class="confirm-row">
+
+                <span class="confirm-label">
+                    Available
+                </span>
+
+                <span
+                    class="confirm-value"
+                    id="availableTokens">
+                    0 Tokens
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="alert-close"
+            onclick="closeInsufficient()"
+            id="closeAlert">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUCCESS MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="successModal">
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="alert-icon"
+             style="
+             background:#ecfdf5;
+             border-color:#bbf7d0;
+             color:#168052;">
+
+            ✓
+
+        </div>
+
+        <div
+            class="modal-title"
+            id="successTitle">
+            Purchase Successful
+        </div>
+
+        <div
+            class="modal-subtitle"
+            id="successText">
+
+            Your subscription has been activated.
+
+        </div>
+
+
+        <button
+            class="alert-close"
+            onclick="closeSuccess()">
+
+            Continue
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+    Updated
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    runTransaction,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let currentBalance = 0;
+
+let selectedPlan = null;
+
+
+/* =====================================================
+   FORMAT
+===================================================== */
+
+function formatNumber(number){
+
+    return Number(number || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* =====================================================
+   UPDATE WALLET
+===================================================== */
+
+function updateWallet(balance){
+
+    currentBalance =
+        Number(balance || 0);
+
+    document.getElementById(
+        "walletBalance"
+    ).innerText =
+        formatNumber(
+            currentBalance
+        );
+
+}
+
+
+/* =====================================================
+   LOAD USER
+===================================================== */
+
+async function loadUserData(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid
+            );
+
+
+        const snapshot =
+            await getDoc(
+                userRef
+            );
+
+
+        if(!snapshot.exists()){
+
+            showToast(
+                "User account not found"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+        /*
+         * Token wallet
+         */
+
+        updateWallet(
+            data.tokenBalance || 0
+        );
+
+
+        /*
+         * Active plan
+         */
+
+        const plan =
+            data.activePlan;
+
+
+        if(
+            plan &&
+            plan.name
+        ){
+
+            document.getElementById(
+                "currentPlan"
+            ).innerText =
+                plan.name;
+
+        }
+        else{
+
+            document.getElementById(
+                "currentPlan"
+            ).innerText =
+                "Inactive Plan";
+
+        }
+
+
+    }
+    catch(error){
+
+        console.error(
+            "LOAD USER ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT PLAN
+===================================================== */
+
+window.selectPlan =
+function(
+    name,
+    price,
+    daily,
+    category
+){
+
+    if(!currentUser){
+
+        showInsufficient(
+            0,
+            0,
+            "Please login before purchasing a subscription."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        currentBalance <
+        price
+    ){
+
+        showInsufficient(
+            price,
+            currentBalance
+        );
+
+        return;
+
+    }
+
+
+    selectedPlan = {
+
+        name:
+            name,
+
+        price:
+            price,
+
+        daily:
+            daily,
+
+        category:
+            category
+
+    };
+
+
+    document.getElementById(
+        "confirmPlan"
+    ).innerText =
+        name;
+
+
+    document.getElementById(
+        "confirmPrice"
+    ).innerText =
+        formatNumber(price) +
+        " Tokens";
+
+
+    document.getElementById(
+        "confirmDaily"
+    ).innerText =
+        formatNumber(daily) +
+        " Tokens / day";
+
+
+    document.getElementById(
+        "confirmBalance"
+    ).innerText =
+        formatNumber(
+            currentBalance -
+            price
+        ) +
+        " Tokens";
+
+
+    document.getElementById(
+        "confirmModal"
+    ).classList.add(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   CONFIRM PURCHASE
+===================================================== */
+
+window.confirmPurchase =
+async function(){
+
+    if(
+        !currentUser ||
+        !selectedPlan
+    ){
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "confirmButton"
+        );
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "Processing...";
+
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid
+            );
+
+
+        let newBalance = 0;
+
+
+        await runTransaction(
+            db,
+            async transaction => {
+
+                const snapshot =
+                    await transaction.get(
+                        userRef
+                    );
+
+
+                if(!snapshot.exists()){
+
+                    throw new Error(
+                        "USER_NOT_FOUND"
+                    );
+
+                }
+
+
+                const data =
+                    snapshot.data();
+
+
+                const balance =
+                    Number(
+                        data.tokenBalance || 0
+                    );
+
+
+                if(
+                    balance <
+                    selectedPlan.price
+                ){
+
+                    throw new Error(
+                        "INSUFFICIENT_TOKENS"
+                    );
+
+                }
+
+
+                newBalance =
+                    balance -
+                    selectedPlan.price;
+
+
+                const startDate =
+                    new Date();
+
+
+                const endDate =
+                    new Date();
+
+                endDate.setDate(
+                    endDate.getDate() + 30
+                );
+
+
+                const activePlan = {
+
+                    name:
+                        selectedPlan.name,
+
+                    category:
+                        selectedPlan.category,
+
+                    price:
+                        selectedPlan.price,
+
+                    dailyTokens:
+                        selectedPlan.daily,
+
+                    durationDays:
+                        30,
+
+                    startDate:
+                        startDate.toISOString(),
+
+                    endDate:
+                        endDate.toISOString(),
+
+                    dailyClaimed:
+                        0,
+
+                    lastClaimDate:
+                        null,
+
+                    status:
+                        "active"
+
+                };
+
+
+                transaction.update(
+                    userRef,
+                    {
+
+                        tokenBalance:
+                            newBalance,
+
+                        activePlan:
+                            activePlan,
+
+                        planName:
+                            selectedPlan.name,
+
+                        planCategory:
+                            selectedPlan.category,
+
+                        planPrice:
+                            selectedPlan.price,
+
+                        planDailyTokens:
+                            selectedPlan.daily,
+
+                        planDurationDays:
+                            30,
+
+                        planStartedAt:
+                            serverTimestamp(),
+
+                        planExpiresAt:
+                            endDate.toISOString(),
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+            }
+        );
+
+
+        updateWallet(
+            newBalance
+        );
+
+
+        document.getElementById(
+            "currentPlan"
+        ).innerText =
+            selectedPlan.name;
+
+
+        closeConfirm();
+
+
+        document.getElementById(
+            "successModal"
+        ).classList.add(
+            "show"
+        );
+
+
+        selectedPlan =
+            null;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "PURCHASE ERROR:",
+            error
+        );
+
+
+        closeConfirm();
+
+
+        if(
+            error.message ===
+            "INSUFFICIENT_TOKENS"
+        ){
+
+            showInsufficient(
+                selectedPlan
+                ? selectedPlan.price
+                : 0,
+                currentBalance
+            );
+
+        }
+        else if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            showInsufficient(
+                0,
+                0,
+                "Database permission denied. Please update your Firestore Rules."
+            );
+
+        }
+        else{
+
+            showInsufficient(
+                0,
+                0,
+                "Purchase could not be completed. Please try again."
+            );
+
+        }
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            "Confirm";
+
+    }
+
+};
+
+
+/* =====================================================
+   CONFIRM CLOSE
+===================================================== */
+
+window.closeConfirm =
+function(){
+
+    document.getElementById(
+        "confirmModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   INSUFFICIENT
+===================================================== */
+
+function showInsufficient(
+    required,
+    available,
+    customMessage
+){
+
+    document.getElementById(
+        "requiredTokens"
+    ).innerText =
+        required
+        ? formatNumber(required) +
+          " Tokens"
+        : "-";
+
+
+    document.getElementById(
+        "availableTokens"
+    ).innerText =
+        formatNumber(available) +
+        " Tokens";
+
+
+    if(customMessage){
+
+        document.getElementById(
+            "insufficientText"
+        ).innerText =
+            customMessage;
+
+    }
+    else{
+
+        document.getElementById(
+            "insufficientText"
+        ).innerText =
+            "You do not have enough Tokens to purchase this subscription.";
+
+    }
+
+
+    document.getElementById(
+        "insufficientModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+window.closeInsufficient =
+function(){
+
+    document.getElementById(
+        "insufficientModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+window.closeSuccess =
+function(){
+
+    document.getElementById(
+        "successModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   MY PLAN
+===================================================== */
+
+window.openMyPlan =
+function(){
+
+    window.location.href =
+        "myplan.html";
+
+};
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+window.goBack =
+function(){
+
+    if(
+        document.referrer &&
+        document.referrer.includes(
+            window.location.hostname
+        )
+    ){
+
+        history.back();
+
+    }
+    else{
+
+        window.location.href =
+            "home.html";
+
+    }
+
+};
+
+
+window.goHome =
+function(){
+
+    window.location.href =
+        "home.html";
+
+};
+
+
+window.goTeam =
+function(){
+
+    window.location.href =
+        "team.html";
+
+};
+
+
+window.goWallet =
+function(){
+
+    window.location.href =
+        "wallet.html";
+
+};
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.innerText =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },1800);
+
+}
+
+
+/* =====================================================
+   LANGUAGE MENU
+===================================================== */
+
+window.toggleLanguageMenu =
+function(){
+
+    document.getElementById(
+        "languageMenu"
+    ).classList.toggle(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+window.changeLanguage =
+function(lang){
+
+    if(lang === "hi"){
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+            "हिन्दी";
+
+
+        document.getElementById(
+            "myPlanTopText"
+        ).innerText =
+            "मेरा प्लान";
+
+
+        document.getElementById(
+            "walletTitle"
+        ).innerText =
+            "टोकन वॉलेट";
+
+
+        document.getElementById(
+            "walletInfo"
+        ).innerText =
+            "सब्सक्रिप्शन खरीदने के लिए उपलब्ध टोकन";
+
+
+        document.getElementById(
+            "currentPlanLabel"
+        ).innerText =
+            "मेरा प्लान";
+
+
+        document.getElementById(
+            "viewPlanButton"
+        ).innerText =
+            "प्लान देखें";
+
+
+        document.getElementById(
+            "silverTitle"
+        ).innerText =
+            "सिल्वर सब्सक्रिप्शन";
+
+
+        document.getElementById(
+            "silverSub"
+        ).innerText =
+            "दैनिक टोकन रिवॉर्ड";
+
+
+        document.getElementById(
+            "goldenTitle"
+        ).innerText =
+            "गोल्डन सब्सक्रिप्शन";
+
+
+        document.getElementById(
+            "goldenSub"
+        ).innerText =
+            "अधिक दैनिक टोकन रिवॉर्ड";
+
+
+        document.getElementById(
+            "infoTitle"
+        ).innerText =
+            "टोकन सब्सक्रिप्शन";
+
+
+        document.getElementById(
+            "infoText"
+        ).innerText =
+            "अपने उपलब्ध टोकन से सब्सक्रिप्शन चुनें। पुष्टि के बाद प्लान सक्रिय होगा और प्लान के अनुसार दैनिक टोकन उपलब्ध होंगे।";
+
+
+        document.getElementById(
+            "navHome"
+        ).innerText =
+            "होम";
+
+
+        document.getElementById(
+            "navTeam"
+        ).innerText =
+            "टीम";
+
+
+        document.getElementById(
+            "navBuy"
+        ).innerText =
+            "खरीदें";
+
+
+        document.getElementById(
+            "navWallet"
+        ).innerText =
+            "वॉलेट";
+
+
+        localStorage.setItem(
+            "buy_language",
+            "hi"
+        );
+
+    }
+    else{
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+            "English";
+
+
+        document.getElementById(
+            "myPlanTopText"
+        ).innerText =
+            "My Plan";
+
+
+        document.getElementById(
+            "walletTitle"
+        ).innerText =
+            "Token Wallet";
+
+
+        document.getElementById(
+            "walletInfo"
+        ).innerText =
+            "Available token balance for subscription purchases";
+
+
+        document.getElementById(
+            "currentPlanLabel"
+        ).innerText =
+            "My Plan";
+
+
+        document.getElementById(
+            "viewPlanButton"
+        ).innerText =
+            "View Plan";
+
+
+        document.getElementById(
+            "silverTitle"
+        ).innerText =
+            "Silver Subscription";
+
+
+        document.getElementById(
+            "silverSub"
+        ).innerText =
+            "Daily token rewards";
+
+
+        document.getElementById(
+            "goldenTitle"
+        ).innerText =
+            "Golden Subscription";
+
+
+        document.getElementById(
+            "goldenSub"
+        ).innerText =
+            "Higher daily token rewards";
+
+
+        document.getElementById(
+            "infoTitle"
+        ).innerText =
+            "Token Subscription";
+
+
+        document.getElementById(
+            "infoText"
+        ).innerText =
+            "Select a subscription using your available Tokens. After confirmation, the selected plan will be activated and daily Tokens will become available according to the plan.";
+
+
+        document.getElementById(
+            "navHome"
+        ).innerText =
+            "Home";
+
+
+        document.getElementById(
+            "navTeam"
+        ).innerText =
+            "Team";
+
+
+        document.getElementById(
+            "navBuy"
+        ).innerText =
+            "Buy";
+
+
+        document.getElementById(
+            "navWallet"
+        ).innerText =
+            "Wallet";
+
+
+        localStorage.setItem(
+            "buy_language",
+            "en"
+        );
+
+    }
+
+
+    document.getElementById(
+        "languageMenu"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(user){
+
+            currentUser =
+                user;
+
+            localStorage.setItem(
+                "globalpay_uid",
+                user.uid
+            );
+
+            await loadUserData();
+
+        }
+        else{
+
+            /*
+             * Firebase login required.
+             */
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START LANGUAGE
+===================================================== */
+
+const savedLanguage =
+    localStorage.getItem(
+        "buy_language"
+    );
+
+
+if(savedLanguage === "hi"){
+
+    changeLanguage("hi");
+
+}
+else{
+
+    changeLanguage("en");
+
+}
+
+
+/* =====================================================
+   CLOSE MODALS ON BACKDROP
+===================================================== */
+
+document
+    .getElementById(
+        "confirmModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                this
+            ){
+
+                closeConfirm();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "insufficientModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                this
+            ){
+
+                closeInsufficient();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "successModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                this
+            ){
+
+                closeSuccess();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+  </html>
