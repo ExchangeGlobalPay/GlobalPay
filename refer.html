@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay - Refer & Earn</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fffdfb;
+    color:#172033;
+}
+
+.page{
+    min-height:100vh;
+    padding-bottom:35px;
+
+    background-color:#fffdfb;
+
+    background-image:
+    linear-gradient(
+        rgba(232,228,223,.42) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        90deg,
+        rgba(232,228,223,.42) 1px,
+        transparent 1px
+    );
+
+    background-size:41px 41px;
+}
+
+.container{
+    width:calc(100% - 32px);
+    max-width:600px;
+    margin:auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+    height:62px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back{
+    width:42px;
+    height:42px;
+
+    border:1px solid #eeeeee;
+    border-radius:13px;
+
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+.header-title{
+    font-size:19px;
+    font-weight:800;
+    color:#172033;
+}
+
+.header-space{
+    width:42px;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    margin-top:8px;
+
+    padding:25px 20px 23px;
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0e7,
+            #fff9f5
+        );
+
+    border:1px solid #f8d8c4;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 25px rgba(40,30,20,.05);
+}
+
+.gift{
+    width:67px;
+    height:67px;
+
+    margin:0 auto 13px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:34px;
+
+    box-shadow:
+        0 7px 18px rgba(20,45,75,.08);
+}
+
+.hero h1{
+    font-size:24px;
+    font-weight:900;
+
+    color:#172033;
+
+    margin-bottom:7px;
+}
+
+.hero p{
+    font-size:13px;
+    line-height:1.5;
+
+    color:#8d8e95;
+}
+
+
+/* ================= BALANCE ================= */
+
+.balance-card{
+    margin-top:16px;
+
+    padding:18px;
+
+    background:#111;
+
+    border-radius:19px;
+
+    color:#fff;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.balance-card:after{
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    right:-55px;
+    top:-65px;
+
+    background:rgba(255,255,255,.07);
+}
+
+.balance-label{
+    font-size:12px;
+    color:#aaa;
+
+    margin-bottom:7px;
+}
+
+.balance{
+    font-size:29px;
+    font-weight:900;
+}
+
+.balance-sub{
+    margin-top:6px;
+
+    font-size:12px;
+
+    color:#aaa;
+}
+
+
+/* ================= REFERRAL CODE ================= */
+
+.section-title{
+    margin-top:23px;
+    margin-bottom:10px;
+
+    font-size:16px;
+    font-weight:800;
+
+    color:#27303c;
+}
+
+.code-card{
+    background:#fff;
+
+    border:1px solid #eeeeee;
+
+    border-radius:17px;
+
+    padding:15px;
+}
+
+.code-box{
+    height:52px;
+
+    display:flex;
+    align-items:center;
+
+    background:#fffaf5;
+
+    border:1.5px dashed #efb98e;
+
+    border-radius:13px;
+
+    overflow:hidden;
+}
+
+.code{
+    flex:1;
+
+    padding-left:15px;
+
+    font-size:19px;
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    color:#e87512;
+}
+
+.copy-btn{
+    height:100%;
+
+    padding:0 18px;
+
+    border:0;
+
+    background:#e87512;
+
+    color:#fff;
+
+    font-size:13px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.copy-btn:active{
+    transform:scale(.98);
+}
+
+.link-box{
+    margin-top:10px;
+
+    height:43px;
+
+    padding:0 12px;
+
+    display:flex;
+    align-items:center;
+
+    background:#f8f8f8;
+
+    border-radius:11px;
+
+    color:#777;
+
+    font-size:11px;
+
+    overflow:hidden;
+}
+
+#referralLink{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+/* ================= SHARE ================= */
+
+.share-btn{
+    width:100%;
+    height:47px;
+
+    margin-top:11px;
+
+    border:0;
+    border-radius:13px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* ================= TEAM ================= */
+
+.team-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+}
+
+.team-card{
+    padding:16px 8px;
+
+    background:#fff;
+
+    border:1px solid #eeeeee;
+
+    border-radius:16px;
+
+    text-align:center;
+}
+
+.team-icon{
+    width:39px;
+    height:39px;
+
+    margin:0 auto 8px;
+
+    border-radius:12px;
+
+    background:#fff0e9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+}
+
+.team-name{
+    font-size:12px;
+
+    color:#8a8c92;
+
+    margin-bottom:5px;
+}
+
+.team-count{
+    font-size:21px;
+
+    font-weight:900;
+
+    color:#172033;
+}
+
+
+/* ================= EARNINGS ================= */
+
+.earnings{
+    margin-top:20px;
+
+    background:#fff;
+
+    border:1px solid #eeeeee;
+
+    border-radius:18px;
+
+    overflow:hidden;
+}
+
+.earning-row{
+    min-height:58px;
+
+    padding:0 15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid #f0f0f0;
+}
+
+.earning-row:last-child{
+    border-bottom:0;
+}
+
+.earning-left{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.earning-icon{
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    background:#fff3ed;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+}
+
+.earning-name{
+    font-size:13px;
+    font-weight:700;
+
+    color:#555;
+}
+
+.earning-value{
+    font-size:14px;
+    font-weight:900;
+
+    color:#168052;
+}
+
+
+/* ================= INFO ================= */
+
+.info{
+    margin-top:18px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:#fff1e9;
+
+    color:#9a603d;
+
+    font-size:12px;
+
+    line-height:1.55;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading{
+    padding:35px 0;
+
+    text-align:center;
+
+    color:#999;
+
+    font-size:13px;
+}
+
+.spinner{
+    width:28px;
+    height:28px;
+
+    margin:0 auto 10px;
+
+    border:3px solid #eee;
+    border-top-color:#e87512;
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* ================= ERROR ================= */
+
+.error-box{
+    display:none;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    background:#fff5f5;
+
+    border:1px solid #fecaca;
+
+    color:#dc2626;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    text-align:center;
+}
+
+.error-box.show{
+    display:block;
+}
+
+.retry{
+    margin-top:10px;
+
+    padding:9px 18px;
+
+    border:0;
+    border-radius:9px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* ================= SUCCESS TOAST ================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:11px 17px;
+
+    border-radius:11px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-size:13px;
+    font-weight:700;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    z-index:999;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:360px){
+
+    .container{
+        width:calc(100% - 24px);
+    }
+
+    .hero h1{
+        font-size:22px;
+    }
+
+    .team-grid{
+        gap:7px;
+    }
+
+    .team-card{
+        padding:14px 5px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+    <button
+        class="back"
+        onclick="goBack()">
+        ←
+    </button>
+
+    <div class="header-title">
+        Refer & Earn
+    </div>
+
+    <div class="header-space"></div>
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+    <div class="gift">
+        🎁
+    </div>
+
+    <h1>
+        Invite & Earn
+    </h1>
+
+    <p>
+        Invite your friends to GlobalPay<br>
+        and earn rewards from your team.
+    </p>
+
+</div>
+
+
+<!-- ================= BALANCE ================= -->
+
+<div class="balance-card">
+
+    <div class="balance-label">
+        Total Referral Earnings
+    </div>
+
+    <div class="balance" id="totalEarnings">
+        ₹0.00
+    </div>
+
+    <div class="balance-sub">
+        Your total referral reward
+    </div>
+
+</div>
+
+
+<!-- ================= REFERRAL CODE ================= -->
+
+<div class="section-title">
+    Your Referral Code
+</div>
+
+<div class="code-card">
+
+    <div class="code-box">
+
+        <div
+            class="code"
+            id="myReferralCode">
+            Loading...
+        </div>
+
+        <button
+            class="copy-btn"
+            onclick="copyReferralCode()">
+            Copy
+        </button>
+
+    </div>
+
+
+    <div class="link-box">
+
+        <span id="referralLink">
+            Loading referral link...
+        </span>
+
+    </div>
+
+
+    <button
+        class="share-btn"
+        onclick="shareReferral()">
+
+        📤 Share Referral Link
+
+    </button>
+
+</div>
+
+
+<!-- ================= TEAM ================= -->
+
+<div class="section-title">
+    My Team
+</div>
+
+<div class="team-grid">
+
+    <div class="team-card">
+
+        <div class="team-icon">
+            👥
+        </div>
+
+        <div class="team-name">
+            Team A
+        </div>
+
+        <div
+            class="team-count"
+            id="teamA">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="team-card">
+
+        <div class="team-icon">
+            👥
+        </div>
+
+        <div class="team-name">
+            Team B
+        </div>
+
+        <div
+            class="team-count"
+            id="teamB">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="team-card">
+
+        <div class="team-icon">
+            👥
+        </div>
+
+        <div class="team-name">
+            Team C
+        </div>
+
+        <div
+            class="team-count"
+            id="teamC">
+            0
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= EARNINGS ================= -->
+
+<div class="section-title">
+    Referral Earnings
+</div>
+
+<div class="earnings">
+
+    <div class="earning-row">
+
+        <div class="earning-left">
+
+            <div class="earning-icon">
+                A
+            </div>
+
+            <div class="earning-name">
+                Team A Earnings
+            </div>
+
+        </div>
+
+        <div
+            class="earning-value"
+            id="teamAEarnings">
+            ₹0.00
+        </div>
+
+    </div>
+
+
+    <div class="earning-row">
+
+        <div class="earning-left">
+
+            <div class="earning-icon">
+                B
+            </div>
+
+            <div class="earning-name">
+                Team B Earnings
+            </div>
+
+        </div>
+
+        <div
+            class="earning-value"
+            id="teamBEarnings">
+            ₹0.00
+        </div>
+
+    </div>
+
+
+    <div class="earning-row">
+
+        <div class="earning-left">
+
+            <div class="earning-icon">
+                C
+            </div>
+
+            <div class="earning-name">
+                Team C Earnings
+            </div>
+
+        </div>
+
+        <div
+            class="earning-value"
+            id="teamCEarnings">
+            ₹0.00
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= INFO ================= -->
+
+<div class="info">
+
+    🛡️ <b>How referral works:</b><br><br>
+
+    Share your referral link with friends.
+    When they join GlobalPay using your referral
+    code, they become part of your team.
+
+</div>
+
+
+<!-- ================= ERROR ================= -->
+
+<div
+    class="error-box"
+    id="errorBox">
+
+    Unable to load referral details.
+    Please login again.
+
+    <br>
+
+    <button
+        class="retry"
+        onclick="loadReferralData()">
+
+        Try Again
+
+    </button>
+
+</div>
+
+
+<!-- ================= LOADING ================= -->
+
+<div
+    class="loading"
+    id="loading">
+
+    <div class="spinner"></div>
+
+    Loading referral details...
+
+</div>
+
+
+</div>
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+    Copied successfully
+</div>
+
+
+<script type="module">
+
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function money(value){
+
+    const number =
+        Number(value || 0);
+
+    return "₹" +
+        number.toFixed(2);
+
+}
+
+
+function setText(id,value){
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+        element.innerText =
+            value;
+    }
+
+}
+
+
+/* =====================================================
+   LOAD REFERRAL DATA
+===================================================== */
+
+window.loadReferralData =
+async function(){
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    errorBox.classList.remove(
+        "show"
+    );
+
+
+    try{
+
+        /*
+         * Firebase Auth se current user
+         */
+
+        let user =
+            auth.currentUser;
+
+
+        /*
+         * Agar auth currentUser
+         * immediately available nahi hai,
+         * to localStorage UID try karenge.
+         */
+
+        let uid =
+            user
+            ? user.uid
+            : localStorage.getItem(
+                "globalpay_uid"
+              );
+
+
+        if(!uid){
+
+            throw new Error(
+                "USER_NOT_LOGGED_IN"
+            );
+
+        }
+
+
+        /*
+         * Firestore users document
+         */
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                uid
+            );
+
+
+        const userSnapshot =
+            await getDoc(
+                userRef
+            );
+
+
+        if(!userSnapshot.exists()){
+
+            throw new Error(
+                "USER_DOCUMENT_NOT_FOUND"
+            );
+
+        }
+
+
+        const data =
+            userSnapshot.data();
+
+
+        /*
+         * REFERRAL CODE
+         */
+
+        const referralCode =
+            data.referralCode ||
+            localStorage.getItem(
+                "globalpay_referral_code"
+            ) ||
+            "N/A";
+
+
+        setText(
+            "myReferralCode",
+            referralCode
+        );
+
+
+        /*
+         * REFERRAL LINK
+         */
+
+        const baseURL =
+            window.location.origin +
+            window.location.pathname
+                .replace(
+                    "refer.html",
+                    "login.html"
+                );
+
+
+        const referralLink =
+            baseURL +
+            "?ref=" +
+            encodeURIComponent(
+                referralCode
+            );
+
+
+        setText(
+            "referralLink",
+            referralLink
+        );
+
+
+        /*
+         * TEAM COUNTS
+         */
+
+        setText(
+            "teamA",
+            data.teamACount ||
+            data.teamA ||
+            0
+        );
+
+
+        setText(
+            "teamB",
+            data.teamBCount ||
+            data.teamB ||
+            0
+        );
+
+
+        setText(
+            "teamC",
+            data.teamCCount ||
+            data.teamC ||
+            0
+        );
+
+
+        /*
+         * EARNINGS
+         */
+
+        const teamA =
+            Number(
+                data.teamAEarnings || 0
+            );
+
+        const teamB =
+            Number(
+                data.teamBEarnings || 0
+            );
+
+        const teamC =
+            Number(
+                data.teamCEarnings || 0
+            );
+
+
+        let total =
+            Number(
+                data.totalReferralEarnings
+                || data.referralBalance
+                || (
+                    teamA +
+                    teamB +
+                    teamC
+                )
+                || 0
+            );
+
+
+        setText(
+            "teamAEarnings",
+            money(teamA)
+        );
+
+
+        setText(
+            "teamBEarnings",
+            money(teamB)
+        );
+
+
+        setText(
+            "teamCEarnings",
+            money(teamC)
+        );
+
+
+        setText(
+            "totalEarnings",
+            money(total)
+        );
+
+
+        /*
+         * Save again locally
+         */
+
+        localStorage.setItem(
+            "globalpay_uid",
+            uid
+        );
+
+        localStorage.setItem(
+            "globalpay_referral_code",
+            referralCode
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+    }
+    catch(error){
+
+        console.error(
+            "REFERRAL ERROR:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        errorBox.classList.add(
+            "show"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   COPY CODE
+===================================================== */
+
+window.copyReferralCode =
+function(){
+
+    const code =
+        document.getElementById(
+            "myReferralCode"
+        ).innerText;
+
+
+    if(
+        !code ||
+        code === "Loading..." ||
+        code === "N/A"
+    ){
+
+        return;
+
+    }
+
+
+    navigator.clipboard
+        .writeText(code)
+        .then(() => {
+
+            showToast(
+                "Referral code copied"
+            );
+
+        })
+        .catch(() => {
+
+            fallbackCopy(code);
+
+        });
+
+};
+
+
+/* =====================================================
+   COPY FALLBACK
+===================================================== */
+
+function fallbackCopy(text){
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+    textarea.value =
+        text;
+
+    document.body.appendChild(
+        textarea
+    );
+
+    textarea.select();
+
+    document.execCommand(
+        "copy"
+    );
+
+    textarea.remove();
+
+    showToast(
+        "Referral code copied"
+    );
+
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+window.shareReferral =
+async function(){
+
+    const link =
+        document.getElementById(
+            "referralLink"
+        ).innerText;
+
+
+    const code =
+        document.getElementById(
+            "myReferralCode"
+        ).innerText;
+
+
+    if(
+        !link ||
+        link === "Loading referral link..."
+    ){
+
+        return;
+
+    }
+
+
+    const message =
+        "Join me on GlobalPay and earn rewards! 🎁\n\n" +
+        "Referral Code: " +
+        code +
+        "\n\n" +
+        link;
+
+
+    if(
+        navigator.share
+    ){
+
+        try{
+
+            await navigator.share({
+
+                title:
+                    "Join GlobalPay",
+
+                text:
+                    message,
+
+                url:
+                    link
+
+            });
+
+        }
+        catch(error){
+
+            console.log(
+                "Share cancelled"
+            );
+
+        }
+
+    }
+    else{
+
+        fallbackCopy(
+            link
+        );
+
+        showToast(
+            "Referral link copied"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.innerText =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },1800);
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+window.goBack =
+function(){
+
+    if(
+        document.referrer &&
+        document.referrer
+            .includes(
+                window.location.hostname
+            )
+    ){
+
+        history.back();
+
+    }
+    else{
+
+        window.location.href =
+            "home.html";
+
+    }
+
+};
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(user){
+
+            localStorage.setItem(
+                "globalpay_uid",
+                user.uid
+            );
+
+            loadReferralData();
+
+        }
+        else{
+
+            /*
+             * Firebase Auth state load hone ke
+             * baad bhi localStorage UID ho sakta hai.
+             */
+
+            const savedUID =
+                localStorage.getItem(
+                    "globalpay_uid"
+                );
+
+
+            if(savedUID){
+
+                loadReferralData();
+
+            }
+            else{
+
+                document.getElementById(
+                    "loading"
+                ).style.display =
+                    "none";
+
+                document.getElementById(
+                    "errorBox"
+                ).classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+  </html>
