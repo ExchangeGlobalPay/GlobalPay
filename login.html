@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fffdfb;
+    color:#172033;
+}
+
+.page{
+    min-height:100vh;
+    padding-bottom:28px;
+
+    background-color:#fffdfb;
+
+    background-image:
+    linear-gradient(
+        rgba(232,228,223,.42) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        90deg,
+        rgba(232,228,223,.42) 1px,
+        transparent 1px
+    );
+
+    background-size:41px 41px;
+}
+
+.container{
+    width:calc(100% - 48px);
+    max-width:600px;
+    margin:auto;
+}
+
+.logo{
+    width:74px;
+    height:74px;
+    margin:18px auto 25px;
+    border-radius:18px;
+    overflow:hidden;
+    background:#f1f4f8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 7px 18px rgba(20,45,75,.07);
+}
+
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.title{
+    text-align:center;
+    font-size:25px;
+    line-height:1.2;
+    font-weight:800;
+    color:#172033;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    font-size:14px;
+    line-height:1.5;
+    color:#9b9da4;
+    margin-bottom:29px;
+}
+
+.tabs{
+    width:100%;
+    height:47px;
+    padding:4px;
+
+    display:flex;
+
+    background:#fff0e9;
+    border-radius:14px;
+
+    margin-bottom:19px;
+}
+
+.tab{
+    width:50%;
+    height:39px;
+
+    border:0;
+    border-radius:11px;
+
+    background:transparent;
+
+    color:#9699a1;
+
+    font-family:inherit;
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.tab.active{
+    background:#fff;
+    color:#e87512;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.08);
+}
+
+.label{
+    display:block;
+
+    font-size:15px;
+    line-height:1.2;
+
+    font-weight:700;
+
+    color:#65748a;
+
+    margin-bottom:7px;
+}
+
+.field{
+    width:100%;
+    height:47px;
+
+    background:#fff;
+
+    border:1.5px solid #e2e2e2;
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:8px;
+
+    overflow:hidden;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+}
+
+.field:focus-within{
+    border-color:#e87512;
+
+    box-shadow:
+        0 0 0 3px rgba(232,117,18,.08);
+}
+
+.field.error{
+    border-color:#ef4444;
+    background:#fffafa;
+}
+
+.field.success{
+    border-color:#22a06b;
+}
+
+.field input{
+    width:100%;
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    padding:0 13px;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    color:#27303c;
+}
+
+.field input::placeholder{
+    color:#c4c7cc;
+}
+
+.country{
+    width:80px;
+    height:100%;
+
+    flex-shrink:0;
+
+    border-right:1.5px solid #e4e4e4;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:13px;
+
+    color:#606269;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.arrow{
+    width:9px;
+    height:9px;
+
+    border-right:1.5px solid #aaa;
+    border-bottom:1.5px solid #aaa;
+
+    transform:rotate(45deg);
+
+    margin-top:-5px;
+}
+
+.password-field input{
+    padding-right:48px;
+}
+
+.eye{
+    position:absolute;
+
+    right:15px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:17px;
+
+    color:#777;
+
+    cursor:pointer;
+
+    user-select:none;
+}
+
+.refer-field{
+    background:#fffaf5;
+    border-color:#f5c9a6;
+}
+
+.refer-field input{
+    color:#e87512;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.refer-info{
+    margin:0 2px 13px;
+
+    font-size:11px;
+
+    color:#9b806d;
+}
+
+.error-message{
+    display:none;
+
+    margin:0 2px 13px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    line-height:1.4;
+
+    color:#ef4444;
+}
+
+.error-message.show{
+    display:block;
+}
+
+.success-message{
+    display:none;
+
+    width:100%;
+
+    margin:4px 0 13px;
+
+    padding:10px 12px;
+
+    border-radius:11px;
+
+    background:#ecfdf5;
+
+    border:1px solid #bbf7d0;
+
+    color:#168052;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1.4;
+
+    text-align:center;
+}
+
+.success-message.show{
+    display:block;
+}
+
+.main-button{
+    width:100%;
+    height:47px;
+
+    border:0;
+    border-radius:14px;
+
+    background:#111;
+    color:#fff;
+
+    font-family:inherit;
+
+    font-size:17px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.main-button:active{
+    transform:scale(.99);
+}
+
+.main-button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.forgot{
+    display:block;
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:#e87512;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    text-decoration:none;
+}
+
+.language{
+    width:max-content;
+
+    margin:22px auto 0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#666;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    user-select:none;
+}
+
+.language-menu{
+    display:none;
+
+    width:150px;
+
+    margin:9px auto 0;
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+    border-radius:11px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.10);
+}
+
+.language-menu.show{
+    display:block;
+}
+
+.language-menu button{
+    width:100%;
+    height:40px;
+
+    border:0;
+
+    background:#fff;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    color:#333;
+
+    cursor:pointer;
+}
+
+.language-menu button:active{
+    background:#fff3ed;
+}
+
+.security{
+    width:100%;
+
+    margin-top:24px;
+
+    padding:14px 15px;
+
+    border-radius:15px;
+
+    background:#fff1e9;
+
+    color:#a65e35;
+
+    font-size:13px;
+
+    line-height:1.55;
+}
+
+.signup{
+    display:none;
+}
+
+.loading{
+    display:none;
+
+    text-align:center;
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    color:#888;
+}
+
+.loading.show{
+    display:block;
+}
+
+.captcha-code{
+    width:92px;
+    height:100%;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#fff3ed;
+
+    border-left:1px solid #f1d5c3;
+
+    color:#e87512;
+
+    font-size:17px;
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    font-style:italic;
+}
+
+@media(max-width:380px){
+
+    .container{
+        width:calc(100% - 40px);
+    }
+
+    .logo{
+        width:72px;
+        height:72px;
+
+        margin-top:16px;
+    }
+
+    .title{
+        font-size:24px;
+    }
+
+}
+
+@media(max-width:340px){
+
+    .container{
+        width:calc(100% - 30px);
+    }
+
+    .title{
+        font-size:22px;
+    }
+
+    .subtitle{
+        font-size:12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+<div class="logo">
+    <img src="Global.png" alt="GlobalPay">
+</div>
+
+<h1 class="title" id="welcome">
+    Welcome to GlobalPay
+</h1>
+
+<div class="subtitle" id="subtitle">
+    Sign in to manage recharges, tasks and rewards
+</div>
+
+
+<div class="tabs">
+
+    <button
+        class="tab active"
+        id="signinTab"
+        type="button"
+        onclick="showSignIn()">
+
+        Sign In
+
+    </button>
+
+    <button
+        class="tab"
+        id="signupTab"
+        type="button"
+        onclick="showSignUp()">
+
+        Sign Up
+
+    </button>
+
+</div>
+
+
+<!-- ================= SIGN IN ================= -->
+
+<div id="signinForm">
+
+<label class="label">
+    Mobile number
+</label>
+
+<div class="field" id="loginMobileField">
+
+    <div class="country">
+        <span>+91</span>
+        <span class="arrow"></span>
+    </div>
+
+    <input
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        autocomplete="tel"
+        placeholder="Phone Number"
+        id="loginMobile">
+
+</div>
+
+<div class="error-message" id="loginMobileError">
+    Please enter your mobile number.
+</div>
+
+
+<label class="label">
+    Password
+</label>
+
+<div class="field password-field" id="loginPasswordField">
+
+    <input
+        type="password"
+        id="loginPassword"
+        autocomplete="current-password"
+        placeholder="Password">
+
+    <span
+        class="eye"
+        onclick="togglePassword('loginPassword',this)">
+        👁
+    </span>
+
+</div>
+
+<div class="error-message" id="loginPasswordError">
+    Please enter your password.
+</div>
+
+
+<div class="success-message" id="loginSuccess">
+    Login successful. Redirecting...
+</div>
+
+
+<button
+    class="main-button"
+    id="signinButton"
+    type="button"
+    onclick="signIn()">
+
+    Sign In
+
+</button>
+
+<div class="loading" id="loginLoading">
+    Connecting securely...
+</div>
+
+<a
+    href="#"
+    class="forgot"
+    onclick="return false;">
+
+    Forgot Password?
+
+</a>
+
+</div>
+
+
+<!-- ================= SIGN UP ================= -->
+
+<div id="signupForm" class="signup">
+
+
+<label class="label">
+    Mobile number
+</label>
+
+<div class="field" id="signupMobileField">
+
+    <div class="country">
+        <span>+91</span>
+        <span class="arrow"></span>
+    </div>
+
+    <input
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        autocomplete="tel"
+        placeholder="Phone Number"
+        id="signupMobile">
+
+</div>
+
+<div class="error-message" id="signupMobileError">
+    Please enter your mobile number.
+</div>
+
+
+<label class="label">
+    Password
+</label>
+
+<div class="field password-field" id="signupPasswordField">
+
+    <input
+        type="password"
+        id="signupPassword"
+        autocomplete="new-password"
+        placeholder="Password">
+
+    <span
+        class="eye"
+        onclick="togglePassword('signupPassword',this)">
+        👁
+    </span>
+
+</div>
+
+<div class="error-message" id="signupPasswordError">
+    Please enter your password.
+</div>
+
+
+<label class="label">
+    Confirm Password
+</label>
+
+<div class="field password-field" id="confirmPasswordField">
+
+    <input
+        type="password"
+        id="confirmPassword"
+        autocomplete="new-password"
+        placeholder="Confirm Password">
+
+    <span
+        class="eye"
+        onclick="togglePassword('confirmPassword',this)">
+        👁
+    </span>
+
+</div>
+
+<div class="error-message" id="confirmPasswordError">
+    Passwords do not match.
+</div>
+
+
+<label class="label">
+    Refer Code
+</label>
+
+<div class="field refer-field" id="referCodeField">
+
+    <input
+        type="text"
+        id="referCode"
+        maxlength="10"
+        autocomplete="off"
+        placeholder="Enter Refer Code">
+
+</div>
+
+<div class="refer-info">
+    Referral code is optional. If you open a referral link,
+    the code will be filled automatically.
+</div>
+
+<div class="error-message" id="referCodeError">
+    Invalid refer code.
+</div>
+
+
+<label class="label">
+    Capture Code
+</label>
+
+<div class="field" id="signupCaptchaField">
+
+    <input
+        type="text"
+        maxlength="5"
+        autocomplete="off"
+        placeholder="Enter Capture Code"
+        id="signupCaptcha">
+
+    <div
+        class="captcha-code"
+        id="signupCaptchaCode"
+        onclick="refreshCaptcha()">
+    </div>
+
+</div>
+
+<div class="error-message" id="signupCaptchaError">
+    Please enter the capture code.
+</div>
+
+
+<div class="success-message" id="signupSuccess">
+    Account created successfully.
+</div>
+
+
+<button
+    class="main-button"
+    id="signupButton"
+    type="button"
+    onclick="signUp()">
+
+    Sign Up
+
+</button>
+
+<div class="loading" id="signupLoading">
+    Creating your secure account...
+</div>
+
+</div>
+
+
+<!-- ================= LANGUAGE ================= -->
+
+<div
+    class="language"
+    onclick="toggleLanguageMenu()">
+
+    <span>🌐</span>
+    <span id="languageText">Language</span>
+
+</div>
+
+<div
+    class="language-menu"
+    id="languageMenu">
+
+    <button
+        type="button"
+        onclick="changeLanguage('en')">
+        English
+    </button>
+
+    <button
+        type="button"
+        onclick="changeLanguage('hi')">
+        हिन्दी
+    </button>
+
+</div>
+
+
+<!-- ================= SECURITY ================= -->
+
+<div class="security">
+
+    🛡️
+
+    <span id="security">
+        Your funds and data are protected.
+        GlobalPay never shares your information.
+    </span>
+
+</div>
+
+</div>
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    query,
+    where,
+    getDocs,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+let captchaCode = "";
+let referralCodeFromURL = "";
+
+
+/* =====================================================
+   CAPTCHA
+===================================================== */
+
+function generateCaptcha(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    for(let i = 0; i < 5; i++){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() * chars.length
+                )
+            ];
+
+    }
+
+    return result;
+
+}
+
+
+window.refreshCaptcha = function(){
+
+    captchaCode =
+        generateCaptcha();
+
+    document.getElementById(
+        "signupCaptchaCode"
+    ).innerText =
+        captchaCode;
+
+};
+
+
+window.refreshCaptcha();
+
+
+/* =====================================================
+   REFERRAL URL
+===================================================== */
+
+function loadReferralFromURL(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const ref =
+        params.get("ref");
+
+    if(!ref){
+        return;
+    }
+
+    referralCodeFromURL =
+        ref
+        .trim()
+        .toUpperCase();
+
+    const input =
+        document.getElementById(
+            "referCode"
+        );
+
+    input.value =
+        referralCodeFromURL;
+
+    input.readOnly =
+        true;
+
+    input.style.color =
+        "#e87512";
+
+    input.style.fontWeight =
+        "800";
+
+}
+
+
+/* =====================================================
+   GENERATE REFERRAL CODE
+===================================================== */
+
+function generateReferralCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code =
+        "GP";
+
+    for(let i = 0; i < 8; i++){
+
+        code +=
+            chars[
+                Math.floor(
+                    Math.random() * chars.length
+                )
+            ];
+
+    }
+
+    return code;
+
+}
+
+
+/* =====================================================
+   CHECK REFERRAL CODE
+===================================================== */
+
+async function findReferrer(refCode){
+
+    if(!refCode){
+        return null;
+    }
+
+    const refDoc =
+        await getDoc(
+            doc(
+                db,
+                "referralCodes",
+                refCode
+            )
+        );
+
+    if(!refDoc.exists()){
+        return null;
+    }
+
+    const data =
+        refDoc.data();
+
+    return {
+        id: data.uid,
+        referralCode: refCode
+    };
+
+}
+
+
+/* =====================================================
+   CHECK MOBILE
+===================================================== */
+
+async function isMobileAlreadyRegistered(mobile){
+
+    const usersRef =
+        collection(
+            db,
+            "users"
+        );
+
+    const q =
+        query(
+            usersRef,
+            where(
+                "mobile",
+                "==",
+                mobile
+            )
+        );
+
+    const snapshot =
+        await getDocs(q);
+
+    return !snapshot.empty;
+
+}
+
+
+/* =====================================================
+   CHECK MY REFERRAL CODE
+===================================================== */
+
+async function referralCodeExists(code){
+
+    const refDoc =
+        await getDoc(
+            doc(
+                db,
+                "referralCodes",
+                code
+            )
+        );
+
+    return refDoc.exists();
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+window.showSignIn = function(){
+
+    document.getElementById(
+        "signinForm"
+    ).style.display =
+        "block";
+
+    document.getElementById(
+        "signupForm"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "signinTab"
+    ).classList.add("active");
+
+    document.getElementById(
+        "signupTab"
+    ).classList.remove("active");
+
+    clearErrors();
+
+};
+
+
+window.showSignUp = function(){
+
+    document.getElementById(
+        "signinForm"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "signupForm"
+    ).style.display =
+        "block";
+
+    document.getElementById(
+        "signinTab"
+    ).classList.remove("active");
+
+    document.getElementById(
+        "signupTab"
+    ).classList.add("active");
+
+    clearErrors();
+
+    loadReferralFromURL();
+
+};
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+window.togglePassword = function(id, icon){
+
+    const input =
+        document.getElementById(id);
+
+    if(input.type === "password"){
+
+        input.type =
+            "text";
+
+        icon.innerText =
+            "🙈";
+
+    }
+    else{
+
+        input.type =
+            "password";
+
+        icon.innerText =
+            "👁";
+
+    }
+
+};
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(fieldId,errorId,message){
+
+    const field =
+        document.getElementById(fieldId);
+
+    const error =
+        document.getElementById(errorId);
+
+    if(field){
+        field.classList.add("error");
+    }
+
+    if(error){
+
+        error.innerText =
+            message;
+
+        error.classList.add("show");
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR ERRORS
+===================================================== */
+
+function clearErrors(){
+
+    document
+        .querySelectorAll(".field")
+        .forEach(field => {
+
+            field.classList.remove("error");
+
+        });
+
+
+    document
+        .querySelectorAll(".error-message")
+        .forEach(error => {
+
+            error.classList.remove("show");
+
+        });
+
+
+    document
+        .querySelectorAll(".success-message")
+        .forEach(message => {
+
+            message.classList.remove("show");
+
+        });
+
+}
+
+
+/* =====================================================
+   SIGN UP
+===================================================== */
+
+window.signUp = async function(){
+
+    clearErrors();
+
+    const mobile =
+        document.getElementById(
+            "signupMobile"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "signupPassword"
+        ).value;
+
+    const confirmPassword =
+        document.getElementById(
+            "confirmPassword"
+        ).value;
+
+    const referCode =
+        document.getElementById(
+            "referCode"
+        ).value
+        .trim()
+        .toUpperCase();
+
+    const captcha =
+        document.getElementById(
+            "signupCaptcha"
+        ).value
+        .trim()
+        .toUpperCase();
+
+
+    let valid = true;
+
+
+    /* MOBILE */
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            "Enter a valid 10-digit mobile number."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* PASSWORD */
+
+    if(password.length < 6){
+
+        showError(
+            "signupPasswordField",
+            "signupPasswordError",
+            "Password must be at least 6 characters."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* CONFIRM */
+
+    if(password !== confirmPassword){
+
+        showError(
+            "confirmPasswordField",
+            "confirmPasswordError",
+            "Passwords do not match."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* CAPTCHA */
+
+    if(
+        !captcha ||
+        captcha !== captchaCode
+    ){
+
+        showError(
+            "signupCaptchaField",
+            "signupCaptchaError",
+            "Incorrect capture code."
+        );
+
+        window.refreshCaptcha();
+
+        valid = false;
+
+    }
+
+
+    if(!valid){
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "signupButton"
+        );
+
+    const loading =
+        document.getElementById(
+            "signupLoading"
+        );
+
+
+    button.disabled = true;
+
+    loading.classList.add("show");
+
+
+    try{
+
+        /* =============================================
+           DUPLICATE MOBILE
+        ============================================= */
+
+        const alreadyRegistered =
+            await isMobileAlreadyRegistered(
+                mobile
+            );
+
+
+        if(alreadyRegistered){
+
+            showError(
+                "signupMobileField",
+                "signupMobileError",
+                "This mobile number is already registered. Please sign in."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           FIND REFERRER
+        ============================================= */
+
+        let referrer = null;
+
+        if(referCode){
+
+            referrer =
+                await findReferrer(
+                    referCode
+                );
+
+            if(!referrer){
+
+                showError(
+                    "referCodeField",
+                    "referCodeError",
+                    "This refer code does not exist."
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        /* =============================================
+           INTERNAL EMAIL
+        ============================================= */
+
+        const internalEmail =
+            mobile +
+            "@globalpay-user.app";
+
+
+        /* =============================================
+           CREATE AUTH USER
+        ============================================= */
+
+        let userCredential;
+
+        try{
+
+            userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    internalEmail,
+                    password
+                );
+
+        }
+        catch(authError){
+
+            console.error(
+                "AUTH ERROR:",
+                authError
+            );
+
+            if(
+                authError.code ===
+                "auth/email-already-in-use"
+            ){
+
+                showError(
+                    "signupMobileField",
+                    "signupMobileError",
+                    "This mobile number is already registered. Please sign in."
+                );
+
+                return;
+
+            }
+
+            throw authError;
+
+        }
+
+
+        const user =
+            userCredential.user;
+
+
+        /* =============================================
+           UNIQUE REFERRAL CODE
+        ============================================= */
+
+        let myReferralCode = "";
+
+        let codeExists = true;
+
+
+        while(codeExists){
+
+            myReferralCode =
+                generateReferralCode();
+
+            codeExists =
+                await referralCodeExists(
+                    myReferralCode
+                );
+
+        }
+
+
+        /* =============================================
+           USER DATA
+        ============================================= */
+
+        const userData = {
+
+            uid:
+                user.uid,
+
+            mobile:
+                mobile,
+
+            referralCode:
+                myReferralCode,
+
+            referredBy:
+                referrer
+                ? referrer.id
+                : null,
+
+            referredByCode:
+                referCode ||
+                null,
+
+            teamAFrom:
+                referrer
+                ? referrer.id
+                : null,
+
+            teamBFrom:
+                null,
+
+            teamCFrom:
+                null,
+
+            referralBalance:
+                0,
+
+            teamAEarnings:
+                0,
+
+            teamBEarnings:
+                0,
+
+            teamCEarnings:
+                0,
+
+            totalReferralEarnings:
+                0,
+
+            referralCount:
+                0,
+
+            vipPurchased:
+                false,
+
+            createdAt:
+                serverTimestamp()
+
+        };
+
+
+        /* =============================================
+           SAVE USER
+        ============================================= */
+
+        await setDoc(
+            doc(
+                db,
+                "users",
+                user.uid
+            ),
+            userData
+        );
+
+
+        /* =============================================
+           SAVE PUBLIC REFERRAL CODE
+        ============================================= */
+
+        await setDoc(
+            doc(
+                db,
+                "referralCodes",
+                myReferralCode
+            ),
+            {
+
+                uid:
+                    user.uid,
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        /* =============================================
+           LOCAL STORAGE
+        ============================================= */
+
+        localStorage.setItem(
+            "globalpay_uid",
+            user.uid
+        );
+
+        localStorage.setItem(
+            "globalpay_referral_code",
+            myReferralCode
+        );
+
+
+        /* =============================================
+           SUCCESS
+        ============================================= */
+
+        const success =
+            document.getElementById(
+                "signupSuccess"
+            );
+
+        success.innerText =
+            "Account created successfully. Your Refer Code: " +
+            myReferralCode;
+
+        success.classList.add("show");
+
+
+        /* =============================================
+           HOME
+        ============================================= */
+
+        setTimeout(() => {
+
+            window.location.href =
+                "home.html";
+
+        },1200);
+
+
+    }
+    catch(error){
+
+        console.error(
+            "SIGN UP ERROR:",
+            error
+        );
+
+
+        let message =
+            "Registration failed. Please try again.";
+
+
+        if(
+            error.code ===
+            "auth/weak-password"
+        ){
+
+            message =
+                "Password must contain at least 6 characters.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/invalid-email"
+        ){
+
+            message =
+                "Invalid account information.";
+
+        }
+
+        else if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            message =
+                "Firestore permission denied. Check your Firestore Rules.";
+
+        }
+
+        else if(
+            error.code ===
+            "failed-precondition"
+        ){
+
+            message =
+                "Firestore is not configured correctly.";
+
+        }
+
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            message
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        loading.classList.remove("show");
+
+    }
+
+};
+
+
+/* =====================================================
+   SIGN IN
+===================================================== */
+
+window.signIn = async function(){
+
+    clearErrors();
+
+
+    const mobile =
+        document.getElementById(
+            "loginMobile"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
+
+    let valid = true;
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError(
+            "loginMobileField",
+            "loginMobileError",
+            "Enter a valid 10-digit mobile number."
+        );
+
+        valid = false;
+
+    }
+
+
+    if(password.length < 6){
+
+        showError(
+            "loginPasswordField",
+            "loginPasswordError",
+            "Enter your password."
+        );
+
+        valid = false;
+
+    }
+
+
+    if(!valid){
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "signinButton"
+        );
+
+    const loading =
+        document.getElementById(
+            "loginLoading"
+        );
+
+
+    button.disabled = true;
+
+    loading.classList.add("show");
+
+
+    try{
+
+        const internalEmail =
+            mobile +
+            "@globalpay-user.app";
+
+
+        const credential =
+            await signInWithEmailAndPassword(
+                auth,
+                internalEmail,
+                password
+            );
+
+
+        const user =
+            credential.user;
+
+
+        localStorage.setItem(
+            "globalpay_uid",
+            user.uid
+        );
+
+
+        /* GET USER */
+
+        const userDoc =
+            await getDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                )
+            );
+
+
+        if(userDoc.exists()){
+
+            const data =
+                userDoc.data();
+
+
+            if(data.referralCode){
+
+                localStorage.setItem(
+                    "globalpay_referral_code",
+                    data.referralCode
+                );
+
+            }
+
+        }
+
+
+        const success =
+            document.getElementById(
+                "loginSuccess"
+            );
+
+        success.innerText =
+            "Login successful. Redirecting...";
+
+        success.classList.add("show");
+
+
+        setTimeout(() => {
+
+            window.location.href =
+                "home.html";
+
+        },700);
+
+
+    }
+    catch(error){
+
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
+
+
+        let message =
+            "Invalid mobile number or password.";
+
+
+        if(
+            error.code ===
+            "auth/user-not-found"
+        ){
+
+            message =
+                "No account found with this mobile number.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/wrong-password"
+        ){
+
+            message =
+                "Incorrect password.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/invalid-credential"
+        ){
+
+            message =
+                "Invalid mobile number or password.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/too-many-requests"
+        ){
+
+            message =
+                "Too many attempts. Please try again later.";
+
+        }
+
+
+        showError(
+            "loginPasswordField",
+            "loginPasswordError",
+            message
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        loading.classList.remove("show");
+
+    }
+
+};
+
+
+/* =====================================================
+   MOBILE INPUT
+===================================================== */
+
+document
+    .getElementById("loginMobile")
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g,"")
+                .slice(0,10);
+
+        }
+    );
+
+
+document
+    .getElementById("signupMobile")
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g,"")
+                .slice(0,10);
+
+        }
+    );
+
+
+/* =====================================================
+   REFER CODE
+===================================================== */
+
+document
+    .getElementById("referCode")
+    .addEventListener(
+        "input",
+        function(){
+
+            if(!this.readOnly){
+
+                this.value =
+                    this.value
+                    .toUpperCase()
+                    .replace(
+                        /[^A-Z0-9]/g,
+                        ""
+                    )
+                    .slice(0,10);
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   CAPTCHA INPUT
+===================================================== */
+
+document
+    .getElementById("signupCaptcha")
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .toUpperCase()
+                .replace(
+                    /[^A-Z0-9]/g,
+                    ""
+                )
+                .slice(0,5);
+
+        }
+    );
+
+
+/* =====================================================
+   LANGUAGE MENU
+===================================================== */
+
+window.toggleLanguageMenu = function(){
+
+    document
+        .getElementById(
+            "languageMenu"
+        )
+        .classList.toggle("show");
+
+};
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+window.changeLanguage = function(lang){
+
+    if(lang === "hi"){
+
+        document.getElementById(
+            "welcome"
+        ).innerText =
+            "GlobalPay में आपका स्वागत है";
+
+
+        document.getElementById(
+            "subtitle"
+        ).innerText =
+            "रिचार्ज, टास्क और रिवॉर्ड मैनेज करने के लिए साइन इन करें";
+
+
+        document.getElementById(
+            "signinTab"
+        ).innerText =
+            "साइन इन";
+
+
+        document.getElementById(
+            "signupTab"
+        ).innerText =
+            "साइन अप";
+
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+            "भाषा";
+
+
+        document.getElementById(
+            "security"
+        ).innerText =
+            "आपका फंड और डेटा सुरक्षित है। GlobalPay आपकी जानकारी कभी शेयर नहीं करता।";
+
+
+        localStorage.setItem(
+            "lang",
+            "hi"
+        );
+
+    }
+    else{
+
+        document.getElementById(
+            "welcome"
+        ).innerText =
+            "Welcome to GlobalPay";
+
+
+        document.getElementById(
+            "subtitle"
+        ).innerText =
+            "Sign in to manage recharges, tasks and rewards";
+
+
+        document.getElementById(
+            "signinTab"
+        ).innerText =
+            "Sign In";
+
+
+        document.getElementById(
+            "signupTab"
+        ).innerText =
+            "Sign Up";
+
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+            "Language";
+
+
+        document.getElementById(
+            "security"
+        ).innerText =
+            "Your funds and data are protected. GlobalPay never shares your information.";
+
+
+        localStorage.setItem(
+            "lang",
+            "en"
+        );
+
+    }
+
+
+    document
+        .getElementById(
+            "languageMenu"
+        )
+        .classList.remove("show");
+
+};
+
+
+/* =====================================================
+   START
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        loadReferralFromURL();
+
+
+        const savedLanguage =
+            localStorage.getItem("lang");
+
+
+        if(savedLanguage === "hi"){
+
+            changeLanguage("hi");
+
+        }
+        else{
+
+            changeLanguage("en");
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(user){
+
+            localStorage.setItem(
+                "globalpay_uid",
+                user.uid
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+  </html>
