@@ -13,6 +13,19 @@ user-scalable=no">
 
 <style>
 
+.profile{
+    cursor:pointer;
+    user-select:none;
+    transition:transform .15s ease, opacity .15s ease;
+}
+
+.profile:active{
+    transform:scale(.9);
+    opacity:.7;
+}
+
+    
+
 *{
     margin:0;
     padding:0;
@@ -596,8 +609,8 @@ body{
 
     </div>
 
-    <div class="profile">
-        👤
+    <div class="profile" onclick="openAdmin()">
+    👤
     </div>
 
 </div>
@@ -1051,6 +1064,13 @@ function goTo(page){
 
 }
 
+</script>
+
+
+<script>
+function openAdmin(){
+    window.location.href = "admin.html";
+}
 </script>
 
 </body>
