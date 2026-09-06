@@ -1,0 +1,2504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fffdfb;
+    color:#172033;
+}
+
+.page{
+    min-height:100vh;
+    padding:0 0 28px;
+
+    background-color:#fffdfb;
+
+    background-image:
+    linear-gradient(rgba(232,228,223,.42) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,228,223,.42) 1px,transparent 1px);
+
+    background-size:41px 41px;
+}
+
+.container{
+    width:calc(100% - 48px);
+    max-width:600px;
+    margin:auto;
+}
+
+/* ================= LOGO ================= */
+
+.logo{
+    width:74px;
+    height:74px;
+
+    margin:18px auto 25px;
+
+    border-radius:18px;
+    overflow:hidden;
+
+    background:#f1f4f8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 7px 18px rgba(20,45,75,.07);
+}
+
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* ================= TITLE ================= */
+
+.title{
+    text-align:center;
+
+    font-size:25px;
+    line-height:1.2;
+
+    font-weight:800;
+
+    color:#172033;
+
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+
+    font-size:14px;
+    line-height:1.5;
+
+    color:#9b9da4;
+
+    margin-bottom:29px;
+}
+
+/* ================= TABS ================= */
+
+.tabs{
+    width:100%;
+    height:47px;
+
+    padding:4px;
+
+    display:flex;
+
+    background:#fff0e9;
+
+    border-radius:14px;
+
+    margin-bottom:19px;
+}
+
+.tab{
+    width:50%;
+    height:39px;
+
+    border:0;
+    border-radius:11px;
+
+    background:transparent;
+
+    color:#9699a1;
+
+    font-family:inherit;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.tab.active{
+    background:#fff;
+
+    color:#e87512;
+
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
+}
+
+/* ================= LABEL ================= */
+
+.label{
+    display:block;
+
+    font-size:16px;
+    line-height:1.2;
+
+    font-weight:700;
+
+    color:#65748a;
+
+    margin-bottom:7px;
+}
+
+/* ================= FIELD ================= */
+
+.field{
+    width:100%;
+    height:47px;
+
+    background:#fff;
+
+    border:1.5px solid #e2e2e2;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:16px;
+
+    overflow:hidden;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.field:focus-within{
+    border-color:#cfcfcf;
+}
+
+.field.error{
+    border-color:#ef4444;
+    background:#fffafa;
+
+    box-shadow:0 0 0 2px rgba(239,68,68,.05);
+}
+
+.field.success{
+    border-color:#22a06b;
+}
+
+.field input{
+    width:100%;
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    padding:0 13px;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    color:#27303c;
+}
+
+.field input::placeholder{
+    color:#c4c7cc;
+}
+
+/* ================= PHONE ================= */
+
+.country{
+    width:80px;
+    height:100%;
+
+    flex-shrink:0;
+
+    border-right:1.5px solid #e4e4e4;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:13px;
+
+    color:#606269;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.arrow{
+    width:9px;
+    height:9px;
+
+    border-right:1.5px solid #aaa;
+    border-bottom:1.5px solid #aaa;
+
+    transform:rotate(45deg);
+
+    margin-top:-5px;
+}
+
+/* ================= PASSWORD ================= */
+
+.password-field input{
+    padding-right:45px;
+}
+
+.eye{
+    position:absolute;
+
+    right:15px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    user-select:none;
+}
+
+/* ================= CAPTCHA ================= */
+
+.captcha-box{
+    position:relative;
+}
+
+.captcha-box input{
+    padding-right:105px;
+}
+
+.captcha-code{
+    position:absolute;
+
+    right:7px;
+    top:5px;
+
+    height:35px;
+    min-width:82px;
+
+    padding:0 9px;
+
+    border-radius:10px;
+
+    background:#f1f1f1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    color:#343434;
+
+    user-select:none;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    transform:rotate(-1deg);
+}
+
+/* ================= OTP ================= */
+
+.otp-send{
+    position:absolute;
+
+    right:6px;
+    top:5px;
+
+    height:35px;
+
+    padding:0 17px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#f56d00;
+
+    color:#fff;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.otp-send:active{
+    transform:scale(.97);
+}
+
+.otp-send:disabled{
+    background:#bdbdbd;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+/* ================= OTP STATUS ================= */
+
+.otp-status{
+    display:none;
+
+    width:100%;
+
+    margin:-5px 0 15px;
+
+    padding:10px 12px;
+
+    border-radius:11px;
+
+    text-align:center;
+
+    background:#fff5ed;
+
+    color:#e87512;
+
+    font-size:13px;
+
+    line-height:1.4;
+
+    font-weight:700;
+}
+
+.otp-status.show{
+    display:block;
+}
+
+.otp-status.success{
+    background:#edfdf5;
+    color:#16845a;
+}
+
+.otp-status.error{
+    background:#fff1f1;
+    color:#dc2626;
+}
+
+/* ================= ERROR ================= */
+
+.error-message{
+    display:none;
+
+    margin:-9px 0 12px;
+
+    padding-left:3px;
+
+    font-size:12px;
+
+    line-height:1.4;
+
+    font-weight:600;
+
+    color:#ef4444;
+}
+
+.error-message.show{
+    display:block;
+}
+
+/* ================= GENERAL MESSAGE ================= */
+
+.form-message{
+    display:none;
+
+    width:100%;
+
+    margin:0 0 15px;
+
+    padding:11px 13px;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    line-height:1.45;
+
+    font-weight:600;
+
+    text-align:center;
+}
+
+.form-message.show{
+    display:block;
+}
+
+.form-message.error{
+    background:#fff1f1;
+    color:#dc2626;
+}
+
+.form-message.success{
+    background:#edfdf5;
+    color:#16845a;
+}
+
+/* ================= BUTTON ================= */
+
+.main-button{
+    width:100%;
+    height:47px;
+
+    border:0;
+    border-radius:14px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-family:inherit;
+
+    font-size:17px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.main-button:active{
+    transform:scale(.99);
+}
+
+.main-button:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+/* ================= FORGOT ================= */
+
+.forgot{
+    display:block;
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:#e87512;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    text-decoration:none;
+}
+
+/* ================= LANGUAGE ================= */
+
+.language{
+    width:max-content;
+
+    margin:22px auto 0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#666;
+
+    font-size:16px;
+
+    cursor:pointer;
+}
+
+.globe{
+    font-size:19px;
+}
+
+/* ================= LANGUAGE MENU ================= */
+
+.language-menu{
+    display:none;
+
+    width:150px;
+
+    margin:9px auto 0;
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+    border-radius:11px;
+
+    overflow:hidden;
+
+    box-shadow:0 6px 20px rgba(0,0,0,.10);
+}
+
+.language-menu.show{
+    display:block;
+}
+
+.language-menu button{
+    width:100%;
+    height:38px;
+
+    border:0;
+
+    background:#fff;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    color:#333;
+
+    cursor:pointer;
+}
+
+.language-menu button:active{
+    background:#fff3ed;
+}
+
+/* ================= SECURITY ================= */
+
+.security{
+    width:100%;
+
+    margin-top:24px;
+
+    padding:14px 15px;
+
+    border-radius:15px;
+
+    background:#fff1e9;
+
+    color:#a65e35;
+
+    font-size:13px;
+
+    line-height:1.55;
+}
+
+/* ================= SIGNUP ================= */
+
+.signup{
+    display:none;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:380px){
+
+    .container{
+        width:calc(100% - 40px);
+    }
+
+    .logo{
+        width:72px;
+        height:72px;
+        margin-top:16px;
+    }
+
+    .title{
+        font-size:24px;
+    }
+
+    .subtitle{
+        font-size:13px;
+    }
+}
+
+@media(max-width:340px){
+
+    .container{
+        width:calc(100% - 30px);
+    }
+
+    .title{
+        font-size:22px;
+    }
+
+    .subtitle{
+        font-size:12px;
+    }
+
+    .tab{
+        font-size:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+<!-- ================= LOGO ================= -->
+
+<div class="logo">
+    <img src="Global.png" alt="GlobalPay">
+</div>
+
+
+<!-- ================= TITLE ================= -->
+
+<h1 class="title" id="welcome">
+    Welcome to GlobalPay
+</h1>
+
+<div class="subtitle" id="subtitle">
+    Sign in to manage recharges, tasks and rewards
+</div>
+
+
+<!-- ================= TABS ================= -->
+
+<div class="tabs">
+
+<button
+class="tab active"
+id="signinTab"
+onclick="showSignIn()">
+
+Sign In
+
+</button>
+
+<button
+class="tab"
+id="signupTab"
+onclick="showSignUp()">
+
+Sign Up
+
+</button>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ================= SIGN IN ======================= -->
+<!-- ================================================= -->
+
+<div id="signinForm">
+
+<label class="label" id="mobileLabel">
+Mobile number
+</label>
+
+<div class="field" id="loginMobileField">
+
+<div class="country">
+<span>+91</span>
+<span class="arrow"></span>
+</div>
+
+<input
+type="tel"
+inputmode="numeric"
+maxlength="10"
+placeholder="Phone Number"
+id="loginMobile">
+
+</div>
+
+<div
+class="error-message"
+id="loginMobileError">
+Please enter your mobile number.
+</div>
+
+
+<label class="label" id="passwordLabel">
+Password
+</label>
+
+<div
+class="field password-field"
+id="loginPasswordField">
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Password">
+
+<span
+class="eye"
+onclick="togglePassword('loginPassword',this)">
+👁
+</span>
+
+</div>
+
+<div
+class="error-message"
+id="loginPasswordError">
+Please enter your password.
+</div>
+
+
+<!-- LOGIN CAPTURE -->
+
+<label class="label">
+Capture Code
+</label>
+
+<div
+class="field captcha-box"
+id="loginCaptchaField">
+
+<input
+type="text"
+placeholder="Capture Code"
+id="loginCaptcha"
+autocomplete="off">
+
+<div
+class="captcha-code"
+id="loginCaptchaCode">
+</div>
+
+</div>
+
+<div
+class="error-message"
+id="loginCaptchaError">
+Please enter the capture code.
+</div>
+
+
+<div
+class="form-message"
+id="loginMessage">
+</div>
+
+
+<button
+class="main-button"
+id="signinButton"
+type="button"
+onclick="signIn()">
+
+Sign In
+
+</button>
+
+
+<a
+href="#"
+class="forgot"
+id="forgot"
+onclick="forgotPassword(event)">
+
+Forgot Password?
+
+</a>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ================= SIGN UP ======================= -->
+<!-- ================================================= -->
+
+<div
+id="signupForm"
+class="signup">
+
+<label class="label">
+Mobile number
+</label>
+
+<div
+class="field"
+id="signupMobileField">
+
+<div class="country">
+<span>+91</span>
+<span class="arrow"></span>
+</div>
+
+<input
+type="tel"
+inputmode="numeric"
+maxlength="10"
+placeholder="Phone Number"
+id="signupMobile">
+
+</div>
+
+<div
+class="error-message"
+id="signupMobileError">
+Please enter your mobile number.
+</div>
+
+
+<label class="label">
+Password
+</label>
+
+<div
+class="field password-field"
+id="signupPasswordField">
+
+<input
+type="password"
+id="signupPassword"
+placeholder="Password">
+
+<span
+class="eye"
+onclick="togglePassword('signupPassword',this)">
+👁
+</span>
+
+</div>
+
+<div
+class="error-message"
+id="signupPasswordError">
+Please enter your password.
+</div>
+
+
+<label class="label">
+Confirm Password
+</label>
+
+<div
+class="field password-field"
+id="confirmPasswordField">
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirm Password">
+
+<span
+class="eye"
+onclick="togglePassword('confirmPassword',this)">
+👁
+</span>
+
+</div>
+
+<div
+class="error-message"
+id="confirmPasswordError">
+Passwords do not match.
+</div>
+
+
+<!-- ================= OTP ================= -->
+
+<label class="label">
+OTP Code
+</label>
+
+<div
+class="field"
+id="otpField">
+
+<input
+type="text"
+inputmode="numeric"
+maxlength="4"
+placeholder="Enter 4-digit OTP"
+id="otpInput"
+autocomplete="one-time-code">
+
+<button
+type="button"
+class="otp-send"
+id="sendOtp"
+onclick="sendOTP">
+
+Send
+
+</button>
+
+</div>
+
+<div
+class="otp-status"
+id="otpStatus">
+</div>
+
+<div
+class="error-message"
+id="otpError">
+</div>
+
+
+<!-- ================= CAPTURE CODE ================= -->
+
+<label class="label">
+Capture Code
+</label>
+
+<div
+class="field captcha-box"
+id="signupCaptchaField">
+
+<input
+type="text"
+placeholder="Enter Capture Code"
+id="signupCaptcha"
+autocomplete="off">
+
+<div
+class="captcha-code"
+id="signupCaptchaCode">
+</div>
+
+</div>
+
+<div
+class="error-message"
+id="signupCaptchaError">
+Please enter the capture code.
+</div>
+
+
+<div
+class="form-message"
+id="signupMessage">
+</div>
+
+
+<button
+class="main-button"
+type="button"
+id="signupButton"
+onclick="signUp()">
+
+Sign Up
+
+</button>
+
+</div>
+
+
+<!-- ================= LANGUAGE ================= -->
+
+<div
+class="language"
+onclick="languageMenu()">
+
+<span class="globe">
+🌐
+</span>
+
+<span id="languageText">
+Language
+</span>
+
+</div>
+
+
+<div
+class="language-menu"
+id="languageMenu">
+
+<button onclick="changeLanguage('en')">
+English
+</button>
+
+<button onclick="changeLanguage('hi')">
+हिन्दी
+</button>
+
+</div>
+
+
+<!-- ================= SECURITY ================= -->
+
+<div class="security">
+
+<span>🛡️</span>
+
+<span id="security">
+Your funds and data are protected.
+GlobalPay never shares your information.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+let loginCaptureCode = "";
+let signupCaptureCode = "";
+
+let otpTimer = null;
+let otpDisplayTimer = null;
+
+let otpValue = "";
+
+let otpSent = false;
+let otpVerified = false;
+
+let otpExpiryTime = 0;
+
+
+/* =====================================================
+   CAPTURE CODE
+===================================================== */
+
+function generateCaptureCode(){
+
+    const chars =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for(let i = 0; i < 5; i++){
+
+        code += chars.charAt(
+            Math.floor(
+                Math.random() * chars.length
+            )
+        );
+
+    }
+
+    return code;
+}
+
+
+function refreshCaptureCodes(){
+
+    loginCaptureCode =
+    generateCaptureCode();
+
+    signupCaptureCode =
+    generateCaptureCode();
+
+    document.getElementById(
+        "loginCaptchaCode"
+    ).innerText =
+    loginCaptureCode;
+
+    document.getElementById(
+        "signupCaptchaCode"
+    ).innerText =
+    signupCaptureCode;
+
+}
+
+
+/* =====================================================
+   TAB
+===================================================== */
+
+function showSignIn(){
+
+    document.getElementById(
+        "signinForm"
+    ).style.display = "block";
+
+    document.getElementById(
+        "signupForm"
+    ).style.display = "none";
+
+    document.getElementById(
+        "signinTab"
+    ).classList.add("active");
+
+    document.getElementById(
+        "signupTab"
+    ).classList.remove("active");
+
+    clearErrors();
+
+    refreshCaptureCodes();
+
+}
+
+
+function showSignUp(){
+
+    document.getElementById(
+        "signinForm"
+    ).style.display = "none";
+
+    document.getElementById(
+        "signupForm"
+    ).style.display = "block";
+
+    document.getElementById(
+        "signinTab"
+    ).classList.remove("active");
+
+    document.getElementById(
+        "signupTab"
+    ).classList.add("active");
+
+    clearErrors();
+
+    refreshCaptureCodes();
+
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+function togglePassword(id, icon){
+
+    const input =
+    document.getElementById(id);
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        icon.innerText = "🙈";
+
+    }else{
+
+        input.type = "password";
+
+        icon.innerText = "👁";
+
+    }
+
+}
+
+
+/* =====================================================
+   LANGUAGE MENU
+===================================================== */
+
+function languageMenu(){
+
+    document.getElementById(
+        "languageMenu"
+    ).classList.toggle("show");
+
+}
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function changeLanguage(lang){
+
+    if(lang === "hi"){
+
+        document.getElementById(
+            "welcome"
+        ).innerText =
+        "GlobalPay में आपका स्वागत है";
+
+        document.getElementById(
+            "subtitle"
+        ).innerText =
+        "रिचार्ज, टास्क और रिवॉर्ड मैनेज करने के लिए साइन इन करें";
+
+        document.getElementById(
+            "signinTab"
+        ).innerText =
+        "साइन इन";
+
+        document.getElementById(
+            "signupTab"
+        ).innerText =
+        "साइन अप";
+
+        document.getElementById(
+            "mobileLabel"
+        ).innerText =
+        "मोबाइल नंबर";
+
+        document.getElementById(
+            "passwordLabel"
+        ).innerText =
+        "पासवर्ड";
+
+        document.getElementById(
+            "signinButton"
+        ).innerText =
+        "साइन इन";
+
+        document.getElementById(
+            "forgot"
+        ).innerText =
+        "पासवर्ड भूल गए?";
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+        "भाषा";
+
+        document.getElementById(
+            "security"
+        ).innerText =
+        "आपका फंड और डेटा सुरक्षित है। GlobalPay आपकी जानकारी कभी शेयर नहीं करता।";
+
+        document.getElementById(
+            "signupButton"
+        ).innerText =
+        "साइन अप";
+
+        document.getElementById(
+            "sendOtp"
+        ).innerText =
+        "भेजें";
+
+        document.getElementById(
+            "loginMobile"
+        ).placeholder =
+        "फोन नंबर";
+
+        document.getElementById(
+            "loginPassword"
+        ).placeholder =
+        "पासवर्ड";
+
+        document.getElementById(
+            "loginCaptcha"
+        ).placeholder =
+        "कैप्चर कोड";
+
+        document.getElementById(
+            "signupMobile"
+        ).placeholder =
+        "फोन नंबर";
+
+        document.getElementById(
+            "signupPassword"
+        ).placeholder =
+        "पासवर्ड";
+
+        document.getElementById(
+            "confirmPassword"
+        ).placeholder =
+        "पासवर्ड की पुष्टि करें";
+
+        document.getElementById(
+            "otpInput"
+        ).placeholder =
+        "4 अंकों का OTP डालें";
+
+        document.getElementById(
+            "signupCaptcha"
+        ).placeholder =
+        "कैप्चर कोड डालें";
+
+        localStorage.setItem(
+            "lang",
+            "hi"
+        );
+
+    }else{
+
+        document.getElementById(
+            "welcome"
+        ).innerText =
+        "Welcome to GlobalPay";
+
+        document.getElementById(
+            "subtitle"
+        ).innerText =
+        "Sign in to manage recharges, tasks and rewards";
+
+        document.getElementById(
+            "signinTab"
+        ).innerText =
+        "Sign In";
+
+        document.getElementById(
+            "signupTab"
+        ).innerText =
+        "Sign Up";
+
+        document.getElementById(
+            "mobileLabel"
+        ).innerText =
+        "Mobile number";
+
+        document.getElementById(
+            "passwordLabel"
+        ).innerText =
+        "Password";
+
+        document.getElementById(
+            "signinButton"
+        ).innerText =
+        "Sign In";
+
+        document.getElementById(
+            "forgot"
+        ).innerText =
+        "Forgot Password?";
+
+        document.getElementById(
+            "languageText"
+        ).innerText =
+        "Language";
+
+        document.getElementById(
+            "security"
+        ).innerText =
+        "Your funds and data are protected. GlobalPay never shares your information.";
+
+        document.getElementById(
+            "signupButton"
+        ).innerText =
+        "Sign Up";
+
+        document.getElementById(
+            "sendOtp"
+        ).innerText =
+        "Send";
+
+        document.getElementById(
+            "loginMobile"
+        ).placeholder =
+        "Phone Number";
+
+        document.getElementById(
+            "loginPassword"
+        ).placeholder =
+        "Password";
+
+        document.getElementById(
+            "loginCaptcha"
+        ).placeholder =
+        "Capture Code";
+
+        document.getElementById(
+            "signupMobile"
+        ).placeholder =
+        "Phone Number";
+
+        document.getElementById(
+            "signupPassword"
+        ).placeholder =
+        "Password";
+
+        document.getElementById(
+            "confirmPassword"
+        ).placeholder =
+        "Confirm Password";
+
+        document.getElementById(
+            "otpInput"
+        ).placeholder =
+        "Enter 4-digit OTP";
+
+        document.getElementById(
+            "signupCaptcha"
+        ).placeholder =
+        "Enter Capture Code";
+
+        localStorage.setItem(
+            "lang",
+            "en"
+        );
+
+    }
+
+    document.getElementById(
+        "languageMenu"
+    ).classList.remove("show");
+
+}
+
+
+/* =====================================================
+   ERROR FUNCTIONS
+===================================================== */
+
+function showError(
+    fieldId,
+    errorId,
+    message
+){
+
+    const field =
+    document.getElementById(fieldId);
+
+    const error =
+    document.getElementById(errorId);
+
+    if(field){
+        field.classList.add("error");
+    }
+
+    if(error){
+
+        error.innerText = message;
+
+        error.classList.add("show");
+
+    }
+
+}
+
+
+function hideError(
+    fieldId,
+    errorId
+){
+
+    const field =
+    document.getElementById(fieldId);
+
+    const error =
+    document.getElementById(errorId);
+
+    if(field){
+        field.classList.remove("error");
+    }
+
+    if(error){
+        error.classList.remove("show");
+    }
+
+}
+
+
+function clearErrors(){
+
+    document.querySelectorAll(
+        ".field"
+    ).forEach(function(field){
+
+        field.classList.remove(
+            "error",
+            "success"
+        );
+
+    });
+
+    document.querySelectorAll(
+        ".error-message"
+    ).forEach(function(error){
+
+        error.classList.remove("show");
+
+    });
+
+    document.querySelectorAll(
+        ".form-message"
+    ).forEach(function(message){
+
+        message.classList.remove(
+            "show",
+            "error",
+            "success"
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   FORM MESSAGE
+===================================================== */
+
+function showFormMessage(
+    id,
+    message,
+    type
+){
+
+    const box =
+    document.getElementById(id);
+
+    box.innerText = message;
+
+    box.classList.remove(
+        "error",
+        "success"
+    );
+
+    box.classList.add(
+        "show",
+        type
+    );
+
+}
+
+
+/* =====================================================
+   OTP SEND
+===================================================== */
+
+function sendOTP(){
+
+    clearOtpErrors();
+
+    const mobile =
+    document.getElementById(
+        "signupMobile"
+    ).value.trim();
+
+    const password =
+    document.getElementById(
+        "signupPassword"
+    ).value;
+
+    const confirm =
+    document.getElementById(
+        "confirmPassword"
+    ).value;
+
+
+    /* MOBILE */
+
+    if(mobile === ""){
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            "Please enter your mobile number."
+        );
+
+        document.getElementById(
+            "signupMobile"
+        ).focus();
+
+        return;
+
+    }
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            "Enter a valid 10-digit mobile number."
+        );
+
+        document.getElementById(
+            "signupMobile"
+        ).focus();
+
+        return;
+
+    }
+
+
+    /* PASSWORD */
+
+    if(password === ""){
+
+        showError(
+            "signupPasswordField",
+            "signupPasswordError",
+            "Please enter your password."
+        );
+
+        document.getElementById(
+            "signupPassword"
+        ).focus();
+
+        return;
+
+    }
+
+    if(password.length < 6){
+
+        showError(
+            "signupPasswordField",
+            "signupPasswordError",
+            "Password must be at least 6 characters."
+        );
+
+        document.getElementById(
+            "signupPassword"
+        ).focus();
+
+        return;
+
+    }
+
+
+    /* CONFIRM PASSWORD */
+
+    if(confirm === ""){
+
+        showError(
+            "confirmPasswordField",
+            "confirmPasswordError",
+            "Please confirm your password."
+        );
+
+        document.getElementById(
+            "confirmPassword"
+        ).focus();
+
+        return;
+
+    }
+
+    if(password !== confirm){
+
+        showError(
+            "confirmPasswordField",
+            "confirmPasswordError",
+            "Passwords do not match."
+        );
+
+        document.getElementById(
+            "confirmPassword"
+        ).focus();
+
+        return;
+
+    }
+
+
+    /* NEW OTP */
+
+    otpValue =
+    Math.floor(
+        1000 + Math.random() * 9000
+    ).toString();
+
+
+    otpSent = true;
+    otpVerified = false;
+
+    otpExpiryTime =
+    Date.now() + (60 * 1000);
+
+
+    /*
+      Demo OTP storage.
+      Real SMS OTP later backend se connect hoga.
+    */
+
+    localStorage.setItem(
+        "globalpay_pending_otp",
+        otpValue
+    );
+
+    localStorage.setItem(
+        "globalpay_pending_mobile",
+        mobile
+    );
+
+    localStorage.setItem(
+        "globalpay_otp_time",
+        Date.now().toString()
+    );
+
+
+    /* BUTTON */
+
+    const button =
+    document.getElementById(
+        "sendOtp"
+    );
+
+    button.disabled = true;
+
+    let seconds = 60;
+
+    button.innerText =
+    seconds + "s";
+
+
+    clearInterval(otpTimer);
+
+    otpTimer =
+    setInterval(function(){
+
+        seconds--;
+
+        button.innerText =
+        seconds + "s";
+
+        if(seconds <= 0){
+
+            clearInterval(otpTimer);
+
+            button.disabled = false;
+
+            button.innerText =
+            "Resend";
+
+        }
+
+    },1000);
+
+
+    /* STATUS */
+
+    const status =
+    document.getElementById(
+        "otpStatus"
+    );
+
+    status.className =
+    "otp-status show";
+
+    status.innerText =
+    "OTP sent successfully";
+
+
+    /*
+      7.5 seconds later:
+      demo OTP screen par show hoga.
+    */
+
+    clearTimeout(
+        otpDisplayTimer
+    );
+
+    otpDisplayTimer =
+    setTimeout(function(){
+
+        if(otpSent){
+
+            status.className =
+            "otp-status show success";
+
+            status.innerHTML =
+            "OTP: <strong>" +
+            otpValue +
+            "</strong>";
+
+        }
+
+    },7500);
+
+}
+
+
+/* =====================================================
+   OTP ERROR
+===================================================== */
+
+function clearOtpErrors(){
+
+    hideError(
+        "signupMobileField",
+        "signupMobileError"
+    );
+
+    hideError(
+        "signupPasswordField",
+        "signupPasswordError"
+    );
+
+    hideError(
+        "confirmPasswordField",
+        "confirmPasswordError"
+    );
+
+    hideError(
+        "otpField",
+        "otpError"
+    );
+
+}
+
+
+/* =====================================================
+   SIGN IN
+===================================================== */
+
+function signIn(){
+
+    clearErrors();
+
+    const mobile =
+    document.getElementById(
+        "loginMobile"
+    ).value.trim();
+
+    const password =
+    document.getElementById(
+        "loginPassword"
+    ).value;
+
+    const capture =
+    document.getElementById(
+        "loginCaptcha"
+    ).value.trim();
+
+    let valid = true;
+
+
+    /* MOBILE */
+
+    if(mobile === ""){
+
+        showError(
+            "loginMobileField",
+            "loginMobileError",
+            "Please enter your mobile number."
+        );
+
+        valid = false;
+
+    }else if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError(
+            "loginMobileField",
+            "loginMobileError",
+            "Enter a valid 10-digit mobile number."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* PASSWORD */
+
+    if(password === ""){
+
+        showError(
+            "loginPasswordField",
+            "loginPasswordError",
+            "Please enter your password."
+        );
+
+        valid = false;
+
+    }else if(password.length < 6){
+
+        showError(
+            "loginPasswordField",
+            "loginPasswordError",
+            "Password must be at least 6 characters."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* CAPTURE */
+
+    if(capture === ""){
+
+        showError(
+            "loginCaptchaField",
+            "loginCaptchaError",
+            "Please enter the capture code."
+        );
+
+        valid = false;
+
+    }else if(
+        capture.toUpperCase() !==
+        loginCaptureCode
+    ){
+
+        showError(
+            "loginCaptchaField",
+            "loginCaptchaError",
+            "Incorrect capture code."
+        );
+
+        refreshCaptureCodes();
+
+        document.getElementById(
+            "loginCaptcha"
+        ).value = "";
+
+        valid = false;
+
+    }
+
+
+    if(!valid){
+
+        return;
+
+    }
+
+
+    /* SAVED USER */
+
+    const savedUser =
+    JSON.parse(
+        localStorage.getItem(
+            "globalpay_user"
+        ) || "null"
+    );
+
+
+    if(!savedUser){
+
+        showFormMessage(
+            "loginMessage",
+            "No account found. Please sign up first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        savedUser.mobile === mobile &&
+        savedUser.password === password
+    ){
+
+        showFormMessage(
+            "loginMessage",
+            "Sign in successful. Opening GlobalPay...",
+            "success"
+        );
+
+
+        /*
+          Small professional transition
+        */
+
+        setTimeout(function(){
+
+            window.location.href =
+            "home.html";
+
+        },700);
+
+
+    }else{
+
+        showFormMessage(
+            "loginMessage",
+            "Invalid mobile number or password.",
+            "error"
+        );
+
+        document.getElementById(
+            "loginPasswordField"
+        ).classList.add("error");
+
+    }
+
+}
+
+
+/* =====================================================
+   SIGN UP
+===================================================== */
+
+function signUp(){
+
+    clearErrors();
+
+    const mobile =
+    document.getElementById(
+        "signupMobile"
+    ).value.trim();
+
+    const password =
+    document.getElementById(
+        "signupPassword"
+    ).value;
+
+    const confirm =
+    document.getElementById(
+        "confirmPassword"
+    ).value;
+
+    const otp =
+    document.getElementById(
+        "otpInput"
+    ).value.trim();
+
+    const capture =
+    document.getElementById(
+        "signupCaptcha"
+    ).value.trim();
+
+    let valid = true;
+
+
+    /* MOBILE */
+
+    if(mobile === ""){
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            "Please enter your mobile number."
+        );
+
+        valid = false;
+
+    }else if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError(
+            "signupMobileField",
+            "signupMobileError",
+            "Enter a valid 10-digit mobile number."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* PASSWORD */
+
+    if(password === ""){
+
+        showError(
+            "signupPasswordField",
+            "signupPasswordError",
+            "Please enter your password."
+        );
+
+        valid = false;
+
+    }else if(password.length < 6){
+
+        showError(
+            "signupPasswordField",
+            "signupPasswordError",
+            "Password must be at least 6 characters."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* CONFIRM */
+
+    if(confirm === ""){
+
+        showError(
+            "confirmPasswordField",
+            "confirmPasswordError",
+            "Please confirm your password."
+        );
+
+        valid = false;
+
+    }else if(password !== confirm){
+
+        showError(
+            "confirmPasswordField",
+            "confirmPasswordError",
+            "Passwords do not match."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* OTP */
+
+    if(otp === ""){
+
+        showError(
+            "otpField",
+            "otpError",
+            "Please request and enter the OTP."
+        );
+
+        valid = false;
+
+    }else if(!/^[0-9]{4}$/.test(otp)){
+
+        showError(
+            "otpField",
+            "otpError",
+            "OTP must be 4 digits."
+        );
+
+        valid = false;
+
+    }else{
+
+        const savedOtp =
+        localStorage.getItem(
+            "globalpay_pending_otp"
+        );
+
+        const savedMobile =
+        localStorage.getItem(
+            "globalpay_pending_mobile"
+        );
+
+        const otpTime =
+        parseInt(
+            localStorage.getItem(
+                "globalpay_otp_time"
+            ) || "0"
+        );
+
+        const expired =
+        Date.now() - otpTime >
+        (60 * 1000);
+
+
+        if(!savedOtp){
+
+            showError(
+                "otpField",
+                "otpError",
+                "Please request a new OTP."
+            );
+
+            valid = false;
+
+        }else if(
+            savedMobile !== mobile
+        ){
+
+            showError(
+                "otpField",
+                "otpError",
+                "OTP does not match this mobile number."
+            );
+
+            valid = false;
+
+        }else if(expired){
+
+            showError(
+                "otpField",
+                "otpError",
+                "OTP has expired. Please resend OTP."
+            );
+
+            valid = false;
+
+        }else if(
+            otp !== savedOtp
+        ){
+
+            showError(
+                "otpField",
+                "otpError",
+                "Incorrect OTP. Please try again."
+            );
+
+            valid = false;
+
+        }else{
+
+            otpVerified = true;
+
+        }
+
+    }
+
+
+    /* CAPTURE */
+
+    if(capture === ""){
+
+        showError(
+            "signupCaptchaField",
+            "signupCaptchaError",
+            "Please enter the capture code."
+        );
+
+        valid = false;
+
+    }else if(
+        capture.toUpperCase() !==
+        signupCaptureCode
+    ){
+
+        showError(
+            "signupCaptchaField",
+            "signupCaptchaError",
+            "Incorrect capture code."
+        );
+
+        document.getElementById(
+            "signupCaptcha"
+        ).value = "";
+
+        refreshCaptureCodes();
+
+        valid = false;
+
+    }
+
+
+    if(!valid){
+
+        return;
+
+    }
+
+
+    /* =================================================
+       SAVE USER
+    ================================================= */
+
+    const user = {
+
+        mobile: mobile,
+
+        password: password,
+
+        createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "globalpay_user",
+        JSON.stringify(user)
+    );
+
+
+    /*
+      Pending OTP remove
+    */
+
+    localStorage.removeItem(
+        "globalpay_pending_otp"
+    );
+
+    localStorage.removeItem(
+        "globalpay_pending_mobile"
+    );
+
+    localStorage.removeItem(
+        "globalpay_otp_time"
+    );
+
+
+    otpSent = false;
+
+    otpVerified = false;
+
+
+    clearInterval(otpTimer);
+
+    clearTimeout(otpDisplayTimer);
+
+
+    showFormMessage(
+        "signupMessage",
+        "Account created successfully. Opening GlobalPay...",
+        "success"
+    );
+
+
+    /*
+      Home page
+    */
+
+    setTimeout(function(){
+
+        window.location.href =
+        "home.html";
+
+    },800);
+
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+function forgotPassword(event){
+
+    event.preventDefault();
+
+    showFormMessage(
+        "loginMessage",
+        "Password recovery will be connected to the secure server later.",
+        "error"
+    );
+
+}
+
+
+/* =====================================================
+   INPUT CLEANING
+===================================================== */
+
+document.getElementById(
+    "loginMobile"
+).addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value.replace(
+            /[^0-9]/g,
+            ""
+        ).slice(0,10);
+
+        hideError(
+            "loginMobileField",
+            "loginMobileError"
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "signupMobile"
+).addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value.replace(
+            /[^0-9]/g,
+            ""
+        ).slice(0,10);
+
+        hideError(
+            "signupMobileField",
+            "signupMobileError"
+        );
+
+    }
+);
+
+
+/* OTP ONLY NUMBERS */
+
+document.getElementById(
+    "otpInput"
+).addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value.replace(
+            /[^0-9]/g,
+            ""
+        ).slice(0,4);
+
+        hideError(
+            "otpField",
+            "otpError"
+        );
+
+    }
+);
+
+
+/* CAPTCHA AUTO UPPERCASE */
+
+document.getElementById(
+    "loginCaptcha"
+).addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value
+        .toUpperCase()
+        .replace(
+            /[^A-Z0-9]/g,
+            ""
+        )
+        .slice(0,5);
+
+        hideError(
+            "loginCaptchaField",
+            "loginCaptchaError"
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "signupCaptcha"
+).addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value
+        .toUpperCase()
+        .replace(
+            /[^A-Z0-9]/g,
+            ""
+        )
+        .slice(0,5);
+
+        hideError(
+            "signupCaptchaField",
+            "signupCaptchaError"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+window.onload = function(){
+
+    refreshCaptureCodes();
+
+    const savedLang =
+    localStorage.getItem("lang");
+
+    if(savedLang === "hi"){
+
+        changeLanguage("hi");
+
+    }else{
+
+        changeLanguage("en");
+
+    }
+
+};
+
+</script>
+
+</body>
+  </html>
