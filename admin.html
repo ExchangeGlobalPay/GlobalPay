@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
+
+<title>GlobalPay Admin</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f6f7fb;
+    color:#172033;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= LOGIN ================= */
+
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+
+    background:
+    radial-gradient(circle at top right,#fff0e5,transparent 35%),
+    #f7f8fb;
+}
+
+.login-card{
+    width:100%;
+    max-width:390px;
+    background:#fff;
+    border:1px solid #eceef3;
+    border-radius:24px;
+    padding:28px 22px;
+    box-shadow:0 18px 55px rgba(22,30,50,.10);
+}
+
+.admin-logo{
+    width:64px;
+    height:64px;
+    margin:0 auto 18px;
+    border-radius:18px;
+    overflow:hidden;
+    background:#f1f3f7;
+}
+
+.admin-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.login-title{
+    text-align:center;
+    font-size:23px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:#9298a5;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    color:#5e687b;
+    margin-bottom:7px;
+}
+
+.input{
+    width:100%;
+    height:48px;
+    border:1px solid #e1e4ea;
+    border-radius:13px;
+    padding:0 14px;
+    outline:none;
+    font-size:15px;
+    background:#fff;
+}
+
+.input:focus{
+    border-color:#f07818;
+    box-shadow:0 0 0 3px rgba(240,120,24,.10);
+}
+
+.login-error{
+    display:none;
+    color:#e53935;
+    font-size:12px;
+    margin:-4px 0 12px;
+}
+
+.login-error.show{
+    display:block;
+}
+
+.login-btn{
+    width:100%;
+    height:48px;
+    border:0;
+    border-radius:13px;
+    background:#111;
+    color:#fff;
+    font-size:16px;
+    font-weight:800;
+}
+
+/* ================= APP ================= */
+
+.app{
+    min-height:100vh;
+}
+
+.topbar{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #eceef2;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-logo{
+    width:39px;
+    height:39px;
+    border-radius:11px;
+    overflow:hidden;
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.brand-name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.admin-badge{
+    font-size:10px;
+    background:#fff0e6;
+    color:#e76d10;
+    padding:4px 7px;
+    border-radius:7px;
+    font-weight:800;
+}
+
+.logout-btn{
+    border:1px solid #e5e7eb;
+    background:#fff;
+    border-radius:10px;
+    padding:8px 11px;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:20px 16px 35px;
+}
+
+.page-title{
+    font-size:24px;
+    font-weight:800;
+}
+
+.page-subtitle{
+    color:#9298a5;
+    font-size:13px;
+    margin-top:5px;
+}
+
+/* ================= DASHBOARD ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:18px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #eceef2;
+    border-radius:17px;
+    padding:16px;
+    box-shadow:0 4px 16px rgba(20,25,40,.035);
+}
+
+.card-label{
+    font-size:12px;
+    color:#8b92a0;
+    font-weight:700;
+}
+
+.card-value{
+    margin-top:7px;
+    font-size:24px;
+    font-weight:800;
+}
+
+.online{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#1b9c61;
+}
+
+.online-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#1baa68;
+}
+
+/* ================= REQUEST CARDS ================= */
+
+.request-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:14px;
+}
+
+.request-card{
+    background:#fff;
+    border:1px solid #eceef2;
+    border-radius:17px;
+    padding:16px;
+}
+
+.request-title{
+    font-size:14px;
+    font-weight:800;
+}
+
+.request-count{
+    font-size:22px;
+    font-weight:800;
+    margin:8px 0;
+}
+
+.request-btn{
+    width:100%;
+    height:38px;
+    border:0;
+    border-radius:10px;
+    background:#111;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    margin-top:22px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:11px;
+}
+
+.section-title{
+    font-size:16px;
+    font-weight:800;
+}
+
+.primary-btn{
+    border:0;
+    background:#f37516;
+    color:#fff;
+    border-radius:10px;
+    padding:10px 13px;
+    font-size:12px;
+    font-weight:800;
+}
+
+/* ================= USER LIST ================= */
+
+.user-list{
+    background:#fff;
+    border:1px solid #eceef2;
+    border-radius:17px;
+    overflow:hidden;
+}
+
+.search-box{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+.search-box input{
+    width:100%;
+    height:43px;
+    border:1px solid #e2e5eb;
+    border-radius:11px;
+    padding:0 12px;
+    outline:none;
+}
+
+.user-row{
+    width:100%;
+    border:0;
+    background:#fff;
+    border-bottom:1px solid #f0f1f4;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    text-align:left;
+}
+
+.user-row:last-child{
+    border-bottom:0;
+}
+
+.user-phone{
+    font-size:14px;
+    font-weight:800;
+}
+
+.user-meta{
+    margin-top:4px;
+    color:#9aa0ac;
+    font-size:11px;
+}
+
+.arrow-right{
+    color:#9da3ad;
+    font-size:19px;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 15px;
+    color:#999;
+    font-size:13px;
+}
+
+/* ================= DETAIL PAGE ================= */
+
+.detail-page{
+    display:none;
+}
+
+.back-btn{
+    border:0;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:9px 12px;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.profile-card{
+    background:#fff;
+    border:1px solid #eceef2;
+    border-radius:18px;
+    padding:17px;
+}
+
+.profile-phone{
+    font-size:20px;
+    font-weight:800;
+}
+
+.profile-status{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-top:7px;
+    color:#1b9c61;
+    font-size:11px;
+    font-weight:700;
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:15px;
+}
+
+.detail-item{
+    background:#f8f9fb;
+    border-radius:12px;
+    padding:12px;
+}
+
+.detail-item span{
+    display:block;
+    color:#9298a5;
+    font-size:10px;
+    margin-bottom:5px;
+}
+
+.detail-item strong{
+    font-size:13px;
+}
+
+.action-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+}
+
+.action-btn{
+    min-height:46px;
+    border:1px solid #e6e8ed;
+    background:#fff;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.action-btn:active{
+    background:#f7f7f8;
+}
+
+/* ================= HISTORY ================= */
+
+.history-page{
+    display:none;
+}
+
+.history-card{
+    background:#fff;
+    border:1px solid #eceef2;
+    border-radius:17px;
+    overflow:hidden;
+}
+
+.history-row{
+    padding:14px;
+    border-bottom:1px solid #f0f1f4;
+}
+
+.history-row:last-child{
+    border-bottom:0;
+}
+
+.history-main{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.history-title{
+    font-size:13px;
+    font-weight:800;
+}
+
+.history-amount{
+    font-size:13px;
+    font-weight:800;
+}
+
+.history-time{
+    color:#9298a5;
+    font-size:10px;
+    margin-top:5px;
+}
+
+/* ================= TEAM ================= */
+
+.team-tabs{
+    display:flex;
+    gap:7px;
+    margin-bottom:12px;
+}
+
+.team-tab{
+    flex:1;
+    height:39px;
+    border:1px solid #e4e6eb;
+    background:#fff;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.team-tab.active{
+    background:#111;
+    color:#fff;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(10,15,25,.42);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:100;
+    padding:12px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-card{
+    width:100%;
+    max-width:520px;
+    max-height:85vh;
+    overflow:auto;
+    background:#fff;
+    border-radius:22px 22px 16px 16px;
+    padding:20px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.modal-title{
+    font-size:18px;
+    font-weight:800;
+}
+
+.close-btn{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:10px;
+    background:#f3f4f6;
+    font-size:18px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(min-width:700px){
+
+    .cards{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .request-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .detail-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .action-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .modal{
+        align-items:center;
+    }
+
+    .modal-card{
+        border-radius:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================================================= -->
+<!-- ADMIN LOGIN -->
+<!-- ================================================= -->
+
+<div class="login-screen" id="loginScreen">
+
+    <div class="login-card">
+
+        <div class="admin-logo">
+            <img src="Global.png" alt="GlobalPay">
+        </div>
+
+        <div class="login-title">
+            Admin Panel
+        </div>
+
+        <div class="login-subtitle">
+            Secure administrator access
+        </div>
+
+        <div class="input-group">
+            <label>Admin User ID</label>
+            <input
+                class="input"
+                id="adminUser"
+                type="text"
+                autocomplete="username"
+                placeholder="Enter admin ID">
+        </div>
+
+        <div class="input-group">
+            <label>Admin Password</label>
+            <input
+                class="input"
+                id="adminPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter password">
+        </div>
+
+        <div class="login-error" id="loginError">
+            Invalid administrator credentials.
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="adminLogin()">
+            Sign In
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ADMIN APP -->
+<!-- ================================================= -->
+
+<div class="app hidden" id="adminApp">
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            <img src="Global.png" alt="">
+        </div>
+
+        <div>
+            <div class="brand-name">GlobalPay</div>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+
+    </div>
+
+    <button
+        class="logout-btn"
+        onclick="logout()">
+        Logout
+    </button>
+
+</header>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<main class="content" id="dashboardPage">
+
+    <div class="page-title">
+        Dashboard
+    </div>
+
+    <div class="page-subtitle">
+        Overview of your platform
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-label">Total Register</div>
+            <div class="card-value" id="totalUsers">0</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">Online User Live</div>
+            <div class="card-value online">
+                <i class="online-dot"></i>
+                <span id="onlineUsers">0</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">Total Deposit</div>
+            <div class="card-value" id="totalDeposit">₹0</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">Total Withdrawal</div>
+            <div class="card-value" id="totalWithdrawal">₹0</div>
+        </div>
+
+    </div>
+
+
+    <!-- REQUESTS -->
+
+    <div class="request-grid">
+
+        <div class="request-card">
+
+            <div class="request-title">
+                Submit Payment
+            </div>
+
+            <div class="request-count" id="paymentCount">
+                0
+            </div>
+
+            <button
+                class="request-btn"
+                onclick="openRequests('payment')">
+                View Requests
+            </button>
+
+        </div>
+
+
+        <div class="request-card">
+
+            <div class="request-title">
+                Submit Withdrawal
+            </div>
+
+            <div class="request-count" id="withdrawRequestCount">
+                0
+            </div>
+
+            <button
+                class="request-btn"
+                onclick="openRequests('withdrawal')">
+                View Requests
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- USER INFO -->
+
+    <div class="section">
+
+        <div class="section-head">
+
+            <div class="section-title">
+                User Info
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="showUsers()">
+                View Users
+            </button>
+
+        </div>
+
+        <div class="user-list">
+
+            <div class="search-box">
+
+                <input
+                    id="userSearch"
+                    type="tel"
+                    placeholder="Search phone number..."
+                    oninput="filterUsers()">
+
+            </div>
+
+            <div id="userList">
+                <div class="empty">
+                    No users loaded.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================================================= -->
+<!-- USER DETAIL -->
+<!-- ================================================= -->
+
+<main class="content detail-page" id="detailPage">
+
+    <button
+        class="back-btn"
+        onclick="backToUsers()">
+        ← Back to Users
+    </button>
+
+    <div class="profile-card">
+
+        <div class="profile-phone" id="detailPhone">
+            —
+        </div>
+
+        <div class="profile-status">
+            <span class="online-dot"></span>
+            <span id="detailActivity">Offline</span>
+        </div>
+
+        <div class="detail-grid">
+
+            <div class="detail-item">
+                <span>User ID</span>
+                <strong id="detailUserId">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Full Phone Number</span>
+                <strong id="detailFullPhone">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Register Date & Time</span>
+                <strong id="detailRegister">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Current Balance</span>
+                <strong id="detailBalance">₹0</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Total Earning</span>
+                <strong id="detailEarning">₹0</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Total Withdrawal</span>
+                <strong id="detailWithdraw">₹0</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Total Refer</span>
+                <strong id="detailRefer">0</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Total Deposit</span>
+                <strong id="detailDeposit">₹0</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="action-grid">
+
+        <button
+            class="action-btn"
+            onclick="openHistory('earning')">
+            Total Earning
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="openHistory('withdrawal')">
+            Total Withdrawal
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="openHistory('refer')">
+            Total Refer
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="openHistory('deposit')">
+            Total Deposit
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="openHistory('activity')">
+            Activity
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="openTeam()">
+            Team Refer
+        </button>
+
+    </div>
+
+    <div style="margin-top:10px">
+
+        <button
+            class="action-btn"
+            style="width:100%"
+            onclick="resetUserPassword()">
+            Reset User Password
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- ================================================= -->
+<!-- HISTORY -->
+<!-- ================================================= -->
+
+<main class="content history-page" id="historyPage">
+
+    <button
+        class="back-btn"
+        onclick="backToDetail()">
+        ← Back
+    </button>
+
+    <div class="page-title" id="historyTitle">
+        History
+    </div>
+
+    <div class="page-subtitle" id="historySubtitle">
+        User transaction history
+    </div>
+
+    <div
+        class="history-card"
+        style="margin-top:15px"
+        id="historyList">
+
+        <div class="empty">
+            No records found.
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================================================= -->
+<!-- TEAM -->
+<!-- ================================================= -->
+
+<main class="content history-page" id="teamPage">
+
+    <button
+        class="back-btn"
+        onclick="backToDetail()">
+        ← Back
+    </button>
+
+    <div class="page-title">
+        Team Refer
+    </div>
+
+    <div class="page-subtitle">
+        Referral network
+    </div>
+
+    <div class="team-tabs">
+
+        <button
+            class="team-tab active"
+            onclick="loadTeam('A',this)">
+            Team A
+        </button>
+
+        <button
+            class="team-tab"
+            onclick="loadTeam('B',this)">
+            Team B
+        </button>
+
+        <button
+            class="team-tab"
+            onclick="loadTeam('C',this)">
+            Team C
+        </button>
+
+    </div>
+
+    <div class="history-card" id="teamList">
+
+        <div class="empty">
+            No team members found.
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- REQUEST MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="requestModal">
+
+    <div class="modal-card">
+
+        <div class="modal-head">
+
+            <div class="modal-title" id="requestTitle">
+                Requests
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div id="requestList">
+
+            <div class="empty">
+                No requests found.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+=======================================================
+IMPORTANT
+=======================================================
+
+Frontend ko real banane ke liye backend/API connect karo.
+
+Example:
+
+const API_BASE = "https://your-domain.com/api";
+
+Expected API endpoints:
+
+POST /admin/login
+GET  /admin/dashboard
+GET  /admin/users
+GET  /admin/users/:id
+GET  /admin/users/:id/earnings
+GET  /admin/users/:id/withdrawals
+GET  /admin/users/:id/deposits
+GET  /admin/users/:id/referrals
+GET  /admin/users/:id/activity
+GET  /admin/users/:id/team?level=A
+GET  /admin/payment-requests
+GET  /admin/withdrawal-requests
+POST /admin/users/:id/reset-password
+
+Password database me HASHED form me store hona chahiye.
+Plaintext password admin panel me store/display mat karo.
+*/
+
+
+const API_BASE = "";
+
+
+/* ===================================================
+   CURRENT USER
+=================================================== */
+
+let currentUser = null;
+let allUsers = [];
+
+
+/* ===================================================
+   ADMIN LOGIN
+=================================================== */
+
+async function adminLogin(){
+
+    const user =
+        document.getElementById("adminUser").value.trim();
+
+    const pass =
+        document.getElementById("adminPassword").value;
+
+    const error =
+        document.getElementById("loginError");
+
+    error.classList.remove("show");
+
+    if(!user || !pass){
+
+        error.innerText =
+            "Please enter admin ID and password.";
+
+        error.classList.add("show");
+
+        return;
+    }
+
+
+    /*
+      REAL BACKEND:
+
+      const response = await fetch(API_BASE+"/admin/login",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+              username:user,
+              password:pass
+          })
+      });
+
+      const data = await response.json();
+
+      if(data.success){
+          ...
+      }
+    */
+
+
+    /*
+      Temporary development authentication.
+      Production me ise backend authentication se replace karo.
+    */
+
+    if(user === "MUMBAI2.0" && pass === "993428"){
+
+        sessionStorage.setItem(
+            "globalpay_admin_logged",
+            "1"
+        );
+
+        document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+        document
+        .getElementById("adminApp")
+        .classList.remove("hidden");
+
+        loadDashboard();
+        loadUsers();
+
+    }else{
+
+        error.innerText =
+            "Invalid administrator credentials.";
+
+        error.classList.add("show");
+    }
+}
+
+
+/* ===================================================
+   LOGOUT
+=================================================== */
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "globalpay_admin_logged"
+    );
+
+    location.reload();
+}
+
+
+/* ===================================================
+   DASHBOARD
+=================================================== */
+
+async function loadDashboard(){
+
+    /*
+      REAL API:
+
+      const response =
+        await fetch(API_BASE+"/admin/dashboard");
+
+      const data = await response.json();
+
+      document.getElementById("totalUsers").innerText =
+        data.totalUsers;
+
+      document.getElementById("onlineUsers").innerText =
+        data.onlineUsers;
+    */
+
+    /*
+      Values stay 0 until backend provides real data.
+    */
+
+}
+
+
+/* ===================================================
+   USERS
+=================================================== */
+
+async function loadUsers(){
+
+    /*
+      REAL API example:
+
+      const response =
+        await fetch(API_BASE+"/admin/users");
+
+      allUsers = await response.json();
+
+      renderUsers(allUsers);
+    */
+
+    allUsers = [];
+
+    renderUsers(allUsers);
+}
+
+
+function renderUsers(users){
+
+    const list =
+        document.getElementById("userList");
+
+    if(!users.length){
+
+        list.innerHTML =
+            '<div class="empty">No users found.</div>';
+
+        return;
+    }
+
+    list.innerHTML =
+        users.map(user => `
+
+            <button
+                class="user-row"
+                onclick="openUser('${escapeAttr(user.id)}')">
+
+                <div>
+
+                    <div class="user-phone">
+                        ${escapeHtml(user.phone)}
+                    </div>
+
+                    <div class="user-meta">
+                        Registered:
+                        ${escapeHtml(user.registerDate || "—")}
+                    </div>
+
+                </div>
+
+                <div class="arrow-right">
+                    ›
+                </div>
+
+            </button>
+
+        `).join("");
+}
+
+
+function filterUsers(){
+
+    const search =
+        document
+        .getElementById("userSearch")
+        .value
+        .trim();
+
+    const filtered =
+        allUsers.filter(user =>
+            String(user.phone || "")
+            .includes(search)
+        );
+
+    renderUsers(filtered);
+}
+
+
+function showUsers(){
+
+    document
+    .getElementById("dashboardPage")
+    .style.display="block";
+
+    document
+    .getElementById("detailPage")
+    .style.display="none";
+}
+
+
+/* ===================================================
+   USER DETAIL
+=================================================== */
+
+async function openUser(id){
+
+    /*
+      REAL API:
+
+      const response =
+        await fetch(API_BASE+"/admin/users/"+id);
+
+      currentUser = await response.json();
+    */
+
+    currentUser =
+        allUsers.find(u => String(u.id) === String(id));
+
+    if(!currentUser){
+        return;
+    }
+
+    document
+    .getElementById("dashboardPage")
+    .style.display="none";
+
+    document
+    .getElementById("detailPage")
+    .style.display="block";
+
+    document
+    .getElementById("detailPhone")
+    .innerText =
+        currentUser.phone || "—";
+
+    document
+    .getElementById("detailUserId")
+    .innerText =
+        currentUser.id || "—";
+
+    document
+    .getElementById("detailFullPhone")
+    .innerText =
+        currentUser.phone || "—";
+
+    document
+    .getElementById("detailRegister")
+    .innerText =
+        currentUser.registerDate || "—";
+
+    document
+    .getElementById("detailBalance")
+    .innerText =
+        money(currentUser.balance);
+
+    document
+    .getElementById("detailEarning")
+    .innerText =
+        money(currentUser.earning);
+
+    document
+    .getElementById("detailWithdraw")
+    .innerText =
+        money(currentUser.withdrawal);
+
+    document
+    .getElementById("detailRefer")
+    .innerText =
+        currentUser.totalRefer || 0;
+
+    document
+    .getElementById("detailDeposit")
+    .innerText =
+        money(currentUser.deposit);
+
+    document
+    .getElementById("detailActivity")
+    .innerText =
+        currentUser.activity || "Offline";
+}
+
+
+function backToUsers(){
+
+    document
+    .getElementById("detailPage")
+    .style.display="none";
+
+    document
+    .getElementById("dashboardPage")
+    .style.display="block";
+}
+
+
+/* ===================================================
+   HISTORY
+=================================================== */
+
+async function openHistory(type){
+
+    if(!currentUser){
+        return;
+    }
+
+    document
+    .getElementById("detailPage")
+    .style.display="none";
+
+    document
+    .getElementById("historyPage")
+    .style.display="block";
+
+
+    const titles = {
+
+        earning:"Total Earning",
+
+        withdrawal:"Total Withdrawal",
+
+        refer:"Total Refer",
+
+        deposit:"Total Deposit",
+
+        activity:"Activity"
+
+    };
+
+    document
+    .getElementById("historyTitle")
+    .innerText =
+        titles[type] || "History";
+
+
+    /*
+      REAL API endpoint:
+
+      /admin/users/:id/earnings
+      /admin/users/:id/withdrawals
+      /admin/users/:id/referrals
+      /admin/users/:id/deposits
+      /admin/users/:id/activity
+    */
+
+
+    document
+    .getElementById("historyList")
+    .innerHTML =
+        '<div class="empty">No records loaded from server.</div>';
+}
+
+
+function backToDetail(){
+
+    document
+    .getElementById("historyPage")
+    .style.display="none";
+
+    document
+    .getElementById("teamPage")
+    .style.display="none";
+
+    document
+    .getElementById("detailPage")
+    .style.display="block";
+}
+
+
+/* ===================================================
+   TEAM
+=================================================== */
+
+function openTeam(){
+
+    if(!currentUser){
+        return;
+    }
+
+    document
+    .getElementById("detailPage")
+    .style.display="none";
+
+    document
+    .getElementById("teamPage")
+    .style.display="block";
+
+    loadTeam("A",
+        document.querySelector(".team-tab"));
+}
+
+
+async function loadTeam(level,button){
+
+    document
+    .querySelectorAll(".team-tab")
+    .forEach(btn =>
+        btn.classList.remove("active")
+    );
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    /*
+      REAL API:
+
+      GET /admin/users/:id/team?level=A
+
+      A = direct referrals
+      B = referrals made by Team A
+      C = referrals made by Team B
+    */
+
+
+    document
+    .getElementById("teamList")
+    .innerHTML =
+        '<div class="empty">No team members loaded from server.</div>';
+}
+
+
+/* ===================================================
+   REQUESTS
+=================================================== */
+
+async function openRequests(type){
+
+    const title =
+        type === "payment"
+        ? "Submit Payment Requests"
+        : "Submit Withdrawal Requests";
+
+    document
+    .getElementById("requestTitle")
+    .innerText=title;
+
+
+    /*
+      REAL API:
+
+      GET /admin/payment-requests
+      GET /admin/withdrawal-requests
+    */
+
+
+    document
+    .getElementById("requestList")
+    .innerHTML =
+        '<div class="empty">No requests loaded from server.</div>';
+
+    document
+    .getElementById("requestModal")
+    .classList.add("show");
+}
+
+
+function closeModal(){
+
+    document
+    .getElementById("requestModal")
+    .classList.remove("show");
+}
+
+
+/* ===================================================
+   PASSWORD RESET
+=================================================== */
+
+async function resetUserPassword(){
+
+    if(!currentUser){
+        return;
+    }
+
+    /*
+      Production me backend endpoint:
+
+      POST /admin/users/:id/reset-password
+
+      Backend user ko temporary/reset-password flow
+      provide kare. Existing password ko admin ko
+      plaintext me return na kare.
+    */
+
+    alert(
+        "Connect this button to your secure backend password-reset API."
+    );
+}
+
+
+/* ===================================================
+   HELPERS
+=================================================== */
+
+function money(value){
+
+    const number =
+        Number(value || 0);
+
+    return "₹" +
+        number.toLocaleString("en-IN");
+}
+
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function escapeAttr(value){
+
+    return String(value ?? "")
+        .replace(/'/g,"\\'");
+}
+
+
+/* ===================================================
+   SESSION CHECK
+=================================================== */
+
+window.addEventListener("load",function(){
+
+    if(
+        sessionStorage.getItem(
+            "globalpay_admin_logged"
+        ) === "1"
+    ){
+
+        document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+        document
+        .getElementById("adminApp")
+        .classList.remove("hidden");
+
+        loadDashboard();
+        loadUsers();
+    }
+
+});
+
+
+/* ===================================================
+   ENTER KEY LOGIN
+=================================================== */
+
+document.addEventListener("keydown",function(event){
+
+    if(
+        event.key === "Enter" &&
+        !document
+        .getElementById("loginScreen")
+        .classList.contains("hidden")
+    ){
+
+        adminLogin();
+    }
+
+});
+
+</script>
+
+</body>
+  </html>
