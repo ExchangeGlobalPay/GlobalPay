@@ -799,6 +799,55 @@ body{
         padding:12px;
     }
 }
+
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    min-height:112px;
+    padding:18px 28px;
+    background:#fff;
+    border-bottom:1px solid #e8edf2;
+    cursor:pointer;
+}
+
+.menu-icon{
+    width:58px;
+    height:58px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    flex-shrink:0;
+    margin-right:24px;
+}
+
+.refer-icon{
+    background:#fff0df;
+}
+
+.menu-content{
+    flex:1;
+}
+
+.menu-title{
+    font-size:25px;
+    font-weight:700;
+    color:#19365d;
+}
+
+.menu-subtitle{
+    margin-top:5px;
+    font-size:18px;
+    color:#9aa5b1;
+}
+
+.menu-arrow{
+    font-size:38px;
+    color:#aeb6bd;
+}
+      
 </style>
 </head>
 
@@ -1106,6 +1155,18 @@ body{
         <div class="menu-arrow">›</div>
 
     </div>
+
+
+      <div class="menu-item" onclick="openPage('refer.html')">
+    <div class="menu-icon refer-icon">👥</div>
+
+    <div class="menu-content">
+        <div class="menu-title">Refer & Earn</div>
+        <div class="menu-subtitle">Invite friends and earn rewards</div>
+    </div>
+
+    <div class="menu-arrow">›</div>
+      </div>
 
 
     <div class="menu-item"
@@ -1529,5 +1590,11 @@ window.addEventListener("load",function(){
 
 </div>
 
+<script>
+function openPage(page){
+    window.location.href = page;
+}
+</script>
+      
 </body>
 </html>
