@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>GlobalPay - Wallet</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+ --bg:#071321;--panel:#0c1b2d;--panel2:#10243a;--line:#163956;
+ --text:#f4f8ff;--muted:#8fa5bd;--blue:#168cff;--green:#00d68f;
+ --purple:#8b4dff;--danger:#ff5b67;
+}
+html,body{min-height:100%;font-family:Inter,Arial,sans-serif;background:#06111e;color:var(--text)}
+body{overflow-x:hidden}
+button,a{font:inherit}
+button{cursor:pointer;border:0}
+.app{min-height:100vh;display:flex;background:
+ radial-gradient(circle at 80% 5%,rgba(0,154,255,.12),transparent 25%),
+ radial-gradient(circle at 75% 75%,rgba(0,214,143,.06),transparent 28%),
+ #06111e}
+.sidebar{width:260px;min-height:100vh;padding:24px 16px;position:fixed;left:0;top:0;bottom:0;border-right:1px solid #14304a;background:linear-gradient(180deg,#07182a,#061321);z-index:20}
+.logo{display:flex;align-items:center;gap:12px;padding:0 12px 28px}
+.logo-mark{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:31px;font-weight:900;color:#fff;background:linear-gradient(145deg,#08d99a,#087dff);box-shadow:0 0 25px rgba(0,214,143,.28)}
+.logo-name{font-size:22px;font-weight:900}.logo-name span{color:#00d99a}
+.logo-sub{font-size:9px;color:#91a6bb;margin-top:2px}
+.nav{display:flex;flex-direction:column;gap:7px}.nav a{height:48px;padding:0 14px;border-radius:12px;color:#a9bad0;text-decoration:none;display:flex;align-items:center;gap:14px;font-size:14px;font-weight:700}
+.nav a:hover,.nav a.active{color:#fff;background:linear-gradient(90deg,#00c98b,#00a9b9);box-shadow:0 8px 22px rgba(0,214,143,.18)}
+.nicon{width:27px;text-align:center;font-size:19px}
+.side-bottom{position:absolute;left:16px;right:16px;bottom:22px}
+.side-card{padding:15px;border:1px solid #15506a;border-radius:15px;background:linear-gradient(135deg,#0b2236,#092d2e)}
+.side-card strong{display:block;font-size:13px}.side-card small{display:block;color:#8ea5bb;margin-top:4px;line-height:1.4}
+.logout{margin-top:13px;width:100%;height:40px;border-radius:10px;background:#151e2b;color:#ff5e68;font-weight:700}
+.main{margin-left:260px;width:calc(100% - 260px);min-width:0}
+.topbar{height:78px;border-bottom:1px solid #12304a;display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:0 28px;background:rgba(5,17,29,.86);backdrop-filter:blur(16px);position:sticky;top:0;z-index:15}
+.wallet-mini{height:48px;padding:0 17px;border:1px solid #075f74;border-radius:14px;display:flex;align-items:center;gap:10px;background:#082234}
+.token-logo{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px;background:radial-gradient(circle at 30% 25%,#66ffca,#00b779 58%,#087a62);box-shadow:0 0 15px rgba(0,214,143,.25)}
+.wallet-mini b{font-size:14px}.wallet-mini span{display:block;color:#8fa5bc;font-size:9px;margin-bottom:2px}
+.profile{height:48px;padding:0 12px;border:1px solid #143b58;border-radius:14px;display:flex;align-items:center;gap:10px;min-width:190px;background:#081b2e}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#168cff,#004a9c);font-size:17px}
+.profile b{font-size:12px}.profile small{display:block;color:#8fa5bc;font-size:9px;margin-top:2px}.bell{font-size:20px}
+.content{padding:25px 26px 38px;max-width:1600px;margin:auto}
+.heading h1{font-size:34px;line-height:1}.heading p{margin-top:7px;color:#8ea5bb;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:25px}
+.card{position:relative;min-height:265px;border-radius:20px;padding:22px;border:1px solid;overflow:hidden;box-shadow:0 18px 45px rgba(0,0,0,.22)}
+.card:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-70px;top:-80px;filter:blur(2px);opacity:.22}
+.withdraw{background:linear-gradient(145deg,#082c58,#071b34);border-color:#086bd2}.withdraw:after{background:#168cff}
+.convert{background:linear-gradient(145deg,#06382f,#071f24);border-color:#00b986}.convert:after{background:#00d68f}
+.deposit{background:linear-gradient(145deg,#28104d,#130e31);border-color:#7138cf}.deposit:after{background:#9a5cff}
+.card-head{display:flex;align-items:center;gap:12px;position:relative;z-index:1}.card-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:25px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12)}
+.card h2{font-size:18px}.card-head p{font-size:11px;color:#9db1c7;margin-top:4px}
+.amount{margin-top:25px;font-size:34px;font-weight:900;letter-spacing:-1px;position:relative;z-index:1}
+.label{color:#8fa6bd;font-size:11px;margin-top:4px;position:relative;z-index:1}
+.pill{display:inline-flex;margin-top:13px;padding:7px 10px;border-radius:9px;font-size:10px;font-weight:800;background:rgba(22,140,255,.13);border:1px solid #155b9e;color:#75bbff}
+.convert-box{display:flex;align-items:center;justify-content:space-between;margin-top:20px;position:relative;z-index:1}.token-big{font-size:25px;font-weight:900}.rate{font-size:11px;color:#91b7ad;margin-top:4px}.swap{font-size:25px;color:#00d68f}
+.btn{height:47px;border-radius:13px;width:100%;margin-top:20px;font-weight:900;color:#fff;position:relative;z-index:1}.btn-blue{background:linear-gradient(135deg,#1b9cff,#076be7);box-shadow:0 9px 20px rgba(0,130,255,.2)}.btn-green{background:linear-gradient(135deg,#00d995,#00a86e);box-shadow:0 9px 20px rgba(0,214,143,.18)}.btn-purple{background:linear-gradient(135deg,#a15cff,#6730e6)}
+.history-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:20px}.history{border:1px solid #123a57;border-radius:20px;background:#071a2c;overflow:hidden}.history-head{height:65px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #12344c}.history-head h3{font-size:16px}.view{color:#58b7ff;font-size:11px;font-weight:800}.table{width:100%;overflow:auto}.row{min-width:620px;display:grid;grid-template-columns:50px 1fr 1fr 1.3fr 90px;padding:13px 18px;border-bottom:1px solid #0d2b42;font-size:11px;align-items:center}.row.head{color:#7891a9;font-size:10px;background:#081e31}.success{justify-self:start;padding:5px 8px;border-radius:7px;background:#073e32;color:#38e5ad;font-size:9px;font-weight:800}
+.footer{margin-top:20px;border:1px solid #12445a;border-radius:18px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#071a2b,#08252b)}.footer b{font-size:15px}.footer small{display:block;color:#8299ae;margin-top:4px}.secure{color:#77e0bf;font-size:11px}
+.mobile-nav{display:none}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}.modal-bg.show{display:flex}.modal{width:min(430px,100%);background:#0b1c2e;border:1px solid #23506c;border-radius:22px;padding:25px;box-shadow:0 25px 80px #000}.modal h3{font-size:19px}.modal p{color:#91a8be;font-size:12px;line-height:1.55;margin-top:8px}.modal-actions{display:flex;gap:10px;margin-top:20px}.modal-actions button{flex:1;height:44px;border-radius:11px;font-weight:800}.no{background:#162638;color:#b9c8d8}.yes{background:#00c98a;color:#fff}.success-popup-bg{position:fixed;inset:0;background:rgba(2,10,18,.82);display:none;align-items:center;justify-content:center;z-index:400;padding:18px;backdrop-filter:blur(9px)}
+.success-popup-bg.show{display:flex}
+.success-popup{position:relative;width:min(430px,100%);padding:30px 24px 24px;border-radius:30px;background:linear-gradient(145deg,#09241f,#071923);border:1px solid rgba(0,214,143,.34);box-shadow:0 30px 100px rgba(0,0,0,.62);text-align:center;overflow:hidden;animation:successIn .38s ease both}
+.success-ring{width:88px;height:88px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;background:rgba(0,214,143,.11);border:2px solid #00d68f;box-shadow:0 0 35px rgba(0,214,143,.25);animation:successRing .7s ease both}
+.success-check{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#00e39b,#00a66d);color:#fff;font-size:38px;font-weight:900;animation:checkPop .5s ease .2s both}
+.success-popup h2{font-size:26px;color:#fff;margin:2px 0 5px}
+.success-title{font-size:12px;color:#83a99d;margin-bottom:18px}
+.success-detail-card{padding:8px 14px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);text-align:left}
+.detail-row{min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);font-size:12px}
+.detail-row:last-child{border-bottom:0}
+.detail-row span{color:#8299a8}.detail-row strong{color:#eef9f5;text-align:right}
+.detail-row .success-green{color:#36e2a3}
+.success-close{width:100%;height:47px;margin-top:17px;border:0;border-radius:14px;background:linear-gradient(135deg,#00c98a,#00a96f);color:#fff;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(0,201,138,.18)}
+.success-confetti{position:absolute;width:7px;height:17px;border-radius:5px;opacity:0;animation:confettiDrop .8s ease .15s both}
+.confetti-a{left:16%;top:25%;transform:rotate(22deg)}.confetti-b{right:17%;top:29%;transform:rotate(-28deg)}.confetti-c{left:26%;top:14%;transform:rotate(60deg)}
+@keyframes successIn{from{transform:translateY(20px) scale(.94);opacity:0}to{transform:none;opacity:1}}
+@keyframes successRing{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes checkPop{from{transform:scale(.45);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes confettiDrop{0%{transform:translateY(-16px) rotate(0);opacity:0}35%{opacity:1}100%{transform:translateY(55px) rotate(100deg);opacity:0}}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:13px 20px;border-radius:12px;background:#0d3d32;border:1px solid #00c98a;color:#cffff0;font-weight:800;font-size:12px;z-index:200;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}.convert-animation-bg{position:fixed;inset:0;background:rgba(2,10,18,.82);display:none;align-items:center;justify-content:center;z-index:300;padding:18px;backdrop-filter:blur(8px)}
+.convert-animation-bg.show{display:flex}
+.convert-animation{width:min(390px,100%);padding:30px 24px;border-radius:26px;background:linear-gradient(145deg,#0b2432,#071721);border:1px solid #1b5a59;box-shadow:0 25px 90px rgba(0,0,0,.55);text-align:center}
+.convert-animation .check{width:72px;height:72px;margin:0 auto 15px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#00e39b,#00a66d);font-size:38px;font-weight:900;box-shadow:0 0 35px rgba(0,214,143,.3);animation:popCheck .55s ease .95s both}
+.convert-animation h2{font-size:22px}.convert-animation p{margin-top:6px;color:#8fa8ba;font-size:12px}
+.transfer-scene{height:125px;margin:22px 0 12px;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.transfer-side{width:76px;height:76px;border-radius:20px;display:grid;place-items:center;font-size:28px;font-weight:900;position:relative;z-index:2}
+.transfer-token{background:rgba(0,214,143,.12);border:1px solid #00b986;color:#5ff1c0}
+.transfer-rupee{background:rgba(22,140,255,.13);border:1px solid #168cff;color:#7bc3ff}
+.transfer-line{position:absolute;left:82px;right:82px;top:61px;height:3px;background:linear-gradient(90deg,#00d68f,#168cff);opacity:.28;border-radius:4px}
+.token-particle{position:absolute;left:90px;top:49px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#00c98a;color:#fff;font-size:14px;font-weight:900;box-shadow:0 0 18px rgba(0,214,143,.55);animation:tokenTravel 1.05s ease-in-out infinite}
+.rupee-rise{position:absolute;right:90px;top:48px;font-size:18px;font-weight:900;color:#78c6ff;opacity:0;animation:rupeeRise .7s ease-in-out infinite alternate}
+.convert-numbers{display:flex;justify-content:center;gap:28px;margin-top:4px}
+.convert-numbers div{min-width:105px}.convert-numbers small{display:block;color:#829caf;font-size:9px}.convert-numbers strong{display:block;margin-top:4px;font-size:18px}
+@keyframes tokenTravel{0%{left:88px;opacity:0;transform:scale(.75)}15%{opacity:1}50%{transform:scale(1.05)}85%{opacity:1}100%{left:calc(100% - 116px);opacity:0;transform:scale(.7)}}
+@keyframes rupeeRise{from{transform:translateY(9px);opacity:.2}to{transform:translateY(-12px);opacity:1}}
+@keyframes popCheck{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+@media(max-width:760px){.topbar{justify-content:flex-end}.profile{min-width:150px}}
+@media(max-width:1100px){.cards{grid-template-columns:1fr 1fr}.deposit{grid-column:1/-1}.history-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+ .sidebar{display:none}.main{margin-left:0;width:100%}.topbar{height:18px;padding:0;justify-content:flex-end}.content{padding:20px 15px 88px}.heading h1{font-size:28px}.cards{grid-template-columns:1fr;gap:13px;margin-top:19px}.deposit{grid-column:auto}.card{min-height:235px;padding:18px}.amount{font-size:31px}.history-grid{margin-top:14px}.history-head{height:58px}.mobile-nav{position:fixed;display:flex;left:0;right:0;bottom:0;height:68px;background:rgba(6,17,29,.97);border-top:1px solid #17354c;z-index:50;backdrop-filter:blur(14px)}.mobile-nav a{flex:1;text-decoration:none;color:#8093a8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px}.mobile-nav a.active{color:#00d995}.mobile-nav span:first-child{font-size:20px}.footer{margin-top:14px;padding:16px}.secure{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">G</div>
+    <div><div class="logo-name">Global<span>Pay</span></div><div class="logo-sub">More Tokens · More Rewards</div></div>
+  </div>
+  <nav class="nav">
+    <a href="home.html"><span class="nicon">⌂</span>Home</a>
+    <a href="buy.html"><span class="nicon">▣</span>Buy Token</a>
+    <a href="my.html"><span class="nicon">▤</span>My Plans</a>
+    <a class="active" href="wallet.html"><span class="nicon">▱</span>Wallet</a>
+    <a href="rewards.html"><span class="nicon">◇</span>Rewards</a>
+    <a href="refer.html"><span class="nicon">♙</span>Refer & Earn</a>
+    <a href="support.html"><span class="nicon">◉</span>Support</a>
+    <a href="profile.html"><span class="nicon">●</span>Profile</a>
+    <a href="settings.html"><span class="nicon">⚙</span>Settings</a>
+  </nav>
+  <div class="side-bottom">
+    <div class="side-card"><strong>Grow Together</strong><small>Invite friends and get more rewards.</small></div>
+    <button class="logout" onclick="location.href='login.html'">⇥ &nbsp; Log Out</button>
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar"></header>
+
+<section class="content">
+  <div class="heading"><h1>Wallet</h1><p>Manage your balance, convert tokens and withdraw your earnings</p></div>
+
+  <div class="cards">
+    <article class="card withdraw">
+      <div class="card-head"><div class="card-icon">▱</div><div><h2>Withdrawal Balance</h2><p>Your available balance</p></div></div>
+      <div class="amount" id="cashBalance">₹ 0.00</div>
+      <div class="label">Available for withdrawal</div>
+      <div class="pill">↑ Ready for withdrawal</div>
+      <button class="btn btn-blue" onclick="location.href='Withdraw.html'">Withdraw&nbsp; →</button>
+    </article>
+
+    <article class="card convert">
+      <div class="card-head"><div class="card-icon"><span class="token-logo">T</span></div><div><h2>Token to Rupee Convert</h2><p>Convert your tokens into money</p></div></div>
+      <div class="convert-box"><div><div class="label">Available Tokens</div><div class="token-big"><span id="convertTokens">0</span> T</div><div class="rate">1 Token = ₹1</div></div><div class="swap">T → ₹</div></div>
+      <button class="btn btn-green" onclick="openConvert()">⇄ &nbsp; Convert</button>
+    </article>
+
+    <article class="card deposit">
+      <div class="card-head"><div class="card-icon">＋</div><div><h2>Deposit Tokens</h2><p>Add tokens to your wallet</p></div></div>
+      <div class="amount" id="deposited">0 T</div>
+      <div class="label">Total deposited tokens</div>
+      <div class="pill" style="background:rgba(139,77,255,.13);border-color:#6335a9;color:#c29dff">Secure Deposit</div>
+      <button class="btn btn-purple" onclick="location.href='deposit.html'">＋ &nbsp; Add Token&nbsp; →</button>
+    </article>
+  </div>
+
+  <div class="history-grid">
+    <section class="history">
+      <div class="history-head"><h3>Conversion History</h3><span class="view">View All</span></div>
+      <div class="table" id="conversionHistory">
+        <div class="row head" style="grid-template-columns:60px 1fr 1.5fr"><span>#</span><span>Converted</span><span>Date & Time</span></div>
+      </div>
+    </section>
+    <section class="history">
+      <div class="history-head"><h3>▣ &nbsp; Recent Deposits</h3><span class="view">View All</span></div>
+      <div class="table" id="depositHistory">
+        <div class="row head" style="grid-template-columns:50px 1fr 1fr 1.3fr"><span>#</span><span>Token Amount</span><span>Status</span><span>Date & Time</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer"><div><b>GlobalPay</b><small>Your Trust · Our Priority</small></div><div class="secure">Secure &nbsp;|&nbsp; Fast &nbsp;|&nbsp; Reliable</div></div>
+</section>
+</main>
+</div>
+
+<nav class="mobile-nav">
+<a href="home.html"><span>⌂</span>Home</a>
+<a href="buy.html"><span>▣</span>Buy</a>
+<a href="rewards.html"><span>◇</span>Rewards</a>
+<a class="active" href="wallet.html"><span>▱</span>Wallet</a>
+<a href="my.html"><span>●</span>My</a>
+</nav>
+
+<div class="modal-bg" id="convertModal" onclick="if(event.target===this) closeConvert()">
+  <div class="modal">
+    <h3>Confirm Conversion</h3>
+    <p>Are you sure you want to convert your available tokens into rupees?</p>
+    <div style="margin-top:16px;padding:14px;border-radius:13px;background:#0d2633;border:1px solid #155340">
+      <div style="color:#8fa9b9;font-size:10px">CONVERT</div>
+      <div style="font-size:23px;font-weight:900;margin-top:5px"><span id="modalTokens">0</span> Token → ₹<span id="modalRupees">0</span></div>
+    </div>
+    <div class="modal-actions"><button class="no" onclick="closeConvert()">No</button><button class="yes" onclick="confirmConvert()">Yes, Convert</button></div>
+  </div>
+</div>
+
+<div class="convert-animation-bg" id="convertAnimation">
+  <div class="convert-animation">
+    <div class="check">✓</div>
+    <h2>Conversion Successful</h2>
+    <p>Your tokens are being converted into rupees.</p>
+    <div class="transfer-scene">
+      <div class="transfer-side transfer-token">T</div>
+      <div class="transfer-line"></div>
+      <div class="token-particle">T</div>
+      <div class="rupee-rise">₹</div>
+      <div class="transfer-side transfer-rupee">₹</div>
+    </div>
+    <div class="convert-numbers">
+      <div><small>TOKEN USED</small><strong id="animToken">0 T</strong></div>
+      <div><small>ADDED TO BALANCE</small><strong id="animRupee">₹0</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="success-popup-bg" id="successPopup">
+  <div class="success-popup">
+    <div class="success-ring">
+      <div class="success-check">✓</div>
+    </div>
+    <div class="success-confetti confetti-a"></div>
+    <div class="success-confetti confetti-b"></div>
+    <div class="success-confetti confetti-c"></div>
+    <h2>Congratulations!</h2>
+    <p class="success-title">Conversion Successfully Completed</p>
+
+    <div class="success-detail-card">
+      <div class="detail-row"><span>Status</span><strong class="success-green">Successful</strong></div>
+      <div class="detail-row"><span>Converted Token</span><strong id="successToken">0 T</strong></div>
+      <div class="detail-row"><span>Added Money</span><strong id="successRupee">₹0</strong></div>
+      <div class="detail-row"><span>Date</span><strong id="successDate">—</strong></div>
+      <div class="detail-row"><span>Time</span><strong id="successTime">—</strong></div>
+      <div class="detail-row"><span>Transaction ID</span><strong id="successTxn">—</strong></div>
+    </div>
+
+    <button class="success-close" onclick="closeSuccess()">Done</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Conversion successful</div>
+
+<script>
+const TOKEN_KEYS=["wallet_tokens","walletToken","globalpay_tokens","tokens","balance_tokens"];
+const CASH_KEYS=["wallet_rupees","wallet_balance","globalpay_balance","cash_balance"];
+function num(v){const n=parseFloat(v);return Number.isFinite(n)?n:0}
+function getFirst(keys){for(const k of keys){const v=localStorage.getItem(k);if(v!==null)return num(v)}return 0}
+function setWallet(v){localStorage.setItem("wallet_tokens",String(Math.max(0,v)));localStorage.setItem("walletToken",String(Math.max(0,v)))}
+function setCash(v){localStorage.setItem("wallet_rupees",String(Math.max(0,v)));localStorage.setItem("wallet_balance",String(Math.max(0,v)))}
+function getUser(){
+ try{return JSON.parse(localStorage.getItem("globalpay_user")||"null")||{}}catch(e){return {}}
+}
+function fmt(n){return Number(n).toLocaleString("en-IN",{maximumFractionDigits:2})}
+function refresh(){
+ const t=getFirst(TOKEN_KEYS), c=getFirst(CASH_KEYS);
+ document.getElementById("convertTokens").textContent=fmt(t);
+ document.getElementById("cashBalance").textContent="₹ "+fmt(c);
+ document.getElementById("deposited").textContent=fmt(num(localStorage.getItem("globalpay_total_deposited")||0))+" T";
+ renderHistory();
+}
+function renderHistory(){
+ let h=[];
+ try{h=JSON.parse(localStorage.getItem("globalpay_conversion_history")||"[]")}catch(e){}
+ const box=document.getElementById("conversionHistory");
+ box.innerHTML='<div class="row head" style="grid-template-columns:60px 1fr 1.5fr"><span>#</span><span>Converted</span><span>Date & Time</span></div>';
+ const completed=h.filter(x=>x && Number(x.tokens)>0 && Number(x.rupees)>=0 && x.date).slice().sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
+ completed.forEach((x,i)=>{
+   box.insertAdjacentHTML("beforeend",`<div class="row" style="grid-template-columns:60px 1fr 1.5fr"><span>${i+1}</span><span><b style="color:#53eab6">T</b> ${fmt(x.tokens)} → ₹${fmt(x.rupees)}</span><span>${x.date}</span></div>`);
+ });
+ if(!completed.length)box.insertAdjacentHTML("beforeend",'<div style="padding:25px;text-align:center;color:#71889f;font-size:11px">No conversion history yet.</div>');
+ let d=[];try{d=JSON.parse(localStorage.getItem("globalpay_deposit_history")||"[]")}catch(e){}
+ const db=document.getElementById("depositHistory");
+ db.innerHTML='<div class="row head" style="grid-template-columns:50px 1fr 1fr 1.3fr"><span>#</span><span>Token Amount</span><span>Status</span><span>Date & Time</span></div>';
+ d.slice().reverse().forEach((x,i)=>db.insertAdjacentHTML("beforeend",`<div class="row" style="grid-template-columns:50px 1fr 1fr 1.3fr"><span>${i+1}</span><span><b style="color:#53eab6">T</b> ${fmt(x.tokens)} Token</span><span class="success">Completed</span><span>${x.date}</span></div>`));
+ if(!d.length)db.insertAdjacentHTML("beforeend",'<div style="padding:25px;text-align:center;color:#71889f;font-size:11px">No deposits yet.</div>');
+}
+function openConvert(){
+ const t=getFirst(TOKEN_KEYS);
+ if(t<=0){showToast("No Token available to convert");return}
+ document.getElementById("modalTokens").textContent=fmt(t);
+ document.getElementById("modalRupees").textContent=fmt(t);
+ document.getElementById("convertModal").classList.add("show");
+}
+function closeConvert(){document.getElementById("convertModal").classList.remove("show")}
+function playConvertSound(){
+  try{
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if(!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    [523.25,659.25,783.99].forEach((freq,i)=>{
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, now + i*0.12);
+      gain.gain.exponentialRampToValueAtTime(0.13, now + i*0.12 + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i*0.12 + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i*0.12);
+      osc.stop(now + i*0.12 + 0.27);
+    });
+    setTimeout(()=>ctx.close().catch(()=>{}),900);
+  }catch(e){}
+}
+
+let converting = false;
+
+function playConvertSound(){
+  try{
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if(!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    [523.25,659.25,783.99,1046.5].forEach((freq,i)=>{
+      const osc=ctx.createOscillator(), gain=ctx.createGain();
+      osc.type="sine"; osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0.0001,now+i*.11);
+      gain.gain.exponentialRampToValueAtTime(.13,now+i*.11+.025);
+      gain.gain.exponentialRampToValueAtTime(.0001,now+i*.11+.28);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(now+i*.11); osc.stop(now+i*.11+.3);
+    });
+    setTimeout(()=>ctx.close().catch(()=>{}),1200);
+  }catch(e){}
+}
+
+let converting=false;
+
+function confirmConvert(){
+  if(converting) return;
+
+  const t=getFirst(TOKEN_KEYS);
+  if(t<=0){
+    closeConvert();
+    showToast("No Token available to convert");
+    return;
+  }
+
+  const c=getFirst(CASH_KEYS);
+  converting=true;
+  closeConvert();
+
+  const animation=document.getElementById("convertAnimation");
+  document.getElementById("animToken").textContent=fmt(t)+" T";
+  document.getElementById("animRupee").textContent="₹"+fmt(t);
+  animation.classList.add("show");
+  playConvertSound();
+
+  setTimeout(()=>{
+    setWallet(0);
+    setCash(c+t);
+
+    const now=new Date();
+    const date=now.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
+    const time=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
+    const stamp=now.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
+    const txn="CVT-"+now.getTime().toString().slice(-10);
+
+    let h=[];
+    try{
+      h=JSON.parse(localStorage.getItem("globalpay_conversion_history")||"[]");
+      if(!Array.isArray(h)) h=[];
+    }catch(e){h=[]}
+
+    h.push({
+      tokens:t,
+      rupees:t,
+      date:stamp,
+      timestamp:now.getTime()
+    });
+    localStorage.setItem("globalpay_conversion_history",JSON.stringify(h));
+
+    refresh();
+
+    document.getElementById("successToken").textContent=fmt(t)+" T";
+    document.getElementById("successRupee").textContent="₹"+fmt(t);
+    document.getElementById("successDate").textContent=date;
+    document.getElementById("successTime").textContent=time;
+    document.getElementById("successTxn").textContent=txn;
+
+    setTimeout(()=>{
+      animation.classList.remove("show");
+      document.getElementById("successPopup").classList.add("show");
+      converting=false;
+    },500);
+  },1900);
+}
+
+function closeSuccess(){
+  document.getElementById("successPopup").classList.remove("show");
+}
+
+function showToast(s){const x=document.getElementById("toast");x.textContent=s;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2600)}
+refresh();
+</script>
+</body>
+</html>
