@@ -1,0 +1,4089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay - Subscription</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.page{
+    min-height:100vh;
+    padding-bottom:92px;
+    background:linear-gradient(180deg,#f8fbff,#f2f6fb);
+}
+
+.container{
+    width:calc(100% - 20px);
+    max-width:620px;
+    margin:auto;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.brand-logo{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    background:linear-gradient(145deg,#168cff,#0644b7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 16px rgba(13,93,190,.20);
+}
+
+.brand-logo svg{
+    width:27px;
+    height:27px;
+}
+
+.brand-name{
+    font-size:20px;
+    font-weight:900;
+    color:#102b63;
+}
+
+.brand-name span{
+    color:#168cff;
+}
+
+.brand-sub{
+    margin-top:3px;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:#8a9ab4;
+}
+
+.header-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:5px;
+}
+
+.language-btn,
+.plan-top-btn{
+    height:29px;
+    padding:0 10px;
+    border:1px solid #c8dbf2;
+    border-radius:18px;
+    background:#fff;
+    color:#173b79;
+    font-size:10px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.language-btn svg,
+.plan-top-btn svg{
+    width:13px;
+    height:13px;
+}
+
+.plan-top-btn{
+    background:#edf5ff;
+}
+
+.language-menu{
+    position:absolute;
+    top:62px;
+    right:10px;
+    width:125px;
+    background:#fff;
+    border:1px solid #e2eaf4;
+    border-radius:13px;
+    box-shadow:0 12px 35px rgba(30,65,110,.15);
+    overflow:hidden;
+    display:none;
+    z-index:1000;
+}
+
+.language-menu.show{
+    display:block;
+}
+
+.language-menu button{
+    width:100%;
+    height:40px;
+    border:0;
+    background:#fff;
+    color:#263b5d;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* ================= WALLET ================= */
+
+.wallet{
+    position:relative;
+    overflow:hidden;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#0b398d,#086be2,#168cff);
+    box-shadow:0 13px 30px rgba(8,81,170,.20);
+}
+
+.wallet:before{
+    content:"";
+    position:absolute;
+    width:210px;
+    height:210px;
+    right:-90px;
+    top:-115px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.12);
+}
+
+.wallet-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.wallet-label{
+    font-size:11px;
+    font-weight:700;
+    color:#bcd8ff;
+}
+
+.wallet-title{
+    margin-top:4px;
+    font-size:13px;
+    font-weight:800;
+    color:#fff;
+}
+
+.wallet-value{
+    margin-top:5px;
+    font-size:34px;
+    line-height:1;
+    font-weight:900;
+    color:#fff;
+}
+
+.wallet-token{
+    font-size:13px;
+    margin-left:3px;
+}
+
+.wallet-icon{
+    width:54px;
+    height:54px;
+    border-radius:17px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.wallet-icon svg{
+    width:30px;
+    height:30px;
+}
+
+.wallet-bottom{
+    position:relative;
+    z-index:2;
+    margin-top:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.wallet-note{
+    font-size:9px;
+    color:#cfe3ff;
+}
+
+.wallet-link{
+    border:0;
+    background:rgba(255,255,255,.13);
+    color:#fff;
+    border-radius:9px;
+    padding:7px 10px;
+    font-size:9px;
+    font-weight:800;
+}
+
+/* ================= MY PLAN SHORT ================= */
+
+.my-plan{
+    margin-top:13px;
+    padding:14px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#fff,#f4f8fd);
+    border:1px solid #dce7f5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 5px 16px rgba(28,57,92,.05);
+}
+
+.my-plan-left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.plan-status-icon{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:#edf3fa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.plan-status-icon svg{
+    width:23px;
+    height:23px;
+}
+
+.my-plan-label{
+    font-size:9px;
+    font-weight:700;
+    color:#8997aa;
+}
+
+.my-plan-name{
+    margin-top:3px;
+    font-size:14px;
+    font-weight:900;
+    color:#122c5d;
+}
+
+.my-plan-sub{
+    margin-top:3px;
+    font-size:9px;
+    color:#8997aa;
+}
+
+.view-plan{
+    height:35px;
+    padding:0 12px;
+    border:1px solid #c8dbf3;
+    border-radius:20px;
+    background:#eef6ff;
+    color:#16478f;
+    font-size:10px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.view-plan svg{
+    width:13px;
+    height:13px;
+}
+
+/* ================= SECTION ================= */
+
+.section-header{
+    margin-top:22px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+}
+
+.section-title{
+    font-size:19px;
+    font-weight:900;
+    color:#112e65;
+}
+
+.section-subtitle{
+    margin-top:3px;
+    font-size:10px;
+    color:#8492a6;
+}
+
+.days-badge{
+    padding:7px 10px;
+    border-radius:20px;
+    background:#eaf2fb;
+    color:#47678e;
+    font-size:9px;
+    font-weight:800;
+}
+
+/* ================= PLAN SECTION ================= */
+
+.plan-section,
+.golden-section{
+    padding:14px;
+    border-radius:21px;
+    background:linear-gradient(145deg,#fafdff,#eef4fa);
+    border:1px solid #d9e5f1;
+    box-shadow:0 7px 20px rgba(31,59,91,.05);
+}
+
+.golden-section{
+    margin-top:14px;
+    background:linear-gradient(145deg,#fffaf0,#fff4d7);
+    border-color:#f0d28a;
+}
+
+.plan-section-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:13px;
+}
+
+.category-icon{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:linear-gradient(145deg,#dce4ed,#9aa9bb);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.category-icon svg{
+    width:24px;
+    height:24px;
+}
+
+.golden-icon{
+    background:linear-gradient(145deg,#ffe89a,#d99809);
+}
+
+.category-name{
+    font-size:14px;
+    font-weight:900;
+    color:#17376d;
+}
+
+.category-desc{
+    margin-top:3px;
+    font-size:9px;
+    color:#8997aa;
+}
+
+/* ================= PLANS ================= */
+
+.plans-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.plan-card{
+    width:100%;
+    min-height:105px;
+    padding:13px;
+    border-radius:17px;
+    background:#fff;
+    border:1px solid #d7e2ee;
+    box-shadow:0 5px 12px rgba(35,62,94,.05);
+    position:relative;
+    display:grid;
+    grid-template-columns:95px 1fr 100px;
+    align-items:center;
+    gap:10px;
+}
+
+.plan-card.free{
+    border-color:#72cfa0;
+}
+
+.golden-card{
+    border-color:#eed28e;
+    background:#fffdf7;
+}
+
+.free-badge{
+    position:absolute;
+    left:10px;
+    top:-8px;
+    padding:4px 8px;
+    border-radius:10px;
+    background:#18a96b;
+    color:#fff;
+    font-size:8px;
+    font-weight:900;
+}
+
+.plan-price{
+    font-size:21px;
+    font-weight:900;
+    color:#102f68;
+}
+
+.plan-price small{
+    display:block;
+    margin-top:2px;
+    font-size:9px;
+    font-weight:700;
+    color:#71839e;
+}
+
+.plan-info{
+    min-width:0;
+}
+
+.plan-reward{
+    padding:9px 8px;
+    border-radius:10px;
+    background:#f0f6fc;
+    color:#315681;
+    font-size:10px;
+    font-weight:800;
+}
+
+.golden-reward{
+    background:#fff3d3;
+    color:#8a6418;
+}
+
+.plan-duration{
+    margin-top:7px;
+    font-size:9px;
+    color:#8290a2;
+}
+
+.buy-btn{
+    width:100%;
+    height:38px;
+    border:0;
+    border-radius:19px;
+    background:linear-gradient(135deg,#073c9d,#0a65d5);
+    color:#fff;
+    font-size:10px;
+    font-weight:900;
+    box-shadow:0 5px 10px rgba(7,73,160,.18);
+}
+
+.free-btn{
+    background:#112f62;
+}
+
+.golden-buy{
+    background:linear-gradient(135deg,#d38b00,#f0ad13);
+}
+
+/* ================= BENEFITS ================= */
+
+.benefits{
+    margin-top:15px;
+    padding:13px;
+    border-radius:18px;
+    background:#fff;
+    border:1px solid #dfe8f2;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+}
+
+.benefit{
+    text-align:center;
+}
+
+.benefit-icon{
+    width:32px;
+    height:32px;
+    margin:auto;
+    border-radius:10px;
+    background:#eaf3fd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.benefit-icon svg{
+    width:18px;
+    height:18px;
+}
+
+.benefit-title{
+    margin-top:5px;
+    font-size:8px;
+    font-weight:900;
+    color:#27476f;
+}
+
+.benefit-sub{
+    margin-top:2px;
+    font-size:7px;
+    color:#8a98a9;
+}
+
+/* ================= MODALS ================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(5,22,45,.45);
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:500;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:100%;
+    max-width:620px;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:18px 16px 22px;
+    border-radius:25px 25px 0 0;
+    background:#fff;
+    box-shadow:0 -10px 40px rgba(0,0,0,.18);
+    animation:slideUp .22s ease;
+}
+
+@keyframes slideUp{
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:translateY(0);
+    }
+}
+
+.modal-handle{
+    width:42px;
+    height:4px;
+    margin:0 auto 15px;
+    border-radius:5px;
+    background:#dce3eb;
+}
+
+.modal-title{
+    font-size:19px;
+    font-weight:900;
+    color:#122f65;
+}
+
+.modal-subtitle{
+    margin-top:4px;
+    font-size:10px;
+    color:#8997aa;
+}
+
+/* ================= SUBSCRIPTION HISTORY ================= */
+
+.subscription-list{
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.subscription-item{
+    padding:13px;
+    border-radius:16px;
+    background:#f6f9fd;
+    border:1px solid #dce7f2;
+}
+
+.subscription-item.golden-history{
+    background:#fffaf0;
+    border-color:#eed28e;
+}
+
+.subscription-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+}
+
+.subscription-name{
+    font-size:13px;
+    font-weight:900;
+    color:#17376d;
+}
+
+.subscription-status{
+    padding:5px 8px;
+    border-radius:10px;
+    font-size:8px;
+    font-weight:900;
+}
+
+.status-active{
+    background:#e5f8ed;
+    color:#168353;
+}
+
+.status-expired{
+    background:#f2f3f5;
+    color:#7c8794;
+}
+
+.subscription-grid{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.subscription-detail{
+    padding:8px;
+    border-radius:10px;
+    background:#fff;
+}
+
+.subscription-detail-label{
+    font-size:8px;
+    color:#8a98a9;
+}
+
+.subscription-detail-value{
+    margin-top:3px;
+    font-size:10px;
+    font-weight:900;
+    color:#254675;
+}
+
+.subscription-claim{
+    margin-top:10px;
+    padding:9px;
+    border-radius:11px;
+    background:#eaf4ff;
+    color:#17569d;
+    font-size:9px;
+    font-weight:800;
+}
+
+.subscription-claim.claimed{
+    background:#eef1f4;
+    color:#788594;
+}
+
+.empty-plan{
+    margin-top:14px;
+    padding:22px 15px;
+    border-radius:16px;
+    text-align:center;
+    background:#f6f8fb;
+    border:1px solid #e1e7ee;
+}
+
+.empty-plan-title{
+    font-size:13px;
+    font-weight:900;
+    color:#5d6c80;
+}
+
+.empty-plan-sub{
+    margin-top:5px;
+    font-size:9px;
+    color:#909cab;
+}
+
+/* ================= CLAIM BUTTON ================= */
+
+.claim-btn{
+    width:100%;
+    height:45px;
+    margin-top:13px;
+    border:0;
+    border-radius:13px;
+    background:#0b4eb5;
+    color:#fff;
+    font-size:13px;
+    font-weight:900;
+}
+
+.claim-btn:disabled{
+    opacity:.45;
+}
+
+/* ================= CLOSE ================= */
+
+.close-btn{
+    width:100%;
+    height:42px;
+    margin-top:8px;
+    border:1px solid #dce5ef;
+    border-radius:13px;
+    background:#fff;
+    color:#53647b;
+    font-size:12px;
+    font-weight:800;
+}
+
+/* ================= CONFIRM ================= */
+
+.confirm-center{
+    align-items:center;
+    padding:18px;
+}
+
+.confirm-modal{
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:22px;
+    padding:20px;
+    background:#fff;
+    box-shadow:0 20px 60px rgba(0,0,0,.20);
+}
+
+.confirm-icon{
+    width:48px;
+    height:48px;
+    margin:auto;
+    border-radius:15px;
+    background:#edf5ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.confirm-icon svg{
+    width:26px;
+    height:26px;
+}
+
+.confirm-title{
+    margin-top:11px;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    color:#132f67;
+}
+
+.confirm-text{
+    margin-top:6px;
+    text-align:center;
+    font-size:12px;
+    line-height:1.5;
+    color:#7f8b9a;
+}
+
+.confirm-info{
+    margin-top:13px;
+    padding:12px;
+    border-radius:13px;
+    background:#f5f8fc;
+}
+
+.confirm-line{
+    display:flex;
+    justify-content:space-between;
+    padding:5px 0;
+    font-size:11px;
+}
+
+.confirm-line span:first-child{
+    color:#8793a3;
+}
+
+.confirm-line span:last-child{
+    font-weight:900;
+    color:#19386a;
+}
+
+.confirm-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:14px;
+}
+
+.confirm-cancel,
+.confirm-buy{
+    height:43px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:900;
+}
+
+.confirm-cancel{
+    border:1px solid #dce5ef;
+    background:#fff;
+    color:#5f7085;
+}
+
+.confirm-buy{
+    border:0;
+    background:#0b4eb5;
+    color:#fff;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:82px;
+    transform:translate(-50%,20px);
+    padding:10px 15px;
+    border-radius:11px;
+    background:#102f62;
+    color:#fff;
+    font-size:11px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.22s;
+    z-index:999;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+.error-box{
+    display:none;
+    margin-top:15px;
+    padding:13px;
+    border-radius:13px;
+    background:#fff3f3;
+    border:1px solid #fecaca;
+    color:#c62828;
+    text-align:center;
+    font-size:11px;
+}
+
+.error-box.show{
+    display:block;
+}
+
+/* ================= BOTTOM NAV ================= */
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:620px;
+    height:76px;
+    padding:8px 8px 7px;
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #e1e8f1;
+    box-shadow:0 -8px 25px rgba(33,60,92,.07);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    z-index:200;
+}
+
+.nav-btn{
+    border:0;
+    background:transparent;
+    color:#71839d;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    font-size:9px;
+    font-weight:800;
+    position:relative;
+}
+
+.nav-icon{
+    width:35px;
+    height:35px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-icon svg{
+    width:20px;
+    height:20px;
+}
+
+.nav-btn.active{
+    color:#0b61cf;
+}
+
+.nav-btn.active .nav-icon{
+    background:#eaf4ff;
+    color:#0b61cf;
+}
+
+.nav-btn.buy-nav .nav-icon{
+    width:43px;
+    height:43px;
+    margin-top:-15px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#087cff,#0647bd);
+    color:#fff;
+    box-shadow:0 6px 15px rgba(8,104,220,.28);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:420px){
+
+    .plan-card{
+        grid-template-columns:78px 1fr 88px;
+        gap:8px;
+        padding:11px;
+    }
+
+    .plan-price{
+        font-size:18px;
+    }
+
+    .plan-reward{
+        font-size:9px;
+    }
+
+    .buy-btn{
+        font-size:9px;
+    }
+
+}
+
+@media(max-width:350px){
+
+    .plan-card{
+        grid-template-columns:70px 1fr 78px;
+    }
+
+    .plan-price{
+        font-size:16px;
+    }
+
+    .subscription-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="brand">
+
+<div class="brand-logo">
+
+<svg viewBox="0 0 40 40"
+     fill="none"
+     stroke="white"
+     stroke-width="2.4">
+
+<circle cx="20" cy="20" r="13"/>
+<path d="M10 20h15"/>
+<path d="M20 11v18"/>
+<path d="M25 11l5-4"/>
+<circle cx="30" cy="7" r="2.2"
+        fill="white"
+        stroke="none"/>
+
+</svg>
+
+</div>
+
+<div>
+
+<div class="brand-name">
+Global<span>Pay</span>
+</div>
+
+<div class="brand-sub">
+SECURE • FAST • GLOBAL
+</div>
+
+</div>
+
+</div>
+
+
+<div class="header-actions">
+
+<button class="language-btn"
+        onclick="toggleLanguage()">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2">
+
+<circle cx="12" cy="12" r="9"/>
+<path d="M3 12h18"/>
+<path d="M12 3c3 3 3 15 0 18"/>
+<path d="M12 3c-3 3-3 15 0 18"/>
+
+</svg>
+
+<span id="languageLabel">
+English
+</span>
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2">
+
+<path d="m7 10 5 5 5-5"/>
+
+</svg>
+
+</button>
+
+
+<button class="plan-top-btn"
+        onclick="openMyPlan()">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2">
+
+<circle cx="12" cy="7" r="3"/>
+<path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/>
+
+</svg>
+
+<span>
+My Plan
+</span>
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2">
+
+<path d="m9 18 6-6-6-6"/>
+
+</svg>
+
+</button>
+
+</div>
+
+</header>
+
+
+<div class="language-menu"
+     id="languageMenu">
+
+<button onclick="setLanguage('en')">
+English
+</button>
+
+<button onclick="setLanguage('hi')">
+हिन्दी
+</button>
+
+</div>
+
+
+<!-- ================= WALLET ================= -->
+
+<section class="wallet">
+
+<div class="wallet-top">
+
+<div>
+
+<div class="wallet-label">
+Token Wallet
+</div>
+
+<div class="wallet-title">
+Available Token Balance
+</div>
+
+<div class="wallet-value">
+
+<span id="walletBalance">
+0
+</span>
+
+<span class="wallet-token">
+Tokens
+</span>
+
+</div>
+
+</div>
+
+
+<div class="wallet-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="white"
+     stroke-width="1.7">
+
+<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H20v14H6.5A2.5 2.5 0 0 1 4 16.5z"/>
+<path d="M4 8h13"/>
+<path d="M16 12h5"/>
+<circle cx="16" cy="12" r="1"/>
+
+</svg>
+
+</div>
+
+</div>
+
+
+<div class="wallet-bottom">
+
+<div class="wallet-note">
+Use tokens to activate a subscription
+</div>
+
+<button class="wallet-link"
+        onclick="showToast('Token Wallet')">
+
+Token Wallet
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= MY PLAN PREVIEW ================= -->
+
+<section class="my-plan"
+         onclick="openMyPlan()">
+
+<div class="my-plan-left">
+
+<div class="plan-status-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#7890ad"
+     stroke-width="1.8">
+
+<path d="M12 3l2.8 5.7L21 9.6l-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6z"/>
+
+</svg>
+
+</div>
+
+
+<div>
+
+<div class="my-plan-label">
+My Plan
+</div>
+
+<div class="my-plan-name"
+     id="myPlanName">
+
+No Active Plan
+
+</div>
+
+<div class="my-plan-sub"
+     id="myPlanSub">
+
+Tap View Plan to see subscriptions
+
+</div>
+
+</div>
+
+</div>
+
+
+<button class="view-plan"
+        onclick="event.stopPropagation();openMyPlan()">
+
+View Plan
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2">
+
+<path d="m9 18 6-6-6-6"/>
+
+</svg>
+
+</button>
+
+</section>
+
+
+<!-- ================= SILVER ================= -->
+
+<div class="section-header">
+
+<div>
+
+<div class="section-title">
+Silver Subscription
+</div>
+
+<div class="section-subtitle">
+More Tokens • More Opportunities
+</div>
+
+</div>
+
+<div class="days-badge">
+1 Month
+</div>
+
+</div>
+
+
+<section class="plan-section">
+
+<div class="plan-section-head">
+
+<div class="category-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#52667d"
+     stroke-width="1.7">
+
+<circle cx="12" cy="12" r="8"/>
+<path d="m12 7 1.6 3.3L17 11l-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5L7 11l3.4-.7z"/>
+
+</svg>
+
+</div>
+
+
+<div>
+
+<div class="category-name">
+Silver
+</div>
+
+<div class="category-desc">
+Standard token subscriptions
+</div>
+
+</div>
+
+</div>
+
+
+<div class="plans-list">
+
+<!-- FREE -->
+
+<div class="plan-card free">
+
+<div class="free-badge">
+FREE
+</div>
+
+<div class="plan-price">
+5
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+5 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn free-btn"
+onclick="startPurchase('Silver Free',0,5,'Silver','free')">
+
+Get Free
+
+</button>
+
+</div>
+
+
+<!-- 299 -->
+
+<div class="plan-card">
+
+<div class="plan-price">
+299
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+20 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="startPurchase('Silver 299',299,20,'Silver','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<!-- 499 -->
+
+<div class="plan-card">
+
+<div class="plan-price">
+499
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+30 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="startPurchase('Silver 499',499,30,'Silver','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<!-- 799 -->
+
+<div class="plan-card">
+
+<div class="plan-price">
+799
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+50 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="startPurchase('Silver 799',799,50,'Silver','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<!-- 999 -->
+
+<div class="plan-card">
+
+<div class="plan-price">
+999
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+70 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="startPurchase('Silver 999',999,70,'Silver','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<!-- 1299 -->
+
+<div class="plan-card">
+
+<div class="plan-price">
+1,299
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward">
+85 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="startPurchase('Silver 1299',1299,85,'Silver','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= GOLDEN ================= -->
+
+<div class="section-header">
+
+<div>
+
+<div class="section-title">
+Golden Subscription
+</div>
+
+<div class="section-subtitle">
+Higher Rewards • Bigger Growth
+</div>
+
+</div>
+
+<div class="days-badge"
+     style="background:#fff0c9;color:#936d1b">
+
+1 Month
+
+</div>
+
+</div>
+
+
+<section class="golden-section">
+
+<div class="plan-section-head">
+
+<div class="category-icon golden-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#76520b"
+     stroke-width="1.7">
+
+<path d="M5 18h14"/>
+<path d="M6 18l1.5-8L12 14l4.5-4L18 18"/>
+<path d="M7.5 10 6 6l4 2 2-4 2 4 4-2-1.5 4"/>
+
+</svg>
+
+</div>
+
+
+<div>
+
+<div class="category-name">
+Golden
+</div>
+
+<div class="category-desc">
+Premium token subscriptions
+</div>
+
+</div>
+
+</div>
+
+
+<div class="plans-list">
+
+<div class="plan-card golden-card">
+
+<div class="plan-price">
+1,500
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward golden-reward">
+110 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn golden-buy"
+onclick="startPurchase('Golden 1500',1500,110,'Golden','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<div class="plan-card golden-card">
+
+<div class="plan-price">
+2,000
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward golden-reward">
+150 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn golden-buy"
+onclick="startPurchase('Golden 2000',2000,150,'Golden','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<div class="plan-card golden-card">
+
+<div class="plan-price">
+2,500
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward golden-reward">
+200 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn golden-buy"
+onclick="startPurchase('Golden 2500',2500,200,'Golden','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+
+<div class="plan-card golden-card">
+
+<div class="plan-price">
+3,000
+<small>Tokens</small>
+</div>
+
+<div class="plan-info">
+
+<div class="plan-reward golden-reward">
+250 Tokens / day
+</div>
+
+<div class="plan-duration">
+1 Month
+</div>
+
+</div>
+
+<button class="buy-btn golden-buy"
+onclick="startPurchase('Golden 3000',3000,250,'Golden','paid')">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BENEFITS ================= -->
+
+<section class="benefits">
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#1c5ca8"
+     stroke-width="2">
+
+<path d="M13 2 4 14h7l-1 8 10-13h-7z"/>
+
+</svg>
+
+</div>
+
+<div class="benefit-title">
+Use Tokens
+</div>
+
+<div class="benefit-sub">
+Subscription
+</div>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#1c5ca8"
+     stroke-width="2">
+
+<path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6z"/>
+<path d="m9 12 2 2 4-4"/>
+
+</svg>
+
+</div>
+
+<div class="benefit-title">
+Secure
+</div>
+
+<div class="benefit-sub">
+Protected
+</div>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#1c5ca8"
+     stroke-width="2">
+
+<rect x="4" y="5" width="16" height="15" rx="2"/>
+<path d="M8 3v4"/>
+<path d="M16 3v4"/>
+<path d="M4 10h16"/>
+
+</svg>
+
+</div>
+
+<div class="benefit-title">
+Daily Rewards
+</div>
+
+<div class="benefit-sub">
+1 Month
+</div>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#1c5ca8"
+     stroke-width="2">
+
+<circle cx="12" cy="12" r="9"/>
+<path d="m8 12 3 3 5-6"/>
+
+</svg>
+
+</div>
+
+<div class="benefit-title">
+Activation
+</div>
+
+<div class="benefit-sub">
+After Purchase
+</div>
+
+</div>
+
+</section>
+
+
+<div class="error-box"
+     id="errorBox">
+
+Unable to load your account.
+Please login again.
+
+</div>
+
+</div>
+</div>
+
+
+<!-- ========================================================= -->
+<!-- MY PLAN MODAL -->
+<!-- ========================================================= -->
+
+<div class="modal-overlay"
+     id="myPlanModal">
+
+<div class="modal">
+
+<div class="modal-handle"></div>
+
+<div class="modal-title">
+My Plan
+</div>
+
+<div class="modal-subtitle"
+     id="planModalSubtitle">
+
+Your subscription history
+
+</div>
+
+
+<div class="subscription-list"
+     id="subscriptionList">
+
+</div>
+
+
+<button class="close-btn"
+        onclick="closeMyPlan()">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- CONFIRM MODAL -->
+<!-- ========================================================= -->
+
+<div class="modal-overlay confirm-center"
+     id="confirmModal">
+
+<div class="confirm-modal">
+
+<div class="confirm-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#0b5cc9"
+     stroke-width="1.8">
+
+<path d="M5 7h14v13H5z"/>
+<path d="M8 7V5a4 4 0 0 1 8 0v2"/>
+<path d="M9 12h6"/>
+<path d="M12 9v6"/>
+
+</svg>
+
+</div>
+
+
+<div class="confirm-title">
+Confirm Subscription
+</div>
+
+
+<div class="confirm-text">
+Please confirm that you want to activate this plan.
+</div>
+
+
+<div class="confirm-info">
+
+<div class="confirm-line">
+<span>Plan</span>
+<span id="confirmPlan">
+Silver 299
+</span>
+</div>
+
+
+<div class="confirm-line">
+<span>Cost</span>
+<span id="confirmCost">
+299 Tokens
+</span>
+</div>
+
+
+<div class="confirm-line">
+<span>Daily Reward</span>
+<span id="confirmDaily">
+20 Tokens
+</span>
+</div>
+
+
+<div class="confirm-line">
+<span>Wallet Balance</span>
+<span id="confirmBalance">
+0 Tokens
+</span>
+</div>
+
+</div>
+
+
+<div class="confirm-actions">
+
+<button class="confirm-cancel"
+        onclick="closeConfirm()">
+
+Cancel
+
+</button>
+
+
+<button class="confirm-buy"
+        id="confirmBuyButton"
+        onclick="confirmPurchase()">
+
+Confirm
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- INSUFFICIENT MODAL -->
+<!-- ========================================================= -->
+
+<div class="modal-overlay confirm-center"
+     id="insufficientModal">
+
+<div class="confirm-modal">
+
+<div class="confirm-icon"
+     style="background:#fff3f3">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="#d43a3a"
+     stroke-width="1.8">
+
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v6"/>
+<path d="M12 16v1"/>
+
+</svg>
+
+</div>
+
+
+<div class="confirm-title">
+Insufficient Tokens
+</div>
+
+
+<div class="confirm-text">
+You do not have enough tokens in your wallet for this subscription.
+</div>
+
+
+<div class="confirm-info">
+
+<div class="confirm-line">
+<span>Required</span>
+<span id="requiredTokens">
+0 Tokens
+</span>
+</div>
+
+
+<div class="confirm-line">
+<span>Your Balance</span>
+<span id="availableTokens">
+0 Tokens
+</span>
+</div>
+
+</div>
+
+
+<button class="close-btn"
+        onclick="closeInsufficient()">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast"
+     id="toast">
+
+Done
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- BOTTOM NAV -->
+<!-- ========================================================= -->
+
+<nav class="bottom-nav">
+
+<button class="nav-btn"
+        onclick="goTo('home.html')">
+
+<div class="nav-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8">
+
+<path d="m3 11 9-7 9 7"/>
+<path d="M5 10v10h14V10"/>
+<path d="M9 20v-6h6v6"/>
+
+</svg>
+
+</div>
+
+Home
+
+</button>
+
+
+<button class="nav-btn"
+        onclick="goTo('refer.html')">
+
+<div class="nav-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8">
+
+<circle cx="9" cy="8" r="3"/>
+<circle cx="17" cy="9" r="2.5"/>
+<path d="M3 20c.5-4 2.5-6 6-6s5.5 2 6 6"/>
+<path d="M15 14c3 0 5 1.8 6 5"/>
+
+</svg>
+
+</div>
+
+Team
+
+</button>
+
+
+<button class="nav-btn buy-nav active"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+<div class="nav-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8">
+
+<path d="M4 5h2l2 11h10l2-8H7"/>
+<circle cx="10" cy="20" r="1.5"/>
+<circle cx="18" cy="20" r="1.5"/>
+
+</svg>
+
+</div>
+
+Buy
+
+</button>
+
+
+<button class="nav-btn"
+        onclick="showToast('Token Wallet')">
+
+<div class="nav-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8">
+
+<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H20v14H6.5A2.5 2.5 0 0 1 4 16.5z"/>
+<path d="M4 8h13"/>
+<path d="M16 12h5"/>
+<circle cx="16" cy="12" r="1"/>
+
+</svg>
+
+</div>
+
+Wallet
+
+</button>
+
+
+<button class="nav-btn"
+        onclick="goTo('profile.html')">
+
+<div class="nav-icon">
+
+<svg viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8">
+
+<circle cx="12" cy="8" r="3"/>
+<path d="M5 21c.8-4.2 3.1-6 7-6s6.2 1.8 7 6"/>
+
+</svg>
+
+</div>
+
+Profile
+
+</button>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- FIREBASE -->
+<!-- ========================================================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    runTransaction,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig={
+
+    apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:"globalpay-d31dd.firebaseapp.com",
+
+    projectId:"globalpay-d31dd",
+
+    storageBucket:"globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:"862227027913",
+
+    appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentUser=null;
+
+let currentBalance=0;
+
+let subscriptions=[];
+
+let selectedPlan=null;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function setText(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.innerText=value;
+    }
+
+}
+
+
+function numberValue(value){
+
+    const n=Number(value);
+
+    return Number.isFinite(n)
+        ?n
+        :0;
+
+}
+
+
+/*
+   Firestore Timestamp / Date / string
+   ko safely Date mein convert karta hai.
+*/
+
+function toDate(value){
+
+    if(!value){
+        return null;
+    }
+
+    if(
+        typeof value.toDate==="function"
+    ){
+        return value.toDate();
+    }
+
+    if(
+        value instanceof Date
+    ){
+        return value;
+    }
+
+    const d=new Date(value);
+
+    return Number.isNaN(d.getTime())
+        ?null
+        :d;
+
+}
+
+
+/*
+   Purchase ke waqt exactly 1 calendar month add.
+   
+   Example:
+   7 September -> 7 October
+   31 January -> 28/29 February
+*/
+
+function addOneMonth(date){
+
+    const result=new Date(date);
+
+    const originalDay=result.getDate();
+
+    result.setDate(1);
+
+    result.setMonth(
+        result.getMonth()+1
+    );
+
+    const lastDay=new Date(
+        result.getFullYear(),
+        result.getMonth()+1,
+        0
+    ).getDate();
+
+    result.setDate(
+        Math.min(originalDay,lastDay)
+    );
+
+    return result;
+
+}
+
+
+/*
+   Local date key.
+   
+   Isse 12:00 AM ke baad new date
+   automatically new claim day banega.
+*/
+
+function getDateKey(date=new Date()){
+
+    const y=date.getFullYear();
+
+    const m=String(
+        date.getMonth()+1
+    ).padStart(2,"0");
+
+    const d=String(
+        date.getDate()
+    ).padStart(2,"0");
+
+    return y+"-"+m+"-"+d;
+
+}
+
+
+/*
+   Date + time display
+*/
+
+function formatDateTime(date){
+
+    if(!date){
+        return "—";
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    )+
+    " • "+
+    date.toLocaleTimeString(
+        "en-IN",
+        {
+            hour:"2-digit",
+            minute:"2-digit",
+            hour12:true
+        }
+    );
+
+}
+
+
+/*
+   Remaining days.
+   
+   Expiry exact time tak validity.
+*/
+
+function getRemainingDays(expiry){
+
+    if(!expiry){
+        return 0;
+    }
+
+    const diff=
+        expiry.getTime()-Date.now();
+
+    if(diff<=0){
+        return 0;
+    }
+
+    return Math.ceil(
+        diff/(24*60*60*1000)
+    );
+
+}
+
+
+/*
+   Active check
+*/
+
+function isSubscriptionActive(sub){
+
+    const expiry=
+        toDate(sub.expiryAt);
+
+    if(!expiry){
+        return false;
+    }
+
+    return expiry.getTime()>Date.now();
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+window.showToast=function(message){
+
+    const toast=
+        document.getElementById("toast");
+
+    toast.innerText=message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },1800);
+
+};
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+window.toggleLanguage=function(){
+
+    document
+        .getElementById("languageMenu")
+        .classList.toggle("show");
+
+};
+
+
+window.setLanguage=function(lang){
+
+    setText(
+        "languageLabel",
+        lang==="hi"
+            ?"हिन्दी"
+            :"English"
+    );
+
+    localStorage.setItem(
+        "globalpay_buy_language",
+        lang
+    );
+
+    showToast(
+        lang==="hi"
+            ?"भाषा हिन्दी चुनी गई"
+            :"English selected"
+    );
+
+    document
+        .getElementById("languageMenu")
+        .classList.remove("show");
+
+};
+
+
+if(
+    localStorage.getItem(
+        "globalpay_buy_language"
+    )==="hi"
+){
+
+    setText(
+        "languageLabel",
+        "हिन्दी"
+    );
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user=>{
+
+        if(!user){
+
+            currentUser=null;
+
+            document
+                .getElementById("errorBox")
+                .classList.add("show");
+
+            setText(
+                "walletBalance",
+                "0"
+            );
+
+            return;
+        }
+
+
+        currentUser=user;
+
+
+        localStorage.setItem(
+            "globalpay_uid",
+            user.uid
+        );
+
+
+        await loadUserData();
+
+    }
+);
+
+
+/* =========================================================
+   LOAD USER
+========================================================= */
+
+async function loadUserData(){
+
+    if(!currentUser){
+        return;
+    }
+
+
+    try{
+
+        const userRef=doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+
+        const snap=
+            await getDoc(userRef);
+
+
+        if(!snap.exists()){
+
+            throw new Error(
+                "USER_NOT_FOUND"
+            );
+
+        }
+
+
+        const data=snap.data();
+
+
+        /*
+           IMPORTANT:
+           Firestore se actual balance directly.
+        */
+
+        currentBalance=
+            numberValue(
+                data.tokenBalance
+            );
+
+
+        setText(
+            "walletBalance",
+            currentBalance.toLocaleString(
+                "en-IN"
+            )
+        );
+
+
+        /*
+           New system:
+           subscriptions array.
+           
+           Old activePlan bhi support kiya gaya hai
+           taaki purana user blank na dikhe.
+        */
+
+        subscriptions=
+            Array.isArray(
+                data.subscriptions
+            )
+            ?data.subscriptions
+            :[];
+
+
+        /*
+           Agar old activePlan hai aur subscriptions
+           array nahi hai, old plan ko history mein
+           temporarily convert kar do.
+        */
+
+        if(
+            subscriptions.length===0 &&
+            data.activePlan &&
+            data.activePlan.name
+        ){
+
+            const oldPlan=data.activePlan;
+
+            subscriptions=[
+                {
+                    id:"legacy_"+Date.now(),
+
+                    name:oldPlan.name,
+
+                    category:oldPlan.category || "Silver",
+
+                    cost:numberValue(
+                        oldPlan.cost
+                    ),
+
+                    dailyToken:numberValue(
+                        oldPlan.dailyToken
+                    ),
+
+                    durationMonths:1,
+
+                    startAt:oldPlan.startAt || null,
+
+                    expiryAt:oldPlan.expiryAt || null,
+
+                    lastClaimDate:
+                        oldPlan.lastClaimDate || null,
+
+                    claimedToday:
+                        oldPlan.claimedToday===true,
+
+                    type:oldPlan.type || "paid"
+                }
+            ];
+
+        }
+
+
+        updateMyPlanPreview();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        document
+            .getElementById("errorBox")
+            .classList.add("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   MY PLAN PREVIEW
+========================================================= */
+
+function updateMyPlanPreview(){
+
+    const active=
+        subscriptions.filter(
+            sub=>isSubscriptionActive(sub)
+        );
+
+
+    if(active.length===0){
+
+        setText(
+            "myPlanName",
+            "No Active Plan"
+        );
+
+        setText(
+            "myPlanSub",
+            "No active subscription"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Sabse recent active subscription
+       preview mein show.
+    */
+
+    const latest=
+        active[active.length-1];
+
+
+    setText(
+        "myPlanName",
+        latest.name
+    );
+
+
+    const remaining=
+        getRemainingDays(
+            toDate(latest.expiryAt)
+        );
+
+
+    setText(
+        "myPlanSub",
+        active.length+
+        " active subscription"+
+        (
+            active.length>1
+                ?"s"
+                :""
+        )+
+        " • "+
+        remaining+
+        " days remaining"
+    );
+
+}
+
+
+/* =========================================================
+   FREE PLAN CHECK
+========================================================= */
+
+function hasActiveFreePlan(){
+
+    return subscriptions.some(
+        sub=>
+            sub.type==="free" &&
+            isSubscriptionActive(sub)
+    );
+
+}
+
+
+/* =========================================================
+   START PURCHASE
+========================================================= */
+
+window.startPurchase=function(
+    name,
+    cost,
+    daily,
+    category,
+    type
+){
+
+    if(!currentUser){
+
+        showToast(
+            "Please login again"
+        );
+
+        return;
+    }
+
+
+    /*
+       FREE:
+       Ek time par sirf ek active free subscription.
+       
+       Expire hone ke baad automatically dobara
+       Free button kaam karega.
+    */
+
+    if(
+        type==="free" &&
+        hasActiveFreePlan()
+    ){
+
+        showToast(
+            "Free plan is already active"
+        );
+
+        return;
+
+    }
+
+
+    selectedPlan={
+
+        name:name,
+
+        cost:Number(cost),
+
+        daily:Number(daily),
+
+        category:category,
+
+        type:type,
+
+        months:1
+
+    };
+
+
+    /*
+       Paid plan ke liye current displayed balance
+       sirf UI check hai.
+       Final check transaction ke andar bhi hoga.
+    */
+
+    if(
+        selectedPlan.cost>
+        currentBalance
+    ){
+
+        setText(
+            "requiredTokens",
+            selectedPlan.cost.toLocaleString(
+                "en-IN"
+            )+
+            " Tokens"
+        );
+
+
+        setText(
+            "availableTokens",
+            currentBalance.toLocaleString(
+                "en-IN"
+            )+
+            " Tokens"
+        );
+
+
+        document
+            .getElementById(
+                "insufficientModal"
+            )
+            .classList.add("show");
+
+
+        return;
+
+    }
+
+
+    openConfirm();
+
+};
+
+
+/* =========================================================
+   CONFIRM
+========================================================= */
+
+function openConfirm(){
+
+    if(!selectedPlan){
+        return;
+    }
+
+
+    setText(
+        "confirmPlan",
+        selectedPlan.name
+    );
+
+
+    setText(
+        "confirmCost",
+
+        selectedPlan.cost===0
+            ?"FREE"
+            :selectedPlan.cost.toLocaleString(
+                "en-IN"
+            )+
+            " Tokens"
+    );
+
+
+    setText(
+        "confirmDaily",
+        selectedPlan.daily+
+        " Tokens / day"
+    );
+
+
+    setText(
+        "confirmBalance",
+        currentBalance.toLocaleString(
+            "en-IN"
+        )+
+        " Tokens"
+    );
+
+
+    document
+        .getElementById(
+            "confirmModal"
+        )
+        .classList.add("show");
+
+}
+
+
+window.closeConfirm=function(){
+
+    document
+        .getElementById(
+            "confirmModal"
+        )
+        .classList.remove("show");
+
+};
+
+
+window.closeInsufficient=function(){
+
+    document
+        .getElementById(
+            "insufficientModal"
+        )
+        .classList.remove("show");
+
+};
+
+
+/* =========================================================
+   CONFIRM PURCHASE
+========================================================= */
+
+window.confirmPurchase=async function(){
+
+    if(
+        !currentUser ||
+        !selectedPlan
+    ){
+
+        showToast(
+            "Please login again"
+        );
+
+        return;
+    }
+
+
+    const button=
+        document.getElementById(
+            "confirmBuyButton"
+        );
+
+
+    button.disabled=true;
+
+    button.innerText=
+        "Processing...";
+
+
+    /*
+       Purchase ko transaction ke andar
+       complete kiya ja raha hai.
+    */
+
+    try{
+
+        const planToBuy={
+            ...selectedPlan
+        };
+
+
+        const userRef=doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+
+        await runTransaction(
+            db,
+            async transaction=>{
+
+                const snap=
+                    await transaction.get(
+                        userRef
+                    );
+
+
+                if(!snap.exists()){
+
+                    throw new Error(
+                        "USER_NOT_FOUND"
+                    );
+
+                }
+
+
+                const data=snap.data();
+
+
+                const balance=
+                    numberValue(
+                        data.tokenBalance
+                    );
+
+
+                /*
+                   Transaction ke andar real
+                   Firestore balance check.
+                */
+
+                if(
+                    planToBuy.cost>
+                    balance
+                ){
+
+                    throw new Error(
+                        "INSUFFICIENT_TOKENS"
+                    );
+
+                }
+
+
+                /*
+                   Existing subscriptions
+                */
+
+                let list=
+                    Array.isArray(
+                        data.subscriptions
+                    )
+                    ?[
+                        ...data.subscriptions
+                    ]
+                    :[];
+
+
+                /*
+                   FREE duplicate protection.
+                   
+                   Transaction ke andar check hone ki wajah se
+                   double tap / multiple device case mein bhi
+                   active free duplicate avoid hoga.
+                */
+
+                if(
+                    planToBuy.type==="free"
+                ){
+
+                    const activeFree=
+                        list.some(
+                            sub=>
+                                sub.type==="free" &&
+                                isSubscriptionActive(sub)
+                        );
+
+
+                    if(activeFree){
+
+                        throw new Error(
+                            "FREE_ALREADY_ACTIVE"
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                   PURCHASE TIME
+                   
+                   Server timestamp exact write ke liye.
+                   Expiry calendar month client-side date se
+                   calculate hoti hai.
+                */
+
+                const purchaseDate=
+                    new Date();
+
+
+                const expiryDate=
+                    addOneMonth(
+                        purchaseDate
+                    );
+
+
+                /*
+                   Unique subscription ID.
+                */
+
+                const subscriptionId=
+                    currentUser.uid+
+                    "_"+
+                    Date.now()+
+                    "_"+
+                    Math.random()
+                        .toString(36)
+                        .substring(2,8);
+
+
+                const newSubscription={
+
+                    id:subscriptionId,
+
+                    name:planToBuy.name,
+
+                    category:planToBuy.category,
+
+                    cost:planToBuy.cost,
+
+                    dailyToken:planToBuy.daily,
+
+                    durationMonths:1,
+
+                    startAt:serverTimestamp(),
+
+                    /*
+                       Client Date stored here.
+                       Purchase time bhi store hoga.
+                    */
+
+                    purchaseAt:
+                        purchaseDate.toISOString(),
+
+                    expiryAt:
+                        expiryDate.toISOString(),
+
+                    lastClaimDate:null,
+
+                    claimedToday:false,
+
+                    type:planToBuy.type
+
+                };
+
+
+                list.push(
+                    newSubscription
+                );
+
+
+                const newBalance=
+                    balance-
+                    planToBuy.cost;
+
+
+                transaction.update(
+                    userRef,
+                    {
+
+                        tokenBalance:
+                            newBalance,
+
+                        subscriptions:
+                            list,
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+           UI balance update.
+        */
+
+        currentBalance=
+            currentBalance-
+            planToBuy.cost;
+
+
+        setText(
+            "walletBalance",
+            currentBalance.toLocaleString(
+                "en-IN"
+            )
+        );
+
+
+        closeConfirm();
+
+
+        selectedPlan=null;
+
+
+        /*
+           Firestore se fresh data.
+        */
+
+        await loadUserData();
+
+
+        showToast(
+            "Subscription activated"
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.message===
+            "INSUFFICIENT_TOKENS"
+        ){
+
+            closeConfirm();
+
+
+            /*
+               Latest balance reload karo.
+            */
+
+            await loadUserData();
+
+
+            setText(
+                "requiredTokens",
+                selectedPlan.cost.toLocaleString(
+                    "en-IN"
+                )+
+                " Tokens"
+            );
+
+
+            setText(
+                "availableTokens",
+                currentBalance.toLocaleString(
+                    "en-IN"
+                )+
+                " Tokens"
+            );
+
+
+            document
+                .getElementById(
+                    "insufficientModal"
+                )
+                .classList.add("show");
+
+
+        }
+        else if(
+            error.message===
+            "FREE_ALREADY_ACTIVE"
+        ){
+
+            closeConfirm();
+
+
+            showToast(
+                "Free plan is already active"
+            );
+
+        }
+        else{
+
+            showToast(
+                "Unable to complete purchase"
+            );
+
+        }
+
+    }
+    finally{
+
+        button.disabled=false;
+
+        button.innerText=
+            "Confirm";
+
+    }
+
+};
+
+
+/* =========================================================
+   OPEN MY PLAN
+========================================================= */
+
+window.openMyPlan=async function(){
+
+    if(!currentUser){
+
+        showToast(
+            "Please login again"
+        );
+
+        return;
+    }
+
+
+    /*
+       Always fresh Firestore data.
+       Isse refresh / stale UI problem kam hoti hai.
+    */
+
+    await loadUserData();
+
+
+    renderSubscriptionList();
+
+
+    document
+        .getElementById(
+            "myPlanModal"
+        )
+        .classList.add("show");
+
+};
+
+
+/* =========================================================
+   RENDER ALL SUBSCRIPTIONS
+========================================================= */
+
+function renderSubscriptionList(){
+
+    const container=
+        document.getElementById(
+            "subscriptionList"
+        );
+
+
+    container.innerHTML="";
+
+
+    if(
+        !subscriptions ||
+        subscriptions.length===0
+    ){
+
+        container.innerHTML=`
+
+            <div class="empty-plan">
+
+                <div class="empty-plan-title">
+                    No Subscription
+                </div>
+
+                <div class="empty-plan-sub">
+                    You have not purchased any subscription yet.
+                </div>
+
+            </div>
+
+        `;
+
+        setText(
+            "planModalSubtitle",
+            "No subscriptions found"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Newest purchase first.
+    */
+
+    const sorted=
+        [
+            ...subscriptions
+        ].reverse();
+
+
+    let activeCount=0;
+
+
+    sorted.forEach(
+        (sub,index)=>{
+
+            const start=
+                toDate(
+                    sub.purchaseAt
+                ) ||
+                toDate(
+                    sub.startAt
+                );
+
+
+            const expiry=
+                toDate(
+                    sub.expiryAt
+                );
+
+
+            const active=
+                expiry &&
+                expiry.getTime()>
+                Date.now();
+
+
+            if(active){
+                activeCount++;
+            }
+
+
+            const remaining=
+                active
+                    ?getRemainingDays(expiry)
+                    :0;
+
+
+            const statusText=
+                active
+                    ?"ACTIVE"
+                    :"EXPIRED";
+
+
+            const statusClass=
+                active
+                    ?"status-active"
+                    :"status-expired";
+
+
+            const claimDate=
+                getDateKey(
+                    new Date()
+                );
+
+
+            const alreadyClaimed=
+                sub.lastClaimDate===
+                claimDate;
+
+
+            let claimText="";
+
+
+            if(!active){
+
+                claimText=
+                    "Subscription expired • Claim unavailable";
+
+            }
+            else if(alreadyClaimed){
+
+                claimText=
+                    "Today's token already claimed";
+
+            }
+            else{
+
+                claimText=
+                    "Today's token is available";
+
+            }
+
+
+            const item=
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className=
+                "subscription-item"+
+                (
+                    sub.category==="Golden"
+                        ?" golden-history"
+                        :""
+                );
+
+
+            item.innerHTML=`
+
+                <div class="subscription-top">
+
+                    <div class="subscription-name">
+                        ${escapeHTML(
+                            sub.name || "Subscription"
+                        )}
+                    </div>
+
+                    <div class="subscription-status ${statusClass}">
+                        ${statusText}
+                    </div>
+
+                </div>
+
+
+                <div class="subscription-grid">
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Buy Date & Time
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            ${formatDateTime(start)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Expiry Date & Time
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            ${formatDateTime(expiry)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Daily Reward
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            ${numberValue(
+                                sub.dailyToken
+                            )} Tokens / day
+                        </div>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Remaining
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            ${
+                                active
+                                    ?remaining+" Days"
+                                    :"Expired"
+                            }
+                        </div>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Purchase Cost
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            ${
+                                numberValue(sub.cost)===0
+                                    ?"FREE"
+                                    :numberValue(
+                                        sub.cost
+                                    ).toLocaleString(
+                                        "en-IN"
+                                    )+
+                                    " Tokens"
+                            }
+                        </div>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <div class="subscription-detail-label">
+                            Validity
+                        </div>
+
+                        <div class="subscription-detail-value">
+                            1 Month
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subscription-claim ${
+                    alreadyClaimed
+                        ?"claimed"
+                        :""
+                }">
+
+                    ${claimText}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    setText(
+        "planModalSubtitle",
+
+        activeCount+
+        " active • "+
+        subscriptions.length+
+        " total subscription"+
+        (
+            subscriptions.length>1
+                ?"s"
+                :""
+        )
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   CLOSE MY PLAN
+========================================================= */
+
+window.closeMyPlan=function(){
+
+    document
+        .getElementById(
+            "myPlanModal"
+        )
+        .classList.remove("show");
+
+};
+
+
+/* =========================================================
+   DAILY CLAIM
+========================================================= */
+
+/*
+   IMPORTANT:
+   
+   Claim button ab My Plan ke har subscription
+   ke liye alag nahi hai.
+   
+   User ne multiple subscriptions purchase kiye hain,
+   isliye system saare ACTIVE subscriptions ka
+   daily reward ek hi "Claim Daily Tokens" action
+   se claim karega.
+   
+   Har subscription per day sirf ek baar reward dega.
+*/
+
+window.claimDailyToken=async function(){
+
+    if(!currentUser){
+
+        showToast(
+            "Please login again"
+        );
+
+        return;
+
+    }
+
+
+    showToast(
+        "Daily claim is handled from active subscriptions"
+    );
+
+};
+
+
+/* =========================================================
+   REAL DAILY CLAIM FUNCTION
+========================================================= */
+
+/*
+   Is function ko future mein kisi Claim button
+   se call kiya ja sakta hai.
+
+   Ye:
+   - expired subscription ko reward nahi dega
+   - har subscription ko daily ek baar claim karega
+   - 12:00 AM ke baad new date ko automatically
+     available karega
+   - claim na karne par expiry date nahi badlega
+*/
+
+window.claimAllDailyTokens=async function(){
+
+    if(!currentUser){
+
+        showToast(
+            "Please login again"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const userRef=doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+
+        let totalReward=0;
+
+        let claimedCount=0;
+
+
+        await runTransaction(
+            db,
+            async transaction=>{
+
+                const snap=
+                    await transaction.get(
+                        userRef
+                    );
+
+
+                if(!snap.exists()){
+
+                    throw new Error(
+                        "USER_NOT_FOUND"
+                    );
+
+                }
+
+
+                const data=snap.data();
+
+
+                const list=
+                    Array.isArray(
+                        data.subscriptions
+                    )
+                    ?[
+                        ...data.subscriptions
+                    ]
+                    :[];
+
+
+                const today=
+                    getDateKey(
+                        new Date()
+                    );
+
+
+                list.forEach(
+                    sub=>{
+
+                        const expiry=
+                            toDate(
+                                sub.expiryAt
+                            );
+
+
+                        /*
+                           Expired subscription:
+                           no claim.
+                        */
+
+                        if(
+                            !expiry ||
+                            expiry.getTime()<=
+                            Date.now()
+                        ){
+
+                            return;
+
+                        }
+
+
+                        /*
+                           Already claimed today:
+                           no second reward.
+                        */
+
+                        if(
+                            sub.lastClaimDate===
+                            today
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const reward=
+                            numberValue(
+                                sub.dailyToken
+                            );
+
+
+                        if(reward<=0){
+                            return;
+                        }
+
+
+                        sub.lastClaimDate=
+                            today;
+
+
+                        sub.claimedToday=
+                            true;
+
+
+                        totalReward+=
+                            reward;
+
+
+                        claimedCount++;
+
+                    }
+                );
+
+
+                if(
+                    claimedCount===0
+                ){
+
+                    throw new Error(
+                        "NOTHING_TO_CLAIM"
+                    );
+
+                }
+
+
+                const balance=
+                    numberValue(
+                        data.tokenBalance
+                    );
+
+
+                transaction.update(
+                    userRef,
+                    {
+
+                        tokenBalance:
+                            balance+
+                            totalReward,
+
+                        subscriptions:
+                            list,
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+            }
+        );
+
+
+        await loadUserData();
+
+
+        renderSubscriptionList();
+
+
+        showToast(
+            totalReward+
+            " Tokens claimed"
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.message===
+            "NOTHING_TO_CLAIM"
+        ){
+
+            showToast(
+                "No daily token available"
+            );
+
+        }
+        else{
+
+            showToast(
+                "Unable to claim tokens"
+            );
+
+        }
+
+    }
+
+};
+
+
+/* =========================================================
+   AUTO REFRESH AT MIDNIGHT
+========================================================= */
+
+/*
+   Page open hone ke time date change detect karega.
+   
+   User claim nahi kare tab bhi expiry timer
+   apne original purchase time par hi rahega.
+*/
+
+let lastDateKey=
+    getDateKey(
+        new Date()
+    );
+
+
+setInterval(
+    async()=>{
+
+        const currentDate=
+            getDateKey(
+                new Date()
+            );
+
+
+        if(
+            currentDate!==lastDateKey
+        ){
+
+            lastDateKey=
+                currentDate;
+
+
+            /*
+               New day.
+               Firestore se fresh subscriptions.
+            */
+
+            if(currentUser){
+
+                await loadUserData();
+
+                if(
+                    document
+                        .getElementById(
+                            "myPlanModal"
+                        )
+                        .classList.contains("show")
+                ){
+
+                    renderSubscriptionList();
+
+                }
+
+            }
+
+        }
+
+    },
+    30000
+);
+
+
+/* =========================================================
+   BACKDROP CLOSE
+========================================================= */
+
+document
+    .getElementById(
+        "confirmModal"
+    )
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(
+                e.target===this
+            ){
+
+                closeConfirm();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "insufficientModal"
+    )
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(
+                e.target===this
+            ){
+
+                closeInsufficient();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "myPlanModal"
+    )
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(
+                e.target===this
+            ){
+
+                closeMyPlan();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+window.goTo=function(page){
+
+    window.location.href=
+        page;
+
+};
+
+</script>
+
+</body>
+  </html>
