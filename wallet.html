@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalPay - Wallet</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  color:#172033;
+  min-height:100vh;
+}
+
+.header{
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid #e7eaf0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:800;
+  color:#1457d9;
+}
+
+.user-name{
+  font-size:14px;
+  color:#657085;
+}
+
+.layout{
+  display:flex;
+  min-height:calc(100vh - 70px);
+}
+
+.sidebar{
+  width:230px;
+  background:#fff;
+  border-right:1px solid #e7eaf0;
+  padding:22px 14px;
+}
+
+.side-title{
+  font-size:12px;
+  color:#98a1b2;
+  margin:10px 12px 12px;
+  text-transform:uppercase;
+}
+
+.side-link{
+  display:block;
+  padding:13px 14px;
+  margin-bottom:5px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#4e596d;
+  font-size:14px;
+}
+
+.side-link:hover,
+.side-link.active{
+  background:#edf4ff;
+  color:#1457d9;
+  font-weight:700;
+}
+
+.main{
+  flex:1;
+  padding:30px;
+  max-width:1100px;
+}
+
+.page-title{
+  font-size:27px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.page-subtitle{
+  color:#7b8495;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.balance-card{
+  background:linear-gradient(135deg,#1457d9,#3478ef);
+  color:#fff;
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(20,87,217,.18);
+  margin-bottom:22px;
+}
+
+.balance-label{
+  font-size:14px;
+  opacity:.88;
+  margin-bottom:8px;
+}
+
+.token-balance{
+  font-size:38px;
+  font-weight:800;
+  letter-spacing:.3px;
+}
+
+.token-name{
+  margin-top:5px;
+  font-size:14px;
+  opacity:.85;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:24px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 18px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-white{
+  background:#fff;
+  color:#1457d9;
+}
+
+.btn-light{
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:25px;
+}
+
+.info-card{
+  background:#fff;
+  border:1px solid #e8ebf1;
+  border-radius:15px;
+  padding:20px;
+}
+
+.info-title{
+  color:#7d8798;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.info-value{
+  font-size:22px;
+  font-weight:800;
+}
+
+.section{
+  background:#fff;
+  border:1px solid #e8ebf1;
+  border-radius:15px;
+  padding:20px;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.refresh{
+  background:#edf4ff;
+  color:#1457d9;
+  border:0;
+  border-radius:8px;
+  padding:8px 12px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.empty{
+  text-align:center;
+  padding:25px 10px;
+  color:#8a93a3;
+  font-size:14px;
+}
+
+.mobile-nav{
+  display:none;
+}
+
+.loading{
+  opacity:.65;
+}
+
+@media(max-width:800px){
+
+  .header{
+    height:62px;
+    padding:0 17px;
+  }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .user-name{
+    font-size:12px;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    padding:20px 15px 90px;
+  }
+
+  .page-title{
+    font-size:24px;
+  }
+
+  .balance-card{
+    padding:23px 20px;
+    border-radius:16px;
+  }
+
+  .token-balance{
+    font-size:34px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:65px;
+    background:#fff;
+    border-top:1px solid #e4e7ed;
+    z-index:20;
+    justify-content:space-around;
+  }
+
+  .mobile-nav a{
+    flex:1;
+    text-decoration:none;
+    color:#7a8495;
+    font-size:11px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+  }
+
+  .mobile-nav a.active{
+    color:#1457d9;
+    font-weight:700;
+  }
+
+  .mobile-nav span{
+    font-size:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">GLOBAL PAY</div>
+  <div class="user-name" id="userName">Loading...</div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="side-title">Menu</div>
+
+    <a class="side-link" href="home.html">🏠 Home</a>
+    <a class="side-link" href="buy.html">🪙 Buy Token</a>
+    <a class="side-link active" href="wallet.html">💰 Wallet</a>
+    <a class="side-link" href="rewards.html">🎁 Rewards</a>
+    <a class="side-link" href="refer.html">👥 Refer</a>
+    <a class="side-link" href="my.html">👤 My Account</a>
+  </aside>
+
+  <main class="main">
+
+    <h1 class="page-title">My Wallet</h1>
+    <p class="page-subtitle">
+      Your current GlobalPay Token balance
+    </p>
+
+    <div class="balance-card">
+
+      <div class="balance-label">Available Token Balance</div>
+
+      <div class="token-balance" id="tokenBalance">
+        0
+      </div>
+
+      <div class="token-name">
+        GlobalPay Token
+      </div>
+
+      <div class="actions">
+        <a href="deposit.html" class="btn btn-white">
+          + Add Token
+        </a>
+
+        <a href="buy.html" class="btn btn-light">
+          Buy Plan
+        </a>
+      </div>
+
+    </div>
+
+    <div class="cards">
+
+      <div class="info-card">
+        <div class="info-title">Token Balance</div>
+        <div class="info-value" id="tokenBalanceSmall">0</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-title">Total Deposited</div>
+        <div class="info-value" id="totalDeposited">₹0</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-title">Account</div>
+        <div class="info-value" id="accountMobile">-</div>
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-head">
+        <div class="section-title">Wallet Information</div>
+
+        <button class="refresh" onclick="loadWallet()">
+          Refresh
+        </button>
+      </div>
+
+      <div class="empty" id="walletStatus">
+        Loading wallet...
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<nav class="mobile-nav">
+
+  <a href="home.html">
+    <span>🏠</span>
+    Home
+  </a>
+
+  <a href="buy.html">
+    <span>🪙</span>
+    Buy
+  </a>
+
+  <a href="wallet.html" class="active">
+    <span>💰</span>
+    Wallet
+  </a>
+
+  <a href="refer.html">
+    <span>👥</span>
+    Refer
+  </a>
+
+  <a href="my.html">
+    <span>👤</span>
+    My
+  </a>
+
+</nav>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoQ",
+  authDomain: "globalpay-d31dd.firebaseapp.com",
+  projectId: "globalpay-d31dd",
+  storageBucket: "globalpay-d31dd.firebasestorage.app",
+  messagingSenderId: "862227027913",
+  appId: "1:862227027913:web:f643dc5cb4b014fd80ba18"
+};
+
+
+/* =========================================
+   FIREBASE INIT
+========================================= */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const tokenBalanceEl =
+  document.getElementById("tokenBalance");
+
+const tokenBalanceSmallEl =
+  document.getElementById("tokenBalanceSmall");
+
+const totalDepositedEl =
+  document.getElementById("totalDeposited");
+
+const accountMobileEl =
+  document.getElementById("accountMobile");
+
+const userNameEl =
+  document.getElementById("userName");
+
+const walletStatusEl =
+  document.getElementById("walletStatus");
+
+
+let currentUser = null;
+
+
+/* =========================================
+   FORMAT TOKEN
+========================================= */
+
+function formatToken(value){
+
+  const number = Number(value || 0);
+
+  return number.toLocaleString("en-IN", {
+    maximumFractionDigits: 2
+  });
+}
+
+
+/* =========================================
+   LOAD WALLET
+========================================= */
+
+window.loadWallet = async function(){
+
+  if(!currentUser){
+    return;
+  }
+
+  try{
+
+    walletStatusEl.textContent =
+      "Loading wallet...";
+
+    walletStatusEl.classList.add("loading");
+
+
+    /*
+      IMPORTANT:
+
+      Buy.html uses:
+
+      users/{uid}.tokenBalance
+
+      Wallet also reads EXACTLY
+      the same field.
+    */
+
+    const userRef =
+      doc(db, "users", currentUser.uid);
+
+    const snap =
+      await getDoc(userRef);
+
+
+    if(!snap.exists()){
+
+      tokenBalanceEl.textContent = "0";
+      tokenBalanceSmallEl.textContent = "0";
+      totalDepositedEl.textContent = "₹0";
+      accountMobileEl.textContent = "-";
+
+      walletStatusEl.textContent =
+        "Wallet data not found.";
+
+      return;
+    }
+
+
+    const data = snap.data();
+
+
+    /* =====================================
+       SAME TOKEN BALANCE AS BUY.HTML
+    ===================================== */
+
+    const tokenBalance =
+      Number(data.tokenBalance ?? 0);
+
+
+    /*
+      Display exactly the same
+      tokenBalance value.
+    */
+
+    tokenBalanceEl.textContent =
+      formatToken(tokenBalance);
+
+    tokenBalanceSmallEl.textContent =
+      formatToken(tokenBalance);
+
+
+    /* =====================================
+       OTHER USER INFORMATION
+    ===================================== */
+
+    const totalDeposited =
+      Number(
+        data.totalDeposited ??
+        data.deposited ??
+        0
+      );
+
+    totalDepositedEl.textContent =
+      "₹" + formatToken(totalDeposited);
+
+
+    const mobile =
+      data.mobile ??
+      data.phone ??
+      "-";
+
+    accountMobileEl.textContent =
+      mobile;
+
+
+    const name =
+      data.name ??
+      data.fullName ??
+      mobile ??
+      "User";
+
+    userNameEl.textContent =
+      name;
+
+
+    walletStatusEl.textContent =
+      "Wallet balance synced successfully.";
+
+    walletStatusEl.classList.remove("loading");
+
+
+  }catch(error){
+
+    console.error(
+      "Wallet loading error:",
+      error
+    );
+
+    walletStatusEl.textContent =
+      "Unable to load wallet balance.";
+  }
+};
+
+
+/* =========================================
+   AUTH
+========================================= */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
+
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if(!user){
+
+      window.location.href =
+        "login.html?return=wallet.html";
+
+      return;
+    }
+
+
+    currentUser = user;
+
+    await loadWallet();
+
+  }
+);
+
+
+/* =========================================
+   PAGE RETURN / REFRESH
+========================================= */
+
+window.addEventListener(
+  "pageshow",
+  () => {
+
+    if(currentUser){
+
+      loadWallet();
+
+    }
+  }
+);
+
+
+/*
+  When user returns to this tab,
+  fetch the latest tokenBalance again.
+*/
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if(
+      document.visibilityState === "visible" &&
+      currentUser
+    ){
+
+      loadWallet();
+
+    }
+  }
+);
+
+</script>
+
+</body>
+  </html>
