@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Pay - Wallet</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(15,75,125,.35),transparent 35%),
+    radial-gradient(circle at 100% 25%,rgba(90,25,150,.25),transparent 35%),
+    #020a17;
+  color:#fff;
+}
+
+.app{
+  width:100%;
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  padding-bottom:30px;
+}
+
+/* HEADER */
+
+.header{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 19px;
+}
+
+.header-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:23px;
+  font-weight:800;
+}
+
+.crown{
+  font-size:28px;
+  filter:drop-shadow(0 0 9px #ffc400);
+}
+
+.bell{
+  font-size:21px;
+}
+
+/* GREETING */
+
+.greeting{
+  padding:10px 19px 14px;
+}
+
+.greeting h2{
+  font-size:22px;
+  color:#39cfff;
+}
+
+.greeting p{
+  margin-top:6px;
+  color:#8ea6bf;
+  font-size:13px;
+}
+
+/* CARD */
+
+.card{
+  position:relative;
+  overflow:hidden;
+  margin:12px 17px;
+  padding:17px;
+  border-radius:19px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 14px 35px rgba(0,0,0,.35);
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  right:-70px;
+  top:-70px;
+  background:rgba(255,255,255,.08);
+}
+
+.withdraw-card{
+  background:linear-gradient(135deg,#10c7a2,#087f9b);
+}
+
+.token-card{
+  background:linear-gradient(135deg,#7739ef,#3020bd);
+}
+
+.convert-card{
+  background:linear-gradient(135deg,#1172ec,#073d9c);
+}
+
+.card-content{
+  position:relative;
+  z-index:2;
+}
+
+.card-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.icon{
+  width:55px;
+  height:55px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.2);
+}
+
+/* RUPEE ICON */
+
+.rupee-icon{
+  font-size:29px;
+  font-weight:800;
+}
+
+/* USDT STYLE TOKEN */
+
+.token-icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#21d69d,#07966f);
+  border:2px solid rgba(255,255,255,.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  font-weight:900;
+  color:#fff;
+  box-shadow:
+    0 0 12px rgba(0,240,170,.55),
+    inset 0 0 8px rgba(255,255,255,.2);
+}
+
+.card-info{
+  flex:1;
+}
+
+.card-label{
+  font-size:13px;
+  opacity:.88;
+}
+
+.card-value{
+  font-size:23px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.card-sub{
+  color:rgba(255,255,255,.78);
+  font-size:11px;
+  margin-top:12px;
+}
+
+/* BUTTON */
+
+.card-button{
+  position:relative;
+  z-index:3;
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.4);
+  background:rgba(0,0,0,.13);
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+
+.card-button:active{
+  transform:scale(.98);
+}
+
+/* HISTORY */
+
+.history{
+  margin:22px 17px;
+}
+
+.history-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.history-head h3{
+  font-size:18px;
+}
+
+.view-all{
+  color:#4fa7ff;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.history-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin-bottom:9px;
+  border-radius:15px;
+  background:#07172b;
+  border:1px solid #12304e;
+}
+
+.history-token{
+  width:43px;
+  height:43px;
+  flex:none;
+  border-radius:50%;
+  background:#0bb987;
+  border:2px solid rgba(255,255,255,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:21px;
+  box-shadow:0 0 12px rgba(0,220,160,.3);
+}
+
+.history-info{
+  flex:1;
+  min-width:0;
+}
+
+.history-title{
+  font-size:13px;
+  font-weight:700;
+}
+
+.history-date{
+  color:#7089a4;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.history-right{
+  text-align:right;
+}
+
+.history-token-amount{
+  color:#9eb2c8;
+  font-size:11px;
+}
+
+.history-money{
+  color:#20e2a0;
+  font-size:14px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+.empty{
+  text-align:center;
+  color:#7188a2;
+  padding:30px 10px;
+  font-size:13px;
+}
+
+/* MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-box{
+  width:100%;
+  max-width:390px;
+  padding:25px;
+  border-radius:23px;
+  background:
+    radial-gradient(circle at 50% 0%,#102b4a,transparent 50%),
+    #061426;
+  border:1px solid #214b72;
+  box-shadow:0 25px 70px rgba(0,0,0,.7);
+  text-align:center;
+}
+
+.modal-icon{
+  width:68px;
+  height:68px;
+  margin:auto;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#18d99c,#058966);
+  border:2px solid #5effcb;
+  font-size:32px;
+  font-weight:900;
+  box-shadow:0 0 25px rgba(0,230,160,.4);
+}
+
+.modal-box h3{
+  font-size:20px;
+  margin-top:16px;
+}
+
+.modal-box p{
+  color:#91a8c0;
+  font-size:13px;
+  line-height:1.55;
+  margin-top:8px;
+}
+
+.modal-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.modal-buttons button{
+  flex:1;
+  padding:14px;
+  border-radius:13px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.no-button{
+  color:#fff;
+  background:transparent;
+  border:1px solid #315e86;
+}
+
+.yes-button{
+  color:#fff;
+  border:0;
+  background:linear-gradient(90deg,#00dca4,#4d57ff,#9135ff);
+}
+
+/* CONVERSION ANIMATION */
+
+.animation-box{
+  width:100%;
+  height:300px;
+  position:relative;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.anim-title{
+  font-size:20px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.anim-sub{
+  color:#849db7;
+  font-size:12px;
+  margin-top:7px;
+}
+
+.token-moving{
+  position:absolute;
+  left:50%;
+  top:50px;
+  transform:translateX(-50%);
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#20d99e,#078b69);
+  border:3px solid #69ffcf;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:37px;
+  font-weight:900;
+  z-index:3;
+  box-shadow:0 0 30px rgba(0,240,170,.7);
+  animation:tokenMove 3.4s infinite ease-in-out;
+}
+
+@keyframes tokenMove{
+  0%{
+    top:35px;
+    transform:translateX(-50%) scale(1);
+    opacity:1;
+  }
+
+  35%{
+    top:92px;
+    transform:translateX(-50%) scale(.82);
+  }
+
+  65%{
+    top:145px;
+    transform:translateX(-50%) scale(.7);
+  }
+
+  100%{
+    top:205px;
+    transform:translateX(-50%) scale(.55);
+    opacity:.25;
+  }
+}
+
+/* USDT */
+
+.usdt-orbit{
+  position:absolute;
+  left:50%;
+  top:110px;
+  width:110px;
+  height:110px;
+  transform:translateX(-50%);
+  border:2px solid rgba(25,215,165,.45);
+  border-radius:50%;
+  animation:rotate 2.2s linear infinite;
+}
+
+.usdt-orbit::after{
+  content:"₮";
+  position:absolute;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  right:-17px;
+  top:35px;
+  background:#16c992;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:20px;
+  box-shadow:0 0 18px rgba(0,255,180,.6);
+}
+
+@keyframes rotate{
+  to{
+    transform:translateX(-50%) rotate(360deg);
+  }
+}
+
+/* RUPEE */
+
+.rupee-moving{
+  position:absolute;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  width:68px;
+  height:68px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#18dca3,#078d73);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:900;
+  box-shadow:0 0 30px rgba(0,230,170,.5);
+  animation:rupeePulse 1.4s infinite;
+}
+
+@keyframes rupeePulse{
+  50%{
+    transform:translateX(-50%) scale(1.12);
+    box-shadow:0 0 50px rgba(0,240,170,.8);
+  }
+}
+
+/* LIGHT TRAIL */
+
+.trail{
+  position:absolute;
+  left:50%;
+  top:70px;
+  width:4px;
+  height:180px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    to bottom,
+    transparent,
+    #00e5aa,
+    #39aaff,
+    #9d42ff,
+    transparent
+  );
+  filter:blur(3px);
+  animation:trailMove 1.1s infinite;
+}
+
+@keyframes trailMove{
+  0%{
+    opacity:.2;
+    transform:translateX(-50%) scaleY(.5);
+  }
+
+  50%{
+    opacity:1;
+    transform:translateX(-50%) scaleY(1);
+  }
+
+  100%{
+    opacity:.2;
+    transform:translateX(-50%) scaleY(.5);
+  }
+}
+
+/* SUCCESS */
+
+.success-icon{
+  width:88px;
+  height:88px;
+  margin:auto;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0bdd91;
+  font-size:48px;
+  box-shadow:0 0 40px rgba(0,240,160,.55);
+  animation:successPop .65s ease;
+}
+
+@keyframes successPop{
+  0%{
+    transform:scale(.2);
+    opacity:0;
+  }
+  70%{
+    transform:scale(1.12);
+  }
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.success-details{
+  margin-top:18px;
+  padding:15px;
+  border-radius:15px;
+  background:#091f38;
+  border:1px solid #173c60;
+  text-align:left;
+}
+
+.detail{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  font-size:12px;
+  color:#91a8c0;
+}
+
+.detail strong{
+  color:#fff;
+}
+
+.done-button{
+  width:100%;
+  margin-top:17px;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(90deg,#00dda5,#8e35ff);
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* FULL HISTORY */
+
+.full-history{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#020a17;
+  overflow-y:auto;
+}
+
+.full-header{
+  height:70px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:0 18px;
+  border-bottom:1px solid #15304b;
+  position:sticky;
+  top:0;
+  background:rgba(2,10,23,.95);
+  backdrop-filter:blur(15px);
+}
+
+.back-button{
+  font-size:29px;
+  cursor:pointer;
+}
+
+.full-header h2{
+  font-size:19px;
+}
+
+.full-content{
+  padding:18px;
+}
+
+@media(min-width:700px){
+
+  body{
+    display:flex;
+    justify-content:center;
+  }
+
+  .app{
+    box-shadow:0 0 80px rgba(0,0,0,.5);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="header-title">
+      <span class="crown">👑</span>
+      <span>Premium</span>
+    </div>
+
+    <div class="bell">🔔</div>
+
+  </header>
+
+
+  <!-- GREETING -->
+
+  <section class="greeting">
+
+    <h2>Hello, User 👋</h2>
+
+    <p>
+      Manage your balance and tokens
+    </p>
+
+  </section>
+
+
+  <!-- 1. WITHDRAWAL CARD -->
+
+  <div class="card withdraw-card">
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="icon">
+          <span class="rupee-icon">₹</span>
+        </div>
+
+        <div class="card-info">
+
+          <div class="card-label">
+            Withdrawal Balance
+          </div>
+
+          <div class="card-value" id="withdrawalBalance">
+            ₹0.00
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card-sub">
+        Available balance for withdrawal
+      </div>
+
+      <button
+        class="card-button"
+        id="withdrawButton">
+
+        Withdrawal
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- 2. ADD TOKEN CARD -->
+
+  <div class="card token-card">
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="icon">
+
+          <div class="token-icon">
+            T
+          </div>
+
+        </div>
+
+        <div class="card-info">
+
+          <div class="card-label">
+            Add Token
+          </div>
+
+          <div class="card-value" id="tokenBalance">
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card-sub">
+        Your current token balance
+      </div>
+
+      <button
+        class="card-button"
+        id="addTokenButton">
+
+        Add Token
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- 3. CONVERT TOKEN CARD -->
+
+  <div class="card convert-card">
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="icon">
+          ⇄
+        </div>
+
+        <div class="card-info">
+
+          <div class="card-label">
+            Convert Token
+          </div>
+
+          <div class="card-value" id="convertTokenBalance">
+            0 Token
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card-sub">
+        Convert your current tokens into money
+      </div>
+
+      <button
+        class="card-button"
+        id="convertButton">
+
+        Convert
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- HISTORY -->
+
+  <section class="history">
+
+    <div class="history-head">
+
+      <h3>Conversion History</h3>
+
+      <span
+        class="view-all"
+        id="viewAll">
+
+        View All
+
+      </span>
+
+    </div>
+
+    <div id="historyList">
+
+      <div class="empty">
+        No conversion history yet
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- CONFIRM MODAL -->
+
+<div class="modal" id="confirmModal">
+
+  <div class="modal-box">
+
+    <div class="modal-icon">
+      T
+    </div>
+
+    <h3>Convert Token?</h3>
+
+    <p id="confirmText">
+      Your current tokens will be converted into money.
+    </p>
+
+    <div class="modal-buttons">
+
+      <button
+        class="no-button"
+        id="noButton">
+
+        No
+
+      </button>
+
+      <button
+        class="yes-button"
+        id="yesButton">
+
+        Yes
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- CONVERSION ANIMATION -->
+
+<div class="modal" id="animationModal">
+
+  <div class="modal-box">
+
+    <div class="animation-box">
+
+      <div class="trail"></div>
+
+      <div class="token-moving">
+        T
+      </div>
+
+      <div class="usdt-orbit"></div>
+
+      <div class="rupee-moving">
+        ₹
+      </div>
+
+    </div>
+
+    <div class="anim-title">
+      Converting Token...
+    </div>
+
+    <div class="anim-sub">
+      Token → USDT → ₹
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SUCCESS MODAL -->
+
+<div class="modal" id="successModal">
+
+  <div class="modal-box">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <h3>
+      Successfully Token Convert!
+    </h3>
+
+    <p>
+      Your converted amount has been added to your Withdrawal Balance.
+    </p>
+
+    <div
+      class="success-details"
+      id="successDetails">
+    </div>
+
+    <button
+      class="done-button"
+      id="doneButton">
+
+      Done
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- FULL HISTORY -->
+
+<div
+  class="full-history"
+  id="fullHistory">
+
+  <div class="full-header">
+
+    <div
+      class="back-button"
+      id="closeHistory">
+
+      ‹
+
+    </div>
+
+    <h2>
+      Conversion History
+    </h2>
+
+  </div>
+
+  <div
+    class="full-content"
+    id="fullHistoryList">
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  runTransaction,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+  authDomain:
+    "globalpay-d31dd.firebaseapp.com",
+
+  projectId:
+    "globalpay-d31dd",
+
+  storageBucket:
+    "globalpay-d31dd.firebasestorage.app",
+
+  messagingSenderId:
+    "862227027913",
+
+  appId:
+    "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
+
+
+/* STATE */
+
+let currentUser = null;
+
+let currentTokens = 0;
+
+let currentWithdrawal = 0;
+
+
+/* ELEMENTS */
+
+const withdrawalBalance =
+  document.getElementById("withdrawalBalance");
+
+const tokenBalance =
+  document.getElementById("tokenBalance");
+
+const convertTokenBalance =
+  document.getElementById("convertTokenBalance");
+
+const confirmModal =
+  document.getElementById("confirmModal");
+
+const animationModal =
+  document.getElementById("animationModal");
+
+const successModal =
+  document.getElementById("successModal");
+
+const historyList =
+  document.getElementById("historyList");
+
+const fullHistory =
+  document.getElementById("fullHistory");
+
+const fullHistoryList =
+  document.getElementById("fullHistoryList");
+
+
+/* AUTH PERSISTENCE */
+
+setPersistence(
+  auth,
+  browserLocalPersistence
+).catch(error=>{
+  console.log(error);
+});
+
+
+/* AUTH */
+
+onAuthStateChanged(
+  auth,
+  async(user)=>{
+
+    if(!user){
+
+      /*
+       IMPORTANT:
+       No browser alert.
+       No automatic redirect.
+      */
+
+      return;
+    }
+
+    currentUser = user;
+
+    await loadWallet();
+
+    await loadHistory();
+
+  }
+);
+
+
+/* LOAD WALLET */
+
+async function loadWallet(){
+
+  try{
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        currentUser.uid
+      );
+
+    const snap =
+      await getDoc(userRef);
+
+    if(!snap.exists()){
+      return;
+    }
+
+    const data =
+      snap.data();
+
+
+    currentTokens =
+      Number(
+        data.tokenBalance || 0
+      );
+
+
+    currentWithdrawal =
+      Number(
+        data.withdrawalBalance ??
+        data.rupeeBalance ??
+        data.cashBalance ??
+        0
+      );
+
+
+    updateWallet();
+
+  }catch(error){
+
+    console.error(
+      "Wallet loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* UPDATE UI */
+
+function updateWallet(){
+
+  tokenBalance.textContent =
+    currentTokens.toLocaleString(
+      "en-IN"
+    );
+
+  convertTokenBalance.textContent =
+    currentTokens.toLocaleString(
+      "en-IN"
+    ) + " Token";
+
+
+  withdrawalBalance.textContent =
+    "₹" +
+    currentWithdrawal.toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* WITHDRAWAL BUTTON */
+
+document
+  .getElementById("withdrawButton")
+  .onclick = ()=>{
+
+    window.location.href =
+      "withdrawal.html";
+
+  };
+
+
+/* ADD TOKEN BUTTON */
+
+document
+  .getElementById("addTokenButton")
+  .onclick = ()=>{
+
+    window.location.href =
+      "deposit.html";
+
+  };
+
+
+/* CONVERT BUTTON */
+
+document
+  .getElementById("convertButton")
+  .onclick = ()=>{
+
+    if(!currentUser){
+      showCustomMessage(
+        "Please login first."
+      );
+      return;
+    }
+
+    if(currentTokens <= 0){
+      showCustomMessage(
+        "Your token balance is 0."
+      );
+      return;
+    }
+
+
+    document.getElementById(
+      "confirmText"
+    ).innerHTML =
+
+      `You have <b>${currentTokens.toLocaleString("en-IN")} Tokens</b>.<br><br>
+       Convert these tokens into money?`;
+
+    confirmModal.style.display =
+      "flex";
+
+  };
+
+
+/* NO */
+
+document
+  .getElementById("noButton")
+  .onclick = ()=>{
+
+    confirmModal.style.display =
+      "none";
+
+  };
+
+
+/* YES */
+
+document
+  .getElementById("yesButton")
+  .onclick =
+  async()=>{
+
+    confirmModal.style.display =
+      "none";
+
+    await convertTokens();
+
+  };
+
+
+/* CONVERT */
+
+async function convertTokens(){
+
+  if(!currentUser){
+    return;
+  }
+
+  animationModal.style.display =
+    "flex";
+
+
+  const amount =
+    currentTokens;
+
+
+  try{
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        currentUser.uid
+      );
+
+
+    const historyRef =
+      doc(
+        collection(
+          db,
+          "users",
+          currentUser.uid,
+          "conversionHistory"
+        )
+      );
+
+
+    let newTokens = 0;
+
+    let newWithdrawal = 0;
+
+
+    await runTransaction(
+      db,
+      async(transaction)=>{
+
+        const snap =
+          await transaction.get(
+            userRef
+          );
+
+
+        if(!snap.exists()){
+
+          throw new Error(
+            "User profile not found."
+          );
+
+        }
+
+
+        const data =
+          snap.data();
+
+
+        const tokens =
+          Number(
+            data.tokenBalance || 0
+          );
+
+
+        const withdrawal =
+          Number(
+            data.withdrawalBalance ??
+            data.rupeeBalance ??
+            data.cashBalance ??
+            0
+          );
+
+
+        if(tokens <= 0){
+
+          throw new Error(
+            "No tokens available."
+          );
+
+        }
+
+
+        /*
+         1 Token = ₹1
+        */
+
+        newTokens = 0;
+
+        newWithdrawal =
+          withdrawal + tokens;
+
+
+        transaction.update(
+          userRef,
+          {
+
+            tokenBalance:0,
+
+            withdrawalBalance:
+              newWithdrawal,
+
+            rupeeBalance:
+              newWithdrawal,
+
+            cashBalance:
+              newWithdrawal
+
+          }
+        );
+
+
+        transaction.set(
+          historyRef,
+          {
+
+            tokens:tokens,
+
+            rupees:tokens,
+
+            status:"Success",
+
+            transactionId:
+              "GP-CVT-" +
+              Date.now()
+                .toString(36)
+                .toUpperCase(),
+
+            createdAt:
+              serverTimestamp(),
+
+            timestamp:
+              serverTimestamp()
+
+          }
+        );
+
+      }
+    );
+
+
+    /*
+     Keep animation visible
+     so it feels premium.
+    */
+
+    setTimeout(
+      ()=>{
+
+        animationModal.style.display =
+          "none";
+
+
+        currentTokens =
+          newTokens;
+
+        currentWithdrawal =
+          newWithdrawal;
+
+
+        updateWallet();
+
+
+        showSuccess(
+          amount,
+          newWithdrawal
+        );
+
+
+        loadHistory();
+
+      },
+      3500
+    );
+
+
+  }catch(error){
+
+    animationModal.style.display =
+      "none";
+
+    showCustomMessage(
+      error.message ||
+      "Conversion failed."
+    );
+
+  }
+
+}
+
+
+/* SUCCESS */
+
+function showSuccess(
+  tokens,
+  withdrawal
+){
+
+  successDetails.innerHTML = `
+
+    <div class="detail">
+      <span>Tokens Converted</span>
+      <strong>
+        ${tokens.toLocaleString("en-IN")}
+      </strong>
+    </div>
+
+    <div class="detail">
+      <span>Amount Received</span>
+      <strong>
+        ₹${tokens.toLocaleString("en-IN")}
+      </strong>
+    </div>
+
+    <div class="detail">
+      <span>New Token Balance</span>
+      <strong>
+        0
+      </strong>
+    </div>
+
+    <div class="detail">
+      <span>Withdrawal Balance</span>
+      <strong>
+        ₹${withdrawal.toLocaleString("en-IN")}
+      </strong>
+    </div>
+
+  `;
+
+
+  successModal.style.display =
+    "flex";
+
+}
+
+
+/* DONE */
+
+document
+  .getElementById("doneButton")
+  .onclick = ()=>{
+
+    successModal.style.display =
+      "none";
+
+  };
+
+
+/* HISTORY */
+
+async function loadHistory(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  try{
+
+    const historyRef =
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "conversionHistory"
+      );
+
+
+    let snap;
+
+
+    try{
+
+      snap =
+        await getDocs(
+          query(
+            historyRef,
+            orderBy(
+              "createdAt",
+              "desc"
+            )
+          )
+        );
+
+    }catch(error){
+
+      /*
+       If createdAt index/order issue,
+       load without ordering.
+      */
+
+      snap =
+        await getDocs(
+          historyRef
+        );
+
+    }
+
+
+    const items = [];
+
+
+    snap.forEach(
+      item=>{
+
+        items.push({
+
+          id:item.id,
+
+          ...item.data()
+
+        });
+
+      }
+    );
+
+
+    items.sort(
+      (a,b)=>{
+
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return bTime-aTime;
+
+      }
+    );
+
+
+    renderHistory(
+      items.slice(0,5),
+      historyList
+    );
+
+
+    renderHistory(
+      items,
+      fullHistoryList
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "History error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* RENDER HISTORY */
+
+function renderHistory(
+  items,
+  container
+){
+
+  if(!items.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        No conversion history yet
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  items.forEach(
+    item=>{
+
+      const tokens =
+        Number(
+          item.tokens || 0
+        );
+
+
+      const rupees =
+        Number(
+          item.rupees ??
+          tokens
+        );
+
+
+      let dateText =
+        "Recently";
+
+
+      if(
+        item.createdAt &&
+        item.createdAt.toDate
+      ){
+
+        dateText =
+          item.createdAt
+            .toDate()
+            .toLocaleString(
+              "en-IN",
+              {
+                day:"2-digit",
+                month:"short",
+                year:"numeric",
+                hour:"2-digit",
+                minute:"2-digit"
+              }
+            );
+
+      }
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "history-item";
+
+
+      div.innerHTML = `
+
+        <div class="history-token">
+          T
+        </div>
+
+        <div class="history-info">
+
+          <div class="history-title">
+            Token Converted
+          </div>
+
+          <div class="history-date">
+            ${dateText}
+          </div>
+
+        </div>
+
+        <div class="history-right">
+
+          <div class="history-token-amount">
+            ${tokens.toLocaleString("en-IN")} Token
+          </div>
+
+          <div class="history-money">
+            ₹${rupees.toLocaleString("en-IN")}
+          </div>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* VIEW ALL */
+
+document
+  .getElementById("viewAll")
+  .onclick = ()=>{
+
+    fullHistory.style.display =
+      "block";
+
+    loadHistory();
+
+  };
+
+
+/* CLOSE FULL HISTORY */
+
+document
+  .getElementById("closeHistory")
+  .onclick = ()=>{
+
+    fullHistory.style.display =
+      "none";
+
+  };
+
+
+/*
+ CUSTOM MESSAGE
+ No browser alert/popup.
+*/
+
+function showCustomMessage(
+  message
+){
+
+  const modal =
+    document.createElement(
+      "div"
+    );
+
+  modal.className =
+    "modal";
+
+  modal.style.display =
+    "flex";
+
+  modal.innerHTML = `
+
+    <div class="modal-box">
+
+      <div class="modal-icon">
+        !
+      </div>
+
+      <h3>
+        Notice
+      </h3>
+
+      <p>
+        ${message}
+      </p>
+
+      <button
+        class="done-button"
+        style="margin-top:20px">
+
+        OK
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    modal
+  );
+
+
+  modal
+    .querySelector("button")
+    .onclick = ()=>{
+
+      modal.remove();
+
+    };
+
+}
+
+</script>
+
+</body>
+  </html>
