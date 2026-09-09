@@ -2250,6 +2250,381 @@ function(){
 
 </script>
 
+<script>
+(function(){
 
+    const canvas = document.getElementById("globalPayCanvas");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    let W = 0;
+    let H = 0;
+    let dpr = 1;
+
+    let bolts = [];
+    let sparks = [];
+
+    let nextLightning = 0;
+    let flash = 0;
+
+    function resize(){
+
+        const box = canvas.parentElement;
+
+        W = box.clientWidth;
+        H = box.clientHeight;
+
+        dpr = Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+
+        ctx.setTransform(
+            dpr,0,0,dpr,0,0
+        );
+
+        createSparks();
+    }
+
+    function createSparks(){
+
+        sparks = [];
+
+        const count = Math.max(
+            25,
+            Math.floor(W / 7)
+        );
+
+        for(let i=0;i<count;i++){
+
+            sparks.push({
+                x:Math.random()*W,
+                y:H + Math.random()*40,
+                size:.5 + Math.random()*2,
+                speed:.25 + Math.random()*1.1,
+                drift:(Math.random()-.5)*.7,
+                life:.25 + Math.random()*.75
+            });
+
+        }
+    }
+
+    function createLightning(){
+
+        bolts = [];
+
+        let x = Math.random()*W;
+        let y = -15;
+
+        const points = [];
+
+        const segments =
+            7 + Math.floor(Math.random()*7);
+
+        points.push({x:x,y:y});
+
+        for(let i=1;i<=segments;i++){
+
+            x += (Math.random()-.5)*55;
+
+            const previous =
+                points[points.length-1];
+
+            y = previous.y + (H*.78/segments);
+
+            points.push({
+                x:x,
+                y:y
+            });
+        }
+
+        bolts.push(points);
+
+        flash = .22;
+    }
+
+    function drawLightning(points){
+
+        ctx.save();
+
+        ctx.globalCompositeOperation = "lighter";
+
+        ctx.shadowBlur = 22;
+        ctx.shadowColor =
+            "rgba(90,210,255,.95)";
+
+        ctx.beginPath();
+
+        points.forEach((p,i)=>{
+
+            if(i===0)
+                ctx.moveTo(p.x,p.y);
+            else
+                ctx.lineTo(p.x,p.y);
+
+        });
+
+        ctx.strokeStyle =
+            "rgba(70,190,255,.18)";
+
+        ctx.lineWidth = 8;
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        points.forEach((p,i)=>{
+
+            const jitter =
+                (Math.random()-.5)*3;
+
+            if(i===0)
+                ctx.moveTo(
+                    p.x+jitter,
+                    p.y
+                );
+            else
+                ctx.lineTo(
+                    p.x+jitter,
+                    p.y
+                );
+
+        });
+
+        ctx.strokeStyle =
+            "rgba(220,250,255,.95)";
+
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function drawFire(time){
+
+        ctx.save();
+
+        ctx.globalCompositeOperation =
+            "lighter";
+
+        const fireHeight = H*.42;
+
+        for(let i=0;i<18;i++){
+
+            const x = W*(i/17);
+
+            const wave =
+                Math.sin(
+                    time*.004+i*.9
+                )*18;
+
+            const baseY = H+12;
+
+            const topY =
+                H-fireHeight-
+                Math.abs(wave);
+
+            const gradient =
+                ctx.createRadialGradient(
+                    x+wave,
+                    baseY,
+                    2,
+                    x,
+                    topY,
+                    fireHeight
+                );
+
+            gradient.addColorStop(
+                0,
+                "rgba(255,55,0,.34)"
+            );
+
+            gradient.addColorStop(
+                .28,
+                "rgba(255,110,0,.20)"
+            );
+
+            gradient.addColorStop(
+                .65,
+                "rgba(255,170,20,.07)"
+            );
+
+            gradient.addColorStop(
+                1,
+                "rgba(255,190,40,0)"
+            );
+
+            ctx.fillStyle = gradient;
+
+            ctx.beginPath();
+
+            ctx.ellipse(
+                x+wave,
+                baseY,
+                48,
+                fireHeight,
+                0,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+        }
+
+        ctx.restore();
+    }
+
+    function drawSparks(){
+
+        ctx.save();
+
+        ctx.globalCompositeOperation =
+            "lighter";
+
+        sparks.forEach(s=>{
+
+            s.y -= s.speed;
+            s.x += s.drift;
+
+            if(s.y < H*.35){
+
+                s.y =
+                    H+Math.random()*30;
+
+                s.x =
+                    Math.random()*W;
+            }
+
+            ctx.globalAlpha =
+                s.life *
+                Math.max(
+                    0,
+                    1-s.y/H
+                );
+
+            ctx.fillStyle =
+                "rgba(255,145,45,.9)";
+
+            ctx.shadowBlur = 9;
+
+            ctx.shadowColor =
+                "rgba(255,80,10,.9)";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                s.x,
+                s.y,
+                s.size,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+        });
+
+        ctx.restore();
+    }
+
+    function animate(time){
+
+        ctx.clearRect(
+            0,
+            0,
+            W,
+            H
+        );
+
+        const bg =
+            ctx.createLinearGradient(
+                0,
+                0,
+                0,
+                H
+            );
+
+        bg.addColorStop(
+            0,
+            "rgba(0,15,35,.25)"
+        );
+
+        bg.addColorStop(
+            .55,
+            "rgba(0,20,45,.10)"
+        );
+
+        bg.addColorStop(
+            1,
+            "rgba(255,55,0,.16)"
+        );
+
+        ctx.fillStyle = bg;
+
+        ctx.fillRect(
+            0,
+            0,
+            W,
+            H
+        );
+
+        drawFire(time);
+        drawSparks();
+
+        if(time > nextLightning){
+
+            createLightning();
+
+            nextLightning =
+                time +
+                2200 +
+                Math.random()*4500;
+        }
+
+        bolts.forEach(drawLightning);
+
+        if(flash > 0){
+
+            ctx.fillStyle =
+                "rgba(170,225,255,"+
+                flash+
+                ")";
+
+            ctx.fillRect(
+                0,
+                0,
+                W,
+                H
+            );
+
+            flash *= .78;
+
+            if(flash < .01)
+                flash = 0;
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+
+    resize();
+
+    nextLightning =
+        performance.now()+1000;
+
+    requestAnimationFrame(animate);
+
+})();
+      </script>
+      
 </body>
 </html>
