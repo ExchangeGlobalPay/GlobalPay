@@ -699,64 +699,123 @@ body{
 
 /* ================= BOTTOM NAV ================= */
 
+/* ================= BOTTOM NAV ================= */
+
+body{
+    padding-bottom:90px;
+}
+
 .bottom-nav{
     position:fixed;
-
     left:50%;
     bottom:0;
-
     transform:translateX(-50%);
 
     width:100%;
-    max-width:520px;
+    max-width:480px;
+    height:76px;
 
-    height:72px;
+    padding:7px 7px 8px;
 
     display:flex;
     align-items:center;
     justify-content:space-around;
 
-    background:rgba(255,255,255,.97);
+    background:rgba(3,13,27,.97);
 
-    border-top:1px solid #e7ebf0;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
-    box-shadow:
-        0 -5px 20px rgba(25,45,70,.07);
+    border-top:1px solid rgba(58,105,145,.35);
 
-    backdrop-filter:blur(15px);
+    box-shadow:0 -10px 35px rgba(0,0,0,.40);
 
-    z-index:50;
+    z-index:9999;
 }
 
 .nav-item{
     width:20%;
-    height:100%;
+    height:62px;
 
     display:flex;
     flex-direction:column;
-
     align-items:center;
     justify-content:center;
 
-    gap:3px;
+    gap:5px;
+
+    color:#71869d;
 
     text-decoration:none;
 
-    color:#687486;
+    font-size:12px;
+    font-weight:600;
 
-    font-size:10px;
+    position:relative;
+
+    transition:.2s ease;
 }
 
 .nav-icon{
+    width:25px;
     height:25px;
-    font-size:21px;
-    line-height:23px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-icon svg{
+    width:24px;
+    height:24px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
 }
 
 .nav-item.active{
-    color:#eb791e;
+    color:#20dca2;
 }
 
+.nav-item.active .nav-icon{
+    filter:drop-shadow(0 0 7px rgba(0,230,170,.55));
+}
+
+.nav-item.active::after{
+    content:"";
+
+    position:absolute;
+    bottom:1px;
+
+    width:28px;
+    height:3px;
+
+    border-radius:5px;
+
+    background:linear-gradient(90deg,#00dfa4,#3975ff);
+
+    box-shadow:0 0 10px rgba(0,220,170,.5);
+}
+
+.nav-item:active{
+    transform:scale(.93);
+}
+
+@media(max-width:350px){
+
+    .nav-item{
+        font-size:10px;
+    }
+
+    .nav-icon svg{
+        width:22px;
+        height:22px;
+    }
+
+      }
 
 /* ================= MODAL ================= */
 
@@ -1526,81 +1585,73 @@ body{
 
 
 <!-- ================= BOTTOM NAV ================= -->
-
+<!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom-nav">
 
+  <!-- HOME -->
+  <a href="home.html" class="nav-item">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5"/>
+        <path d="M5.5 9.5V21h13V9.5"/>
+        <path d="M9 21v-6h6v6"/>
+      </svg>
+    </span>
+    <span>Home</span>
+  </a>
 
-    <a class="nav-item"
-       href="home.html">
+  <!-- BUY -->
+  <a href="buy.html" class="nav-item">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M6 7h12l1.5 14h-15L6 7Z"/>
+        <path d="M9 7a3 3 0 0 1 6 0"/>
+        <path d="M9 11h6"/>
+      </svg>
+    </span>
+    <span>Buy</span>
+  </a>
 
-        <span class="nav-icon">
-            ⌂
-        </span>
+  <!-- REWARDS -->
+  <a href="rewards.html" class="nav-item">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 12v8H4v-8"/>
+        <path d="M2 8h20v4H2z"/>
+        <path d="M12 8v12"/>
+        <path d="M12 8H8.5a2.5 2.5 0 1 1 0-5C11 3 12 8 12 8Z"/>
+        <path d="M12 8h3.5a2.5 2.5 0 1 0 0-5C13 3 12 8 12 8Z"/>
+      </svg>
+    </span>
+    <span>Rewards</span>
+  </a>
 
-        <span>
-            Home
-        </span>
+  <!-- WALLET -->
+  <a href="wallet.html" class="nav-item">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H20v16H5.5A2.5 2.5 0 0 1 3 17.5v-11Z"/>
+        <path d="M3 7h17"/>
+        <path d="M14 11h6v6h-6a3 3 0 0 1 0-6Z"/>
+        <circle cx="15.5" cy="14" r=".7"/>
+      </svg>
+    </span>
+    <span>Wallet</span>
+  </a>
 
-    </a>
-
-
-    <a class="nav-item"
-       href="buy.html">
-
-        <span class="nav-icon">
-            🛒
-        </span>
-
-        <span>
-            Buy
-        </span>
-
-    </a>
-
-
-    <a class="nav-item"
-       href="rewards.html">
-
-        <span class="nav-icon">
-            🎁
-        </span>
-
-        <span>
-            Rewards
-        </span>
-
-    </a>
-
-
-    <a class="nav-item"
-       href="wallet.html">
-
-        <span class="nav-icon">
-            ▣
-        </span>
-
-        <span>
-            Wallet
-        </span>
-
-    </a>
-
-
-    <a class="nav-item active"
-       href="my.html">
-
-        <span class="nav-icon">
-            ⚙
-        </span>
-
-        <span>
-            My
-        </span>
-
-    </a>
-
+  <!-- MY -->
+  <a href="my.html" class="nav-item active">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3.2"/>
+        <path d="M19.4 15l1.1 1.1-2 2-1.1-1.1a7.4 7.4 0 0 1-2.1.9v1.6h-2.8v-1.6a7.4 7.4 0 0 1-2.1-.9l-1.1 1.1-2-2L8.4 15a7.4 7.4 0 0 1-.9-2.1H5.9v-2.8h1.6A7.4 7.4 0 0 1 8.4 8L7.3 6.9l2-2 1.1 1.1a7.4 7.4 0 0 1 2.1-.9V3.5h2.8v1.6a7.4 7.4 0 0 1 2.1.9l1.1-1.1 2 2L19.4 8a7.4 7.4 0 0 1 .9 2.1h1.6v2.8h-1.6a7.4 7.4 0 0 1-.9 2.1Z"/>
+      </svg>
+    </span>
+    <span>My</span>
+  </a>
 
 </nav>
+
 
 
 <!-- ================= MODAL ================= -->
