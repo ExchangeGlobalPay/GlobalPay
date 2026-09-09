@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>GlobalPay - Rewards</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#020b18;color:#eef7ff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh}
+button,a{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:480px;margin:auto;min-height:100vh;padding-bottom:88px;background:
+ radial-gradient(circle at 50% -10%,rgba(0,126,255,.16),transparent 35%),
+ linear-gradient(180deg,#031022 0%,#020a15 100%)}
+.topbar{height:78px;padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{width:40px;height:40px;border:0;background:transparent;color:#eef7ff;font-size:34px;line-height:1}
+.title{flex:1}.title h1{margin:0;font-size:25px;line-height:1.1}.title p{margin:4px 0 0;color:#8fb4d8;font-size:11px}
+.balance-mini{min-width:105px;padding:8px 10px;border:1px solid #2276e8;border-radius:18px;background:rgba(5,24,49,.9);text-align:center}
+.balance-mini b{display:block;font-size:16px}.balance-mini span{font-size:10px;color:#82a6cc}
+
+main{padding:0 12px}
+.hero{margin:10px 0 14px;padding:16px;border:1px solid #087dff;border-radius:20px;background:linear-gradient(120deg,#062957,#075be8 60%,#063e91);box-shadow:0 10px 30px rgba(0,71,180,.22);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:-80px -120px auto auto;width:240px;height:240px;border-radius:50%;background:rgba(0,255,194,.12);filter:blur(5px)}
+.hero-row{position:relative;z-index:1;display:flex;align-items:center;gap:14px}
+.gift-icon{width:70px;height:70px;flex:none;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#13b8ff,#0755dc);border:1px solid #2ee8ff;box-shadow:0 0 24px rgba(0,191,255,.28)}
+.gift-icon svg{width:43px;height:43px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hero h2{margin:0 0 5px;font-size:18px}.hero p{margin:0;color:#b8dcff;font-size:12px;line-height:1.45}
+.earn-badge{display:inline-flex;margin-top:9px;padding:6px 10px;border-radius:999px;border:1px solid #00e2b1;color:#4fffd0;background:rgba(0,213,166,.1);font-size:10px;font-weight:700}
+
+.section{margin:14px 0;padding:13px;border:1px solid rgba(33,117,190,.75);border-radius:20px;background:linear-gradient(180deg,rgba(5,31,57,.95),rgba(3,20,38,.96));box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.section-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#087e70,#0ac9a0);box-shadow:0 0 18px rgba(0,221,177,.22)}
+.section-icon svg{width:23px;height:23px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.section-head h2{margin:0;font-size:19px}.section-head p{margin:3px 0 0;color:#88b5db;font-size:11px}
+.daily-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.task{min-height:148px;padding:12px;border:1px solid #175d9a;border-radius:16px;background:linear-gradient(145deg,#08294a,#061c35);display:flex;flex-direction:column;justify-content:space-between}
+.task-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#225fe8,#0b8fff);margin-bottom:8px}
+.task-icon.green{background:linear-gradient(145deg,#078f77,#12d7aa)}
+.task-icon.pink{background:linear-gradient(145deg,#c73f75,#ef668d)}
+.task-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.task h3{margin:0;font-size:13px}.reward{margin:8px 0;color:#ffd65c;font-weight:800;font-size:13px}
+.btn{width:100%;height:37px;border:0;border-radius:999px;color:#fff;font-weight:800;font-size:12px}
+.btn-green{background:linear-gradient(90deg,#05c991,#08e1aa);box-shadow:0 0 16px rgba(0,221,171,.2)}
+.btn-blue{background:linear-gradient(90deg,#086ff0,#168fff);box-shadow:0 0 16px rgba(0,123,255,.2)}
+.btn-disabled{background:#12365b;color:#7898b8;cursor:not-allowed}
+.task.claimed{border-color:#00e4aa;box-shadow:0 0 17px rgba(0,230,171,.13)}
+.task.soon{opacity:.9}
+
+.ref-card{padding:12px;border:1px solid #1670b8;border-radius:17px;background:#041a31}
+.code-row{display:flex;gap:8px;align-items:center}
+.code-box{flex:1;border:1px solid #078aff;border-radius:12px;padding:10px 11px;background:#061f3b;color:#b9dcff}
+.code-box small{display:block;color:#14e5c0;font-size:10px;margin-bottom:3px}.code-box b{font-size:17px;letter-spacing:1px}
+.copy-btn{width:43px;height:43px;border:1px solid #168cff;border-radius:12px;background:#082b4f;color:#fff}
+.link-row{margin-top:8px;padding:9px 10px;border:1px solid #16547f;border-radius:10px;color:#86afd1;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.share{margin-top:10px}
+
+.milestone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.milestone{padding:12px 10px;border:1px solid #175e98;border-radius:15px;background:linear-gradient(145deg,#072b4b,#051d36);transition:.25s}
+.milestone.done{border-color:#00e7ad;box-shadow:0 0 18px rgba(0,231,173,.18);animation:doneGlow 1.8s ease-in-out infinite alternate}
+@keyframes doneGlow{from{box-shadow:0 0 8px rgba(0,231,173,.15)}to{box-shadow:0 0 23px rgba(0,231,173,.34)}}
+.mtop{display:flex;align-items:center;justify-content:space-between;gap:5px}.mref{font-weight:800;font-size:13px}.mtoken{color:#ffd75e;font-weight:800;font-size:13px;margin:7px 0}
+.progress{height:5px;border-radius:99px;background:#0a2b49;overflow:hidden;margin:6px 0 9px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#00dca5,#1d82ff);border-radius:99px;transition:width .5s}
+.status{font-size:10px;color:#789ab8;margin-bottom:7px}.done .status{color:#42f3c8}
+.claim-btn{height:33px;font-size:11px}.claim-btn.hidden{display:none}
+.note{padding:13px;border:1px solid #1b72ad;border-radius:15px;background:#041a2e;color:#a8c9e6;font-size:11px;line-height:1.6}
+.note b{color:#fff}.note-title{display:flex;align-items:center;gap:8px;font-size:13px;color:#fff;margin-bottom:5px}.dot{width:8px;height:8px;border-radius:50%;background:#ffd35b;box-shadow:0 0 9px #ffd35b}
+
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:480px;height:76px;padding:7px 7px 8px;display:flex;align-items:center;justify-content:space-around;background:rgba(3,13,27,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(58,105,145,.35);box-shadow:0 -10px 35px rgba(0,0,0,.4);z-index:90}
+.nav-item{width:20%;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#71869d;text-decoration:none;font-size:10px;font-weight:600;position:relative;transition:.2s ease}
+.nav-icon{width:25px;height:25px;display:flex;align-items:center;justify-content:center}
+.nav-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-item.active{color:#20dca2}.nav-item.active .nav-icon{filter:drop-shadow(0 0 7px rgba(0,230,170,.55))}
+.nav-item.active::after{content:"";position:absolute;bottom:1px;width:24px;height:3px;border-radius:5px;background:linear-gradient(90deg,#00dfa4,#3975ff);box-shadow:0 0 10px rgba(0,220,170,.5)}
+.nav-item:active{transform:scale(.93)}
+
+.modal-bg{position:fixed;inset:0;background:rgba(0,6,15,.76);backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:22px;z-index:200}
+.modal-bg.show{display:flex}
+.modal{width:100%;max-width:360px;padding:23px;border:1px solid #10dcae;border-radius:24px;background:linear-gradient(180deg,#062441,#031525);box-shadow:0 0 50px rgba(0,220,170,.2);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-icon{width:68px;height:68px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#00c894,#0079ff);font-size:29px;font-weight:900;box-shadow:0 0 28px rgba(0,220,170,.28)}
+.modal h2{margin:0;font-size:20px}.modal p{color:#8eb5d7;font-size:12px;line-height:1.5}
+.modal-actions{display:flex;gap:9px;margin-top:16px}.modal-actions button{flex:1;height:42px;border:0;border-radius:999px;font-weight:800}.no{background:#11304d;color:#a8c4dd}.yes{background:linear-gradient(90deg,#00c993,#087ff3);color:#fff}
+.claim-animation{display:none}.claim-animation.show{display:block}
+.coin-stage{height:125px;position:relative;margin:4px 0 8px;display:grid;place-items:center}
+.coin{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:22px;color:#052018;background:linear-gradient(145deg,#ffe37a,#ffab16);border:3px solid #fff0a5;box-shadow:0 0 30px rgba(255,190,40,.45);animation:coinMove 1.7s ease-in-out infinite}
+@keyframes coinMove{0%,100%{transform:translateX(-70px) rotate(0)}50%{transform:translateX(70px) rotate(180deg)}}
+.arrow{position:absolute;color:#39eac0;font-size:22px;animation:pulseArrow 1s infinite}
+@keyframes pulseArrow{50%{opacity:.25;transform:scale(.8)}}
+.success-mark{width:70px;height:70px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;border:2px solid #35f3c6;color:#35f3c6;font-size:34px;box-shadow:0 0 30px rgba(53,243,198,.3);animation:successPop .45s ease}
+@keyframes successPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,15px);opacity:0;pointer-events:none;z-index:300;background:#062b45;border:1px solid #0de1b1;color:#d9fff5;padding:10px 15px;border-radius:999px;font-size:11px;font-weight:700;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:360px){.daily-grid,.milestone-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <button class="back" onclick="history.back()" aria-label="Back">‹</button>
+    <div class="title"><h1>Rewards</h1><p>Complete tasks • Invite friends • Earn Tokens</p></div>
+    <div class="balance-mini"><b id="topBalance">0</b><span>Tokens</span></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-row">
+        <div class="gift-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v12M12 8H8.5a2.5 2.5 0 1 1 0-5C11 3 12 8 12 8ZM12 8h3.5a2.5 2.5 0 1 0 0-5C13 3 12 8 12 8Z"/></svg>
+        </div>
+        <div><h2>Your Rewards Journey</h2><p>Complete daily tasks, invite friends and earn Tokens.</p><span class="earn-badge">Earn more • Claim more</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 15h3M8 18h6"/></svg></div>
+        <div><h2>Daily Task</h2><p>Daily login se 2 Token earn karo.</p></div>
+      </div>
+      <div class="daily-grid">
+        <div class="task" id="loginTask">
+          <div><div class="task-icon green"><svg viewBox="0 0 24 24"><path d="M9 4h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H9"/><path d="M13 8l4 4-4 4M17 12H3"/></svg></div><h3>Daily Login</h3><div class="reward">+2 Tokens</div></div>
+          <button id="loginClaimBtn" class="btn btn-green" onclick="claimDailyLogin()">Claim 2 Tokens</button>
+        </div>
+        <div class="task soon">
+          <div><div class="task-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/></svg></div><h3>Watch Video</h3><div class="reward">Coming Soon</div></div>
+          <button class="btn btn-disabled" onclick="showToast('Watch Video is coming soon')">Coming Soon</button>
+        </div>
+        <div class="task">
+          <div><div class="task-icon pink"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 8h5M8 16h6"/></svg></div><h3>Withdraw</h3><div class="reward">Manage payout</div></div>
+          <button class="btn btn-blue" onclick="location.href='withdrawal.html'">Withdraw</button>
+        </div>
+        <div class="task">
+          <div><div class="task-icon green"><svg viewBox="0 0 24 24"><path d="M5 7h14v13H5z"/><path d="M8 7V5h8v2M8 11h8M8 15h5"/></svg></div><h3>Make a Deposit</h3><div class="reward">Add Token</div></div>
+          <button class="btn btn-blue" onclick="location.href='deposit.html'">Go</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.5-3.5 2.7-5.5 6-5.5s5.5 2 6 5.5M15 15c3 .1 5 1.7 5.5 5"/></svg></div>
+        <div><h2>Refer & Earn</h2><p>Invite friends and get rewarded.</p></div>
+      </div>
+      <div class="ref-card">
+        <div class="code-row">
+          <div class="code-box"><small>Your Referral Code</small><b id="refCode">Loading...</b></div>
+          <button class="copy-btn" onclick="copyReferralCode()" aria-label="Copy referral code"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M5 16H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="link-row" id="refLink">Generating referral link...</div>
+        <button class="btn btn-green share" onclick="shareReferral()">Share Referral Link</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24"><path d="M12 3 14.5 8l5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9L9.5 8 12 3Z"/></svg></div>
+        <div><h2>Refer Milestone Rewards</h2><p>Referral register + paid plan purchase complete hone par milestone count hoga.</p></div>
+      </div>
+      <div class="milestone-grid" id="milestoneGrid"></div>
+      <div class="note" style="margin-top:11px">
+        <div class="note-title"><span class="dot"></span><b>How to Complete Refer Task?</b></div>
+        1. Apna referral link friends ke saath share karo.<br>
+        2. Friend tumhare link se register kare.<br>
+        3. Friend koi paid plan purchase kare aur active ho.<br>
+        4. Successful paid referral count milestone me add hoga.<br>
+        5. Milestone complete hone ke baad Claim button se Tokens wallet me add karo.
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9 21v-6h6v6"/></svg></span><span>Home</span>
+    </a>
+    <a href="buy.html" class="nav-item">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l1.5 14h-15L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/><path d="M9 11h6"/></svg></span><span>Buy</span>
+    </a>
+    <a href="rewards.html" class="nav-item active">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v8H4v-8"/><path d="M2 8h20v4H2z"/><path d="M12 8v12"/><path d="M12 8H8.5a2.5 2.5 0 1 1 0-5C11 3 12 8 12 8Z"/><path d="M12 8h3.5a2.5 2.5 0 1 0 0-5C13 3 12 8 12 8Z"/></svg></span><span>Rewards</span>
+    </a>
+    <a href="wallet.html" class="nav-item">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H20v16H5.5A2.5 2.5 0 0 1 3 17.5v-11Z"/><path d="M3 7h17"/><path d="M14 11h6v6h-6a3 3 0 0 1 0-6Z"/><circle cx="15.5" cy="14" r=".7"/></svg></span><span>Wallet</span>
+    </a>
+    <a href="my.html" class="nav-item">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15l1.1 1.1-2 2-1.1-1.1a7.4 7.4 0 0 1-2.1.9v1.6h-2.8v-1.6a7.4 7.4 0 0 1-2.1-.9l-1.1 1.1-2-2L8.4 15a7.4 7.4 0 0 1-.9-2.1H5.9v-2.8h1.6A7.4 7.4 0 0 1 8.4 8L7.3 6.9l-2-2 1.1 1.1a7.4 7.4 0 0 1 2.1-.9V3.5h2.8v1.6a7.4 7.4 0 0 1 2.1.9l1.1-1.1 2 2L19.4 8a7.4 7.4 0 0 1 .9 2.1h1.6v2.8h-1.6a7.4 7.4 0 0 1-.9 2.1Z"/></svg></span><span>My</span>
+    </a>
+  </nav>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modal">
+    <div id="modalBody">
+      <div class="modal-icon">T</div>
+      <h2 id="modalTitle">Confirm Claim</h2>
+      <p id="modalText">Claim reward and add Tokens to your wallet?</p>
+      <div class="modal-actions"><button class="no" onclick="closeModal()">No</button><button class="yes" id="yesBtn">Yes, Claim</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,runTransaction} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+ authDomain:"globalpay-d31dd.firebaseapp.com",
+ projectId:"globalpay-d31dd",
+ storageBucket:"globalpay-d31dd.firebasestorage.app",
+ messagingSenderId:"862227027913",
+ appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+const milestones=[
+ {ref:1,reward:5},{ref:5,reward:25},{ref:10,reward:50},{ref:15,reward:75},
+ {ref:20,reward:100},{ref:30,reward:150},{ref:40,reward:200},{ref:50,reward:250}
+];
+
+let currentUser=null;
+let userData={};
+let pendingClaim=null;
+
+const $=id=>document.getElementById(id);
+const num=v=>Number.isFinite(Number(v))?Number(v):0;
+const todayKey=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const userRef=()=>doc(db,"users",currentUser.uid);
+const money=n=>num(n).toLocaleString("en-IN");
+
+function showToast(msg){
+ $("toast").textContent=msg;$("toast").classList.add("show");
+ clearTimeout(window.__toast);window.__toast=setTimeout(()=>$("toast").classList.remove("show"),2400);
+}
+
+function makeReferralCode(uid){
+ return "GP"+uid.replace(/[^a-zA-Z0-9]/g,"").slice(-8).toUpperCase();
+}
+
+function renderBalance(){
+ $("topBalance").textContent=money(userData.tokenBalance||0);
+}
+
+function renderReferral(){
+ const code=userData.referralCode||makeReferralCode(currentUser.uid);
+ $("refCode").textContent=code;
+ const base=location.origin&&location.origin!=="null"?location.origin:"";
+ const link=(base?base+"/":"")+"register.html?ref="+encodeURIComponent(code);
+ $("refLink").textContent=link;
+}
+
+function renderMilestones(){
+ const count=num(userData.successfulReferrals||userData.referralCount||0);
+ const claimed=Array.isArray(userData.claimedReferralRewards)?userData.claimedReferralRewards.map(Number):[];
+ $("milestoneGrid").innerHTML=milestones.map(m=>{
+   const complete=count>=m.ref;
+   const isClaimed=claimed.includes(m.ref);
+   const pct=Math.min(100,Math.round(count/m.ref*100));
+   return `<div class="milestone ${complete?"done":""}">
+     <div class="mtop"><span class="mref">${m.ref} Refer</span><span style="color:#8eb9da;font-size:10px">${Math.min(count,m.ref)}/${m.ref}</span></div>
+     <div class="mtoken">+${m.reward} Tokens</div>
+     <div class="progress"><i style="width:${pct}%"></i></div>
+     <div class="status">${isClaimed?"Reward Claimed":complete?"Milestone Complete":"Pending"}</div>
+     <button class="btn ${complete&&!isClaimed?"btn-green":"btn-disabled"} claim-btn ${isClaimed?"hidden":""}" ${complete&&!isClaimed?`onclick="openReferralClaim(${m.ref},${m.reward})"`:"disabled"}>${complete&&!isClaimed?"Claim":"Pending"}</button>
+   </div>`;
+ }).join("");
+}
+
+async function loadUser(){
+ if(!currentUser)return;
+ const snap=await getDoc(userRef());
+ userData=snap.exists()?snap.data():{};
+ if(!userData.referralCode){
+   const code=makeReferralCode(currentUser.uid);
+   userData.referralCode=code;
+   await runTransaction(db,async tx=>{
+     const s=await tx.get(userRef());
+     if(s.exists()&&!s.data().referralCode)tx.update(userRef(),{referralCode:code});
+   });
+ }
+ renderBalance();renderReferral();renderMilestones();renderDailyLogin();
+}
+
+function renderDailyLogin(){
+ const claimed=userData.dailyLoginClaimDate===todayKey();
+ const btn=$("loginClaimBtn");
+ const task=$("loginTask");
+ if(claimed){
+   btn.textContent="Claimed Today ✓";btn.disabled=true;btn.className="btn btn-disabled";
+   task.classList.add("claimed");
+ }else{
+   btn.textContent="Claim 2 Tokens";btn.disabled=false;btn.className="btn btn-green";
+   task.classList.remove("claimed");
+ }
+}
+
+window.claimDailyLogin=async()=>{
+ if(!currentUser)return showToast("Please login first");
+ if(userData.dailyLoginClaimDate===todayKey())return showToast("Daily login already claimed");
+ const btn=$("loginClaimBtn");btn.disabled=true;btn.textContent="Claiming...";
+ try{
+   await runTransaction(db,async tx=>{
+     const ref=userRef();const s=await tx.get(ref);if(!s.exists())throw new Error("User not found");
+     const d=s.data();
+     if(d.dailyLoginClaimDate===todayKey())throw new Error("Already claimed");
+     tx.update(ref,{tokenBalance:num(d.tokenBalance)+2,dailyLoginClaimDate:todayKey()});
+   });
+   userData.tokenBalance=num(userData.tokenBalance)+2;
+   userData.dailyLoginClaimDate=todayKey();
+   renderBalance();renderDailyLogin();showToast("+2 Tokens added to wallet");
+ }catch(e){console.error(e);renderDailyLogin();showToast(e.message==="Already claimed"?"Already claimed today":"Unable to claim right now");}
+};
+
+window.copyReferralCode=async()=>{
+ const code=$("refCode").textContent;
+ try{await navigator.clipboard.writeText(code);showToast("Referral code copied");}catch{showToast("Copy failed");}
+};
+
+window.shareReferral=async()=>{
+ const code=$("refCode").textContent;
+ const link=$("refLink").textContent;
+ const text=`Join GlobalPay using my referral code ${code}. Register here: ${link}`;
+ if(navigator.share){
+   try{await navigator.share({title:"GlobalPay Referral",text,url:link});}catch{}
+ }else{
+   try{await navigator.clipboard.writeText(text);showToast("Referral link copied. Share it with your friends");}catch{showToast(text);}
+ }
+};
+
+window.openReferralClaim=(ref,reward)=>{
+ pendingClaim={ref,reward};
+ $("modalBody").innerHTML=`
+   <div class="modal-icon">T</div>
+   <h2>Claim ${reward} Tokens?</h2>
+   <p>${ref} successful paid referral milestone complete hai. Claim karne par ${reward} Tokens wallet me add honge.</p>
+   <div class="modal-actions"><button class="no" onclick="closeModal()">No</button><button class="yes" onclick="confirmReferralClaim()">Yes, Claim</button></div>`;
+ $("modalBg").classList.add("show");
+};
+
+window.closeModal=()=>{
+ $("modalBg").classList.remove("show");
+ pendingClaim=null;
+};
+
+window.confirmReferralClaim=async()=>{
+ if(!pendingClaim||!currentUser)return;
+ const {ref,reward}=pendingClaim;
+ $("modalBody").innerHTML=`
+   <div class="coin-stage"><div class="coin">T</div><div class="arrow">→</div></div>
+   <h2>Processing Reward</h2><p>Token reward is being added to your wallet...</p>`;
+ try{
+   await new Promise(r=>setTimeout(r,1200));
+   await runTransaction(db,async tx=>{
+     const uref=userRef();const s=await tx.get(uref);if(!s.exists())throw new Error("User not found");
+     const d=s.data();const count=num(d.successfulReferrals||d.referralCount||0);
+     const claimed=Array.isArray(d.claimedReferralRewards)?d.claimedReferralRewards.map(Number):[];
+     if(count<ref)throw new Error("Milestone not complete");
+     if(claimed.includes(ref))throw new Error("Already claimed");
+     tx.update(uref,{tokenBalance:num(d.tokenBalance)+reward,claimedReferralRewards:[...claimed,ref]});
+   });
+   userData.tokenBalance=num(userData.tokenBalance)+reward;
+   userData.claimedReferralRewards=[...(userData.claimedReferralRewards||[]).map(Number),ref];
+   await new Promise(r=>setTimeout(r,700));
+   $("modalBody").innerHTML=`<div class="success-mark">✓</div><h2>Reward Claimed</h2><p>Successfully converted into wallet Tokens.<br><b style="color:#38f2c5">+${reward} Tokens added</b></p><div class="modal-actions"><button class="yes" onclick="closeModal()">Done</button></div>`;
+   renderBalance();renderMilestones();showToast(`+${reward} Tokens added`);
+ }catch(e){
+   $("modalBody").innerHTML=`<div class="modal-icon">!</div><h2>Unable to Claim</h2><p>${e.message||"Please try again."}</p><div class="modal-actions"><button class="yes" onclick="closeModal()">Close</button></div>`;
+ }
+};
+
+onAuthStateChanged(auth,async user=>{
+ currentUser=user;
+ if(user)await loadUser();
+ else showToast("Please login to access Rewards");
+});
+</script>
+</body>
+</html>
