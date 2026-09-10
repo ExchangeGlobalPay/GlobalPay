@@ -601,7 +601,9 @@ from
 
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -651,9 +653,13 @@ const app =
 const auth =
   getAuth(app);
 
-
 const db =
   getFirestore(app);
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
 
 
 let currentUser = null;
