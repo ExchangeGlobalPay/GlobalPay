@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalPay Admin</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fffaf5;
+  color:#111;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.login-box{
+  max-width:400px;
+  margin:80px auto;
+  background:#fff;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+h1,h2{
+  margin-top:0;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
+}
+
+button{
+  border:0;
+  padding:11px 16px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.login-btn{
+  width:100%;
+  background:#000;
+  color:white;
+  margin-top:10px;
+}
+
+.logout{
+  background:#111;
+  color:#fff;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:#fff;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:5px;
+}
+
+.deposit{
+  background:#fff;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+
+.row{
+  margin:7px 0;
+  word-break:break-word;
+}
+
+.amount{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.utr{
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.approve{
+  background:#16a34a;
+  color:#fff;
+}
+
+.reject{
+  background:#dc2626;
+  color:#fff;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.pending{
+  background:#fff3cd;
+  color:#856404;
+}
+
+.approved{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.rejected{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.filter{
+  margin-bottom:15px;
+}
+
+.hidden{
+  display:none;
+}
+
+.empty{
+  background:#fff;
+  padding:30px;
+  text-align:center;
+  border-radius:15px;
+}
+
+@media(max-width:600px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .top{
+    align-items:flex-start;
+  }
+
+  .actions button{
+    flex:1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="container">
+
+  <div class="login-box">
+
+    <h2>GlobalPay Admin</h2>
+    <p>Admin Login</p>
+
+    <input
+      id="adminId"
+      type="text"
+      placeholder="User ID"
+      autocomplete="off"
+    >
+
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button class="login-btn" onclick="adminLogin()">
+      Login
+    </button>
+
+    <p id="loginError" style="color:red;"></p>
+
+  </div>
+
+</div>
+
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="container hidden">
+
+  <div class="top">
+    <div>
+      <h1>Admin Panel</h1>
+      <div>Deposit Management</div>
+    </div>
+
+    <button class="logout" onclick="logoutAdmin()">
+      Logout
+    </button>
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      Pending
+      <strong id="pendingCount">0</strong>
+    </div>
+
+    <div class="stat">
+      Approved
+      <strong id="approvedCount">0</strong>
+    </div>
+
+    <div class="stat">
+      Rejected
+      <strong id="rejectedCount">0</strong>
+    </div>
+
+  </div>
+
+
+  <select id="filter" class="filter" onchange="renderDeposits()"
+    style="padding:12px;border:1px solid #ddd;border-radius:10px;width:100%;">
+
+    <option value="all">All Deposits</option>
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="rejected">Rejected</option>
+
+  </select>
+
+
+  <div id="depositList"></div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collectionGroup,
+  query,
+  orderBy,
+  getDocs,
+  doc,
+  runTransaction,
+  serverTimestamp,
+  updateDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+  authDomain:"globalpay-d31dd.firebaseapp.com",
+  projectId:"globalpay-d31dd",
+  storageBucket:"globalpay-d31dd.firebasestorage.app",
+  messagingSenderId:"862227027913",
+  appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+/*
+  ADMIN LOGIN
+*/
+
+const ADMIN_ID = "993428";
+const ADMIN_PASSWORD = "993428";
+
+
+window.adminLogin = function(){
+
+  const id =
+    document.getElementById("adminId").value.trim();
+
+  const password =
+    document.getElementById("adminPassword").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  if(id === ADMIN_ID && password === ADMIN_PASSWORD){
+
+    sessionStorage.setItem("globalpay_admin","1");
+
+    error.textContent = "";
+
+    showAdmin();
+
+  }else{
+
+    error.textContent = "Invalid Admin ID or Password";
+
+  }
+
+};
+
+
+function showAdmin(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminPanel")
+    .classList.remove("hidden");
+
+  loadDeposits();
+
+}
+
+
+window.logoutAdmin = function(){
+
+  sessionStorage.removeItem("globalpay_admin");
+
+  location.reload();
+
+};
+
+
+/*
+  DEPOSIT DATA
+*/
+
+let deposits = [];
+
+
+async function loadDeposits(){
+
+  const list =
+    document.getElementById("depositList");
+
+  list.innerHTML =
+    "<div class='empty'>Loading deposits...</div>";
+
+  try{
+
+    const q = query(
+      collectionGroup(db,"deposits"),
+      orderBy("createdAt","desc")
+    );
+
+    const snapshot = await getDocs(q);
+
+    deposits = [];
+
+    snapshot.forEach(item => {
+
+      deposits.push({
+        id:item.id,
+        ref:item.ref,
+        ...item.data()
+      });
+
+    });
+
+    updateStats();
+    renderDeposits();
+
+  }catch(error){
+
+    console.error(error);
+
+    list.innerHTML = `
+      <div class="empty">
+        Unable to load deposits.<br><br>
+        ${error.message}
+      </div>
+    `;
+
+  }
+
+}
+
+
+/*
+  STATS
+*/
+
+function updateStats(){
+
+  let pending = 0;
+  let approved = 0;
+  let rejected = 0;
+
+  deposits.forEach(d => {
+
+    if(d.status === "pending") pending++;
+
+    if(d.status === "approved") approved++;
+
+    if(d.status === "rejected") rejected++;
+
+  });
+
+  document.getElementById("pendingCount").textContent =
+    pending;
+
+  document.getElementById("approvedCount").textContent =
+    approved;
+
+  document.getElementById("rejectedCount").textContent =
+    rejected;
+
+}
+
+
+/*
+  RENDER
+*/
+
+window.renderDeposits = function(){
+
+  const list =
+    document.getElementById("depositList");
+
+  const filter =
+    document.getElementById("filter").value;
+
+  const filtered =
+    deposits.filter(d =>
+      filter === "all" || d.status === filter
+    );
+
+  if(filtered.length === 0){
+
+    list.innerHTML =
+      "<div class='empty'>No deposits found.</div>";
+
+    return;
+
+  }
+
+
+  list.innerHTML = filtered.map(d => {
+
+    const totalTokens =
+      Number(d.totalTokens || 0);
+
+    const baseTokens =
+      Number(d.baseTokens || d.amount || 0);
+
+    const bonusTokens =
+      Number(d.bonusTokens || 0);
+
+    let date = "";
+
+    if(d.createdAt && d.createdAt.toDate){
+
+      date =
+        d.createdAt.toDate().toLocaleString();
+
+    }
+
+
+    const status =
+      d.status || "pending";
+
+
+    let buttons = "";
+
+    if(status === "pending"){
+
+      buttons = `
+        <div class="actions">
+
+          <button
+            class="approve"
+            onclick="approveDeposit('${d.id}','${d.uid}')">
+            Approve
+          </button>
+
+          <button
+            class="reject"
+            onclick="rejectDeposit('${d.id}','${d.uid}')">
+            Reject
+          </button>
+
+        </div>
+      `;
+
+    }
+
+
+    return `
+
+      <div class="deposit">
+
+        <div class="amount">
+          ₹${Number(d.amount || 0).toLocaleString("en-IN")}
+        </div>
+
+        <div class="row">
+          <b>Status:</b>
+          <span class="status ${status}">
+            ${status.toUpperCase()}
+          </span>
+        </div>
+
+        <div class="row">
+          <b>User UID:</b> ${d.uid || "-"}
+        </div>
+
+        <div class="row">
+          <b>UTR:</b>
+          <span class="utr">${d.utr || "-"}</span>
+        </div>
+
+        <div class="row">
+          <b>Base Tokens:</b> ${baseTokens}
+        </div>
+
+        <div class="row">
+          <b>Bonus Tokens:</b> ${bonusTokens}
+        </div>
+
+        <div class="row">
+          <b>Total Tokens:</b> ${totalTokens}
+        </div>
+
+        <div class="row">
+          <b>Created:</b> ${date || "-"}
+        </div>
+
+        ${buttons}
+
+      </div>
+
+    `;
+
+  }).join("");
+
+};
+
+
+/*
+  APPROVE
+*/
+
+window.approveDeposit = async function(depositId, userUid){
+
+  if(!confirm(
+    "Is deposit ko APPROVE karna hai?\n\n" +
+    "Approval ke baad Tokens user ke balance me add honge."
+  )){
+    return;
+  }
+
+
+  try{
+
+    const depositRef =
+      deposits.find(d => d.id === depositId)?.ref;
+
+
+    if(!depositRef){
+
+      alert("Deposit not found.");
+      return;
+
+    }
+
+
+    await runTransaction(db, async transaction => {
+
+      const depositSnap =
+        await transaction.get(depositRef);
+
+      if(!depositSnap.exists()){
+
+        throw new Error("Deposit not found.");
+
+      }
+
+
+      const deposit =
+        depositSnap.data();
+
+
+      /*
+        Double approval protection
+      */
+
+      if(deposit.status !== "pending"){
+
+        throw new Error(
+          "This deposit is already processed."
+        );
+
+      }
+
+
+      const userRef =
+        doc(db,"users",userUid);
+
+      const userSnap =
+        await transaction.get(userRef);
+
+
+      if(!userSnap.exists()){
+
+        throw new Error(
+          "User account not found."
+        );
+
+      }
+
+
+      const user =
+        userSnap.data();
+
+
+      const currentBalance =
+        Number(user.tokenBalance || 0);
+
+
+      const tokens =
+        Number(deposit.totalTokens || 0);
+
+
+      if(tokens <= 0){
+
+        throw new Error(
+          "Invalid token amount."
+        );
+
+      }
+
+
+      const newBalance =
+        currentBalance + tokens;
+
+
+      /*
+        User token balance update
+      */
+
+      transaction.update(userRef,{
+        tokenBalance:newBalance
+      });
+
+
+      /*
+        Deposit successful
+      */
+
+      transaction.update(depositRef,{
+
+        status:"approved",
+
+        tokensCredited:true,
+
+        creditedTokens:tokens,
+
+        previousTokenBalance:currentBalance,
+
+        newTokenBalance:newBalance,
+
+        processedAt:serverTimestamp(),
+
+        processedBy:ADMIN_ID
+
+      });
+
+    });
+
+
+    alert(
+      "Deposit Approved Successfully!\n\n" +
+      "Tokens user balance me add ho gaye."
+    );
+
+
+    await loadDeposits();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Approval failed:\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/*
+  REJECT
+*/
+
+window.rejectDeposit = async function(depositId, userUid){
+
+  if(!confirm(
+    "Is deposit ko REJECT karna hai?"
+  )){
+    return;
+  }
+
+
+  try{
+
+    const depositRef =
+      deposits.find(d => d.id === depositId)?.ref;
+
+
+    if(!depositRef){
+
+      alert("Deposit not found.");
+      return;
+
+    }
+
+
+    const snap =
+      await getDocs(
+        query(
+          collectionGroup(db,"deposits")
+        )
+      );
+
+
+    /*
+      Re-read the actual deposit before rejecting.
+    */
+
+    const { getDoc } =
+      await import(
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"
+      );
+
+
+    const depositSnap =
+      await getDoc(depositRef);
+
+
+    if(!depositSnap.exists()){
+
+      throw new Error("Deposit not found.");
+
+    }
+
+
+    const deposit =
+      depositSnap.data();
+
+
+    if(deposit.status !== "pending"){
+
+      throw new Error(
+        "This deposit is already processed."
+      );
+
+    }
+
+
+    await updateDoc(depositRef,{
+
+      status:"rejected",
+
+      tokensCredited:false,
+
+      processedAt:serverTimestamp(),
+
+      processedBy:ADMIN_ID
+
+    });
+
+
+    alert("Deposit rejected.");
+
+
+    await loadDeposits();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Reject failed:\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/*
+  AUTO LOGIN FOR CURRENT SESSION
+*/
+
+if(
+  sessionStorage.getItem("globalpay_admin") === "1"
+){
+
+  showAdmin();
+
+}
+
+</script>
+
+</body>
+  </html>
