@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalPay Admin</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffaf5;color:#111}
+.container{max-width:1000px;margin:auto;padding:16px}
+.hidden{display:none!important}
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{width:100%;max-width:390px;background:#fff;padding:28px;border-radius:20px;box-shadow:0 10px 35px rgba(0,0,0,.1)}
+.logo{width:64px;height:64px;border-radius:17px;background:#e87512;color:#fff;display:flex;align-items:center;justify-content:center;margin:auto;font-size:25px;font-weight:bold}
+.login-box h1{text-align:center;margin:14px 0 5px}
+.muted{color:#777;font-size:13px}
+.input{width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;font-size:16px;margin-top:10px}
+.btn{border:0;border-radius:10px;padding:12px 15px;font-weight:bold;cursor:pointer}
+.login-btn{width:100%;margin-top:14px;background:#000;color:#fff}
+.error{color:#dc2626;margin-top:10px;font-size:14px}
+.header{background:#fff;border-radius:17px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 5px 20px rgba(0,0,0,.06);margin-bottom:16px}
+.header h1{margin:0;font-size:22px}
+.actions-top{display:flex;gap:8px}
+.refresh{background:#eee}.logout{background:#111;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border-radius:14px;padding:16px;box-shadow:0 5px 18px rgba(0,0,0,.05)}
+.stat strong{display:block;font-size:27px;margin-top:6px}
+.filter{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;margin-bottom:15px}
+.card{background:#fff;border-radius:17px;padding:17px;margin-bottom:14px;box-shadow:0 5px 20px rgba(0,0,0,.06)}
+.topline{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.amount{font-size:24px;font-weight:bold}
+.status{display:inline-block;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:bold}
+.pending{background:#fff3cd;color:#856404}
+.approved{background:#dcfce7;color:#166534}
+.rejected{background:#fee2e2;color:#991b1b}
+.row{display:flex;justify-content:space-between;gap:15px;border-top:1px solid #eee;padding:8px 0;font-size:14px}
+.row span:first-child{color:#777}
+.row span:last-child{font-weight:bold;text-align:right;word-break:break-all}
+.card-actions{display:flex;gap:10px;margin-top:14px}
+.approve,.reject{flex:1;color:#fff}
+.approve{background:#16a34a}.reject{background:#dc2626}
+.approve:disabled,.reject:disabled{opacity:.5}
+.empty,.loading{text-align:center;background:#fff;border-radius:15px;padding:30px;color:#777}
+@media(max-width:650px){
+ .stats{grid-template-columns:1fr}
+ .header{align-items:flex-start}
+ .actions-top{flex-direction:column}
+ .row{flex-direction:column;gap:3px}
+ .row span:last-child{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="logo">GP</div>
+    <h1>GlobalPay Admin</h1>
+    <p class="muted" style="text-align:center">Secure admin login</p>
+    <input id="adminId" class="input" type="text" inputmode="numeric" placeholder="Admin ID">
+    <input id="adminPassword" class="input" type="password" placeholder="Password">
+    <button id="loginBtn" class="btn login-btn">Login</button>
+    <div id="loginError" class="error"></div>
+  </div>
+</div>
+
+<div id="adminPanel" class="hidden">
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>GlobalPay Admin</h1>
+      <div class="muted">Deposit approval panel</div>
+    </div>
+    <div class="actions-top">
+      <button id="refreshBtn" class="btn refresh">↻ Refresh</button>
+      <button id="logoutBtn" class="btn logout">Logout</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="muted">Pending</div><strong id="pendingCount">0</strong></div>
+    <div class="stat"><div class="muted">Approved</div><strong id="approvedCount">0</strong></div>
+    <div class="stat"><div class="muted">Rejected</div><strong id="rejectedCount">0</strong></div>
+  </div>
+
+  <select id="filter" class="filter">
+    <option value="all">All Deposits</option>
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="rejected">Rejected</option>
+  </select>
+
+  <div id="depositList"><div class="loading">Loading deposits...</div></div>
+
+</div>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {getFirestore,collectionGroup,getDocs,query,doc,runTransaction,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+ authDomain:"globalpay-d31dd.firebaseapp.com",
+ projectId:"globalpay-d31dd",
+ storageBucket:"globalpay-d31dd.firebasestorage.app",
+ messagingSenderId:"862227027913",
+ appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+const ADMIN_ID="993428";
+const ADMIN_EMAIL="993428@globalpay-admin.app";
+const ADMIN_UID="mzpruXJakRhQmvF6rhqS9653UNU2";
+
+let deposits=[];
+
+const $=id=>document.getElementById(id);
+
+$("loginBtn").addEventListener("click",login);
+$("logoutBtn").addEventListener("click",async()=>{await signOut(auth)});
+$("refreshBtn").addEventListener("click",loadDeposits);
+$("filter").addEventListener("change",renderDeposits);
+
+$("adminPassword").addEventListener("keydown",e=>{
+ if(e.key==="Enter") login();
+});
+
+async function login(){
+ const id=$("adminId").value.trim();
+ const password=$("adminPassword").value;
+ $("loginError").textContent="";
+
+ if(id!==ADMIN_ID){
+   $("loginError").textContent="Invalid Admin ID or Password.";
+   return;
+ }
+
+ $("loginBtn").disabled=true;
+ $("loginBtn").textContent="Logging in...";
+
+ try{
+   const result=await signInWithEmailAndPassword(auth,ADMIN_EMAIL,password);
+
+   if(result.user.uid!==ADMIN_UID){
+     await signOut(auth);
+     throw new Error("Unauthorized admin account.");
+   }
+ }catch(error){
+   console.error(error);
+   $("loginError").textContent="Invalid Admin ID or Password.";
+ }finally{
+   $("loginBtn").disabled=false;
+   $("loginBtn").textContent="Login";
+ }
+}
+
+onAuthStateChanged(auth,async user=>{
+ if(user && user.uid===ADMIN_UID){
+   $("loginScreen").classList.add("hidden");
+   $("adminPanel").classList.remove("hidden");
+   await loadDeposits();
+ }else{
+   if(user) await signOut(auth);
+   $("loginScreen").classList.remove("hidden");
+   $("adminPanel").classList.add("hidden");
+ }
+});
+
+async function loadDeposits(){
+ $("depositList").innerHTML='<div class="loading">Loading deposits...</div>';
+
+ try{
+   const snap=await getDocs(query(collectionGroup(db,"deposits")));
+
+   deposits=[];
+   snap.forEach(d=>{
+     deposits.push({id:d.id,ref:d.ref,...d.data()});
+   });
+
+   deposits.sort((a,b)=>
+     (b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0)
+   );
+
+   updateStats();
+   renderDeposits();
+ }catch(error){
+   console.error(error);
+   $("depositList").innerHTML=
+     '<div class="empty"><b>Deposits load nahi ho rahe.</b><br><br>'+
+     escapeHtml(error.message)+'</div>';
+ }
+}
+
+function updateStats(){
+ let p=0,a=0,r=0;
+
+ deposits.forEach(d=>{
+   if(d.status==="pending")p++;
+   else if(d.status==="approved")a++;
+   else if(d.status==="rejected")r++;
+ });
+
+ $("pendingCount").textContent=p;
+ $("approvedCount").textContent=a;
+ $("rejectedCount").textContent=r;
+}
+
+function renderDeposits(){
+ const filter=$("filter").value;
+
+ const list=deposits.filter(d=>
+   filter==="all" || (d.status||"pending")===filter
+ );
+
+ if(!list.length){
+   $("depositList").innerHTML='<div class="empty">No deposits found.</div>';
+   return;
+ }
+
+ $("depositList").innerHTML=list.map(d=>{
+   const amount=Number(d.amount||0);
+   const base=Number(d.baseTokens??amount);
+   const bonus=Number(d.bonusTokens||0);
+   const total=Number(d.totalTokens??(base+bonus));
+   const status=d.status||"pending";
+   const created=d.createdAt?.toDate?.()?.toLocaleString("en-IN")||"-";
+
+   return `
+   <div class="card">
+     <div class="topline">
+       <div class="amount">₹${amount.toLocaleString("en-IN")}</div>
+       <span class="status ${status}">${status.toUpperCase()}</span>
+     </div>
+
+     <div style="margin-top:12px">
+       <div class="row"><span>User UID</span><span>${escapeHtml(d.uid||"-")}</span></div>
+       <div class="row"><span>UTR</span><span>${escapeHtml(d.utr||"-")}</span></div>
+       <div class="row"><span>Base Tokens</span><span>${base}</span></div>
+       <div class="row"><span>Bonus Tokens</span><span>${bonus}</span></div>
+       <div class="row"><span>Total Tokens</span><span>${total}</span></div>
+       <div class="row"><span>Submitted</span><span>${escapeHtml(created)}</span></div>
+       ${d.creditedTokens!=null?`<div class="row"><span>Credited Tokens</span><span>${Number(d.creditedTokens||0)}</span></div>`:""}
+     </div>
+
+     ${status==="pending"?`
+       <div class="card-actions">
+         <button class="btn approve" data-id="${d.id}">✓ Approve</button>
+         <button class="btn reject" data-id="${d.id}">✕ Reject</button>
+       </div>
+     `:""}
+   </div>`;
+ }).join("");
+
+ document.querySelectorAll(".approve").forEach(btn=>{
+   btn.addEventListener("click",()=>approveDeposit(btn.dataset.id));
+ });
+
+ document.querySelectorAll(".reject").forEach(btn=>{
+   btn.addEventListener("click",()=>rejectDeposit(btn.dataset.id));
+ });
+}
+
+async function approveDeposit(id){
+ const deposit=deposits.find(d=>d.id===id);
+
+ if(!deposit || deposit.status!=="pending"){
+   alert("This deposit is already processed.");
+   return;
+ }
+
+ const tokens=Number(deposit.totalTokens||0);
+
+ if(tokens<=0){
+   alert("Invalid token amount.");
+   return;
+ }
+
+ if(!confirm(
+   "Approve this deposit?\n\n"+
+   "Amount: ₹"+Number(deposit.amount||0).toLocaleString("en-IN")+
+   "\nTokens: "+tokens+
+   "\n\nTokens user balance me add honge."
+ )) return;
+
+ try{
+   const userUid=deposit.uid;
+   if(!userUid) throw new Error("User UID missing.");
+
+   const userRef=doc(db,"users",userUid);
+
+   await runTransaction(db,async(transaction)=>{
+     const depositSnap=await transaction.get(deposit.ref);
+
+     if(!depositSnap.exists())
+       throw new Error("Deposit not found.");
+
+     const fresh=depositSnap.data();
+
+     if(fresh.status!=="pending")
+       throw new Error("Deposit already processed.");
+
+     const userSnap=await transaction.get(userRef);
+
+     if(!userSnap.exists())
+       throw new Error("User account not found.");
+
+     const oldBalance=Number(userSnap.data().tokenBalance||0);
+     const credit=Number(fresh.totalTokens||0);
+
+     if(credit<=0)
+       throw new Error("Invalid token amount.");
+
+     const newBalance=oldBalance+credit;
+
+     transaction.update(userRef,{
+       tokenBalance:newBalance
+     });
+
+     transaction.update(deposit.ref,{
+       status:"approved",
+       tokensCredited:true,
+       creditedTokens:credit,
+       previousTokenBalance:oldBalance,
+       newTokenBalance:newBalance,
+       processedAt:serverTimestamp(),
+       processedBy:ADMIN_UID
+     });
+   });
+
+   alert("✅ Approved. "+tokens+" Tokens added to user balance.");
+   await loadDeposits();
+ }catch(error){
+   console.error(error);
+   alert("Approval failed:\n"+error.message);
+ }
+}
+
+async function rejectDeposit(id){
+ const deposit=deposits.find(d=>d.id===id);
+
+ if(!deposit || deposit.status!=="pending"){
+   alert("This deposit is already processed.");
+   return;
+ }
+
+ if(!confirm(
+   "Reject this deposit?\n\n"+
+   "Amount: ₹"+Number(deposit.amount||0).toLocaleString("en-IN")
+ )) return;
+
+ try{
+   await runTransaction(db,async(transaction)=>{
+     const snap=await transaction.get(deposit.ref);
+
+     if(!snap.exists())
+       throw new Error("Deposit not found.");
+
+     const fresh=snap.data();
+
+     if(fresh.status!=="pending")
+       throw new Error("Deposit already processed.");
+
+     transaction.update(deposit.ref,{
+       status:"rejected",
+       tokensCredited:false,
+       processedAt:serverTimestamp(),
+       processedBy:ADMIN_UID
+     });
+   });
+
+   alert("❌ Deposit rejected.");
+   await loadDeposits();
+ }catch(error){
+   console.error(error);
+   alert("Reject failed:\n"+error.message);
+ }
+}
+
+function escapeHtml(v){
+ return String(v??"")
+ .replaceAll("&","&amp;")
+ .replaceAll("<","&lt;")
+ .replaceAll(">","&gt;")
+ .replaceAll('"',"&quot;")
+ .replaceAll("'","&#039;");
+}
+</script>
+</body>
+</html>
