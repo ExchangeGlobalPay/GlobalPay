@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>GlobalPay - Deposit</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#020b18;
+  color:#eef7ff;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+
+body{min-height:100vh}
+
+button,input{font:inherit}
+button{cursor:pointer}
+
+.app{
+  width:100%;
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:30px;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(0,126,255,.16),transparent 35%),
+    linear-gradient(180deg,#031022 0%,#020a15 100%)
+}
+
+.topbar{
+  height:72px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(58,105,145,.25)
+}
+
+.back{
+  width:40px;
+  height:40px;
+  border:0;
+  background:transparent;
+  color:#eef7ff;
+  font-size:34px;
+  line-height:1
+}
+
+.title{flex:1}
+.title h1{margin:0;font-size:22px}
+.title p{margin:3px 0 0;color:#82a8cb;font-size:10px}
+
+main{padding:14px 12px}
+
+.card{
+  margin-bottom:13px;
+  padding:15px;
+  border:1px solid rgba(33,117,190,.75);
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(5,31,57,.96),rgba(3,20,38,.97));
+  box-shadow:0 10px 28px rgba(0,0,0,.18)
+}
+
+.card h2{
+  margin:0 0 5px;
+  font-size:17px
+}
+
+.card-sub{
+  margin:0 0 14px;
+  color:#88b5db;
+  font-size:11px;
+  line-height:1.5
+}
+
+.amount-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px
+}
+
+.amount-btn{
+  min-height:62px;
+  border:1px solid #1763a0;
+  border-radius:14px;
+  background:linear-gradient(145deg,#082b4b,#061c35);
+  color:#fff;
+  text-align:left;
+  padding:10px;
+  transition:.2s
+}
+
+.amount-btn strong{
+  display:block;
+  font-size:16px
+}
+
+.amount-btn span{
+  display:block;
+  margin-top:3px;
+  color:#7fa9cf;
+  font-size:9px
+}
+
+.amount-btn.active{
+  border-color:#00dca7;
+  background:linear-gradient(145deg,#064c52,#063d58);
+  box-shadow:0 0 17px rgba(0,220,170,.16)
+}
+
+.custom-label{
+  display:block;
+  margin:14px 0 6px;
+  color:#9fc4e4;
+  font-size:11px;
+  font-weight:700
+}
+
+.amount-input{
+  width:100%;
+  height:47px;
+  border:1px solid #1b6da9;
+  border-radius:12px;
+  outline:none;
+  background:#061d35;
+  color:#fff;
+  padding:0 13px;
+  font-size:16px;
+  font-weight:700
+}
+
+.amount-input:focus{border-color:#00dca7}
+
+.minmax{
+  display:flex;
+  justify-content:space-between;
+  margin-top:5px;
+  color:#668aa9;
+  font-size:9px
+}
+
+.summary{
+  padding:12px;
+  border:1px solid #175c91;
+  border-radius:14px;
+  background:#041a31
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:5px 0;
+  color:#91b6d7;
+  font-size:11px
+}
+
+.row b{color:#fff}
+
+.row.total{
+  margin-top:6px;
+  padding-top:10px;
+  border-top:1px solid #17496f;
+  color:#fff;
+  font-size:13px
+}
+
+.row.total b{
+  color:#39efc3;
+  font-size:17px
+}
+
+.primary{
+  width:100%;
+  height:45px;
+  margin-top:13px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,#00c991,#087ff3);
+  color:#fff;
+  font-weight:800;
+  box-shadow:0 0 18px rgba(0,190,180,.16)
+}
+
+.primary:disabled{
+  opacity:.5;
+  cursor:not-allowed
+}
+
+.payment-card{display:none}
+.payment-card.show{display:block}
+
+.pay-amount{
+  padding:11px;
+  border:1px solid #087dff;
+  border-radius:13px;
+  background:#062650;
+  text-align:center;
+  margin-bottom:13px
+}
+
+.pay-amount small{
+  display:block;
+  color:#8fbce2;
+  font-size:10px
+}
+
+.pay-amount b{
+  display:block;
+  margin-top:3px;
+  font-size:24px;
+  color:#fff
+}
+
+.qr-wrap{
+  display:flex;
+  justify-content:center;
+  padding:12px;
+  background:#fff;
+  border-radius:16px;
+  width:max-content;
+  max-width:100%;
+  margin:0 auto 12px
+}
+
+.qr-wrap img{
+  width:220px;
+  height:220px;
+  object-fit:contain;
+  display:block
+}
+
+.timer{
+  text-align:center;
+  margin:8px 0 14px;
+  color:#ffcf57;
+  font-size:13px;
+  font-weight:800
+}
+
+.timer.expired{color:#ff6d7d}
+
+.utr-label{
+  display:block;
+  color:#9fc4e4;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:6px
+}
+
+.utr-input{
+  width:100%;
+  height:47px;
+  border:1px solid #1b6da9;
+  border-radius:12px;
+  outline:none;
+  background:#061d35;
+  color:#fff;
+  padding:0 13px;
+  font-size:16px;
+  letter-spacing:2px;
+  font-weight:700
+}
+
+.utr-input:focus{border-color:#00dca7}
+
+.utr-help{
+  margin-top:5px;
+  color:#678dab;
+  font-size:9px
+}
+
+.notice{
+  padding:11px;
+  margin-top:12px;
+  border:1px solid #18547e;
+  border-radius:12px;
+  background:#041a2e;
+  color:#8fb5d4;
+  font-size:10px;
+  line-height:1.5
+}
+
+.notice b{color:#fff}
+
+.history-item{
+  padding:12px;
+  margin-top:9px;
+  border:1px solid #175b91;
+  border-radius:13px;
+  background:#041a30
+}
+
+.history-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px
+}
+
+.history-amount{
+  color:#fff;
+  font-size:15px;
+  font-weight:800
+}
+
+.status{
+  padding:4px 8px;
+  border-radius:999px;
+  background:#3b3010;
+  color:#ffd45d;
+  font-size:9px;
+  font-weight:800
+}
+
+.status.approved{
+  background:#063c32;
+  color:#42f3c8
+}
+
+.status.rejected{
+  background:#421c26;
+  color:#ff8497
+}
+
+.history-line{
+  margin-top:5px;
+  color:#7fa6c5;
+  font-size:9px
+}
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,6,15,.78);
+  backdrop-filter:blur(9px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  z-index:200
+}
+
+.modal-bg.show{display:flex}
+
+.modal{
+  width:100%;
+  max-width:360px;
+  padding:23px;
+  border:1px solid #10dcae;
+  border-radius:24px;
+  background:linear-gradient(180deg,#062441,#031525);
+  box-shadow:0 0 50px rgba(0,220,170,.2);
+  text-align:center
+}
+
+.modal-icon{
+  width:64px;
+  height:64px;
+  margin:0 auto 12px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#00c894,#0079ff);
+  font-size:27px;
+  font-weight:900
+}
+
+.modal h2{
+  margin:0;
+  font-size:19px
+}
+
+.modal p{
+  color:#8eb5d7;
+  font-size:11px;
+  line-height:1.55
+}
+
+.modal-actions{
+  display:flex;
+  gap:9px;
+  margin-top:16px
+}
+
+.modal-actions button{
+  flex:1;
+  height:42px;
+  border:0;
+  border-radius:999px;
+  font-weight:800
+}
+
+.no{
+  background:#11304d;
+  color:#a8c4dd
+}
+
+.yes{
+  background:linear-gradient(90deg,#00c993,#087ff3);
+  color:#fff
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,15px);
+  opacity:0;
+  pointer-events:none;
+  z-index:300;
+  background:#062b45;
+  border:1px solid #0de1b1;
+  color:#d9fff5;
+  padding:10px 15px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  transition:.25s;
+  max-width:90%;
+  text-align:center
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0)
+}
+
+@media(max-width:360px){
+  .amount-grid{grid-template-columns:1fr}
+  .qr-wrap img{width:190px;height:190px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topbar">
+  <button class="back" onclick="history.back()" aria-label="Back">‹</button>
+
+  <div class="title">
+    <h1>Deposit</h1>
+    <p>Add money and receive Tokens</p>
+  </div>
+</header>
+
+<main>
+
+<section class="card">
+
+  <h2>Select Deposit Amount</h2>
+  <p class="card-sub">
+    Choose a preset amount or enter your own amount.
+  </p>
+
+  <div class="amount-grid">
+
+    <button class="amount-btn" data-amount="300">
+      <strong>₹300</strong>
+      <span>300 Tokens</span>
+    </button>
+
+    <button class="amount-btn" data-amount="500">
+      <strong>₹500</strong>
+      <span>550 Tokens • +50 Bonus</span>
+    </button>
+
+    <button class="amount-btn" data-amount="1000">
+      <strong>₹1,000</strong>
+      <span>1,120 Tokens • +120 Bonus</span>
+    </button>
+
+    <button class="amount-btn" data-amount="5000">
+      <strong>₹5,000</strong>
+      <span>5,600 Tokens • +600 Bonus</span>
+    </button>
+
+    <button class="amount-btn" data-amount="10000">
+      <strong>₹10,000</strong>
+      <span>10,000 Tokens</span>
+    </button>
+
+  </div>
+
+  <label class="custom-label">Custom Amount</label>
+
+  <input
+    id="amountInput"
+    class="amount-input"
+    type="number"
+    inputmode="numeric"
+    min="300"
+    max="100000"
+    placeholder="Enter ₹300 - ₹1,00,000"
+  >
+
+  <div class="minmax">
+    <span>Minimum ₹300</span>
+    <span>Maximum ₹1,00,000</span>
+  </div>
+
+  <div class="summary" style="margin-top:13px">
+
+    <div class="row">
+      <span>Deposit Amount</span>
+      <b id="summaryAmount">₹0</b>
+    </div>
+
+    <div class="row">
+      <span>Bonus Tokens</span>
+      <b id="summaryBonus">0</b>
+    </div>
+
+    <div class="row total">
+      <span>Total Tokens</span>
+      <b id="summaryTokens">0</b>
+    </div>
+
+  </div>
+
+  <button id="continueBtn" class="primary" disabled>
+    Continue to Payment
+  </button>
+
+</section>
+
+
+<section id="paymentCard" class="card payment-card">
+
+  <h2>Complete Payment</h2>
+
+  <p class="card-sub">
+    Pay the exact amount shown below, then enter your 12-digit UTR number.
+  </p>
+
+  <div class="pay-amount">
+    <small>Pay Exact Amount</small>
+    <b id="payAmount">₹0</b>
+  </div>
+
+  <div class="qr-wrap">
+    <img src="qr.png" alt="Payment QR Code">
+  </div>
+
+  <div id="timer" class="timer">
+    Payment time: 05:00
+  </div>
+
+  <label class="utr-label">12-Digit UTR Number</label>
+
+  <input
+    id="utrInput"
+    class="utr-input"
+    type="text"
+    inputmode="numeric"
+    maxlength="12"
+    autocomplete="off"
+    placeholder="Enter 12-digit UTR"
+  >
+
+  <div class="utr-help">
+    UTR must contain exactly 12 digits.
+  </div>
+
+  <button id="submitBtn" class="primary" disabled>
+    Submit Payment
+  </button>
+
+  <div class="notice">
+    <b>Important:</b> UTR submit karne ke baad request verification ke liye
+    jayegi. Payment verify hone ke baad Tokens wallet mein credit honge.
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h2>Deposit History</h2>
+  <p class="card-sub">
+    Your recent deposit requests.
+  </p>
+
+  <div id="history">
+    <div style="color:#6e91af;font-size:11px">
+      Loading history...
+    </div>
+  </div>
+
+</section>
+
+</main>
+</div>
+
+
+<div class="modal-bg" id="modalBg">
+
+  <div class="modal">
+
+    <div class="modal-icon" id="modalIcon">✓</div>
+
+    <h2 id="modalTitle">Deposit Submitted</h2>
+
+    <p id="modalText"></p>
+
+    <div class="modal-actions">
+      <button class="yes" onclick="closeModal()">Done</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script type="module">
+
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+  apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+  authDomain:"globalpay-d31dd.firebaseapp.com",
+  projectId:"globalpay-d31dd",
+  storageBucket:"globalpay-d31dd.firebasestorage.app",
+  messagingSenderId:"862227027913",
+  appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+};
+
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+
+const $=id=>document.getElementById(id);
+
+let currentUser=null;
+let selectedAmount=0;
+let selectedBonus=0;
+let timerSeconds=300;
+let timerInterval=null;
+let submitting=false;
+
+
+/*
+  Bonus rules
+*/
+function getBonus(amount){
+
+  amount=Number(amount);
+
+  if(amount===500){
+    return 50;
+  }
+
+  if(amount===1000){
+    return 120;
+  }
+
+  if(amount===5000){
+    return 600;
+  }
+
+  return 0;
+}
+
+
+/*
+  Token calculation
+  ₹1 = 1 base Token
+*/
+function calculateTokens(amount){
+
+  amount=Number(amount)||0;
+
+  const bonus=getBonus(amount);
+
+  return amount+bonus;
+}
+
+
+/*
+  Format INR
+*/
+function money(value){
+
+  return Number(value||0).toLocaleString("en-IN");
+}
+
+
+/*
+  Toast
+*/
+function showToast(message){
+
+  const toast=$("toast");
+
+  toast.textContent=message;
+  toast.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },2600);
+}
+
+
+/*
+  Modal
+*/
+function showModal(title,text,icon="✓"){
+
+  $("modalIcon").textContent=icon;
+  $("modalTitle").textContent=title;
+  $("modalText").innerHTML=text;
+
+  $("modalBg").classList.add("show");
+}
+
+window.closeModal=()=>{
+  $("modalBg").classList.remove("show");
+};
+
+
+/*
+  Select preset
+*/
+document.querySelectorAll(".amount-btn").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    document.querySelectorAll(".amount-btn")
+      .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    selectedAmount=Number(btn.dataset.amount);
+
+    $("amountInput").value=selectedAmount;
+
+    updateSummary();
+  });
+
+});
+
+
+/*
+  Custom amount
+*/
+$("amountInput").addEventListener("input",()=>{
+
+  document.querySelectorAll(".amount-btn")
+    .forEach(x=>x.classList.remove("active"));
+
+  selectedAmount=Number($("amountInput").value)||0;
+
+  updateSummary();
+});
+
+
+/*
+  Summary
+*/
+function updateSummary(){
+
+  if(selectedAmount<300 || selectedAmount>100000){
+
+    $("summaryAmount").textContent="₹0";
+    $("summaryBonus").textContent="0";
+    $("summaryTokens").textContent="0";
+    $("continueBtn").disabled=true;
+
+    return;
+  }
+
+  selectedBonus=getBonus(selectedAmount);
+
+  const total=calculateTokens(selectedAmount);
+
+  $("summaryAmount").textContent="₹"+money(selectedAmount);
+  $("summaryBonus").textContent="+"+money(selectedBonus);
+  $("summaryTokens").textContent=money(total);
+
+  $("continueBtn").disabled=false;
+}
+
+
+/*
+  Continue to payment
+*/
+$("continueBtn").addEventListener("click",()=>{
+
+  if(!currentUser){
+
+    showToast("Please login first");
+    return;
+  }
+
+  if(selectedAmount<300 || selectedAmount>100000){
+
+    showToast("Amount must be between ₹300 and ₹1,00,000");
+    return;
+  }
+
+  $("payAmount").textContent="₹"+money(selectedAmount);
+
+  $("paymentCard").classList.add("show");
+
+  startTimer();
+
+  $("paymentCard").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+});
+
+
+/*
+  Five minute timer
+*/
+function startTimer(){
+
+  clearInterval(timerInterval);
+
+  timerSeconds=300;
+
+  renderTimer();
+
+  timerInterval=setInterval(()=>{
+
+    timerSeconds--;
+
+    renderTimer();
+
+    if(timerSeconds<=0){
+
+      clearInterval(timerInterval);
+
+      $("utrInput").disabled=true;
+      $("submitBtn").disabled=true;
+
+      $("timer").classList.add("expired");
+      $("timer").textContent="Payment time expired";
+
+    }
+
+  },1000);
+}
+
+
+function renderTimer(){
+
+  const min=Math.floor(timerSeconds/60);
+  const sec=timerSeconds%60;
+
+  $("timer").textContent=
+    "Payment time: "+
+    String(min).padStart(2,"0")+":"+
+    String(sec).padStart(2,"0");
+}
+
+
+/*
+  UTR input
+*/
+$("utrInput").addEventListener("input",()=>{
+
+  let value=$("utrInput").value.replace(/\D/g,"");
+
+  if(value.length>12){
+    value=value.slice(0,12);
+  }
+
+  $("utrInput").value=value;
+
+  $("submitBtn").disabled=
+    value.length!==12 ||
+    timerSeconds<=0 ||
+    submitting;
+
+});
+
+
+/*
+  Submit deposit request
+*/
+$("submitBtn").addEventListener("click",submitDeposit);
+
+
+async function submitDeposit(){
+
+  if(submitting)return;
+
+  if(!currentUser){
+
+    showToast("Please login first");
+    return;
+  }
+
+  if(timerSeconds<=0){
+
+    showToast("Payment time expired");
+    return;
+  }
+
+  const utr=$("utrInput").value.trim();
+
+  if(!/^\d{12}$/.test(utr)){
+
+    showToast("Enter exactly 12-digit UTR");
+    return;
+  }
+
+  if(selectedAmount<300 || selectedAmount>100000){
+
+    showToast("Invalid deposit amount");
+    return;
+  }
+
+
+  submitting=true;
+
+  $("submitBtn").disabled=true;
+  $("submitBtn").textContent="Submitting...";
+
+
+  try{
+
+    /*
+      IMPORTANT:
+      The UTR is only recorded here.
+      No tokenBalance is changed from the client.
+    */
+
+    const ref=collection(
+      db,
+      "users",
+      currentUser.uid,
+      "deposits"
+    );
+
+
+    /*
+      Prevent same UTR from being submitted twice
+      for this user's account.
+    */
+
+    const existing=await getDocs(
+      query(
+        ref,
+        where("utr","==",utr),
+        limit(1)
+      )
+    );
+
+
+    if(!existing.empty){
+
+      throw new Error(
+        "This UTR has already been submitted."
+      );
+
+    }
+
+
+    const baseTokens=selectedAmount;
+    const bonusTokens=getBonus(selectedAmount);
+    const totalTokens=baseTokens+bonusTokens;
+
+
+    const depositData={
+
+      uid:currentUser.uid,
+
+      amount:selectedAmount,
+
+      baseTokens:baseTokens,
+
+      bonusTokens:bonusTokens,
+
+      totalTokens:totalTokens,
+
+      utr:utr,
+
+      status:"pending",
+
+      createdAt:serverTimestamp(),
+
+      /*
+        This flag makes the intended flow explicit.
+        Token balance must be credited by trusted
+        verification/admin logic.
+      */
+      tokensCredited:false
+
+    };
+
+
+    await addDoc(ref,depositData);
+
+
+    clearInterval(timerInterval);
+
+
+    const now=new Date();
+
+    const dateTime=
+      now.toLocaleDateString("en-IN")+
+      " "+
+      now.toLocaleTimeString("en-IN",{
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+      });
+
+
+    showModal(
+      "Deposit Submitted",
+      `
+      <b style="color:#39efc3">
+        Request submitted successfully
+      </b>
+      <br><br>
+
+      Deposit Amount:
+      <b style="color:#fff">
+        ₹${money(selectedAmount)}
+      </b>
+
+      <br>
+
+      Tokens after verification:
+      <b style="color:#39efc3">
+        ${money(totalTokens)} Tokens
+      </b>
+
+      <br>
+
+      UTR:
+      <b style="color:#fff">
+        ${utr}
+      </b>
+
+      <br>
+
+      Date & Time:
+      <b style="color:#fff">
+        ${dateTime}
+      </b>
+
+      <br><br>
+
+      <span style="color:#8eb5d7">
+        Payment verification ke baad Tokens wallet mein
+        credit honge.
+      </span>
+      `
+    );
+
+
+    $("utrInput").value="";
+    $("paymentCard").classList.remove("show");
+
+    selectedAmount=0;
+    selectedBonus=0;
+
+    document.querySelectorAll(".amount-btn")
+      .forEach(x=>x.classList.remove("active"));
+
+    $("amountInput").value="";
+
+    updateSummary();
+
+    await loadHistory();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      error.message||
+      "Unable to submit deposit"
+    );
+
+  }finally{
+
+    submitting=false;
+
+    $("submitBtn").textContent="Submit Payment";
+
+    $("submitBtn").disabled=
+      $("utrInput").value.length!==12 ||
+      timerSeconds<=0;
+
+  }
+
+}
+
+
+/*
+  Deposit history
+*/
+async function loadHistory(){
+
+  if(!currentUser)return;
+
+
+  const box=$("history");
+
+  box.innerHTML=
+    '<div style="color:#6e91af;font-size:11px">Loading history...</div>';
+
+
+  try{
+
+    const ref=collection(
+      db,
+      "users",
+      currentUser.uid,
+      "deposits"
+    );
+
+
+    let snap;
+
+    try{
+
+      snap=await getDocs(
+        query(
+          ref,
+          orderBy("createdAt","desc"),
+          limit(10)
+        )
+      );
+
+    }catch{
+
+      snap=await getDocs(
+        query(
+          ref,
+          limit(10)
+        )
+      );
+
+    }
+
+
+    if(snap.empty){
+
+      box.innerHTML=
+        '<div style="color:#6e91af;font-size:11px">No deposit history yet.</div>';
+
+      return;
+    }
+
+
+    const items=[];
+
+
+    snap.forEach(docSnap=>{
+
+      const d=docSnap.data();
+
+      let dateText="Pending date";
+
+      if(d.createdAt?.toDate){
+
+        dateText=d.createdAt
+          .toDate()
+          .toLocaleString("en-IN");
+
+      }
+
+
+      items.push({
+
+        id:docSnap.id,
+        ...d,
+        dateText
+
+      });
+
+    });
+
+
+    items.sort((a,b)=>{
+
+      const aTime=a.createdAt?.seconds||0;
+      const bTime=b.createdAt?.seconds||0;
+
+      return bTime-aTime;
+
+    });
+
+
+    box.innerHTML=items.map(d=>{
+
+      const status=
+        String(d.status||"pending").toLowerCase();
+
+      const statusClass=
+        status==="approved"
+          ?"approved"
+          :status==="rejected"
+            ?"rejected"
+            :"";
+
+
+      return `
+      <div class="history-item">
+
+        <div class="history-top">
+
+          <div class="history-amount">
+            ₹${money(d.amount)}
+          </div>
+
+          <div class="status ${statusClass}">
+            ${status.toUpperCase()}
+          </div>
+
+        </div>
+
+        <div class="history-line">
+          Tokens:
+          <b style="color:#39efc3">
+            ${money(d.totalTokens||0)}
+          </b>
+        </div>
+
+        <div class="history-line">
+          UTR:
+          <b style="color:#d8eaff">
+            ${d.utr||"-"}
+          </b>
+        </div>
+
+        <div class="history-line">
+          Date:
+          ${d.dateText}
+        </div>
+
+      </div>
+      `;
+
+    }).join("");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML=
+      '<div style="color:#ff8497;font-size:11px">Unable to load deposit history.</div>';
+
+  }
+
+}
+
+
+/*
+  Authentication
+*/
+onAuthStateChanged(auth,async user=>{
+
+  currentUser=user;
+
+  if(!user){
+
+    showToast("Please login first");
+
+    setTimeout(()=>{
+      location.href="login.html";
+    },1000);
+
+    return;
+  }
+
+  await loadHistory();
+
+});
+
+
+</script>
+
+</body>
+</html>
+
