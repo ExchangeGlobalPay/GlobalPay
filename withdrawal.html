@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Global Pay - Withdrawal</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(15,75,125,.35),transparent 35%),
+    radial-gradient(circle at 100% 20%,rgba(90,25,150,.25),transparent 35%),
+    #020a17;
+  color:#fff;
+}
+
+.app{
+  width:100%;
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  padding-bottom:95px;
+}
+
+
+/* HEADER */
+
+.header{
+  height:72px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:0 18px;
+  border-bottom:1px solid rgba(50,100,145,.25);
+}
+
+.back{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#08192d;
+  border:1px solid #173957;
+  font-size:27px;
+  cursor:pointer;
+}
+
+.header-title{
+  font-size:21px;
+  font-weight:800;
+}
+
+.header-sub{
+  margin-left:auto;
+  font-size:11px;
+  color:#6e89a5;
+}
+
+
+/* BALANCE */
+
+.balance-card{
+  margin:18px 17px;
+  padding:20px;
+  border-radius:22px;
+  background:
+    linear-gradient(135deg,#0b806e,#087f9b);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 18px 45px rgba(0,0,0,.35);
+  position:relative;
+  overflow:hidden;
+}
+
+.balance-card::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  right:-90px;
+  top:-90px;
+  background:rgba(255,255,255,.08);
+}
+
+.balance-content{
+  position:relative;
+  z-index:2;
+}
+
+.balance-label{
+  color:rgba(255,255,255,.78);
+  font-size:12px;
+}
+
+.balance{
+  font-size:31px;
+  font-weight:900;
+  margin-top:6px;
+}
+
+.limit-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:17px;
+  font-size:11px;
+  color:rgba(255,255,255,.75);
+}
+
+
+/* TABS */
+
+.tabs{
+  margin:18px 17px 15px;
+  padding:5px;
+  display:flex;
+  background:#07172b;
+  border:1px solid #153754;
+  border-radius:15px;
+}
+
+.tab{
+  flex:1;
+  padding:12px;
+  text-align:center;
+  border-radius:11px;
+  color:#7189a3;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.tab.active{
+  color:#fff;
+  background:linear-gradient(90deg,#08b993,#087e9b);
+  box-shadow:0 5px 15px rgba(0,210,165,.2);
+}
+
+
+/* FORM */
+
+.form-box{
+  margin:0 17px;
+  padding:19px;
+  border-radius:21px;
+  background:#061426;
+  border:1px solid #153654;
+  box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.form-title{
+  font-size:17px;
+  font-weight:800;
+}
+
+.form-sub{
+  color:#718aa4;
+  font-size:11px;
+  margin-top:5px;
+  margin-bottom:18px;
+}
+
+
+/* INPUT */
+
+.field{
+  margin-top:13px;
+}
+
+.field label{
+  display:block;
+  color:#8ea5bc;
+  font-size:11px;
+  margin-bottom:7px;
+}
+
+.input{
+  width:100%;
+  height:48px;
+  padding:0 14px;
+  border-radius:12px;
+  border:1px solid #1b3c5c;
+  outline:none;
+  background:#081b30;
+  color:#fff;
+  font-size:13px;
+}
+
+.input:focus{
+  border-color:#13cfa4;
+  box-shadow:0 0 0 2px rgba(19,207,164,.08);
+}
+
+.input::placeholder{
+  color:#536d87;
+}
+
+
+/* AMOUNT */
+
+.amount-box{
+  position:relative;
+}
+
+.amount-box span{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:17px;
+  font-weight:800;
+  color:#20dca2;
+}
+
+.amount-input{
+  padding-left:35px;
+  font-size:17px;
+  font-weight:700;
+}
+
+
+/* ERROR */
+
+.error{
+  display:none;
+  margin-top:6px;
+  color:#ff5c6c;
+  font-size:10px;
+}
+
+.input.invalid{
+  border-color:#ff4e61;
+}
+
+
+/* WITHDRAW BUTTON */
+
+.withdraw-submit{
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+  background:linear-gradient(
+    90deg,
+    #00dca4,
+    #3975ff,
+    #8c35ff
+  );
+  box-shadow:0 10px 25px rgba(40,100,255,.2);
+}
+
+.withdraw-submit:active{
+  transform:scale(.98);
+}
+
+.withdraw-submit:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+
+/* INFO */
+
+.info-box{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:#071a2e;
+  border:1px solid #153754;
+  color:#718ba5;
+  font-size:10px;
+  line-height:1.5;
+}
+
+
+/* HISTORY */
+
+.history{
+  margin:25px 17px 0;
+}
+
+.history-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.history-head h3{
+  font-size:18px;
+}
+
+.view-all{
+  color:#4fa7ff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.history-item{
+  padding:14px;
+  margin-bottom:9px;
+  border-radius:16px;
+  background:#07172b;
+  border:1px solid #153654;
+}
+
+.history-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.history-icon{
+  width:43px;
+  height:43px;
+  flex:none;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+  font-weight:900;
+  background:linear-gradient(145deg,#0bc99a,#087e9c);
+}
+
+.history-info{
+  flex:1;
+  min-width:0;
+}
+
+.history-title{
+  font-size:13px;
+  font-weight:800;
+}
+
+.history-date{
+  color:#6d87a1;
+  font-size:9px;
+  margin-top:5px;
+}
+
+.history-amount{
+  font-size:15px;
+  font-weight:900;
+  text-align:right;
+}
+
+.history-bottom{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid #12304c;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.txid{
+  color:#718ba5;
+  font-size:9px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.status{
+  flex:none;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.status.pending{
+  color:#ffd84d;
+  background:rgba(255,190,0,.1);
+  border:1px solid rgba(255,200,0,.25);
+}
+
+.status.success{
+  color:#20e2a0;
+  background:rgba(0,220,160,.1);
+  border:1px solid rgba(0,220,160,.25);
+}
+
+.status.rejected{
+  color:#ff6574;
+  background:rgba(255,70,90,.1);
+  border:1px solid rgba(255,70,90,.25);
+}
+
+.empty{
+  text-align:center;
+  padding:30px 10px;
+  color:#7188a2;
+  font-size:12px;
+}
+
+
+/* CUSTOM MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(9px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-box{
+  width:100%;
+  max-width:390px;
+  padding:24px;
+  border-radius:23px;
+  background:
+    radial-gradient(circle at 50% 0%,#102b4a,transparent 52%),
+    #061426;
+  border:1px solid #214b72;
+  box-shadow:0 25px 70px rgba(0,0,0,.7);
+  text-align:center;
+}
+
+.modal-icon{
+  width:70px;
+  height:70px;
+  margin:auto;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#13dca1,#087f72);
+  border:2px solid #62ffcf;
+  font-size:31px;
+  font-weight:900;
+  box-shadow:0 0 28px rgba(0,230,170,.4);
+}
+
+.modal-box h3{
+  margin-top:16px;
+  font-size:20px;
+}
+
+.modal-box p{
+  margin-top:8px;
+  color:#91a8c0;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.modal-details{
+  margin-top:17px;
+  padding:14px;
+  border-radius:15px;
+  background:#091f38;
+  border:1px solid #173c60;
+  text-align:left;
+}
+
+.detail{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  color:#8099b2;
+  font-size:11px;
+}
+
+.detail strong{
+  color:#fff;
+  text-align:right;
+  word-break:break-word;
+}
+
+.done{
+  width:100%;
+  margin-top:17px;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(90deg,#00dca4,#8c35ff);
+  cursor:pointer;
+}
+
+
+/* FULL HISTORY */
+
+.full-history{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:#020a17;
+  overflow-y:auto;
+}
+
+.full-header{
+  height:70px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:0 18px;
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:rgba(2,10,23,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid #15304b;
+}
+
+.full-back{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+  background:#08192d;
+  border:1px solid #173957;
+  cursor:pointer;
+}
+
+.full-header h2{
+  font-size:19px;
+}
+
+.full-content{
+  padding:18px;
+  padding-bottom:35px;
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:76px;
+  padding:7px 7px 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  background:rgba(3,13,27,.97);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(58,105,145,.35);
+  box-shadow:0 -10px 35px rgba(0,0,0,.4);
+  z-index:90;
+}
+
+.nav-item{
+  width:20%;
+  height:62px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  color:#71869d;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:600;
+  position:relative;
+}
+
+.nav-icon{
+  width:25px;
+  height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.nav-icon svg{
+  width:23px;
+  height:23px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.nav-item.active{
+  color:#20dca2;
+}
+
+.nav-item.active .nav-icon{
+  filter:drop-shadow(0 0 7px rgba(0,230,170,.55));
+}
+
+.nav-item.active::after{
+  content:"";
+  position:absolute;
+  bottom:1px;
+  width:24px;
+  height:3px;
+  border-radius:5px;
+  background:linear-gradient(90deg,#00dfa4,#3975ff);
+}
+
+@media(min-width:700px){
+
+  body{
+    display:flex;
+    justify-content:center;
+  }
+
+  .app{
+    box-shadow:0 0 80px rgba(0,0,0,.5);
+  }
+
+  .bottom-nav{
+    max-width:480px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <div
+    class="back"
+    onclick="goBack()">
+
+    ‹
+
+  </div>
+
+  <div class="header-title">
+    Withdrawal
+  </div>
+
+  <div class="header-sub">
+    GlobalPay
+  </div>
+
+</header>
+
+
+<!-- BALANCE -->
+
+<section class="balance-card">
+
+  <div class="balance-content">
+
+    <div class="balance-label">
+      Available Withdrawal Balance
+    </div>
+
+    <div
+      class="balance"
+      id="walletBalance">
+
+      ₹0.00
+
+    </div>
+
+    <div class="limit-row">
+
+      <span>
+        Minimum ₹500
+      </span>
+
+      <span>
+        Maximum ₹50,000
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TABS -->
+
+<div class="tabs">
+
+  <div
+    class="tab active"
+    id="bankTab">
+
+    🏦 Bank
+
+  </div>
+
+  <div
+    class="tab"
+    id="upiTab">
+
+    UPI
+
+  </div>
+
+</div>
+
+
+<!-- BANK FORM -->
+
+<section
+  class="form-box"
+  id="bankForm">
+
+  <div class="form-title">
+    Bank Withdrawal
+  </div>
+
+  <div class="form-sub">
+    Enter your bank details carefully
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Withdrawal Amount
+    </label>
+
+    <div class="amount-box">
+
+      <span>₹</span>
+
+      <input
+        class="input amount-input"
+        id="bankAmount"
+        type="number"
+        min="500"
+        placeholder="Enter amount">
+
+    </div>
+
+    <div
+      class="error"
+      id="bankAmountError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Bank Name
+    </label>
+
+    <input
+      class="input"
+      id="bankName"
+      type="text"
+      placeholder="Enter bank name">
+
+    <div
+      class="error"
+      id="bankNameError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Account Holder Name
+    </label>
+
+    <input
+      class="input"
+      id="holderName"
+      type="text"
+      placeholder="Enter account holder name">
+
+    <div
+      class="error"
+      id="holderNameError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Account Number
+    </label>
+
+    <input
+      class="input"
+      id="accountNumber"
+      type="password"
+      inputmode="numeric"
+      placeholder="Enter account number">
+
+    <div
+      class="error"
+      id="accountNumberError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Confirm Account Number
+    </label>
+
+    <input
+      class="input"
+      id="confirmAccount"
+      type="password"
+      inputmode="numeric"
+      placeholder="Re-enter account number">
+
+    <div
+      class="error"
+      id="confirmAccountError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      IFSC Code
+    </label>
+
+    <input
+      class="input"
+      id="ifsc"
+      type="text"
+      maxlength="11"
+      placeholder="Example: SBIN0000001">
+
+    <div
+      class="error"
+      id="ifscError">
+    </div>
+
+  </div>
+
+
+  <button
+    class="withdraw-submit"
+    id="bankSubmit">
+
+    Request Withdrawal
+
+  </button>
+
+
+  <div class="info-box">
+
+    Your withdrawal request will be sent for admin
+    verification. The amount cannot exceed your
+    available wallet balance.
+
+  </div>
+
+</section>
+
+
+<!-- UPI FORM -->
+
+<section
+  class="form-box"
+  id="upiForm"
+  style="display:none">
+
+  <div class="form-title">
+    UPI Withdrawal
+  </div>
+
+  <div class="form-sub">
+    Enter a valid UPI ID
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Withdrawal Amount
+    </label>
+
+    <div class="amount-box">
+
+      <span>₹</span>
+
+      <input
+        class="input amount-input"
+        id="upiAmount"
+        type="number"
+        min="500"
+        placeholder="Enter amount">
+
+    </div>
+
+    <div
+      class="error"
+      id="upiAmountError">
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      UPI ID
+    </label>
+
+    <input
+      class="input"
+      id="upiId"
+      type="text"
+      placeholder="example@upi">
+
+    <div
+      class="error"
+      id="upiIdError">
+    </div>
+
+  </div>
+
+
+  <button
+    class="withdraw-submit"
+    id="upiSubmit">
+
+    Request Withdrawal
+
+  </button>
+
+
+  <div class="info-box">
+
+    Make sure the UPI ID belongs to the intended
+    recipient. Your request will remain pending
+    until admin verification.
+
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section class="history">
+
+  <div class="history-head">
+
+    <h3>
+      Withdrawal History
+    </h3>
+
+    <span
+      class="view-all"
+      id="viewAll">
+
+      View All
+
+    </span>
+
+  </div>
+
+
+  <div id="historyList">
+
+    <div class="empty">
+      No withdrawal history yet
+    </div>
+
+  </div>
+
+</section>
+
+
+</div>
+
+
+<!-- SUCCESS / PENDING MODAL -->
+
+<div
+  class="modal"
+  id="resultModal">
+
+  <div class="modal-box">
+
+    <div
+      class="modal-icon"
+      id="resultIcon">
+
+      ✓
+
+    </div>
+
+    <h3 id="resultTitle">
+      Withdrawal Pending
+    </h3>
+
+    <p id="resultText">
+      Your withdrawal request has been submitted.
+    </p>
+
+
+    <div
+      class="modal-details"
+      id="resultDetails">
+    </div>
+
+
+    <button
+      class="done"
+      id="resultDone">
+
+      Done
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- FULL HISTORY -->
+
+<div
+  class="full-history"
+  id="fullHistory">
+
+  <div class="full-header">
+
+    <div
+      class="full-back"
+      id="closeHistory">
+
+      ‹
+
+    </div>
+
+    <h2>
+      Withdrawal History
+    </h2>
+
+  </div>
+
+
+  <div
+    class="full-content"
+    id="fullHistoryList">
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+
+<a
+  href="home.html"
+  class="nav-item">
+
+  <span class="nav-icon">
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="M3 10.5 12 3l9 7.5"/>
+
+      <path d="M5.5 9.5V21h13V9.5"/>
+
+      <path d="M9 21v-6h6v6"/>
+
+    </svg>
+
+  </span>
+
+  <span>Home</span>
+
+</a>
+
+
+<a
+  href="buy.html"
+  class="nav-item">
+
+  <span class="nav-icon">
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="M6 7h12l1.5 14h-15L6 7Z"/>
+
+      <path d="M9 7a3 3 0 0 1 6 0"/>
+
+      <path d="M9 11h6"/>
+
+    </svg>
+
+  </span>
+
+  <span>Buy</span>
+
+</a>
+
+
+<a
+  href="rewards.html"
+  class="nav-item">
+
+  <span class="nav-icon">
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="M20 12v8H4v-8"/>
+
+      <path d="M2 8h20v4H2z"/>
+
+      <path d="M12 8v12"/>
+
+      <path d="M12 8H8.5a2.5 2.5 0 1 1 0-5C11 3 12 8 12 8Z"/>
+
+      <path d="M12 8h3.5a2.5 2.5 0 1 0 0-5C13 3 12 8 12 8Z"/>
+
+    </svg>
+
+  </span>
+
+  <span>Rewards</span>
+
+</a>
+
+
+<a
+  href="wallet.html"
+  class="nav-item active">
+
+  <span class="nav-icon">
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H20v16H5.5A2.5 2.5 0 0 1 3 17.5v-11Z"/>
+
+      <path d="M3 7h17"/>
+
+      <path d="M14 11h6v6h-6a3 3 0 0 1 0-6Z"/>
+
+      <circle cx="15.5" cy="14" r=".7"/>
+
+    </svg>
+
+  </span>
+
+  <span>Wallet</span>
+
+</a>
+
+
+<a
+  href="my.html"
+  class="nav-item">
+
+  <span class="nav-icon">
+
+    <svg viewBox="0 0 24 24">
+
+      <circle cx="12" cy="12" r="3.2"/>
+
+      <path d="
+        M19.4 15
+        l1.1 1.1
+        -2 2
+        -1.1-1.1
+        a7.4 7.4 0 0 1-2.1.9
+        V19.5
+        h-2.8
+        v-1.6
+        a7.4 7.4 0 0 1-2.1-.9
+        l-1.1 1.1
+        -2-2
+        L8.4 15
+        a7.4 7.4 0 0 1-.9-2.1
+        H5.9
+        v-2.8
+        h1.6
+        A7.4 7.4 0 0 1 8.4 8
+        L7.3 6.9
+        l2-2
+        2 1.1
+        a7.4 7.4 0 0 1 2.1-.9
+        V3.5
+        h2.8
+        v1.6
+        a7.4 7.4 0 0 1 2.1.9
+        l1.1-1.1
+        2 2
+        L19.4 8
+        a7.4 7.4 0 0 1 .9 2.1
+        h1.6
+        v2.8
+        h-1.6
+        a7.4 7.4 0 0 1-.9 2.1Z"/>
+
+    </svg>
+
+  </span>
+
+  <span>My</span>
+
+</a>
+
+
+</nav>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+  authDomain:
+    "globalpay-d31dd.firebaseapp.com",
+
+  projectId:
+    "globalpay-d31dd",
+
+  storageBucket:
+    "globalpay-d31dd.firebasestorage.app",
+
+  messagingSenderId:
+    "862227027913",
+
+  appId:
+    "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
+
+
+/* STATE */
+
+let currentUser = null;
+let walletBalance = 0;
+
+
+/* ELEMENTS */
+
+const walletBalanceEl =
+  document.getElementById("walletBalance");
+
+const bankTab =
+  document.getElementById("bankTab");
+
+const upiTab =
+  document.getElementById("upiTab");
+
+const bankForm =
+  document.getElementById("bankForm");
+
+const upiForm =
+  document.getElementById("upiForm");
+
+const historyList =
+  document.getElementById("historyList");
+
+const fullHistory =
+  document.getElementById("fullHistory");
+
+const fullHistoryList =
+  document.getElementById("fullHistoryList");
+
+const resultModal =
+  document.getElementById("resultModal");
+
+
+/* AUTH */
+
+setPersistence(
+  auth,
+  browserLocalPersistence
+).catch(error=>{
+  console.log(error);
+});
+
+
+onAuthStateChanged(
+  auth,
+  async(user)=>{
+
+    if(!user){
+
+      walletBalance = 0;
+      updateBalance();
+
+      return;
+    }
+
+    currentUser = user;
+
+    await loadWallet();
+
+    await loadWithdrawalHistory();
+
+  }
+);
+
+
+/* LOAD ACTUAL WALLET BALANCE */
+
+async function loadWallet(){
+
+  try{
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        currentUser.uid
+      );
+
+    const snap =
+      await getDoc(userRef);
+
+
+    if(!snap.exists()){
+
+      walletBalance = 0;
+
+      updateBalance();
+
+      return;
+
+    }
+
+
+    const data =
+      snap.data();
+
+
+    /*
+      IMPORTANT:
+
+      Same field used by wallet.html:
+      withdrawalBalance
+
+      Fallback fields are also supported.
+    */
+
+    walletBalance =
+      Number(
+        data.withdrawalBalance ??
+        data.rupeeBalance ??
+        data.cashBalance ??
+        0
+      );
+
+
+    if(
+      !Number.isFinite(walletBalance) ||
+      walletBalance < 0
+    ){
+
+      walletBalance = 0;
+
+    }
+
+
+    updateBalance();
+
+
+  }catch(error){
+
+    console.error(
+      "Wallet loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* UPDATE BALANCE */
+
+function updateBalance(){
+
+  walletBalanceEl.textContent =
+    "₹" +
+    walletBalance.toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* TABS */
+
+bankTab.onclick = ()=>{
+
+  bankTab.classList.add("active");
+  upiTab.classList.remove("active");
+
+  bankForm.style.display = "block";
+  upiForm.style.display = "none";
+
+};
+
+
+upiTab.onclick = ()=>{
+
+  upiTab.classList.add("active");
+  bankTab.classList.remove("active");
+
+  upiForm.style.display = "block";
+  bankForm.style.display = "none";
+
+};
+
+
+/* ERROR HELPERS */
+
+function showError(
+  id,
+  message
+){
+
+  const el =
+    document.getElementById(id);
+
+  el.textContent =
+    message;
+
+  el.style.display =
+    "block";
+
+}
+
+
+function clearErrors(){
+
+  document
+    .querySelectorAll(".error")
+    .forEach(el=>{
+
+      el.textContent = "";
+      el.style.display = "none";
+
+    });
+
+  document
+    .querySelectorAll(".input")
+    .forEach(el=>{
+
+      el.classList.remove("invalid");
+
+    });
+
+}
+
+
+function invalid(
+  inputId,
+  errorId,
+  message
+){
+
+  document
+    .getElementById(inputId)
+    .classList.add("invalid");
+
+  showError(
+    errorId,
+    message
+  );
+
+}
+
+
+/* AMOUNT VALIDATION */
+
+function validateAmount(
+  value,
+  errorInputId,
+  errorId
+){
+
+  const amount =
+    Number(value);
+
+
+  if(!Number.isFinite(amount)){
+
+    invalid(
+      errorInputId,
+      errorId,
+      "Enter a valid amount."
+    );
+
+    return false;
+
+  }
+
+
+  if(amount < 500){
+
+    invalid(
+      errorInputId,
+      errorId,
+      "Minimum withdrawal is ₹500."
+    );
+
+    return false;
+
+  }
+
+
+  if(amount > 50000){
+
+    invalid(
+      errorInputId,
+      errorId,
+      "Maximum withdrawal is ₹50,000."
+    );
+
+    return false;
+
+  }
+
+
+  /*
+    MOST IMPORTANT CHECK:
+
+    Withdrawal can NEVER exceed
+    actual Firebase wallet balance.
+  */
+
+  if(amount > walletBalance){
+
+    invalid(
+      errorInputId,
+      errorId,
+      "Insufficient wallet balance. Available: ₹" +
+      walletBalance.toLocaleString("en-IN")
+    );
+
+    return false;
+
+  }
+
+
+  return true;
+
+}
+
+
+/* BANK SUBMIT */
+
+document
+  .getElementById("bankSubmit")
+  .onclick =
+  async()=>{
+
+    clearErrors();
+
+
+    if(!currentUser){
+
+      showResult(
+        "!",
+        "Login Required",
+        "Please login before requesting a withdrawal.",
+        null
+      );
+
+      return;
+
+    }
+
+
+    const amount =
+      Number(
+        document
+          .getElementById("bankAmount")
+          .value
+      );
+
+
+    const amountOK =
+      validateAmount(
+        amount,
+        "bankAmount",
+        "bankAmountError"
+      );
+
+
+    let valid =
+      amountOK;
+
+
+    const bankName =
+      document
+        .getElementById("bankName")
+        .value.trim();
+
+
+    const holderName =
+      document
+        .getElementById("holderName")
+        .value.trim();
+
+
+    const accountNumber =
+      document
+        .getElementById("accountNumber")
+        .value.trim();
+
+
+    const confirmAccount =
+      document
+        .getElementById("confirmAccount")
+        .value.trim();
+
+
+    const ifsc =
+      document
+        .getElementById("ifsc")
+        .value.trim()
+        .toUpperCase();
+
+
+    if(bankName.length < 2){
+
+      invalid(
+        "bankName",
+        "bankNameError",
+        "Enter a valid bank name."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(holderName.length < 2){
+
+      invalid(
+        "holderName",
+        "holderNameError",
+        "Enter account holder name."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(!/^[0-9]{9,18}$/.test(accountNumber)){
+
+      invalid(
+        "accountNumber",
+        "accountNumberError",
+        "Enter a valid account number."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(accountNumber !== confirmAccount){
+
+      invalid(
+        "confirmAccount",
+        "confirmAccountError",
+        "Account numbers do not match."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)){
+
+      invalid(
+        "ifsc",
+        "ifscError",
+        "Enter a valid IFSC code."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(!valid){
+      return;
+    }
+
+
+    await createWithdrawal({
+
+      type:"Bank",
+
+      amount:amount,
+
+      bankName:bankName,
+
+      holderName:holderName,
+
+      accountNumber:accountNumber,
+
+      ifsc:ifsc
+
+    });
+
+  };
+
+
+/* UPI SUBMIT */
+
+document
+  .getElementById("upiSubmit")
+  .onclick =
+  async()=>{
+
+    clearErrors();
+
+
+    if(!currentUser){
+
+      showResult(
+        "!",
+        "Login Required",
+        "Please login before requesting a withdrawal.",
+        null
+      );
+
+      return;
+
+    }
+
+
+    const amount =
+      Number(
+        document
+          .getElementById("upiAmount")
+          .value
+      );
+
+
+    const amountOK =
+      validateAmount(
+        amount,
+        "upiAmount",
+        "upiAmountError"
+      );
+
+
+    const upi =
+      document
+        .getElementById("upiId")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let valid =
+      amountOK;
+
+
+    /*
+      Basic UPI format validation.
+    */
+
+    if(
+      !/^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9.-]{2,}$/.test(upi)
+    ){
+
+      invalid(
+        "upiId",
+        "upiIdError",
+        "Enter a valid UPI ID."
+      );
+
+      valid = false;
+
+    }
+
+
+    if(!valid){
+      return;
+    }
+
+
+    await createWithdrawal({
+
+      type:"UPI",
+
+      amount:amount,
+
+      upiId:upi
+
+    });
+
+  };
+
+
+/* CREATE WITHDRAWAL REQUEST */
+
+async function createWithdrawal(data){
+
+  try{
+
+    /*
+      Re-check wallet immediately before
+      creating request.
+
+      This prevents the page's old displayed
+      balance from being blindly trusted.
+    */
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        currentUser.uid
+      );
+
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      showResult(
+        "!",
+        "Wallet Not Found",
+        "Your wallet information could not be found.",
+        null
+      );
+
+      return;
+
+    }
+
+
+    const userData =
+      userSnap.data();
+
+
+    const latestBalance =
+      Number(
+        userData.withdrawalBalance ??
+        userData.rupeeBalance ??
+        userData.cashBalance ??
+        0
+      );
+
+
+    /*
+      IMPORTANT SECOND CHECK
+    */
+
+    if(
+      !Number.isFinite(latestBalance) ||
+      data.amount > latestBalance
+    ){
+
+      walletBalance =
+        Math.max(
+          0,
+          latestBalance || 0
+        );
+
+      updateBalance();
+
+
+      showResult(
+        "!",
+        "Insufficient Balance",
+        "Your withdrawal amount is greater than your available wallet balance.",
+        null
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Transaction ID
+    */
+
+    const transactionId =
+      "GP-WD-" +
+      Date.now()
+        .toString(36)
+        .toUpperCase() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2,7)
+        .toUpperCase();
+
+
+    const withdrawalData = {
+
+      uid:
+        currentUser.uid,
+
+      email:
+        currentUser.email || "",
+
+      type:
+        data.type,
+
+      amount:
+        data.amount,
+
+      status:
+        "Pending",
+
+      transactionId:
+        transactionId,
+
+      createdAt:
+        serverTimestamp(),
+
+      updatedAt:
+        serverTimestamp()
+
+    };
+
+
+    if(data.type === "Bank"){
+
+      withdrawalData.bankName =
+        data.bankName;
+
+      withdrawalData.holderName =
+        data.holderName;
+
+      withdrawalData.accountNumber =
+        data.accountNumber;
+
+      withdrawalData.ifsc =
+        data.ifsc;
+
+    }
+
+
+    if(data.type === "UPI"){
+
+      withdrawalData.upiId =
+        data.upiId;
+
+    }
+
+
+    /*
+      Save request under:
+
+      users / UID / withdrawals
+    */
+
+    const withdrawalRef =
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "withdrawals"
+      );
+
+
+    await addDoc(
+      withdrawalRef,
+      withdrawalData
+    );
+
+
+    /*
+      NOTE:
+
+      This page only creates the withdrawal
+      request. Actual payment/transfer is not
+      performed by this HTML page.
+    */
+
+
+    showResult(
+      "✓",
+      "Withdrawal Pending",
+      "Your withdrawal request has been submitted successfully.",
+      {
+        type:data.type,
+        amount:data.amount,
+        transactionId:transactionId,
+
+        accountNumber:
+          data.accountNumber,
+
+        ifsc:
+          data.ifsc,
+
+        upiId:
+          data.upiId
+      }
+    );
+
+
+    clearForms();
+
+    await loadWithdrawalHistory();
+
+
+  }catch(error){
+
+    console.error(
+      "Withdrawal error:",
+      error
+    );
+
+
+    showResult(
+      "!",
+      "Request Failed",
+      "The withdrawal request could not be submitted. Please try again.",
+      null
+    );
+
+  }
+
+}
+
+
+/* RESULT MODAL */
+
+function showResult(
+  icon,
+  title,
+  text,
+  details
+){
+
+  document
+    .getElementById("resultIcon")
+    .textContent =
+    icon;
+
+
+  document
+    .getElementById("resultTitle")
+    .textContent =
+    title;
+
+
+  document
+    .getElementById("resultText")
+    .textContent =
+    text;
+
+
+  const box =
+    document.getElementById(
+      "resultDetails"
+    );
+
+
+  if(!details){
+
+    box.innerHTML = "";
+
+  }else{
+
+    let extra = "";
+
+
+    if(details.type === "Bank"){
+
+      extra += `
+
+        <div class="detail">
+          <span>Method</span>
+          <strong>Bank</strong>
+        </div>
+
+        <div class="detail">
+          <span>Account</span>
+          <strong>
+            ${maskAccount(details.accountNumber)}
+          </strong>
+        </div>
+
+        <div class="detail">
+          <span>IFSC</span>
+          <strong>
+            ${escapeHTML(details.ifsc || "")}
+          </strong>
+        </div>
+
+      `;
+
+    }
+
+
+    if(details.type === "UPI"){
+
+      extra += `
+
+        <div class="detail">
+          <span>Method</span>
+          <strong>UPI</strong>
+        </div>
+
+        <div class="detail">
+          <span>UPI ID</span>
+          <strong>
+            ${escapeHTML(details.upiId || "")}
+          </strong>
+        </div>
+
+      `;
+
+    }
+
+
+    box.innerHTML = `
+
+      <div class="detail">
+        <span>Amount</span>
+        <strong>
+          ₹${Number(details.amount).toLocaleString("en-IN")}
+        </strong>
+      </div>
+
+      ${extra}
+
+      <div class="detail">
+        <span>Transaction ID</span>
+        <strong>
+          ${escapeHTML(details.transactionId)}
+        </strong>
+      </div>
+
+      <div class="detail">
+        <span>Status</span>
+        <strong>
+          Pending
+        </strong>
+      </div>
+
+    `;
+
+  }
+
+
+  resultModal.style.display =
+    "flex";
+
+}
+
+
+/* DONE */
+
+document
+  .getElementById("resultDone")
+  .onclick = ()=>{
+
+    resultModal.style.display =
+      "none";
+
+  };
+
+
+/* CLEAR FORM */
+
+function clearForms(){
+
+  document
+    .querySelectorAll(
+      "#bankForm input, #upiForm input"
+    )
+    .forEach(input=>{
+
+      input.value = "";
+
+    });
+
+}
+
+
+/* MASK ACCOUNT */
+
+function maskAccount(account){
+
+  if(!account){
+    return "";
+  }
+
+  const str =
+    String(account);
+
+  if(str.length <= 4){
+    return "••••";
+  }
+
+  return (
+    "••••••" +
+    str.slice(-4)
+  );
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* LOAD HISTORY */
+
+async function loadWithdrawalHistory(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  try{
+
+    const ref =
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "withdrawals"
+      );
+
+
+    let snap;
+
+
+    try{
+
+      snap =
+        await getDocs(
+          query(
+            ref,
+            orderBy(
+              "createdAt",
+              "desc"
+            )
+          )
+        );
+
+    }catch(error){
+
+      snap =
+        await getDocs(ref);
+
+    }
+
+
+    const items = [];
+
+
+    snap.forEach(
+      item=>{
+
+        items.push({
+
+          id:item.id,
+
+          ...item.data()
+
+        });
+
+      }
+    );
+
+
+    items.sort(
+      (a,b)=>{
+
+        const aTime =
+          a.createdAt?.seconds || 0;
+
+        const bTime =
+          b.createdAt?.seconds || 0;
+
+        return bTime-aTime;
+
+      }
+    );
+
+
+    renderHistory(
+      items.slice(0,5),
+      historyList
+    );
+
+
+    renderHistory(
+      items,
+      fullHistoryList
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Withdrawal history error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* RENDER HISTORY */
+
+function renderHistory(
+  items,
+  container
+){
+
+  if(!items.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+        No withdrawal history yet
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  items.forEach(
+    item=>{
+
+      const amount =
+        Number(
+          item.amount || 0
+        );
+
+
+      let dateText =
+        "Recently";
+
+
+      if(
+        item.createdAt &&
+        item.createdAt.toDate
+      ){
+
+        dateText =
+          item.createdAt
+            .toDate()
+            .toLocaleString(
+              "en-IN",
+              {
+                day:"2-digit",
+                month:"short",
+                year:"numeric",
+                hour:"2-digit",
+                minute:"2-digit"
+              }
+            );
+
+      }
+
+
+      const status =
+        String(
+          item.status || "Pending"
+        );
+
+
+      const statusClass =
+        status.toLowerCase();
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "history-item";
+
+
+      div.innerHTML = `
+
+        <div class="history-top">
+
+          <div class="history-icon">
+            ${
+              item.type === "UPI"
+              ? "U"
+              : "₹"
+            }
+          </div>
+
+
+          <div class="history-info">
+
+            <div class="history-title">
+
+              ${
+                item.type === "UPI"
+                ? "UPI Withdrawal"
+                : "Bank Withdrawal"
+              }
+
+            </div>
+
+            <div class="history-date">
+              ${escapeHTML(dateText)}
+            </div>
+
+          </div>
+
+
+          <div class="history-amount">
+
+            ₹${amount.toLocaleString("en-IN")}
+
+          </div>
+
+        </div>
+
+
+        <div class="history-bottom">
+
+          <div class="txid">
+
+            ${escapeHTML(
+              item.transactionId || "No Transaction ID"
+            )}
+
+          </div>
+
+
+          <div class="status ${statusClass}">
+
+            ${escapeHTML(status)}
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        div
+      );
+
+    }
+  );
+
+}
+
+
+/* VIEW ALL */
+
+document
+  .getElementById("viewAll")
+  .onclick = ()=>{
+
+    fullHistory.style.display =
+      "block";
+
+    /*
+      Hide bottom navigation while
+      full history is open.
+    */
+
+    document
+      .querySelector(".bottom-nav")
+      .style.display =
+      "none";
+
+
+    loadWithdrawalHistory();
+
+  };
+
+
+/* CLOSE FULL HISTORY */
+
+document
+  .getElementById("closeHistory")
+  .onclick = ()=>{
+
+    fullHistory.style.display =
+      "none";
+
+
+    document
+      .querySelector(".bottom-nav")
+      .style.display =
+      "flex";
+
+  };
+
+
+/* BACK */
+
+function goBack(){
+
+  window.location.href =
+    "wallet.html";
+
+}
+
+</script>
+
+</body>
+  </html>
