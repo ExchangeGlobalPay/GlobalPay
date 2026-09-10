@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
+
+<title>Make Payment - GlobalPay</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0b1020;
+  color:#fff;
+}
+
+.app{
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+}
+
+.header{
+  height:70px;
+  background:#111827;
+  border-bottom:1px solid #263044;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 18px;
+}
+
+.back{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#1e293b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  user-select:none;
+}
+
+.title{
+  font-size:19px;
+  font-weight:900;
+}
+
+.sub{
+  color:#94a3b8;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.content{
+  padding:18px;
+}
+
+.amount-card{
+  background:linear-gradient(135deg,#171d35,#111827);
+  border:1px solid #3b2b68;
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.amount-label{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.amount{
+  font-size:32px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.card{
+  background:#111827;
+  border:1px solid #263044;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.timer{
+  text-align:center;
+  background:#0f172a;
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.timer-label{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.time{
+  font-size:30px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.qr-title{
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.qr-sub{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.qr{
+  width:245px;
+  height:245px;
+  margin:auto;
+  padding:10px;
+  background:white;
+  border-radius:18px;
+}
+
+.qr img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.note{
+  margin-top:15px;
+  background:#172033;
+  padding:12px;
+  border-radius:12px;
+  color:#cbd5e1;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.heading{
+  font-size:17px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.utr{
+  width:100%;
+  height:55px;
+  background:#0f172a;
+  border:1px solid #334155;
+  border-radius:14px;
+  color:white;
+  padding:0 15px;
+  font-size:17px;
+  letter-spacing:2px;
+  outline:none;
+}
+
+.utr:focus{
+  border-color:#8b5cf6;
+}
+
+.utr:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.error{
+  display:none;
+  color:#f87171;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.submit{
+  width:100%;
+  height:55px;
+  border:0;
+  border-radius:15px;
+  background:linear-gradient(135deg,#7c3aed,#9333ea);
+  color:white;
+  font-size:16px;
+  font-weight:900;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+.submit:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.message{
+  display:none;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-size:13px;
+}
+
+.success{
+  color:#86efac;
+  background:#052e16;
+}
+
+.pending{
+  color:#fde68a;
+  background:#422006;
+}
+
+
+/* POPUP */
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(5px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+}
+
+.popup-overlay.show{
+  display:flex;
+}
+
+.popup{
+  width:100%;
+  max-width:360px;
+  background:#111827;
+  border:1px solid #334155;
+  border-radius:22px;
+  padding:24px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  animation:popupIn .22s ease;
+}
+
+@keyframes popupIn{
+
+  from{
+    opacity:0;
+    transform:scale(.92);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+
+}
+
+.popup-icon{
+  width:64px;
+  height:64px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#052e16;
+  color:#4ade80;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:900;
+  border:1px solid #166534;
+}
+
+.popup-title{
+  font-size:21px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.popup-text{
+  color:#94a3b8;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.popup-info{
+  background:#0f172a;
+  border-radius:14px;
+  padding:13px;
+  margin:17px 0;
+  text-align:left;
+  font-size:13px;
+  line-height:2;
+}
+
+.popup-info span{
+  color:#94a3b8;
+}
+
+.popup-status{
+  color:#fde68a;
+}
+
+.popup-btn{
+  width:100%;
+  height:50px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(135deg,#7c3aed,#9333ea);
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.invalid-amount{
+  text-align:center;
+  color:#f87171;
+  background:#450a0a;
+  border:1px solid #7f1d1d;
+  border-radius:14px;
+  padding:14px;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<header class="header">
+
+  <div
+    class="back"
+    onclick="window.location.href='deposit.html'">
+    ‹
+  </div>
+
+  <div>
+
+    <div class="title">
+      Make Payment
+    </div>
+
+    <div class="sub">
+      GlobalPay Secure Deposit
+    </div>
+
+  </div>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- AMOUNT -->
+
+<div class="amount-card">
+
+  <div class="amount-label">
+    Deposit Amount
+  </div>
+
+  <div
+    class="amount"
+    id="amount">
+    ₹0
+  </div>
+
+</div>
+
+
+<!-- INVALID AMOUNT -->
+
+<div
+  id="invalidAmount"
+  class="invalid-amount"
+  style="display:none;">
+
+  Invalid deposit amount.
+  Please go back and select an amount
+  between ₹300 and ₹1,00,000.
+
+</div>
+
+
+<!-- QR CARD -->
+
+<div class="card">
+
+
+  <!-- TIMER -->
+
+  <div class="timer">
+
+    <div class="timer-label">
+      Complete payment within
+    </div>
+
+    <div
+      class="time"
+      id="timer">
+      05:00
+    </div>
+
+  </div>
+
+
+  <div class="qr-title">
+    Scan QR & Pay
+  </div>
+
+  <div class="qr-sub">
+    Pay exactly the amount shown above
+  </div>
+
+
+  <!-- QR -->
+
+  <div class="qr">
+
+    <img
+      src="qr.png"
+      alt="Payment QR">
+
+  </div>
+
+
+  <div class="note">
+
+    QR code ko scan karke selected amount
+    payment karo. Payment complete hone ke baad
+    neeche apna 12-digit UTR enter karo.
+
+  </div>
+
+</div>
+
+
+<!-- UTR -->
+
+<div class="card">
+
+  <div class="heading">
+    Enter UTR Number
+  </div>
+
+
+  <input
+    id="utr"
+    class="utr"
+    type="text"
+    inputmode="numeric"
+    maxlength="12"
+    autocomplete="off"
+    placeholder="Enter 12 digit UTR">
+
+
+  <div
+    id="utrError"
+    class="error">
+
+    Please enter a valid 12-digit UTR number.
+
+  </div>
+
+
+  <button
+    id="submit"
+    class="submit"
+    onclick="submitPayment()">
+
+    Submit
+
+  </button>
+
+
+  <div
+    id="message"
+    class="message">
+  </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- SUCCESS POPUP -->
+
+<div
+  id="submitPopup"
+  class="popup-overlay">
+
+  <div class="popup">
+
+
+    <div class="popup-icon">
+      ✓
+    </div>
+
+
+    <div class="popup-title">
+      Deposit Submitted
+    </div>
+
+
+    <div class="popup-text">
+
+      Your deposit request has been
+      submitted successfully.
+
+    </div>
+
+
+    <div class="popup-info">
+
+      <div>
+        <span>Amount:</span>
+        <b id="popupAmount">
+          ₹0
+        </b>
+      </div>
+
+
+      <div>
+        <span>UTR:</span>
+        <b id="popupUtr">
+          -
+        </b>
+      </div>
+
+
+      <div>
+        <span>Status:</span>
+        <b class="popup-status">
+          Pending
+        </b>
+      </div>
+
+    </div>
+
+
+    <button
+      class="popup-btn"
+      onclick="closeSubmitPopup()">
+
+      OK
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+
+/* FIREBASE */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig={
+
+  apiKey:
+    "AIzaSyCA6csT8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+  authDomain:
+    "globalpay-d31dd.firebaseapp.com",
+
+  projectId:
+    "globalpay-d31dd",
+
+  storageBucket:
+    "globalpay-d31dd.firebasestorage.app",
+
+  messagingSenderId:
+    "862227027913",
+
+  appId:
+    "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app=
+  initializeApp(firebaseConfig);
+
+
+const auth=
+  getAuth(app);
+
+
+const db=
+  getFirestore(app);
+
+
+let currentUser=null;
+
+let amount=0;
+
+let timeLeft=300;
+
+let timer;
+
+
+/* =========================
+   GET AMOUNT
+========================= */
+
+const params=
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+amount=
+  Number(
+    params.get("amount") || 0
+  );
+
+
+document.getElementById("amount")
+  .textContent=
+  "₹"+
+  amount.toLocaleString("en-IN");
+
+
+/* AMOUNT VALIDATION */
+
+if(
+  !Number.isFinite(amount) ||
+  amount<300 ||
+  amount>100000
+){
+
+  document.getElementById(
+    "invalidAmount"
+  ).style.display="block";
+
+  document.getElementById(
+    "submit"
+  ).disabled=true;
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(){
+
+  clearInterval(timer);
+
+  timeLeft=300;
+
+  updateTimer();
+
+  timer=
+    setInterval(()=>{
+
+      timeLeft--;
+
+      if(timeLeft<=0){
+
+        timeLeft=300;
+
+      }
+
+      updateTimer();
+
+    },1000);
+
+}
+
+
+function updateTimer(){
+
+  const min=
+    Math.floor(timeLeft/60);
+
+  const sec=
+    timeLeft%60;
+
+
+  document.getElementById("timer")
+    .textContent=
+
+    String(min).padStart(2,"0")
+    +":"
+    +
+    String(sec).padStart(2,"0");
+
+}
+
+
+startTimer();
+
+
+/* =========================
+   UTR INPUT
+========================= */
+
+document
+  .getElementById("utr")
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value=
+        this.value
+        .replace(/\D/g,"")
+        .slice(0,12);
+
+
+      document.getElementById(
+        "utrError"
+      ).style.display="none";
+
+    }
+  );
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user=>{
+
+    currentUser=user || null;
+
+  }
+);
+
+
+/* =========================
+   POPUP
+========================= */
+
+window.showSubmitPopup=function(){
+
+  document.getElementById(
+    "popupAmount"
+  ).textContent=
+    "₹"+
+    amount.toLocaleString("en-IN");
+
+
+  document.getElementById(
+    "popupUtr"
+  ).textContent=
+    document.getElementById(
+      "utr"
+    ).value.trim();
+
+
+  document.getElementById(
+    "submitPopup"
+  ).classList.add("show");
+
+};
+
+
+window.closeSubmitPopup=function(){
+
+  document.getElementById(
+    "submitPopup"
+  ).classList.remove("show");
+
+
+  window.location.href=
+    "deposit.html";
+
+};
+
+
+/* =========================
+   SUBMIT PAYMENT
+========================= */
+
+window.submitPayment=
+  async function(){
+
+    const utr=
+      document.getElementById(
+        "utr"
+      ).value.trim();
+
+
+    const error=
+      document.getElementById(
+        "utrError"
+      );
+
+
+    const button=
+      document.getElementById(
+        "submit"
+      );
+
+
+    const message=
+      document.getElementById(
+        "message"
+      );
+
+
+    /* UTR CHECK */
+
+    if(!/^\d{12}$/.test(utr)){
+
+      error.style.display="block";
+
+      document.getElementById(
+        "utr"
+      ).focus();
+
+      return;
+
+    }
+
+
+    /* AMOUNT CHECK */
+
+    if(
+      !Number.isFinite(amount) ||
+      amount<300 ||
+      amount>100000
+    ){
+
+      message.className=
+        "message pending";
+
+      message.textContent=
+        "Invalid deposit amount.";
+
+      message.style.display=
+        "block";
+
+      return;
+
+    }
+
+
+    /* AUTH CHECK */
+
+    currentUser=
+      auth.currentUser ||
+      currentUser;
+
+
+    if(!currentUser){
+
+      message.className=
+        "message pending";
+
+      message.textContent=
+        "Login verification is still in progress. Please wait a moment and try again.";
+
+      message.style.display=
+        "block";
+
+      return;
+
+    }
+
+
+    /* BUTTON LOCK */
+
+    button.disabled=true;
+
+    button.textContent=
+      "Submitting...";
+
+
+    try{
+
+
+      /*
+        IMPORTANT:
+
+        Deposit submit hone par
+        tokenBalance update nahi hota.
+
+        Request pending rahega.
+
+        Admin confirmation ke baad hi
+        tokens credit kiye jayenge.
+      */
+
+
+      await addDoc(
+
+        collection(
+          db,
+          "users",
+          currentUser.uid,
+          "depositRequests"
+        ),
+
+        {
+
+          uid:
+            currentUser.uid,
+
+          amount:
+            amount,
+
+          utr:
+            utr,
+
+          status:
+            "pending",
+
+          tokens:
+            0,
+
+          createdAt:
+            serverTimestamp(),
+
+          submittedAt:
+            new Date().toISOString()
+
+        }
+
+      );
+
+
+      /* SUCCESS POPUP */
+
+      showSubmitPopup();
+
+
+      button.textContent=
+        "Submitted ✓";
+
+
+      document.getElementById(
+        "utr"
+      ).disabled=true;
+
+
+    }catch(error){
+
+      console.error(
+        "Deposit submit error:",
+        error
+      );
+
+
+      message.className=
+        "message";
+
+
+      message.style.display=
+        "block";
+
+
+      if(
+        error.code ===
+        "permission-denied"
+      ){
+
+        message.textContent=
+          "Permission denied. Please check your Firebase Firestore rules.";
+
+      }else{
+
+        message.textContent=
+          "Unable to submit. Please try again.";
+
+      }
+
+
+      button.disabled=false;
+
+      button.textContent=
+        "Submit";
+
+    }
+
+  };
+
+
+</script>
+
+
+</body>
+
+  </html>
