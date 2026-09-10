@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Make Payment - GlobalPay</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0b1020;
+  color:#fff;
+}
+
+.app{
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+}
+
+.header{
+  height:70px;
+  background:#111827;
+  border-bottom:1px solid #263044;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 18px;
+}
+
+.back{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#1e293b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.title{
+  font-size:19px;
+  font-weight:900;
+}
+
+.sub{
+  color:#94a3b8;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.content{
+  padding:18px;
+}
+
+.amount-card{
+  background:linear-gradient(135deg,#171d35,#111827);
+  border:1px solid #3b2b68;
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.amount-label{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.amount{
+  font-size:32px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.card{
+  background:#111827;
+  border:1px solid #263044;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.timer{
+  text-align:center;
+  background:#0f172a;
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.timer-label{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.time{
+  font-size:30px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.qr-title{
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.qr-sub{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.qr{
+  width:245px;
+  height:245px;
+  margin:auto;
+  padding:10px;
+  background:white;
+  border-radius:18px;
+}
+
+.qr img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.note{
+  margin-top:15px;
+  background:#172033;
+  padding:12px;
+  border-radius:12px;
+  color:#cbd5e1;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.heading{
+  font-size:17px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.utr{
+  width:100%;
+  height:55px;
+  background:#0f172a;
+  border:1px solid #334155;
+  border-radius:14px;
+  color:white;
+  padding:0 15px;
+  font-size:17px;
+  letter-spacing:2px;
+  outline:none;
+}
+
+.error{
+  display:none;
+  color:#f87171;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.submit{
+  width:100%;
+  height:55px;
+  border:0;
+  border-radius:15px;
+  background:linear-gradient(135deg,#7c3aed,#9333ea);
+  color:white;
+  font-size:16px;
+  font-weight:900;
+  margin-top:15px;
+}
+
+.message{
+  display:none;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-size:13px;
+}
+
+.success{
+  color:#86efac;
+  background:#052e16;
+}
+
+.pending{
+  color:#fde68a;
+  background:#422006;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+  <div class="back"
+       onclick="window.location.href='deposit.html'">
+    ‹
+  </div>
+
+  <div>
+    <div class="title">Make Payment</div>
+    <div class="sub">GlobalPay Secure Deposit</div>
+  </div>
+
+</header>
+
+
+<div class="content">
+
+  <!-- AMOUNT -->
+
+  <div class="amount-card">
+
+    <div class="amount-label">
+      Deposit Amount
+    </div>
+
+    <div class="amount"
+         id="amount">
+      ₹0
+    </div>
+
+  </div>
+
+
+  <!-- QR -->
+
+  <div class="card">
+
+    <div class="timer">
+
+      <div class="timer-label">
+        Complete payment within
+      </div>
+
+      <div class="time"
+           id="timer">
+        05:00
+      </div>
+
+    </div>
+
+
+    <div class="qr-title">
+      Scan QR & Pay
+    </div>
+
+    <div class="qr-sub">
+      Pay exactly the amount shown above
+    </div>
+
+
+    <div class="qr">
+
+      <!-- APNI QR IMAGE YAHAN RAKHO -->
+
+      <img
+        src="qr.png"
+        alt="Payment QR">
+
+    </div>
+
+
+    <div class="note">
+      QR code ko scan karke selected amount
+      payment karo. Payment complete hone ke baad
+      neeche apna 12-digit UTR enter karo.
+    </div>
+
+  </div>
+
+
+  <!-- UTR -->
+
+  <div class="card">
+
+    <div class="heading">
+      Enter UTR Number
+    </div>
+
+    <input
+      id="utr"
+      class="utr"
+      type="text"
+      inputmode="numeric"
+      maxlength="12"
+      placeholder="Enter 12 digit UTR">
+
+    <div id="utrError" class="error">
+      Please enter a valid 12-digit UTR number.
+    </div>
+
+    <button
+      id="submit"
+      class="submit"
+      onclick="submitPayment()">
+      Submit
+    </button>
+
+    <div id="message"
+         class="message">
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+
+  apiKey:"AIzaSyCA6csT8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+  authDomain:"globalpay-d31dd.firebaseapp.com",
+
+  projectId:"globalpay-d31dd",
+
+  storageBucket:"globalpay-d31dd.firebasestorage.app",
+
+  messagingSenderId:"862227027913",
+
+  appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+let currentUser=null;
+
+let amount=0;
+
+let timeLeft=300;
+
+let timer;
+
+
+/* GET AMOUNT */
+
+const params=
+  new URLSearchParams(
+    window.location.search
+  );
+
+amount=Number(params.get("amount")||0);
+
+document.getElementById("amount")
+  .textContent=
+  "₹"+amount.toLocaleString("en-IN");
+
+
+/* TIMER */
+
+function startTimer(){
+
+  clearInterval(timer);
+
+  timeLeft=300;
+
+  updateTimer();
+
+  timer=setInterval(()=>{
+
+    timeLeft--;
+
+    if(timeLeft<=0){
+
+      /*
+        Timer reset hota hai.
+        Same QR dobara available rahega.
+      */
+
+      timeLeft=300;
+
+    }
+
+    updateTimer();
+
+  },1000);
+
+}
+
+
+function updateTimer(){
+
+  const min=
+    Math.floor(timeLeft/60);
+
+  const sec=
+    timeLeft%60;
+
+  document.getElementById("timer")
+    .textContent=
+    String(min).padStart(2,"0")
+    +":"+
+    String(sec).padStart(2,"0");
+
+}
+
+
+startTimer();
+
+
+/* UTR */
+
+document.getElementById("utr")
+  .addEventListener("input",function(){
+
+    this.value=
+      this.value
+      .replace(/\D/g,"")
+      .slice(0,12);
+
+    document.getElementById("utrError")
+      .style.display="none";
+
+  });
+
+
+/* AUTH */
+
+onAuthStateChanged(auth,user=>{
+
+  if(!user){
+
+    window.location.href="index.html";
+
+    return;
+  }
+
+  currentUser=user;
+
+});
+
+
+/* SUBMIT */
+
+window.submitPayment=async function(){
+
+  const utr=
+    document.getElementById("utr")
+      .value.trim();
+
+  const error=
+    document.getElementById("utrError");
+
+  const button=
+    document.getElementById("submit");
+
+  const message=
+    document.getElementById("message");
+
+
+  if(!/^\d{12}$/.test(utr)){
+
+    error.style.display="block";
+
+    return;
+  }
+
+
+  if(
+    !amount ||
+    amount<300 ||
+    amount>100000
+  ){
+
+    return;
+  }
+
+
+  if(!currentUser){
+
+    return;
+  }
+
+
+  button.disabled=true;
+
+  button.textContent="Submitting...";
+
+
+  try{
+
+    /*
+      Deposit request Pending rahega.
+      Token yahan add nahi hoga.
+      Admin confirmation ke baad hi token credit
+      karna chahiye.
+    */
+
+    await addDoc(
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "depositRequests"
+      ),
+      {
+
+        uid:currentUser.uid,
+
+        amount:amount,
+
+        utr:utr,
+
+        status:"pending",
+
+        tokens:0,
+
+        createdAt:serverTimestamp(),
+
+        submittedAt:
+          new Date().toISOString()
+
+      }
+    );
+
+
+    message.className=
+      "message pending";
+
+    message.textContent=
+      "Deposit submitted. Status: Pending admin confirmation.";
+
+    message.style.display="block";
+
+    button.textContent="Submitted";
+
+    document.getElementById("utr")
+      .disabled=true;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    message.className=
+      "message";
+
+    message.style.display="block";
+
+    message.textContent=
+      "Unable to submit. Please try again.";
+
+    button.disabled=false;
+
+    button.textContent="Submit";
+
+  }
+
+};
+
+</script>
+
+</body>
+  </html>
