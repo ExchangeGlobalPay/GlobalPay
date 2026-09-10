@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
+
+<title>GlobalPay - Admin Panel</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#16233b;
+}
+
+/* ================= LOGIN ================= */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:
+    radial-gradient(circle at top right,#dceaff,transparent 35%),
+    linear-gradient(135deg,#f7faff,#eef3f9);
+}
+
+.login-box{
+    width:100%;
+    max-width:390px;
+    background:#fff;
+    padding:30px 24px;
+    border-radius:25px;
+    box-shadow:0 20px 60px rgba(20,50,90,.13);
+    border:1px solid #e4eaf2;
+}
+
+.admin-logo{
+    width:65px;
+    height:65px;
+    margin:0 auto 15px;
+    border-radius:19px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#1478ee,#6246d9);
+    color:#fff;
+    font-size:27px;
+    font-weight:900;
+}
+
+.login-title{
+    text-align:center;
+    font-size:24px;
+    font-weight:900;
+}
+
+.login-sub{
+    text-align:center;
+    color:#8a96a7;
+    font-size:13px;
+    margin:7px 0 25px;
+}
+
+.login-field{
+    margin-bottom:14px;
+}
+
+.login-field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.login-field input{
+    width:100%;
+    height:48px;
+    border:1px solid #d2dce8;
+    border-radius:12px;
+    padding:0 13px;
+    outline:none;
+    font-size:15px;
+}
+
+.login-field input:focus{
+    border-color:#1677ed;
+    box-shadow:0 0 0 3px rgba(22,119,237,.09);
+}
+
+.login-error{
+    display:none;
+    color:#dc2929;
+    background:#fff1f1;
+    border:1px solid #ffd0d0;
+    padding:10px;
+    border-radius:9px;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.login-btn{
+    width:100%;
+    height:50px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    font-size:16px;
+    font-weight:800;
+    background:linear-gradient(100deg,#087ef0,#6246d9);
+    cursor:pointer;
+}
+
+/* ================= DASHBOARD ================= */
+
+#dashboard{
+    display:none;
+}
+
+.header{
+    height:70px;
+    background:#071526;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.brand{
+    font-size:21px;
+    font-weight:900;
+}
+
+.brand span{
+    color:#20dca2;
+}
+
+.admin-badge{
+    font-size:11px;
+    color:#20dca2;
+    border:1px solid rgba(32,220,162,.4);
+    padding:7px 10px;
+    border-radius:20px;
+}
+
+.main{
+    width:calc(100% - 30px);
+    max-width:1200px;
+    margin:20px auto;
+}
+
+.page-title{
+    font-size:25px;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:13px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e0e7ef;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 5px 20px rgba(20,40,70,.05);
+}
+
+.stat-label{
+    color:#7d8999;
+    font-size:12px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:900;
+    margin-top:7px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    background:#fff;
+    border:1px solid #e0e7ef;
+    border-radius:20px;
+    margin-top:18px;
+    padding:18px;
+    box-shadow:0 5px 20px rgba(20,40,70,.04);
+}
+
+.section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:900;
+}
+
+.search{
+    height:40px;
+    width:220px;
+    border:1px solid #d5dfe9;
+    border-radius:10px;
+    padding:0 12px;
+    outline:none;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:850px;
+    border-collapse:collapse;
+}
+
+th{
+    background:#f5f8fc;
+    color:#68778b;
+    font-size:11px;
+    text-align:left;
+    padding:12px;
+}
+
+td{
+    border-top:1px solid #edf0f4;
+    padding:12px;
+    font-size:12px;
+}
+
+.uid{
+    font-weight:800;
+    color:#176ee0;
+}
+
+.money{
+    font-weight:800;
+}
+
+.plan{
+    padding:5px 8px;
+    background:#edf5ff;
+    color:#176ee0;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.active{
+    color:#07804f;
+    font-weight:800;
+}
+
+.offline{
+    color:#8b95a3;
+    font-weight:700;
+}
+
+/* ================= REQUEST CARDS ================= */
+
+.request-item{
+    border:1px solid #e1e7ee;
+    border-radius:14px;
+    padding:15px;
+    margin-top:10px;
+    background:#fff;
+}
+
+.request-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.request-title{
+    font-weight:900;
+    font-size:15px;
+}
+
+.request-status{
+    color:#9a6a00;
+    background:#fff1b8;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.request-success{
+    color:#087b4d;
+    background:#c9f8e5;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.request-info{
+    color:#718096;
+    font-size:12px;
+    line-height:1.8;
+    margin-top:10px;
+}
+
+.request-info b{
+    color:#16233b;
+}
+
+.utr{
+    color:#176ee0;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.confirm-btn{
+    border:0;
+    background:#0ca678;
+    color:white;
+    padding:10px 14px;
+    border-radius:9px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.confirm-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.deposit-btn{
+    background:#087ef0;
+}
+
+.danger-btn{
+    background:#dc3545;
+}
+
+/* ================= WITHDRAWAL ================= */
+
+.withdraw-item{
+    border:1px solid #e1e7ee;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+}
+
+.withdraw-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.withdraw-method{
+    font-weight:900;
+}
+
+.pending{
+    color:#9a6a00;
+    background:#fff1b8;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.success{
+    color:#087b4d;
+    background:#c9f8e5;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.withdraw-info{
+    color:#718096;
+    font-size:12px;
+    line-height:1.7;
+    margin-top:9px;
+}
+
+.logout{
+    border:1px solid #526276;
+    background:transparent;
+    color:white;
+    padding:7px 11px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .section-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .search{
+        width:100%;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .header{
+        padding:0 13px;
+    }
+
+    .main{
+        width:calc(100% - 20px);
+    }
+
+    .stats{
+        gap:9px;
+    }
+
+    .stat{
+        padding:14px;
+    }
+
+    .stat-value{
+        font-size:21px;
+    }
+
+    .brand{
+        font-size:18px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+                     ADMIN LOGIN
+===================================================== -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <div class="admin-logo">
+            GP
+        </div>
+
+        <div class="login-title">
+            Admin Panel
+        </div>
+
+        <div class="login-sub">
+            Secure administrator access
+        </div>
+
+        <div class="login-error" id="loginError">
+            Invalid User ID or Password.
+        </div>
+
+        <div class="login-field">
+
+            <label>User ID</label>
+
+            <input
+                id="adminUser"
+                type="text"
+                inputmode="numeric"
+                placeholder="Enter User ID">
+
+        </div>
+
+        <div class="login-field">
+
+            <label>Password</label>
+
+            <input
+                id="adminPassword"
+                type="password"
+                placeholder="Enter Password">
+
+        </div>
+
+        <button class="login-btn"
+                onclick="adminLogin()">
+
+            Login to Admin Panel
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+                     ADMIN DASHBOARD
+===================================================== -->
+
+<div id="dashboard">
+
+<header class="header">
+
+    <div class="brand">
+        Global<span>Pay</span> Admin
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;">
+
+        <div class="admin-badge">
+            ADMIN
+        </div>
+
+        <button class="logout"
+                onclick="logoutAdmin()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <div class="page-title">
+        Admin Dashboard
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Total Registered Users
+            </div>
+
+            <div class="stat-value"
+                 id="totalUsers">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Active Users
+            </div>
+
+            <div class="stat-value"
+                 id="activeUsers">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Total Deposits
+            </div>
+
+            <div class="stat-value"
+                 id="totalDeposits">
+
+                ₹0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Total Withdrawals
+            </div>
+
+            <div class="stat-value"
+                 id="totalWithdrawals">
+
+                ₹0
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                     DEPOSIT REQUESTS
+    ================================================= -->
+
+    <div class="section">
+
+        <div class="section-head">
+
+            <div class="section-title">
+                💰 Deposit / UTR Requests
+            </div>
+
+        </div>
+
+        <div id="depositList">
+
+            <div style="
+                text-align:center;
+                color:#8995a5;
+                padding:15px;">
+
+                Loading deposit requests...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                         USERS
+    ================================================= -->
+
+    <div class="section">
+
+        <div class="section-head">
+
+            <div class="section-title">
+                👥 Registered Users
+            </div>
+
+            <input
+                class="search"
+                id="userSearch"
+                placeholder="Search UID / phone / email..."
+                oninput="filterUsers()">
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>UID</th>
+                        <th>Phone / Email</th>
+                        <th>Registered</th>
+                        <th>Balance</th>
+                        <th>Token</th>
+                        <th>Plan</th>
+                        <th>Deposit</th>
+                        <th>Withdrawal</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+                     WITHDRAWALS
+    ================================================= -->
+
+    <div class="section">
+
+        <div class="section-title">
+            💸 Withdrawal Requests
+        </div>
+
+        <div id="withdrawalList"
+             style="margin-top:14px;">
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+                         FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+/* ================= FIRESTORE ================= */
+
+import {
+    getFirestore,
+    collectionGroup,
+    onSnapshot,
+    doc,
+    runTransaction,
+    getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* ================= REALTIME DATABASE ================= */
+
+import {
+    getDatabase,
+    ref,
+    onValue,
+    update,
+    runTransaction as runRTDBTransaction
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* =====================================================
+                  FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyCA6csT8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+    "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+    "globalpay-d31dd",
+
+    storageBucket:
+    "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+    "862227027913",
+
+    appId:
+    "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+/* ================= INITIALIZE ================= */
+
+const app = initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+const firestore =
+    getFirestore(app);
+
+
+/* =====================================================
+                         USERS
+===================================================== */
+
+let allUsers = {};
+
+const usersRef =
+    ref(db,"users");
+
+
+onValue(usersRef,(snapshot)=>{
+
+    allUsers =
+        snapshot.val() || {};
+
+    renderUsers(allUsers);
+
+    calculateStats(allUsers);
+
+});
+
+
+function renderUsers(users){
+
+    const table =
+        document.getElementById("usersTable");
+
+    table.innerHTML = "";
+
+    const entries =
+        Object.entries(users);
+
+
+    if(entries.length === 0){
+
+        table.innerHTML = `
+
+        <tr>
+
+            <td colspan="9"
+                style="text-align:center;padding:25px;">
+
+                No registered users found.
+
+            </td>
+
+        </tr>`;
+
+        return;
+    }
+
+
+    entries.forEach(([uid,user])=>{
+
+        const tr =
+            document.createElement("tr");
+
+
+        const balance =
+            Number(
+                user.balance ||
+                user.rupeeBalance ||
+                user.cashBalance ||
+                0
+            );
+
+
+        const token =
+            Number(
+                user.tokenBalance ??
+                user.token ??
+                user.tokens ??
+                0
+            );
+
+
+        const deposit =
+            Number(
+                user.totalDeposit ||
+                user.deposit ||
+                0
+            );
+
+
+        const withdrawal =
+            Number(
+                user.totalWithdrawal ||
+                0
+            );
+
+
+        const registered =
+            user.registeredAt ||
+            user.createdAt ||
+            "-";
+
+
+        const contact =
+            user.phone ||
+            user.email ||
+            "-";
+
+
+        const plan =
+            user.plan ||
+            user.activePlan ||
+            "No Plan";
+
+
+        const active =
+            user.active === true ||
+            user.online === true;
+
+
+        tr.innerHTML = `
+
+        <td class="uid">
+            ${escapeHTML(uid)}
+        </td>
+
+        <td>
+            ${escapeHTML(contact)}
+        </td>
+
+        <td>
+            ${escapeHTML(String(registered))}
+        </td>
+
+        <td class="money">
+            ₹${balance.toLocaleString("en-IN")}
+        </td>
+
+        <td>
+            ${token.toLocaleString("en-IN")}
+        </td>
+
+        <td>
+
+            <span class="plan">
+                ${escapeHTML(String(plan))}
+            </span>
+
+        </td>
+
+        <td class="money">
+            ₹${deposit.toLocaleString("en-IN")}
+        </td>
+
+        <td class="money">
+            ₹${withdrawal.toLocaleString("en-IN")}
+        </td>
+
+        <td class="${active ? "active":"offline"}">
+
+            ${active ?
+            "● Active":
+            "● Offline"}
+
+        </td>
+
+        `;
+
+
+        table.appendChild(tr);
+
+    });
+
+}
+
+
+/* =====================================================
+                         STATS
+===================================================== */
+
+function calculateStats(users){
+
+    const entries =
+        Object.values(users);
+
+
+    let deposits = 0;
+
+    let withdrawals = 0;
+
+    let active = 0;
+
+
+    entries.forEach(user=>{
+
+        deposits +=
+            Number(
+                user.totalDeposit ||
+                user.deposit ||
+                0
+            );
+
+
+        withdrawals +=
+            Number(
+                user.totalWithdrawal ||
+                0
+            );
+
+
+        if(
+            user.active === true ||
+            user.online === true
+        ){
+
+            active++;
+
+        }
+
+    });
+
+
+    document.getElementById("totalUsers")
+        .textContent =
+        entries.length;
+
+
+    document.getElementById("activeUsers")
+        .textContent =
+        active;
+
+
+    document.getElementById("totalDeposits")
+        .textContent =
+        "₹" +
+        deposits.toLocaleString("en-IN");
+
+
+    document.getElementById("totalWithdrawals")
+        .textContent =
+        "₹" +
+        withdrawals.toLocaleString("en-IN");
+
+}
+
+
+/* =====================================================
+                         SEARCH
+===================================================== */
+
+window.filterUsers =
+function(){
+
+    const search =
+        document.getElementById("userSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    if(!search){
+
+        renderUsers(allUsers);
+
+        return;
+
+    }
+
+
+    const filtered = {};
+
+
+    Object.entries(allUsers)
+    .forEach(([uid,user])=>{
+
+        const text =
+        (
+            uid + " " +
+            (user.phone || "") + " " +
+            (user.email || "")
+        ).toLowerCase();
+
+
+        if(text.includes(search)){
+
+            filtered[uid] =
+                user;
+
+        }
+
+    });
+
+
+    renderUsers(filtered);
+
+};
+
+
+/* =====================================================
+                    FIRESTORE DEPOSITS
+===================================================== */
+
+/*
+ Expected structure:
+
+ users
+   └── USER_UID
+        └── depositRequests
+              └── REQUEST_ID
+                    amount
+                    utr
+                    status
+                    createdAt
+                    uid
+
+*/
+
+
+const depositQuery =
+    collectionGroup(
+        firestore,
+        "depositRequests"
+    );
+
+
+onSnapshot(
+    depositQuery,
+    (snapshot)=>{
+
+        const requests = [];
+
+        snapshot.forEach((snap)=>{
+
+            requests.push({
+
+                id:snap.id,
+
+                path:snap.ref.path,
+
+                data:snap.data()
+
+            });
+
+        });
+
+
+        requests.sort((a,b)=>{
+
+            const aTime =
+                getTimeValue(a.data.createdAt);
+
+            const bTime =
+                getTimeValue(b.data.createdAt);
+
+            return bTime - aTime;
+
+        });
+
+
+        renderDeposits(requests);
+
+    },
+    (error)=>{
+
+        console.error(
+            "Deposit listener error:",
+            error
+        );
+
+
+        document.getElementById(
+            "depositList"
+        ).innerHTML = `
+
+        <div class="request-item">
+
+            <div style="
+                color:#dc2929;
+                font-weight:700;">
+
+                Deposit requests load nahi ho pa rahe.
+
+            </div>
+
+            <div style="
+                color:#718096;
+                font-size:12px;
+                margin-top:6px;">
+
+                Firestore Rules mein admin permission
+                check karein.
+
+            </div>
+
+        </div>`;
+
+    }
+);
+
+
+/* =====================================================
+                    RENDER DEPOSITS
+===================================================== */
+
+function renderDeposits(requests){
+
+    const box =
+        document.getElementById(
+            "depositList"
+        );
+
+
+    box.innerHTML = "";
+
+
+    if(requests.length === 0){
+
+        box.innerHTML = `
+
+        <div class="request-item">
+
+            <div style="
+                text-align:center;
+                color:#8995a5;
+                padding:15px;">
+
+                No deposit requests.
+
+            </div>
+
+        </div>`;
+
+        return;
+
+    }
+
+
+    requests.forEach(request=>{
+
+        const item =
+            request.data;
+
+
+        const status =
+            String(
+                item.status ||
+                "pending"
+            ).toLowerCase();
+
+
+        const confirmed =
+            status === "confirmed" ||
+            status === "success" ||
+            status === "successful";
+
+
+        const amount =
+            Number(
+                item.amount ||
+                item.depositAmount ||
+                0
+            );
+
+
+        const utr =
+            item.utr ||
+            item.UTR ||
+            item.utrNumber ||
+            "-";
+
+
+        const uid =
+            item.uid ||
+            getUIDFromPath(
+                request.path
+            );
+
+
+        const dateTime =
+            item.dateTime ||
+            item.createdAt ||
+            "-";
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "request-item";
+
+
+        div.innerHTML = `
+
+        <div class="request-top">
+
+            <div class="request-title">
+
+                💰 Deposit Request
+
+            </div>
+
+            <span class="${
+                confirmed
+                ? "request-success"
+                : "request-status"
+            }">
+
+                ${
+                    confirmed
+                    ? "CONFIRMED"
+                    : "PENDING"
+                }
+
+            </span>
+
+        </div>
+
+
+        <div style="
+            font-size:22px;
+            font-weight:900;
+            margin-top:9px;">
+
+            ₹${amount.toLocaleString("en-IN")}
+
+        </div>
+
+
+        <div class="request-info">
+
+            User UID:
+            <b>
+                ${escapeHTML(uid)}
+            </b>
+            <br>
+
+
+            UTR Number:
+            <b class="utr">
+                ${escapeHTML(utr)}
+            </b>
+            <br>
+
+
+            Date & Time:
+            <b>
+                ${escapeHTML(String(dateTime))}
+            </b>
+            <br>
+
+
+            Request ID:
+            <b>
+                ${escapeHTML(request.id)}
+            </b>
+
+        </div>
+
+
+        ${
+            !confirmed
+            ?
+
+            `<button
+                class="confirm-btn deposit-btn"
+                onclick="confirmDeposit(
+                    '${escapeJS(request.path)}'
+                )">
+
+                ✓ Confirm Deposit & Add Token
+
+            </button>`
+
+            :
+
+            `<div style="
+                color:#087b4d;
+                font-size:12px;
+                font-weight:800;
+                margin-top:10px;">
+
+                ✓ Deposit confirmed
+                — Token credited
+
+            </div>`
+
+        }
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+                  CONFIRM DEPOSIT
+===================================================== */
+
+window.confirmDeposit =
+async function(path){
+
+    try{
+
+        if(
+            !confirm(
+                "Is deposit ko confirm karna hai?"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const parts =
+            path.split("/");
+
+
+        /*
+        users / UID / depositRequests / REQUEST_ID
+        */
+
+        const uid =
+            parts[1];
+
+
+        const requestId =
+            parts[3];
+
+
+        if(
+            !uid ||
+            !requestId
+        ){
+
+            alert(
+                "Invalid deposit request."
+            );
+
+            return;
+
+        }
+
+
+        const requestRef =
+            doc(
+                firestore,
+                "users",
+                uid,
+                "depositRequests",
+                requestId
+            );
+
+
+        const userRef =
+            doc(
+                firestore,
+                "users",
+                uid
+            );
+
+
+        await runTransaction(
+            firestore,
+            async(transaction)=>{
+
+                const requestSnap =
+                    await transaction.get(
+                        requestRef
+                    );
+
+
+                if(!requestSnap.exists()){
+
+                    throw new Error(
+                        "Deposit request not found."
+                    );
+
+                }
+
+
+                const requestData =
+                    requestSnap.data();
+
+
+                const currentStatus =
+                    String(
+                        requestData.status ||
+                        "pending"
+                    ).toLowerCase();
+
+
+                if(
+                    currentStatus !==
+                    "pending"
+                ){
+
+                    throw new Error(
+                        "This deposit is already processed."
+                    );
+
+                }
+
+
+                const amount =
+                    Number(
+                        requestData.amount ||
+                        requestData.depositAmount ||
+                        0
+                    );
+
+
+                if(
+                    !Number.isFinite(amount) ||
+                    amount <= 0
+                ){
+
+                    throw new Error(
+                        "Invalid deposit amount."
+                    );
+
+                }
+
+
+                const userSnap =
+                    await transaction.get(
+                        userRef
+                    );
+
+
+                if(!userSnap.exists()){
+
+                    throw new Error(
+                        "User account not found."
+                    );
+
+                }
+
+
+                const userData =
+                    userSnap.data();
+
+
+                const oldToken =
+                    Number(
+                        userData.tokenBalance || 0
+                    );
+
+
+                const oldDeposit =
+                    Number(
+                        userData.totalDeposit || 0
+                    );
+
+
+                /*
+                1 Rupee = 1 Token
+                */
+
+                const newToken =
+                    oldToken + amount;
+
+
+                const newDeposit =
+                    oldDeposit + amount;
+
+
+                transaction.update(
+                    requestRef,
+                    {
+
+                        status:
+                            "confirmed",
+
+                        confirmedAmount:
+                            amount,
+
+                        tokensAdded:
+                            amount,
+
+                        confirmedAt:
+                            new Date().toISOString()
+
+                    }
+                );
+
+
+                transaction.set(
+                    userRef,
+                    {
+
+                        tokenBalance:
+                            newToken,
+
+                        totalDeposit:
+                            newDeposit
+
+                    },
+                    {
+                        merge:true
+                    }
+                );
+
+            }
+        );
+
+
+        alert(
+            "Deposit confirmed successfully.\n" +
+            "Token user ke wallet mein add ho gaya."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Confirm deposit error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Deposit confirm nahi ho saka."
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+                  REALTIME WITHDRAWALS
+===================================================== */
+
+const withdrawalRef =
+    ref(
+        db,
+        "withdrawals"
+    );
+
+
+onValue(
+    withdrawalRef,
+    (snapshot)=>{
+
+        const data =
+            snapshot.val() || {};
+
+        renderWithdrawals(data);
+
+    }
+);
+
+
+/* =====================================================
+                  RENDER WITHDRAWALS
+===================================================== */
+
+function renderWithdrawals(data){
+
+    const box =
+        document.getElementById(
+            "withdrawalList"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const entries =
+        Object.entries(data)
+        .reverse();
+
+
+    if(entries.length === 0){
+
+        box.innerHTML = `
+
+        <div class="withdraw-item">
+
+            <div style="
+                text-align:center;
+                color:#8995a5;
+                padding:15px;">
+
+                No withdrawal requests.
+
+            </div>
+
+        </div>`;
+
+        return;
+
+    }
+
+
+    entries.forEach(
+        ([id,item])=>{
+
+        const status =
+            String(
+                item.status ||
+                "pending"
+            ).toLowerCase();
+
+
+        const isSuccess =
+            status === "success" ||
+            status === "successful" ||
+            status === "completed";
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "withdraw-item";
+
+
+        const method =
+            item.method ||
+            "-";
+
+
+        const amount =
+            Number(
+                item.amount ||
+                0
+            );
+
+
+        let details = "";
+
+
+        if(
+            method.toLowerCase() ===
+            "bank"
+        ){
+
+            details = `
+
+                Holder:
+                ${escapeHTML(
+                    item.holderName || "-"
+                )}
+                <br>
+
+                Account:
+                ${escapeHTML(
+                    item.accountNo || "-"
+                )}
+                <br>
+
+                IFSC:
+                ${escapeHTML(
+                    item.ifsc || "-"
+                )}
+
+            `;
+
+        }else{
+
+            details = `
+
+                UPI ID:
+                ${escapeHTML(
+                    item.upiId || "-"
+                )}
+
+            `;
+
+        }
+
+
+        div.innerHTML = `
+
+        <div class="withdraw-top">
+
+            <div class="withdraw-method">
+
+                ${
+                    method.toLowerCase() === "bank"
+                    ? "🏦 Bank"
+                    : "◈ UPI"
+                }
+
+            </div>
+
+
+            <span class="${
+                isSuccess
+                ? "success"
+                : "pending"
+            }">
+
+                ${
+                    isSuccess
+                    ? "SUCCESSFULLY"
+                    : "PENDING"
+                }
+
+            </span>
+
+        </div>
+
+
+        <div style="
+            font-size:20px;
+            font-weight:900;
+            margin-top:8px;">
+
+            ₹${amount.toLocaleString("en-IN")}
+
+        </div>
+
+
+        <div class="withdraw-info">
+
+            User UID:
+            <b>
+                ${escapeHTML(
+                    item.uid || "-"
+                )}
+            </b>
+
+            <br>
+
+            ${details}
+
+            Transaction ID:
+            <b>
+                ${escapeHTML(
+                    item.transactionId || id
+                )}
+            </b>
+
+            <br>
+
+            Date & Time:
+            <b>
+                ${escapeHTML(
+                    item.dateTime || "-"
+                )}
+            </b>
+
+        </div>
+
+
+        ${
+            !isSuccess
+
+            ?
+
+            `<button
+                class="confirm-btn"
+                onclick="confirmWithdrawal(
+                    '${escapeJS(id)}'
+                )">
+
+                ✓ Confirm Withdrawal
+
+            </button>`
+
+            :
+
+            ""
+
+        }
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+                  CONFIRM WITHDRAWAL
+===================================================== */
+
+window.confirmWithdrawal =
+async function(id){
+
+    try{
+
+        if(
+            !confirm(
+                "Withdrawal confirm karna hai?"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const requestRef =
+            ref(
+                db,
+                "withdrawals/" + id
+            );
+
+
+        await runRTDBTransaction(
+            requestRef,
+            (item)=>{
+
+                if(!item){
+
+                    return item;
+
+                }
+
+
+                const status =
+                    String(
+                        item.status ||
+                        "pending"
+                    ).toLowerCase();
+
+
+                if(
+                    status === "success" ||
+                    status === "successful" ||
+                    status === "completed"
+                ){
+
+                    return;
+
+                }
+
+
+                return {
+
+                    ...item,
+
+                    status:
+                        "success",
+
+                    confirmedAt:
+                        new Date()
+                        .toLocaleString(
+                            "en-IN"
+                        )
+
+                };
+
+            }
+        );
+
+
+        alert(
+            "Withdrawal successfully confirmed."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Withdrawal error:",
+            error
+        );
+
+
+        alert(
+            "Withdrawal confirm nahi ho saka."
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+                       HELPERS
+===================================================== */
+
+function getUIDFromPath(path){
+
+    const parts =
+        path.split("/");
+
+    return parts[1] || "-";
+
+}
+
+
+function getTimeValue(value){
+
+    if(!value){
+
+        return 0;
+
+    }
+
+
+    if(
+        typeof value ===
+        "object" &&
+        value.seconds
+    ){
+
+        return value.seconds * 1000;
+
+    }
+
+
+    const time =
+        new Date(value)
+        .getTime();
+
+
+    return Number.isFinite(time)
+        ? time
+        : 0;
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function escapeJS(value){
+
+    return String(value)
+
+        .replaceAll(
+            "\\",
+            "\\\\"
+        )
+
+        .replaceAll(
+            "'",
+            "\\'"
+        );
+
+}
+
+</script>
+
+
+<!-- =====================================================
+                       ADMIN LOGIN
+===================================================== -->
+
+<script>
+
+/*
+========================================================
+ADMIN LOGIN
+========================================================
+*/
+
+const ADMIN_ID =
+    "993428";
+
+const ADMIN_PASSWORD =
+    "993428";
+
+
+function adminLogin(){
+
+    const id =
+        document
+        .getElementById("adminUser")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("adminPassword")
+        .value;
+
+
+    if(
+        id === ADMIN_ID &&
+        password === ADMIN_PASSWORD
+    ){
+
+        sessionStorage.setItem(
+            "globalpay_admin",
+            "true"
+        );
+
+
+        document
+        .getElementById("loginPage")
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById("dashboard")
+        .style.display =
+            "block";
+
+    }else{
+
+        document
+        .getElementById("loginError")
+        .style.display =
+            "block";
+
+    }
+
+}
+
+
+function logoutAdmin(){
+
+    sessionStorage.removeItem(
+        "globalpay_admin"
+    );
+
+    location.reload();
+
+}
+
+
+/* ================= ALREADY LOGIN ================= */
+
+if(
+    sessionStorage.getItem(
+        "globalpay_admin"
+    ) === "true"
+){
+
+    document
+    .getElementById("loginPage")
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById("dashboard")
+    .style.display =
+        "block";
+
+}
+
+</script>
+
+
+</body>
+</html>
