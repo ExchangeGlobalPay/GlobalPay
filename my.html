@@ -1149,6 +1149,17 @@ body{
     display:block;
 }
 
+
+.bill-icon{
+    background:#eef5ff;
+    color:#2478df;
+}
+
+.bill-icon svg{
+    width:24px;
+    height:24px;
+    display:block;
+}
       
       
 </style>
@@ -1470,31 +1481,42 @@ body{
 
 <section class="menu-card">
 
+<div class="menu-icon bill-icon">
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
 
-    <div class="menu-item"
-         onclick="openPage('bill.html')">
+        <path
+            d="M6 3.5H18C18.55 3.5 19 3.95 19 4.5V20.5L16.5 19L14 20.5L12 19L9.5 20.5L7 19L5 20.5V4.5C5 3.95 5.45 3.5 6 3.5Z"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linejoin="round"/>
 
-        <div class="menu-icon mi-purple">
-            🧾
-        </div>
+        <path
+            d="M8.5 8H15.5"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"/>
 
-        <div class="menu-text">
+        <path
+            d="M8.5 11.5H15.5"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"/>
 
-            <div class="menu-title">
-                Bill Details
-            </div>
+        <path
+            d="M8.5 15H12.5"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"/>
 
-            <div class="menu-sub">
-                View your bills and transactions
-            </div>
+    </svg>
+</div>
 
-        </div>
-
-        <div class="menu-arrow">
-            ›
-        </div>
-
-    </div>
+      
 
 
     <div class="menu-item"
