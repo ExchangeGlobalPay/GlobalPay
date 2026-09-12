@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay - Change Phone Number</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,
+        "Segoe UI",Roboto,Arial,sans-serif;
+
+    color:#172033;
+
+    background:#fffdfb;
+}
+
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:0;
+
+    z-index:-1;
+
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(
+            rgba(232,228,223,.42) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(232,228,223,.42) 1px,
+            transparent 1px
+        );
+
+    background-size:41px 41px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    height:72px;
+
+    display:flex;
+    align-items:center;
+
+    background:rgba(255,255,255,.94);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-bottom:1px solid #edf0f4;
+
+    box-shadow:
+        0 5px 20px rgba(20,45,75,.04);
+}
+
+.header-inner{
+    width:calc(100% - 28px);
+    max-width:650px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+
+    gap:13px;
+}
+
+.back-btn{
+    width:43px;
+    height:43px;
+
+    flex:0 0 43px;
+
+    border:1px solid #e6ebf1;
+
+    border-radius:14px;
+
+    background:#fff;
+
+    color:#18385e;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 6px 18px rgba(17,42,72,.07);
+
+    transition:.18s ease;
+}
+
+.back-btn:active{
+    transform:scale(.94);
+}
+
+.back-btn svg{
+    width:21px;
+    height:21px;
+}
+
+.header-text{
+    display:flex;
+    flex-direction:column;
+
+    gap:3px;
+}
+
+.header-title{
+    font-size:20px;
+    line-height:1;
+
+    font-weight:850;
+
+    color:#17365c;
+
+    letter-spacing:-.4px;
+}
+
+.header-sub{
+    font-size:11px;
+
+    color:#929daa;
+
+    font-weight:500;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+    width:calc(100% - 28px);
+    max-width:650px;
+
+    margin:auto;
+
+    padding:20px 0 40px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:20px 18px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf7ff,
+            #f5f1ff
+        );
+
+    border:1px solid #dfeaf6;
+
+    box-shadow:
+        0 12px 32px rgba(34,74,120,.08);
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    background:rgba(49,128,225,.07);
+
+    top:-85px;
+    right:-55px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.hero-icon{
+    width:52px;
+    height:52px;
+
+    flex:0 0 52px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#2879df;
+
+    background:#fff;
+
+    border:1px solid #e2edf8;
+
+    box-shadow:
+        0 8px 20px rgba(39,112,190,.10);
+}
+
+.hero-icon svg{
+    width:28px;
+    height:28px;
+}
+
+.hero-title{
+    font-size:19px;
+
+    line-height:1.2;
+
+    font-weight:850;
+
+    color:#17385f;
+}
+
+.hero-text{
+    margin-top:4px;
+
+    font-size:11.5px;
+
+    line-height:1.45;
+
+    color:#8290a1;
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.form-card{
+    margin-top:17px;
+
+    padding:18px;
+
+    border-radius:21px;
+
+    background:#fff;
+
+    border:1px solid #e5eaf0;
+
+    box-shadow:
+        0 10px 30px rgba(20,45,75,.055);
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.label{
+    display:block;
+
+    margin:0 2px 7px;
+
+    font-size:13px;
+
+    font-weight:750;
+
+    color:#64748a;
+}
+
+
+/* =====================================================
+   FIELD
+===================================================== */
+
+.field{
+    width:100%;
+    height:49px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:7px;
+
+    overflow:hidden;
+
+    border-radius:14px;
+
+    border:1.5px solid #e1e5ea;
+
+    background:#fff;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.field:focus-within{
+    border-color:#e87512;
+
+    box-shadow:
+        0 0 0 3px rgba(232,117,18,.08);
+}
+
+.field.error{
+    border-color:#ef4444;
+
+    background:#fffafa;
+
+    box-shadow:
+        0 0 0 3px rgba(239,68,68,.06);
+}
+
+.field.success{
+    border-color:#20a36b;
+
+    background:#fbfffd;
+}
+
+.field input{
+    width:100%;
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    padding:0 14px;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    color:#253246;
+}
+
+.field input::placeholder{
+    color:#b8bec7;
+}
+
+
+/* =====================================================
+   OLD NUMBER
+===================================================== */
+
+.old-field{
+    background:#f7f9fb;
+
+    border-color:#e7ebf0;
+}
+
+.old-field input{
+    color:#6d7888;
+
+    font-weight:700;
+}
+
+.lock-icon{
+    width:44px;
+    height:100%;
+
+    flex:0 0 44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#9aa6b4;
+
+    border-left:1px solid #edf0f3;
+}
+
+.lock-icon svg{
+    width:19px;
+    height:19px;
+}
+
+
+/* =====================================================
+   COUNTRY PREFIX
+===================================================== */
+
+.country{
+    width:70px;
+    height:100%;
+
+    flex:0 0 70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-right:1px solid #e5e8ec;
+
+    color:#667085;
+
+    font-size:14px;
+
+    font-weight:750;
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-field input{
+    padding-right:48px;
+}
+
+.eye-btn{
+    position:absolute;
+
+    right:13px;
+    top:50%;
+
+    width:30px;
+    height:30px;
+
+    transform:translateY(-50%);
+
+    border:0;
+
+    background:transparent;
+
+    color:#7c8795;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.eye-btn svg{
+    width:19px;
+    height:19px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message{
+    display:none;
+
+    margin:0 2px 13px;
+
+    font-size:11.5px;
+
+    line-height:1.4;
+
+    font-weight:650;
+
+    color:#ef4444;
+}
+
+.error-message.show{
+    display:block;
+}
+
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info-box{
+    margin-top:15px;
+
+    padding:12px 13px;
+
+    display:flex;
+    align-items:flex-start;
+
+    gap:10px;
+
+    border-radius:14px;
+
+    background:#f5f9ff;
+
+    border:1px solid #e2edf9;
+
+    color:#708198;
+}
+
+.info-icon{
+    width:25px;
+    height:25px;
+
+    flex:0 0 25px;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#e8f2ff;
+
+    color:#2879df;
+}
+
+.info-icon svg{
+    width:15px;
+    height:15px;
+}
+
+.info-text{
+    font-size:11px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+===================================================== */
+
+.main-button{
+    width:100%;
+    height:49px;
+
+    margin-top:17px;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:#111;
+
+    color:#fff;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.18s ease;
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.08);
+}
+
+.main-button:active{
+    transform:scale(.985);
+}
+
+.main-button:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+    display:none;
+
+    text-align:center;
+
+    margin-top:10px;
+
+    color:#8a95a3;
+
+    font-size:11px;
+}
+
+.loading.show{
+    display:block;
+}
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+.success-box{
+    display:none;
+
+    margin-top:12px;
+
+    padding:11px 12px;
+
+    border-radius:12px;
+
+    background:#ecfdf5;
+
+    border:1px solid #bbf7d0;
+
+    color:#168052;
+
+    text-align:center;
+
+    font-size:12px;
+
+    font-weight:650;
+
+    line-height:1.4;
+}
+
+.success-box.show{
+    display:block;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay{
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:22px;
+
+    background:rgba(12,23,38,.48);
+
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:100%;
+    max-width:390px;
+
+    padding:22px;
+
+    border-radius:23px;
+
+    background:#fff;
+
+    border:1px solid rgba(255,255,255,.8);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.22);
+
+    animation:modalIn .18s ease;
+}
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+.modal-icon{
+    width:50px;
+    height:50px;
+
+    margin:0 auto 13px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#e28a1d;
+
+    background:#fff5e7;
+
+    border:1px solid #f6e2c6;
+}
+
+.modal-icon svg{
+    width:25px;
+    height:25px;
+}
+
+.modal-title{
+    text-align:center;
+
+    font-size:19px;
+
+    font-weight:850;
+
+    color:#19385f;
+}
+
+.modal-text{
+    margin:8px auto 0;
+
+    max-width:320px;
+
+    text-align:center;
+
+    font-size:12px;
+
+    line-height:1.55;
+
+    color:#7d8998;
+}
+
+.modal-buttons{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.modal-btn{
+    height:45px;
+
+    border-radius:13px;
+
+    border:1px solid #e3e7ec;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.no-btn{
+    background:#f7f8fa;
+
+    color:#64748a;
+}
+
+.yes-btn{
+    background:#111;
+
+    color:#fff;
+
+    border-color:#111;
+}
+
+.modal-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+
+    bottom:28px;
+
+    z-index:1200;
+
+    width:max-content;
+
+    max-width:calc(100% - 40px);
+
+    padding:11px 15px;
+
+    transform:
+        translate(-50%,20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    border-radius:12px;
+
+    background:#172033;
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:650;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+
+    transition:.25s ease;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+.toast.error{
+    background:#b42318;
+}
+
+.toast.success{
+    background:#168052;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:380px){
+
+    .container{
+        width:calc(100% - 22px);
+    }
+
+    .form-card{
+        padding:15px;
+    }
+
+    .hero{
+        padding:17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <button
+            class="back-btn"
+            type="button"
+            onclick="window.location.href='my.html'"
+            aria-label="Back">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M15 18L9 12L15 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+            </svg>
+
+        </button>
+
+
+        <div class="header-text">
+
+            <div class="header-title">
+                Change Phone Number
+            </div>
+
+            <div class="header-sub">
+                Update your registered mobile number
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <rect
+                    x="6"
+                    y="2.8"
+                    width="9"
+                    height="18.4"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="1.7"/>
+
+                <path
+                    d="M8.8 5.8H12.2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"/>
+
+                <circle
+                    cx="10.5"
+                    cy="18"
+                    r=".8"
+                    fill="currentColor"/>
+
+                <path
+                    d="M17.5 9.5C19.1 10.3 20.2 11.9 20.2 13.8C20.2 16.45 18.05 18.6 15.4 18.6C14.1 18.6 12.9 18.08 12 17.2"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"/>
+
+                <path
+                    d="M17.3 7.5V10.2H14.6"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+            </svg>
+
+        </div>
+
+
+        <div>
+
+            <div class="hero-title">
+                Update Your Number
+            </div>
+
+            <div class="hero-text">
+                Your new number will be used for future
+                sign-ins to your GlobalPay account.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FORM
+===================================================== -->
+
+<section class="form-card">
+
+
+<!-- OLD NUMBER -->
+
+<label class="label">
+    Current Phone Number
+</label>
+
+<div class="field old-field">
+
+    <div class="country">
+        +91
+    </div>
+
+    <input
+        type="tel"
+        id="oldPhone"
+        readonly
+        placeholder="Loading...">
+
+    <div class="lock-icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <rect
+                x="5"
+                y="10"
+                width="14"
+                height="10"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.7"/>
+
+            <path
+                d="M8 10V7.5C8 5.29 9.79 3.5 12 3.5C14.21 3.5 16 5.29 16 7.5V10"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+            <circle
+                cx="12"
+                cy="15"
+                r="1"
+                fill="currentColor"/>
+
+        </svg>
+
+    </div>
+
+</div>
+
+
+<!-- NEW NUMBER -->
+
+<label class="label">
+    New Phone Number
+</label>
+
+<div class="field" id="newPhoneField">
+
+    <div class="country">
+        +91
+    </div>
+
+    <input
+        type="tel"
+        id="newPhone"
+        inputmode="numeric"
+        maxlength="10"
+        autocomplete="tel"
+        placeholder="Enter new phone number">
+
+</div>
+
+<div
+    class="error-message"
+    id="newPhoneError">
+</div>
+
+
+<!-- CONFIRM NUMBER -->
+
+<label class="label">
+    Confirm New Phone Number
+</label>
+
+<div class="field" id="confirmPhoneField">
+
+    <div class="country">
+        +91
+    </div>
+
+    <input
+        type="tel"
+        id="confirmPhone"
+        inputmode="numeric"
+        maxlength="10"
+        autocomplete="tel"
+        placeholder="Confirm new phone number">
+
+</div>
+
+<div
+    class="error-message"
+    id="confirmPhoneError">
+</div>
+
+
+<!-- PASSWORD -->
+
+<label class="label">
+    Current Password
+</label>
+
+<div
+    class="field password-field"
+    id="passwordField">
+
+    <input
+        type="password"
+        id="currentPassword"
+        autocomplete="current-password"
+        placeholder="Enter your current password">
+
+    <button
+        class="eye-btn"
+        type="button"
+        onclick="togglePassword()"
+        aria-label="Show password">
+
+        <svg
+            id="eyeIcon"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M2.5 12C4.8 7.8 8.1 5.5 12 5.5C15.9 5.5 19.2 7.8 21.5 12C19.2 16.2 15.9 18.5 12 18.5C8.1 18.5 4.8 16.2 2.5 12Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"/>
+
+            <circle
+                cx="12"
+                cy="12"
+                r="2.7"
+                stroke="currentColor"
+                stroke-width="1.7"/>
+
+        </svg>
+
+    </button>
+
+</div>
+
+<div
+    class="error-message"
+    id="passwordError">
+</div>
+
+
+<!-- INFO -->
+
+<div class="info-box">
+
+    <div class="info-icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="currentColor"
+                stroke-width="1.7"/>
+
+            <path
+                d="M12 10.5V16"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+            <circle
+                cx="12"
+                cy="7.2"
+                r="1"
+                fill="currentColor"/>
+
+        </svg>
+
+    </div>
+
+    <div class="info-text">
+        For your security, your current password is required
+        before changing your registered phone number.
+    </div>
+
+</div>
+
+
+<!-- BUTTON -->
+
+<button
+    class="main-button"
+    id="continueButton"
+    type="button"
+    onclick="verifyAndContinue()">
+
+    Continue
+
+</button>
+
+
+<div
+    class="loading"
+    id="loading">
+    Verifying your account securely...
+</div>
+
+
+<div
+    class="success-box"
+    id="successBox">
+    Phone number updated successfully.
+</div>
+
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     CONFIRM MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="confirmModal">
+
+    <div class="modal">
+
+        <div class="modal-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M12 3L21 19H3L12 3Z"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linejoin="round"/>
+
+                <path
+                    d="M12 9V13"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"/>
+
+                <circle
+                    cx="12"
+                    cy="16"
+                    r="1"
+                    fill="currentColor"/>
+
+            </svg>
+
+        </div>
+
+
+        <div class="modal-title">
+            Confirm Phone Number Change
+        </div>
+
+
+        <div class="modal-text">
+
+            Are you sure you want to change your
+            phone number? Your current number will
+            no longer be used to sign in.
+
+        </div>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="modal-btn no-btn"
+                type="button"
+                onclick="closeModal()">
+
+                No
+
+            </button>
+
+
+            <button
+                class="modal-btn yes-btn"
+                type="button"
+                onclick="changePhoneNumber()">
+
+                Yes
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script type="module">
+
+
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    EmailAuthProvider,
+    reauthenticateWithCredential,
+    updateEmail
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentUser = null;
+
+let currentMobile = "";
+
+let verifiedPassword = false;
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message,type=""){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText =
+        message;
+
+    toast.className =
+        "toast";
+
+    if(type){
+        toast.classList.add(type);
+    }
+
+    requestAnimationFrame(() => {
+
+        toast.classList.add("show");
+
+    });
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        await loadCurrentProfile(user);
+
+    }
+);
+
+
+/* =====================================================
+   LOAD CURRENT PROFILE
+===================================================== */
+
+async function loadCurrentProfile(user){
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+
+        const snap =
+            await getDoc(userRef);
+
+
+        if(!snap.exists()){
+
+            showToast(
+                "Your account information could not be found.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snap.data();
+
+
+        currentMobile =
+            String(
+                data.mobile ||
+                data.phoneNumber ||
+                ""
+            );
+
+
+        document.getElementById(
+            "oldPhone"
+        ).value =
+            currentMobile;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "PROFILE LOAD ERROR:",
+            error
+        );
+
+        showToast(
+            "Unable to load your current phone number.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+===================================================== */
+
+window.togglePassword = function(){
+
+    const input =
+        document.getElementById(
+            "currentPassword"
+        );
+
+    if(input.type === "password"){
+
+        input.type =
+            "text";
+
+    }
+    else{
+
+        input.type =
+            "password";
+
+    }
+
+};
+
+
+/* =====================================================
+   CLEAR ERROR
+===================================================== */
+
+function clearFieldError(
+    fieldId,
+    errorId
+){
+
+    const field =
+        document.getElementById(
+            fieldId
+        );
+
+    const error =
+        document.getElementById(
+            errorId
+        );
+
+
+    field.classList.remove(
+        "error"
+    );
+
+
+    field.classList.remove(
+        "success"
+    );
+
+
+    error.innerText =
+        "";
+
+    error.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showFieldError(
+    fieldId,
+    errorId,
+    message
+){
+
+    const field =
+        document.getElementById(
+            fieldId
+        );
+
+    const error =
+        document.getElementById(
+            errorId
+        );
+
+
+    field.classList.add(
+        "error"
+    );
+
+
+    error.innerText =
+        message;
+
+
+    error.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   VERIFY & CONTINUE
+===================================================== */
+
+window.verifyAndContinue = async function(){
+
+    clearFieldError(
+        "newPhoneField",
+        "newPhoneError"
+    );
+
+    clearFieldError(
+        "confirmPhoneField",
+        "confirmPhoneError"
+    );
+
+    clearFieldError(
+        "passwordField",
+        "passwordError"
+    );
+
+
+    const newPhone =
+        document.getElementById(
+            "newPhone"
+        ).value.trim();
+
+
+    const confirmPhone =
+        document.getElementById(
+            "confirmPhone"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "currentPassword"
+        ).value;
+
+
+    /* =============================================
+       NEW NUMBER
+    ============================================= */
+
+    if(!/^[0-9]{10}$/.test(newPhone)){
+
+        showFieldError(
+            "newPhoneField",
+            "newPhoneError",
+            "Enter a valid 10-digit phone number."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       SAME OLD NUMBER
+    ============================================= */
+
+    if(
+        currentMobile &&
+        newPhone === currentMobile
+    ){
+
+        showFieldError(
+            "newPhoneField",
+            "newPhoneError",
+            "New phone number must be different from your current number."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       CONFIRM NUMBER
+    ============================================= */
+
+    if(
+        !/^[0-9]{10}$/.test(confirmPhone)
+    ){
+
+        showFieldError(
+            "confirmPhoneField",
+            "confirmPhoneError",
+            "Enter the new phone number again."
+        );
+
+        return;
+
+    }
+
+
+    if(newPhone !== confirmPhone){
+
+        showFieldError(
+            "confirmPhoneField",
+            "confirmPhoneError",
+            "Phone numbers do not match."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       PASSWORD
+    ============================================= */
+
+    if(password.length < 6){
+
+        showFieldError(
+            "passwordField",
+            "passwordError",
+            "Enter your current password."
+        );
+
+        return;
+
+    }
+
+
+    if(!currentUser){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "continueButton"
+        );
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    button.disabled =
+        true;
+
+    loading.classList.add(
+        "show"
+    );
+
+
+    try{
+
+        /* =========================================
+           RE-AUTHENTICATE
+
+           Current password Firebase se verify hoga.
+        ========================================= */
+
+        const oldEmail =
+            currentUser.email;
+
+
+        if(!oldEmail){
+
+            throw new Error(
+                "AUTH_EMAIL_MISSING"
+            );
+
+        }
+
+
+        const credential =
+            EmailAuthProvider.credential(
+                oldEmail,
+                password
+            );
+
+
+        await reauthenticateWithCredential(
+            currentUser,
+            credential
+        );
+
+
+        /* =========================================
+           PASSWORD CORRECT
+        ========================================= */
+
+        verifiedPassword =
+            true;
+
+
+        document
+            .getElementById(
+                "passwordField"
+            )
+            .classList.add(
+                "success"
+            );
+
+
+        /* =========================================
+           SHOW CONFIRMATION
+        ========================================= */
+
+        document
+            .getElementById(
+                "confirmModal"
+            )
+            .classList.add(
+                "show"
+            );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "PASSWORD VERIFY ERROR:",
+            error
+        );
+
+
+        let message =
+            "Incorrect current password.";
+
+
+        if(
+            error.code ===
+            "auth/wrong-password"
+        ){
+
+            message =
+                "Incorrect current password.";
+
+        }
+        else if(
+            error.code ===
+            "auth/invalid-credential"
+        ){
+
+            message =
+                "Incorrect current password.";
+
+        }
+        else if(
+            error.code ===
+            "auth/user-mismatch"
+        ){
+
+            message =
+                "Account verification failed.";
+
+        }
+        else if(
+            error.message ===
+            "AUTH_EMAIL_MISSING"
+        ){
+
+            message =
+                "Your account authentication information is incomplete.";
+
+        }
+
+
+        showFieldError(
+            "passwordField",
+            "passwordError",
+            message
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+        loading.classList.remove(
+            "show"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+window.closeModal = function(){
+
+    document
+        .getElementById(
+            "confirmModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+};
+
+
+/* =====================================================
+   CHANGE PHONE NUMBER
+===================================================== */
+
+window.changePhoneNumber = async function(){
+
+    if(!verifiedPassword){
+
+        closeModal();
+
+        return;
+
+    }
+
+
+    if(!currentUser){
+
+        closeModal();
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    const newPhone =
+        document.getElementById(
+            "newPhone"
+        ).value.trim();
+
+
+    const oldPhone =
+        currentMobile;
+
+
+    const oldEmail =
+        currentUser.email;
+
+
+    const newEmail =
+        newPhone +
+        "@globalpay-user.app";
+
+
+    const button =
+        document.querySelector(
+            ".yes-btn"
+        );
+
+
+    button.disabled =
+        true;
+
+    button.innerText =
+        "Updating...";
+
+
+    try{
+
+        /* =========================================
+           CHANGE FIREBASE AUTH LOGIN
+
+           Old number -> old internal email
+           New number -> new internal email
+        ========================================= */
+
+        await updateEmail(
+            currentUser,
+            newEmail
+        );
+
+
+        /* =========================================
+           UPDATE FIRESTORE
+        ========================================= */
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid
+            );
+
+
+        await updateDoc(
+            userRef,
+            {
+                mobile:
+                    newPhone,
+
+                phoneNumber:
+                    newPhone,
+
+                phoneNumberUpdatedAt:
+                    new Date()
+            }
+        );
+
+
+        /* =========================================
+           LOCAL STORAGE
+        ========================================= */
+
+        localStorage.setItem(
+            "globalpay_uid",
+            currentUser.uid
+        );
+
+        localStorage.setItem(
+            "globalpay_user_phone",
+            newPhone
+        );
+
+
+        /* =========================================
+           SUCCESS
+        ========================================= */
+
+        closeModal();
+
+
+        document
+            .getElementById(
+                "successBox"
+            )
+            .innerText =
+                "Phone number changed successfully. Redirecting...";
+
+
+        document
+            .getElementById(
+                "successBox"
+            )
+            .classList.add(
+                "show"
+            );
+
+
+        showToast(
+            "Phone number updated successfully.",
+            "success"
+        );
+
+
+        setTimeout(() => {
+
+            window.location.href =
+                "my.html";
+
+        },1200);
+
+
+    }
+    catch(error){
+
+        console.error(
+            "PHONE CHANGE ERROR:",
+            error
+        );
+
+
+        let message =
+            "Unable to change your phone number. Please try again.";
+
+
+        if(
+            error.code ===
+            "auth/email-already-in-use"
+        ){
+
+            message =
+                "This phone number is already registered.";
+
+        }
+        else if(
+            error.code ===
+            "auth/invalid-email"
+        ){
+
+            message =
+                "Invalid phone number.";
+
+        }
+        else if(
+            error.code ===
+            "auth/requires-recent-login"
+        ){
+
+            message =
+                "Please sign in again and try changing your number.";
+
+        }
+        else if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            message =
+                "You do not have permission to update your account.";
+
+        }
+
+
+        closeModal();
+
+
+        showFieldError(
+            "newPhoneField",
+            "newPhoneError",
+            message
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            "Yes";
+
+    }
+
+};
+
+
+/* =====================================================
+   NEW PHONE INPUT
+===================================================== */
+
+document
+    .getElementById(
+        "newPhone"
+    )
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g,"")
+                .slice(0,10);
+
+            clearFieldError(
+                "newPhoneField",
+                "newPhoneError"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   CONFIRM PHONE INPUT
+===================================================== */
+
+document
+    .getElementById(
+        "confirmPhone"
+    )
+    .addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g,"")
+                .slice(0,10);
+
+            clearFieldError(
+                "confirmPhoneField",
+                "confirmPhoneError"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   PASSWORD INPUT
+===================================================== */
+
+document
+    .getElementById(
+        "currentPassword"
+    )
+    .addEventListener(
+        "input",
+        function(){
+
+            clearFieldError(
+                "passwordField",
+                "passwordError"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   MODAL BACKGROUND CLICK
+===================================================== */
+
+document
+    .getElementById(
+        "confirmModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target ===
+                this
+            ){
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+</body>
+  </html>
