@@ -1150,16 +1150,116 @@ body{
 }
 
 
+/* ================= MENU ITEM ================= */
+
+.menu-item{
+    width:100%;
+    min-height:76px;
+
+    padding:11px 18px;
+
+    display:flex;
+    align-items:center;
+
+    gap:22px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #edf0f4;
+
+    cursor:pointer;
+
+    transition:
+        background .18s ease,
+        transform .15s ease;
+}
+
+.menu-item:active{
+    background:#f7faff;
+    transform:scale(.995);
+}
+
+
+/* ================= BILL ICON ================= */
+
 .bill-icon{
-    background:#eef5ff;
+    width:48px;
+    height:48px;
+
+    flex:0 0 48px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
     color:#2478df;
+
+    background:
+        linear-gradient(145deg,#edf6ff,#e4efff);
+
+    border:1px solid #dceaff;
 }
 
 .bill-icon svg{
-    width:24px;
-    height:24px;
+    width:25px;
+    height:25px;
+
     display:block;
 }
+
+
+/* ================= TEXT ================= */
+
+.menu-content{
+    flex:1;
+    min-width:0;
+}
+
+.menu-title{
+    font-size:16px;
+    line-height:1.25;
+
+    font-weight:850;
+
+    color:#19385f;
+}
+
+.menu-subtitle{
+    margin-top:4px;
+
+    font-size:12px;
+    line-height:1.35;
+
+    color:#8b97a7;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+/* ================= ARROW ================= */
+
+.menu-arrow{
+    width:30px;
+    height:30px;
+
+    flex:0 0 30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#a4afb9;
+}
+
+.menu-arrow svg{
+    width:20px;
+    height:20px;
+      }
+      
       
       
 </style>
@@ -1481,41 +1581,79 @@ body{
 
 <section class="menu-card">
 
-<div class="menu-icon bill-icon">
-    <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
 
-        <path
-            d="M6 3.5H18C18.55 3.5 19 3.95 19 4.5V20.5L16.5 19L14 20.5L12 19L9.5 20.5L7 19L5 20.5V4.5C5 3.95 5.45 3.5 6 3.5Z"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linejoin="round"/>
+<!-- ================= BILL DETAILS ================= -->
 
-        <path
-            d="M8.5 8H15.5"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"/>
+<div class="menu-item" onclick="window.location.href='bill.html'">
 
-        <path
-            d="M8.5 11.5H15.5"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"/>
+    <div class="menu-icon bill-icon">
 
-        <path
-            d="M8.5 15H12.5"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"/>
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
 
-    </svg>
+            <path
+                d="M6 3.5H18C18.55 3.5 19 3.95 19 4.5V20.5L16.5 19L14 20.5L12 19L9.5 20.5L7 19L5 20.5V4.5C5 3.95 5.45 3.5 6 3.5Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"/>
+
+            <path
+                d="M8.5 8H15.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+            <path
+                d="M8.5 11.5H15.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+            <path
+                d="M8.5 15H12.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="menu-content">
+
+        <div class="menu-title">
+            Bill Details
+        </div>
+
+        <div class="menu-subtitle">
+            View your bills and transactions
+        </div>
+
+    </div>
+
+
+    <div class="menu-arrow">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+
+        </svg>
+
+    </div>
+
 </div>
-
       
 
 
