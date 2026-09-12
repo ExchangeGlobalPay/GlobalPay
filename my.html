@@ -829,7 +829,7 @@ body{
 
     z-index:100;
 
-    align-items:flex-end;
+    align-items:center;
     justify-content:center;
 }
 
@@ -838,32 +838,37 @@ body{
 }
 
 .modal{
-    width:100%;
-    max-width:520px;
+    width:calc(100% - 32px);
+    max-width:420px;
 
     padding:20px;
 
     background:#fff;
 
-    border-radius:24px 24px 0 0;
+    border-radius:24px;
 
     box-shadow:
-        0 -10px 35px rgba(0,0,0,.18);
+        0 15px 45px rgba(0,0,0,.20);
 
-    animation:slideUp .22s ease;
+    animation:modalCenter .22s ease;
 }
 
-@keyframes slideUp{
+@keyframes modalCenter{
 
     from{
-        transform:translateY(100%);
+        opacity:0;
+        transform:scale(.92);
     }
 
     to{
-        transform:translateY(0);
+        opacity:1;
+        transform:scale(1);
     }
 
 }
+
+
+      
 
 .modal-title{
     font-size:18px;
