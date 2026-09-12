@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>GlobalPay Withdrawal Admin</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fffaf5;
+    color:#111;
+}
+
+button,input,select{
+    font-family:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* LOGIN */
+
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:390px;
+    background:#fff;
+    padding:28px;
+    border-radius:22px;
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+}
+
+.logo{
+    width:64px;
+    height:64px;
+    border-radius:17px;
+    background:#e87512;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.login-box h1{
+    text-align:center;
+    margin:14px 0 5px;
+}
+
+.muted{
+    color:#777;
+    font-size:13px;
+}
+
+.input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    font-size:16px;
+    margin-top:10px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:#e87512;
+}
+
+.btn{
+    border:0;
+    border-radius:11px;
+    padding:12px 15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn{
+    width:100%;
+    margin-top:14px;
+    background:#111;
+    color:#fff;
+}
+
+.login-btn:disabled{
+    opacity:.6;
+}
+
+.error{
+    color:#dc2626;
+    margin-top:10px;
+    font-size:14px;
+}
+
+
+/* APP */
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:16px;
+}
+
+
+/* HEADER */
+
+.header{
+    background:#fff;
+    border-radius:18px;
+    padding:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:16px;
+}
+
+.header h1{
+    margin:0;
+    font-size:22px;
+}
+
+.actions-top{
+    display:flex;
+    gap:8px;
+}
+
+.refresh{
+    background:#eee;
+}
+
+.logout{
+    background:#111;
+    color:#fff;
+}
+
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:16px;
+}
+
+.stat{
+    background:#fff;
+    border-radius:15px;
+    padding:17px;
+    box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.stat strong{
+    display:block;
+    font-size:27px;
+    margin-top:6px;
+}
+
+.stat.pending strong{
+    color:#d97706;
+}
+
+.stat.success strong{
+    color:#16a34a;
+}
+
+.stat.rejected strong{
+    color:#dc2626;
+}
+
+
+/* FILTER */
+
+.filter{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    background:#fff;
+    margin-bottom:15px;
+    outline:none;
+}
+
+
+/* CARD */
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:17px;
+    margin-bottom:14px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.topline{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+}
+
+.amount{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.status.pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.status.approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status.rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+
+/* ROW */
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    border-top:1px solid #eee;
+    padding:9px 0;
+    font-size:14px;
+}
+
+.row span:first-child{
+    color:#777;
+}
+
+.row span:last-child{
+    font-weight:bold;
+    text-align:right;
+    word-break:break-all;
+}
+
+
+/* ACTIONS */
+
+.card-actions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.approve,
+.reject{
+    flex:1;
+    color:#fff;
+}
+
+.approve{
+    background:#16a34a;
+}
+
+.reject{
+    background:#dc2626;
+}
+
+.approve:disabled,
+.reject:disabled{
+    opacity:.5;
+}
+
+
+/* EMPTY */
+
+.empty,
+.loading{
+    text-align:center;
+    background:#fff;
+    border-radius:16px;
+    padding:32px;
+    color:#777;
+}
+
+.empty b{
+    color:#111;
+}
+
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    width:calc(100% - 30px);
+    max-width:450px;
+    padding:14px 17px;
+    border-radius:14px;
+    background:#111;
+    color:#fff;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s ease;
+    z-index:9999;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:650px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        align-items:flex-start;
+    }
+
+    .actions-top{
+        flex-direction:column;
+    }
+
+    .row{
+        flex-direction:column;
+        gap:4px;
+    }
+
+    .row span:last-child{
+        text-align:left;
+    }
+}
+
+@media(max-width:400px){
+
+    .card-actions{
+        flex-direction:column;
+    }
+
+    .header h1{
+        font-size:19px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     ADMIN LOGIN
+================================================= -->
+
+<div id="loginScreen" class="login-screen">
+
+    <div class="login-box">
+
+        <div class="logo">
+            GP
+        </div>
+
+        <h1>
+            GlobalPay Admin
+        </h1>
+
+        <p
+            class="muted"
+            style="text-align:center">
+
+            Secure withdrawal approval
+
+        </p>
+
+
+        <input
+            id="adminId"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            placeholder="Admin ID"
+            autocomplete="username">
+
+
+        <input
+            id="adminPassword"
+            class="input"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password">
+
+
+        <button
+            id="loginBtn"
+            class="btn login-btn">
+
+            Login
+
+        </button>
+
+
+        <div
+            id="loginError"
+            class="error">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     ADMIN PANEL
+================================================= -->
+
+<div
+    id="adminPanel"
+    class="hidden">
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div>
+
+                <h1>
+                    Withdrawal Admin
+                </h1>
+
+                <div class="muted">
+                    GlobalPay Withdrawal Approval
+                </div>
+
+            </div>
+
+
+            <div class="actions-top">
+
+                <button
+                    id="refreshBtn"
+                    class="btn refresh">
+
+                    Refresh
+
+                </button>
+
+
+                <button
+                    id="logoutBtn"
+                    class="btn logout">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat pending">
+
+                <div class="muted">
+                    Pending
+                </div>
+
+                <strong id="pendingCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat success">
+
+                <div class="muted">
+                    Success
+                </div>
+
+                <strong id="successCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat rejected">
+
+                <div class="muted">
+                    Rejected
+                </div>
+
+                <strong id="rejectedCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FILTER -->
+
+        <select
+            id="filter"
+            class="filter">
+
+            <option value="all">
+                All Withdrawals
+            </option>
+
+            <option value="Pending">
+                Pending
+            </option>
+
+            <option value="Success">
+                Success
+            </option>
+
+            <option value="Rejected">
+                Rejected
+            </option>
+
+        </select>
+
+
+
+        <!-- LIST -->
+
+        <div id="withdrawalList">
+
+            <div class="loading">
+                Loading withdrawals...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+
+<!-- =================================================
+     FIREBASE
+================================================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    setPersistence,
+    browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    collection,
+    collectionGroup,
+    getDocs,
+    updateDoc,
+    doc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* =================================================
+   FIREBASE CONFIG
+================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+
+/* =================================================
+   ADMIN DETAILS
+   SAME AS DEPOSIT ADMIN
+================================================= */
+
+const ADMIN_ID =
+    "993428";
+
+const ADMIN_EMAIL =
+    "993428@globalpay-admin.app";
+
+const ADMIN_UID =
+    "mzpruXJakRhQmvF6rhqS9653UNU2";
+
+
+
+/* =================================================
+   INITIALIZE
+================================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+
+/* =================================================
+   VARIABLES
+================================================= */
+
+let withdrawals = [];
+
+let currentUser = null;
+
+
+
+/* =================================================
+   SELECTOR
+================================================= */
+
+const $ = id =>
+    document.getElementById(id);
+
+
+
+/* =================================================
+   AUTH PERSISTENCE
+================================================= */
+
+setPersistence(
+    auth,
+    browserLocalPersistence
+).catch(error => {
+
+    console.error(
+        "Persistence error:",
+        error
+    );
+
+});
+
+
+
+/* =================================================
+   LOGIN BUTTON
+================================================= */
+
+$("loginBtn").addEventListener(
+    "click",
+    login
+);
+
+
+
+$("adminPassword").addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+            login();
+        }
+
+    }
+);
+
+
+
+/* =================================================
+   LOGIN
+================================================= */
+
+async function login(){
+
+    const id =
+        $("adminId").value.trim();
+
+    const password =
+        $("adminPassword").value;
+
+    $("loginError").textContent =
+        "";
+
+
+    if(id !== ADMIN_ID){
+
+        $("loginError").textContent =
+            "Invalid Admin ID or Password.";
+
+        return;
+
+    }
+
+
+    if(!password){
+
+        $("loginError").textContent =
+            "Enter admin password.";
+
+        return;
+
+    }
+
+
+    $("loginBtn").disabled =
+        true;
+
+    $("loginBtn").textContent =
+        "Logging in...";
+
+
+    try{
+
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                ADMIN_EMAIL,
+                password
+            );
+
+
+        if(
+            result.user.uid !==
+            ADMIN_UID
+        ){
+
+            await signOut(auth);
+
+            throw new Error(
+                "Unauthorized admin account."
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "ADMIN LOGIN ERROR:",
+            error
+        );
+
+        $("loginError").textContent =
+            "Invalid Admin ID or Password.";
+
+    }finally{
+
+        $("loginBtn").disabled =
+            false;
+
+        $("loginBtn").textContent =
+            "Login";
+
+    }
+
+}
+
+
+
+/* =================================================
+   AUTH STATE
+================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        currentUser =
+            user;
+
+
+        if(
+            user &&
+            user.uid === ADMIN_UID
+        ){
+
+            $("loginScreen")
+                .classList
+                .add("hidden");
+
+
+            $("adminPanel")
+                .classList
+                .remove("hidden");
+
+
+            await loadWithdrawals();
+
+            return;
+
+        }
+
+
+        if(user){
+
+            await signOut(auth);
+
+        }
+
+
+        $("loginScreen")
+            .classList
+            .remove("hidden");
+
+
+        $("adminPanel")
+            .classList
+            .add("hidden");
+
+    }
+);
+
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+$("logoutBtn").addEventListener(
+    "click",
+    async () => {
+
+        await signOut(auth);
+
+    }
+);
+
+
+
+/* =================================================
+   LOAD WITHDRAWALS
+================================================= */
+
+async function loadWithdrawals(){
+
+    $("withdrawalList").innerHTML = `
+        <div class="loading">
+            Loading withdrawals...
+        </div>
+    `;
+
+
+    try{
+
+        /*
+         Collection group:
+         users/{uid}/withdrawals/{withdrawalId}
+        */
+
+        const snapshot =
+            await getDocs(
+                collectionGroup(
+                    db,
+                    "withdrawals"
+                )
+            );
+
+
+        withdrawals = [];
+
+
+        snapshot.forEach(
+            withdrawalDoc => {
+
+                withdrawals.push({
+
+                    id:
+                        withdrawalDoc.id,
+
+                    ref:
+                        withdrawalDoc.ref,
+
+                    ...withdrawalDoc.data()
+
+                });
+
+            }
+        );
+
+
+        withdrawals.sort(
+            (a,b) => {
+
+                const aTime =
+                    a.createdAt?.toMillis?.() ||
+                    a.createdAt?.seconds * 1000 ||
+                    0;
+
+                const bTime =
+                    b.createdAt?.toMillis?.() ||
+                    b.createdAt?.seconds * 1000 ||
+                    0;
+
+                return bTime - aTime;
+
+            }
+        );
+
+
+        updateStats();
+
+        renderWithdrawals();
+
+
+    }catch(error){
+
+        console.error(
+            "LOAD WITHDRAWALS ERROR:",
+            error
+        );
+
+
+        $("withdrawalList").innerHTML = `
+
+            <div class="empty">
+
+                <b>
+                    Withdrawals load nahi ho rahe.
+                </b>
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+                <br><br>
+
+                Check Firestore rules.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =================================================
+   STATUS
+================================================= */
+
+function normalizeStatus(status){
+
+    const value =
+        String(
+            status || "Pending"
+        )
+        .trim()
+        .toLowerCase();
+
+
+    if(
+        value === "success" ||
+        value === "successful" ||
+        value === "approved" ||
+        value === "completed"
+    ){
+
+        return "Success";
+
+    }
+
+
+    if(
+        value === "rejected" ||
+        value === "failed" ||
+        value === "cancelled" ||
+        value === "canceled"
+    ){
+
+        return "Rejected";
+
+    }
+
+
+    return "Pending";
+
+}
+
+
+
+/* =================================================
+   STATS
+================================================= */
+
+function updateStats(){
+
+    let pending = 0;
+    let success = 0;
+    let rejected = 0;
+
+
+    withdrawals.forEach(
+        withdrawal => {
+
+            const status =
+                normalizeStatus(
+                    withdrawal.status
+                );
+
+
+            if(status === "Pending")
+                pending++;
+
+
+            if(status === "Success")
+                success++;
+
+
+            if(status === "Rejected")
+                rejected++;
+
+        }
+    );
+
+
+    $("pendingCount").textContent =
+        pending;
+
+    $("successCount").textContent =
+        success;
+
+    $("rejectedCount").textContent =
+        rejected;
+
+}
+
+
+
+/* =================================================
+   MONEY
+================================================= */
+
+function money(value){
+
+    return "₹" +
+        Number(
+            value || 0
+        ).toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+
+/* =================================================
+   DATE
+================================================= */
+
+function formatDate(timestamp){
+
+    try{
+
+        if(!timestamp)
+            return "Just now";
+
+
+        const date =
+            timestamp.toDate
+                ? timestamp.toDate()
+                : new Date(timestamp);
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day:"2-digit",
+                month:"short",
+                year:"numeric",
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        );
+
+    }catch(error){
+
+        return "Just now";
+
+    }
+
+}
+
+
+
+/* =================================================
+   RENDER
+================================================= */
+
+function renderWithdrawals(){
+
+    const filter =
+        $("filter").value;
+
+
+    let list =
+        withdrawals;
+
+
+    if(filter !== "all"){
+
+        list =
+            withdrawals.filter(
+                item =>
+                    normalizeStatus(
+                        item.status
+                    ) === filter
+            );
+
+    }
+
+
+    if(!list.length){
+
+        $("withdrawalList").innerHTML = `
+
+            <div class="empty">
+
+                <b>
+                    No withdrawal requests
+                </b>
+
+                <br><br>
+
+                No ${filter === "all"
+                    ? ""
+                    : filter.toLowerCase() + " "
+                }withdrawals found.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    $("withdrawalList").innerHTML =
+        list.map(
+            (item,index) => {
+
+                const status =
+                    normalizeStatus(
+                        item.status
+                    );
+
+
+                const isUPI =
+                    String(
+                        item.type || ""
+                    ).toUpperCase()
+                    === "UPI";
+
+
+                const account =
+                    item.accountNumber
+                        ? "••••••" +
+                          String(
+                              item.accountNumber
+                          ).slice(-4)
+                        : "—";
+
+
+                const statusClass =
+                    status === "Success"
+                        ? "success"
+                        : status === "Rejected"
+                            ? "rejected"
+                            : "pending";
+
+
+                const originalIndex =
+                    withdrawals.indexOf(
+                        item
+                    );
+
+
+                return `
+
+                <div class="card">
+
+                    <div class="topline">
+
+                        <div class="amount">
+                            ${money(item.amount)}
+                        </div>
+
+                        <span
+                            class="status ${statusClass}">
+
+                            ${status.toUpperCase()}
+
+                        </span>
+
+                    </div>
+
+
+                    <div style="margin-top:12px">
+
+
+                        <div class="row">
+
+                            <span>
+                                Type
+                            </span>
+
+                            <span>
+                                ${
+                                    isUPI
+                                        ? "UPI Withdrawal"
+                                        : "Bank Withdrawal"
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <span>
+                                User UID
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    item.uid || "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        ${
+                            isUPI
+
+                            ? `
+
+                            <div class="row">
+
+                                <span>
+                                    UPI ID
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        item.upiId || "—"
+                                    )}
+                                </span>
+
+                            </div>
+
+                            `
+
+                            :
+
+                            `
+
+                            <div class="row">
+
+                                <span>
+                                    Bank
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        item.bankName || "—"
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <span>
+                                    Holder
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        item.holderName || "—"
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <span>
+                                    Account
+                                </span>
+
+                                <span>
+                                    ${account}
+                                </span>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <span>
+                                    IFSC
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        item.ifsc || "—"
+                                    )}
+                                </span>
+
+                            </div>
+
+                            `
+                        }
+
+
+                        <div class="row">
+
+                            <span>
+                                Transaction ID
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    item.transactionId || "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <span>
+                                Submitted
+                            </span>
+
+                            <span>
+                                ${formatDate(
+                                    item.createdAt
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        ${
+                            item.email
+
+                            ? `
+
+                            <div class="row">
+
+                                <span>
+                                    Email
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        item.email
+                                    )}
+                                </span>
+
+                            </div>
+
+                            `
+
+                            : ""
+
+                        }
+
+                    </div>
+
+
+                    ${
+                        status === "Pending"
+
+                        ? `
+
+                        <div class="card-actions">
+
+                            <button
+                                class="btn approve"
+                                data-index="${originalIndex}"
+                                data-action="approve">
+
+                                Approve &amp; Success
+
+                            </button>
+
+
+                            <button
+                                class="btn reject"
+                                data-index="${originalIndex}"
+                                data-action="reject">
+
+                                Reject
+
+                            </button>
+
+                        </div>
+
+                        `
+
+                        :
+
+                        `
+
+                        <div
+                            style="
+                                margin-top:14px;
+                                padding:12px;
+                                border-radius:10px;
+                                background:#f7f7f7;
+                                text-align:center;
+                                font-size:13px;
+                                color:#666;
+                            ">
+
+                            This withdrawal is already
+                            ${status.toLowerCase()}.
+
+                        </div>
+
+                        `
+
+                    }
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+
+    document
+        .querySelectorAll(
+            '[data-action="approve"]'
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const index =
+                            Number(
+                                button.dataset.index
+                            );
+
+                        approveWithdrawal(
+                            index
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    document
+        .querySelectorAll(
+            '[data-action="reject"]'
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const index =
+                            Number(
+                                button.dataset.index
+                            );
+
+                        rejectWithdrawal(
+                            index
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =================================================
+   APPROVE
+================================================= */
+
+async function approveWithdrawal(index){
+
+    const withdrawal =
+        withdrawals[index];
+
+
+    if(!withdrawal){
+
+        showToast(
+            "Withdrawal not found."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        normalizeStatus(
+            withdrawal.status
+        ) !== "Pending"
+    ){
+
+        showToast(
+            "This withdrawal is already processed."
+        );
+
+        return;
+
+    }
+
+
+    const amount =
+        Number(
+            withdrawal.amount || 0
+        );
+
+
+    if(
+        !confirm(
+            "Approve this withdrawal?\n\n" +
+            "Amount: " +
+            money(amount) +
+            "\n\n" +
+            "User history me SUCCESS dikhega."
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        await updateDoc(
+            withdrawal.ref,
+            {
+
+                status:
+                    "Success",
+
+                updatedAt:
+                    serverTimestamp(),
+
+                processedAt:
+                    serverTimestamp(),
+
+                processedBy:
+                    ADMIN_UID
+
+            }
+        );
+
+
+        showToast(
+            "Withdrawal approved successfully."
+        );
+
+
+        await loadWithdrawals();
+
+
+    }catch(error){
+
+        console.error(
+            "APPROVAL ERROR:",
+            error
+        );
+
+
+        if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            showToast(
+                "Permission denied. Firestore rules check karo."
+            );
+
+        }else{
+
+            showToast(
+                "Approval failed: " +
+                error.message
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =================================================
+   REJECT
+================================================= */
+
+async function rejectWithdrawal(index){
+
+    const withdrawal =
+        withdrawals[index];
+
+
+    if(!withdrawal){
+
+        showToast(
+            "Withdrawal not found."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        normalizeStatus(
+            withdrawal.status
+        ) !== "Pending"
+    ){
+
+        showToast(
+            "This withdrawal is already processed."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Reject this withdrawal?\n\n" +
+            "Amount: " +
+            money(
+                withdrawal.amount
+            )
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        await updateDoc(
+            withdrawal.ref,
+            {
+
+                status:
+                    "Rejected",
+
+                updatedAt:
+                    serverTimestamp(),
+
+                processedAt:
+                    serverTimestamp(),
+
+                processedBy:
+                    ADMIN_UID
+
+            }
+        );
+
+
+        showToast(
+            "Withdrawal rejected successfully."
+        );
+
+
+        await loadWithdrawals();
+
+
+    }catch(error){
+
+        console.error(
+            "REJECT ERROR:",
+            error
+        );
+
+
+        if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            showToast(
+                "Permission denied. Firestore rules check karo."
+            );
+
+        }else{
+
+            showToast(
+                "Rejection failed: " +
+                error.message
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =================================================
+   FILTER
+================================================= */
+
+$("filter").addEventListener(
+    "change",
+    renderWithdrawals
+);
+
+
+
+/* =================================================
+   REFRESH
+================================================= */
+
+$("refreshBtn").addEventListener(
+    "click",
+    loadWithdrawals
+);
+
+
+
+/* =================================================
+   TOAST
+================================================= */
+
+function showToast(message){
+
+    const toast =
+        $("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+
+/* =================================================
+   ESCAPE HTML
+================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+</script>
+
+</body>
+  </html>
