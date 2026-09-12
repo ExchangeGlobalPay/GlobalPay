@@ -1293,6 +1293,37 @@ body{
 }
 
 
+
+.claim-icon{
+    width:48px;
+    height:48px;
+
+    flex:0 0 48px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#d99a18;
+
+    background:
+        linear-gradient(145deg,#fff8e8,#ffefd0);
+
+    border:1px solid #f7e5bd;
+
+    box-shadow:
+        0 5px 14px rgba(217,154,24,.08);
+}
+
+.claim-icon svg{
+    width:27px;
+    height:27px;
+
+    display:block;
+          }
+          
       
 </style>
 
@@ -1772,32 +1803,74 @@ body{
 
 </div> 
 
+<!-- ================= CLAIM REWARDS ================= -->
 
-    <div class="menu-item"
-         onclick="openPage('rewards.html')">
+<div class="menu-item" onclick="window.location.href='rewsrds.html'">
 
-        <div class="menu-icon mi-orange">
-            🎁
+    <div class="menu-icon claim-icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Reward Badge -->
+            <path
+                d="M12 3.5L14.15 5.15L16.85 4.85L17.55 7.45L19.75 9.05L18.5 11.5L19.2 14.15L16.6 15.1L15.25 17.45L12.8 16.65L10.25 17.45L8.9 15.1L6.3 14.15L7 11.5L5.75 9.05L7.95 7.45L8.65 4.85L11.35 5.15L12 3.5Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"/>
+
+            <!-- Star -->
+            <path
+                d="M12 7.1L12.9 9.15L15.1 9.35L13.45 10.8L13.9 13L12 11.85L10.1 13L10.55 10.8L8.9 9.35L11.1 9.15L12 7.1Z"
+                fill="currentColor"/>
+
+            <!-- Bottom Ribbon -->
+            <path
+                d="M9 16.2V20.2L12 18.55L15 20.2V16.2"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="menu-content">
+
+        <div class="menu-title">
+            Claim Rewards
         </div>
 
-        <div class="menu-text">
-
-            <div class="menu-title">
-                Claim Rewards
-            </div>
-
-            <div class="menu-sub">
-                Get your rewards and bonuses
-            </div>
-
-        </div>
-
-        <div class="menu-arrow">
-            ›
+        <div class="menu-subtitle">
+            Get your rewards and bonuses
         </div>
 
     </div>
 
+
+    <div class="menu-arrow">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+
+        </svg>
+
+    </div>
+
+</div>
+    
 
     <div class="menu-item"
          onclick="openPage('refer.html')">
