@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020914">
+<title>GlobalPay Admin - Withdrawals</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#020914;--card:#071a30;--card2:#09213a;--line:#174a70;--white:#f7fbff;--muted:#91a9c1;--green:#00dba0;--blue:#5b8cff;--yellow:#ffc21f;--red:#ff4664}
+html,body{min-height:100%;background:var(--bg)}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--white)}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 10% 0%,rgba(0,219,160,.09),transparent 28%),radial-gradient(circle at 90% 10%,rgba(75,120,255,.12),transparent 30%),linear-gradient(180deg,#061523,#020914 75%)}
+button{font:inherit;border:0;cursor:pointer}
+.app{max-width:720px;margin:auto;padding:0 15px 35px}
+.header{height:72px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(23,74,112,.4);position:sticky;top:0;z-index:20;background:rgba(2,9,20,.86);backdrop-filter:blur(18px)}
+.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#0a2945,#0a1830);border:1px solid #1d5279;display:flex;align-items:center;justify-content:center}
+.logo svg{width:23px;color:#25dcb0}.head{flex:1}.title{font-size:18px;font-weight:900}.sub{font-size:10px;color:#d5ae4e;margin-top:2px}
+.refresh{width:40px;height:40px;border-radius:13px;background:#071a2d;border:1px solid #17486d;color:#9cc2df;display:flex;align-items:center;justify-content:center}.refresh svg{width:19px}
+.hero{margin-top:18px;padding:19px;border-radius:22px;background:linear-gradient(120deg,#08223b,#07182b);border:1px solid #174a70}.hero h1{font-size:23px}.hero p{color:var(--muted);font-size:12px;margin-top:5px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.stat{padding:11px;border-radius:14px;background:#061a2d;border:1px solid #143d5e}.stat b{font-size:18px}.stat span{display:block;font-size:9px;color:#8099b1;margin-top:2px}
+.toolbar{display:flex;gap:8px;margin:18px 0 12px}.filter{flex:1;height:42px;border-radius:13px;background:#061a2d;border:1px solid #17486d;color:#92abc1;padding:0 11px;outline:0}.filter:focus{border-color:#2bc8db}.reload{height:42px;padding:0 15px;border-radius:13px;background:linear-gradient(100deg,#00dca0,#3778ff);color:white;font-size:11px;font-weight:900}
+.list{display:flex;flex-direction:column;gap:11px}.empty,.loading{padding:25px;text-align:center;border-radius:18px;border:1px solid #164366;background:#06182b;color:#809ab2;font-size:12px}
+.item{border:1px solid #16476c;border-radius:20px;background:linear-gradient(160deg,#081e35,#061529);padding:15px;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+.top{display:flex;align-items:center;gap:10px}.type-icon{width:43px;height:43px;flex:0 0 43px;border-radius:14px;background:#092640;color:#2cdbb4;display:flex;align-items:center;justify-content:center}.type-icon svg{width:22px}.identity{flex:1;min-width:0}.method{font-size:13px;font-weight:900}.date{font-size:9px;color:#728ca5;margin-top:4px}.badge{font-size:8px;font-weight:900;padding:5px 8px;border-radius:999px;border:1px solid rgba(255,194,31,.3);color:#ffd04c;background:rgba(255,194,31,.08)}.badge.success{color:#37e3b2;border-color:rgba(0,219,160,.3);background:rgba(0,219,160,.08)}.badge.rejected{color:#ff6b80;border-color:rgba(255,70,100,.3);background:rgba(255,70,100,.08)}
+.amount{font-size:25px;font-weight:950;margin:13px 0 9px}.details{display:grid;grid-template-columns:1fr 1fr;gap:7px}.detail{padding:9px 10px;border-radius:12px;background:#06192c;border:1px solid #123b5d}.detail small{display:block;color:#708ba4;font-size:8px;margin-bottom:3px}.detail span{font-size:10px;word-break:break-word;color:#e0edf8}.tx{grid-column:1/-1}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.approve,.reject{height:45px;border-radius:13px;font-size:11px;font-weight:900}.approve{background:linear-gradient(100deg,#00dca0,#0ebfa7);color:#032016}.reject{background:#271321;border:1px solid rgba(255,70,100,.3);color:#ff7185}.actions button:disabled{opacity:.5;cursor:not-allowed}
+.note{margin-top:10px;color:#718ba4;font-size:9px;line-height:1.45}
+.overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(9px);align-items:center;justify-content:center;padding:18px}.overlay.show{display:flex}.modal{width:min(100%,390px);padding:24px 18px 18px;border-radius:24px;background:#071a30;border:1px solid #23577f;text-align:center}.modal-icon{width:70px;height:70px;border-radius:50%;margin:0 auto 15px;background:linear-gradient(145deg,#00dca0,#118eaa);display:flex;align-items:center;justify-content:center}.modal-icon svg{width:34px}.modal h2{font-size:21px}.modal p{font-size:11px;color:#91a9c1;line-height:1.5;margin-top:7px}.modal-actions{display:flex;gap:8px;margin-top:18px}.modal-actions button{flex:1;height:48px;border-radius:14px;font-weight:900}.cancel{background:#081d33;color:#a5bdd2;border:1px solid #17486d}.confirm{background:linear-gradient(100deg,#00dca0,#3d75ff);color:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:200;padding:11px 16px;border-radius:13px;background:#0a2036;border:1px solid #246088;color:#eaf6ff;font-size:11px;box-shadow:0 15px 35px #000;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:430px){.details{grid-template-columns:1fr}.tx{grid-column:auto}.stats .stat b{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+<div class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="m3 10 9-7 9 7v10H4V10Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 20v-7h8v7" stroke="currentColor" stroke-width="1.7"/></svg></div>
+<div class="head"><div class="title">Withdrawal Admin</div><div class="sub">GLOBALPAY ADMIN PANEL</div></div>
+<button class="refresh" id="refreshBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 4v4h4M19 20v-4h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</header>
+
+<section class="hero">
+<h1>Withdrawal Requests</h1>
+<p>Review pending withdrawal requests and approve or reject them.</p>
+<div class="stats">
+<div class="stat"><b id="pendingCount">0</b><span>Pending</span></div>
+<div class="stat"><b id="successCount">0</b><span>Approved</span></div>
+<div class="stat"><b id="rejectedCount">0</b><span>Rejected</span></div>
+</div>
+</section>
+
+<div class="toolbar">
+<select class="filter" id="filter"><option value="Pending">Pending Requests</option><option value="All">All Requests</option><option value="Success">Approved / Success</option><option value="Rejected">Rejected</option></select>
+<button class="reload" id="reloadBtn">Refresh</button>
+</div>
+
+<div class="list" id="list"><div class="loading">Checking admin session...</div></div>
+</div>
+
+<div class="overlay" id="confirmOverlay">
+<div class="modal">
+<div class="modal-icon" id="confirmIcon"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<h2 id="confirmTitle">Approve Withdrawal?</h2>
+<p id="confirmText">This will mark the withdrawal as successful for the user.</p>
+<div class="modal-actions"><button class="cancel" id="cancelBtn">Cancel</button><button class="confirm" id="confirmBtn">Confirm</button></div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import{getAuth,onAuthStateChanged,setPersistence,browserLocalPersistence}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import{getFirestore,collectionGroup,getDocs,query,orderBy,updateDoc,doc,serverTimestamp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",authDomain:"globalpay-d31dd.firebaseapp.com",projectId:"globalpay-d31dd",storageBucket:"globalpay-d31dd.firebasestorage.app",messagingSenderId:"862227027913",appId:"1:862227027913:web:f643dc5cb4b014fd80ba18"};
+const ADMIN_UID="mzpruXJakRhQmvF6rhqS9653UNU2";
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const $=id=>document.getElementById(id);
+let all=[],selected=null,currentUser=null;
+
+setPersistence(auth,browserLocalPersistence).catch(console.warn);
+
+onAuthStateChanged(auth,async user=>{
+ currentUser=user;
+ if(!user){$("list").innerHTML='<div class="empty">Admin login required.</div>';return}
+ if(user.uid!==ADMIN_UID){$("list").innerHTML='<div class="empty">Access denied. This account is not the GlobalPay admin.</div>';return}
+ await load();
+});
+
+function money(n){return "₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function date(ts){try{let d=ts?.toDate?ts.toDate():new Date(ts);return d.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}catch{return"Just now"}}
+function normalize(s){s=String(s||"Pending").toLowerCase();if(["approved","success","successful","completed","complete"].includes(s))return"Success";if(["rejected","failed","cancelled","canceled"].includes(s))return"Rejected";return"Pending"}
+function icon(type){return type==="UPI"?`<svg viewBox="0 0 24 24" fill="none"><path d="M7 4h4l-4 6h5l-5 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`:`<svg viewBox="0 0 24 24" fill="none"><path d="m3 9.5 9-5.5 9 5.5M5 10v8m4-8v8m6-8v8m4-8v8M3 20h18M2 10h20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
+
+async function load(){
+ $("list").innerHTML='<div class="loading">Loading withdrawal requests...</div>';
+ try{
+   const snap=await getDocs(collectionGroup(db,"withdrawals"));
+   all=snap.docs.map(d=>({id:d.id,ref:d.ref,...d.data()}));
+   all.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+   $("pendingCount").textContent=all.filter(x=>normalize(x.status)==="Pending").length;
+   $("successCount").textContent=all.filter(x=>normalize(x.status)==="Success").length;
+   $("rejectedCount").textContent=all.filter(x=>normalize(x.status)==="Rejected").length;
+   render();
+ }catch(e){
+   console.error(e);
+   $("list").innerHTML='<div class="empty">Unable to load withdrawals. Check the Firestore withdrawal admin rule.</div>';
+ }
+}
+
+function render(){
+ let f=$("filter").value;
+ let arr=f==="All"?all:all.filter(x=>normalize(x.status)===f);
+ if(!arr.length){$("list").innerHTML='<div class="empty">No withdrawal requests found.</div>';return}
+ $("list").innerHTML=arr.map((x,i)=>{
+   let s=normalize(x.status),cl=s==="Success"?"success":s==="Rejected"?"rejected":"";
+   let account=x.accountNumber?("••••••"+String(x.accountNumber).slice(-4)):"—";
+   let destination=x.type==="UPI"?(x.upiId||"—"):(x.bankName||"—");
+   let action=s==="Pending"?`<div class="actions"><button class="approve" data-action="approve" data-index="${all.indexOf(x)}">Approve &amp; Success</button><button class="reject" data-action="reject" data-index="${all.indexOf(x)}">Reject</button></div>`:`<div class="note">This request is already ${s.toLowerCase()}.</div>`;
+   return `<article class="item">
+    <div class="top"><div class="type-icon">${icon(x.type)}</div><div class="identity"><div class="method">${x.type==="UPI"?"UPI Withdrawal":"Bank Withdrawal"}</div><div class="date">${date(x.createdAt)}</div></div><span class="badge ${cl}">${s.toUpperCase()}</span></div>
+    <div class="amount">${money(x.amount)}</div>
+    <div class="details">
+      <div class="detail"><small>USER UID</small><span>${x.uid||"—"}</span></div>
+      <div class="detail"><small>DESTINATION</small><span>${destination}</span></div>
+      ${x.type==="Bank"?`<div class="detail"><small>ACCOUNT</small><span>${account}</span></div><div class="detail"><small>IFSC</small><span>${x.ifsc||"—"}</span></div><div class="detail"><small>HOLDER</small><span>${x.holderName||"—"}</span></div>`:""}
+      <div class="detail tx"><small>16-DIGIT TRANSACTION ID</small><span>${x.transactionId||"—"}</span></div>
+    </div>${action}
+   </article>`
+ }).join("");
+}
+
+$("list").addEventListener("click",e=>{
+ let b=e.target.closest("button[data-action]");if(!b)return;
+ selected=all[Number(b.dataset.index)];
+ if(!selected)return;
+ let approve=b.dataset.action==="approve";
+ $("confirmTitle").textContent=approve?"Approve Withdrawal?":"Reject Withdrawal?";
+ $("confirmText").textContent=approve?"This will change the user's status to SUCCESS.":"This will change the user's status to REJECTED.";
+ $("confirmBtn").textContent=approve?"Approve & Success":"Reject Request";
+ $("confirmBtn").dataset.status=approve?"Success":"Rejected";
+ $("confirmOverlay").classList.add("show");
+});
+
+$("cancelBtn").onclick=()=>{$("confirmOverlay").classList.remove("show");selected=null};
+$("confirmBtn").onclick=async()=>{
+ if(!selected||!currentUser||currentUser.uid!==ADMIN_UID)return;
+ let newStatus=$("confirmBtn").dataset.status;
+ $("confirmBtn").disabled=true;
+ try{
+   await updateDoc(selected.ref,{status:newStatus,updatedAt:serverTimestamp(),approvedAt:newStatus==="Success"?serverTimestamp():null});
+   $("confirmOverlay").classList.remove("show");
+   showToast(newStatus==="Success"?"Withdrawal approved successfully.":"Withdrawal rejected.");
+   selected=null;
+   await load();
+ }catch(e){
+   console.error(e);
+   $("confirmOverlay").classList.remove("show");
+   showToast(e.code==="permission-denied"?"Firestore permission denied. Update the withdrawal admin rule.":"Unable to update withdrawal.");
+ }finally{$("confirmBtn").disabled=false}
+};
+
+$("filter").onchange=render;
+$("refreshBtn").onclick=load;
+$("reloadBtn").onclick=load;
+
+function showToast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2600)}
+</script>
+</body>
+</html>
