@@ -1,0 +1,2974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GlobalPay - Tutorial 2</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#020d1d;
+    color:#eef6ff;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.page{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(0,125,255,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 100% 35%,
+            rgba(0,255,185,.08),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #031329,
+            #020b18 70%,
+            #031226
+        );
+
+    padding-bottom:35px;
+}
+
+.container{
+    width:calc(100% - 22px);
+    max-width:620px;
+    margin:auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+    min-height:76px;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    border-bottom:
+        1px solid rgba(52,151,230,.16);
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+
+    border:
+        1px solid #174e78;
+
+    border-radius:13px;
+
+    background:#071d35;
+
+    color:#dcefff;
+
+    font-size:27px;
+
+    line-height:1;
+}
+
+.logo{
+    width:43px;
+    height:43px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #20e0a0,
+            #0875ff
+        );
+
+    box-shadow:
+        0 0 22px
+        rgba(0,210,180,.22);
+
+    font-size:21px;
+
+    font-weight:900;
+}
+
+.title-area{
+    flex:1;
+}
+
+.title-area h1{
+    font-size:19px;
+
+    font-weight:900;
+
+    letter-spacing:.3px;
+}
+
+.title-area h1 span{
+    color:#25a8ff;
+}
+
+.title-area p{
+    margin-top:3px;
+
+    color:#7593b2;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    font-weight:700;
+}
+
+
+/* ================= LANGUAGE ================= */
+
+.language-box{
+    flex:none;
+}
+
+.language-select{
+    appearance:none;
+    -webkit-appearance:none;
+
+    min-width:78px;
+
+    padding:9px 25px 9px 10px;
+
+    border:
+        1px solid #174e78;
+
+    border-radius:10px;
+
+    background:#071d35;
+
+    color:#dcefff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    outline:none;
+
+    cursor:pointer;
+
+    background-image:
+        linear-gradient(45deg,transparent 50%,#55c8ff 50%),
+        linear-gradient(135deg,#55c8ff 50%,transparent 50%);
+
+    background-position:
+        calc(100% - 11px) 12px,
+        calc(100% - 7px) 12px;
+
+    background-size:
+        4px 4px,
+        4px 4px;
+
+    background-repeat:no-repeat;
+}
+
+.language-select option{
+    background:#071d35;
+    color:#fff;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    margin:22px 0 16px;
+
+    padding:22px 18px;
+
+    border:
+        1px solid #15527e;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #092542,
+            #06172b
+        );
+
+    box-shadow:
+        0 14px 35px
+        rgba(0,0,0,.22);
+
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:7px 12px;
+
+    border:
+        1px solid #17628f;
+
+    border-radius:30px;
+
+    background:#07213a;
+
+    color:#54c8ff;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.hero-badge .dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#20e0a0;
+
+    box-shadow:
+        0 0 10px #20e0a0;
+}
+
+.hero h2{
+    margin-top:14px;
+
+    font-size:27px;
+
+    line-height:1.15;
+}
+
+.hero p{
+    margin-top:8px;
+
+    color:#8faac4;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+
+/* ================= FLOW ================= */
+
+.flow{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    margin:16px 0 20px;
+
+    overflow:hidden;
+}
+
+.flow-item{
+    min-width:49px;
+
+    text-align:center;
+
+    color:#6f91af;
+
+    font-size:8px;
+
+    font-weight:700;
+}
+
+.flow-circle{
+    width:31px;
+    height:31px;
+
+    margin:
+        0 auto 5px;
+
+    border-radius:50%;
+
+    border:
+        1px solid #1a5a86;
+
+    background:#08213a;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#53c7ff;
+
+    font-size:12px;
+
+    font-weight:900;
+}
+
+.flow-item.active{
+    color:#20e0a0;
+}
+
+.flow-item.active
+.flow-circle{
+    border-color:#20e0a0;
+
+    color:#20e0a0;
+
+    box-shadow:
+        0 0 15px
+        rgba(32,224,160,.18);
+}
+
+.flow-line{
+    width:16px;
+    height:1px;
+
+    background:#174e73;
+
+    flex:none;
+}
+
+
+/* ================= STEP CARD ================= */
+
+.step{
+    margin:14px 0;
+
+    padding:17px;
+
+    border-radius:18px;
+
+    border:
+        1px solid #12476d;
+
+    background:
+        linear-gradient(
+            145deg,
+            #071d34,
+            #06162a
+        );
+
+    box-shadow:
+        0 10px 28px
+        rgba(0,0,0,.18);
+}
+
+.step-top{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+}
+
+.step-number{
+    width:39px;
+    height:39px;
+
+    border-radius:12px;
+
+    flex:none;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #087ff0,
+            #0750b9
+        );
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 18px
+        rgba(0,126,255,.18);
+}
+
+.step h3{
+    font-size:17px;
+
+    line-height:1.2;
+}
+
+.step-label{
+    margin-top:3px;
+
+    color:#5fc8ff;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+    font-weight:800;
+}
+
+.step p{
+    margin-top:13px;
+
+    color:#91aac2;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+.highlight{
+    color:#20e0a0;
+
+    font-weight:800;
+}
+
+.gold{
+    color:#ffd34d;
+
+    font-weight:800;
+}
+
+
+/* ================= MOCK SCREEN ================= */
+
+.screen{
+    margin-top:15px;
+
+    border:
+        1px solid #164b70;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:#031326;
+}
+
+.screen-head{
+    padding:10px 12px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:
+        1px solid #103650;
+
+    color:#dcecff;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.screen-head small{
+    color:#5e829f;
+
+    font-size:8px;
+}
+
+.mock-content{
+    padding:12px;
+}
+
+
+/* WALLET */
+
+.mock-wallet{
+    padding:12px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0759d2,
+            #087eea
+        );
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.mock-wallet strong{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:20px;
+}
+
+.mock-wallet span{
+    font-size:9px;
+
+    color:#d9f2ff;
+}
+
+
+/* TABS */
+
+.mock-tabs{
+    display:flex;
+
+    gap:6px;
+
+    margin-top:10px;
+}
+
+.mock-tab{
+    flex:1;
+
+    padding:8px 4px;
+
+    text-align:center;
+
+    border:
+        1px solid #123e5c;
+
+    border-radius:8px;
+
+    color:#6e91ac;
+
+    font-size:8px;
+
+    font-weight:800;
+}
+
+.mock-tab.active{
+    color:#fff;
+
+    background:#087df0;
+
+    border-color:#168fff;
+}
+
+
+/* PLANS */
+
+.mock-plans{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:8px;
+
+    margin-top:10px;
+}
+
+.mock-plan{
+    padding:10px;
+
+    border:
+        1px solid #155074;
+
+    border-radius:11px;
+
+    background:#08213a;
+}
+
+.mock-plan.gold-plan{
+    border-color:#8d6a17;
+
+    background:#251f0c;
+}
+
+.mock-plan b{
+    display:block;
+
+    font-size:15px;
+}
+
+.mock-plan small{
+    display:block;
+
+    margin-top:5px;
+
+    color:#7796ad;
+
+    font-size:8px;
+
+    line-height:1.5;
+}
+
+.mock-btn{
+    margin-top:8px;
+
+    padding:7px;
+
+    border-radius:8px;
+
+    text-align:center;
+
+    background:#087ff0;
+
+    color:#fff;
+
+    font-size:8px;
+
+    font-weight:800;
+}
+
+.gold-plan .mock-btn{
+    background:#f4b817;
+
+    color:#1d1604;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal-mock{
+    padding:16px 12px 12px;
+
+    background:
+        rgba(0,10,23,.9);
+}
+
+.modal-box{
+    padding:15px;
+
+    border:
+        1px solid #a77b18;
+
+    border-radius:16px;
+
+    background:#061a30;
+}
+
+.token{
+    width:50px;
+    height:50px;
+
+    margin:
+        0 auto 10px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #20e0a0,
+            #0b9f76
+        );
+
+    color:#fff;
+
+    font-size:25px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 22px
+        rgba(32,224,160,.2);
+}
+
+.modal-box h4{
+    text-align:center;
+
+    font-size:17px;
+}
+
+.modal-box p{
+    text-align:center;
+
+    margin:
+        5px 0 12px;
+
+    font-size:9px;
+
+    color:#7897b1;
+}
+
+.detail-box{
+    padding:10px;
+
+    border:
+        1px solid #12496e;
+
+    border-radius:10px;
+}
+
+.detail-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:8px;
+
+    padding:4px 0;
+
+    color:#7594af;
+
+    font-size:9px;
+}
+
+.detail-row strong{
+    color:#e6f1fb;
+}
+
+
+/* ================= SUCCESS ================= */
+
+.success-box{
+    border-color:#1cbf91;
+}
+
+.success-box h4{
+    color:#fff;
+}
+
+.success-amount{
+    margin:12px 0;
+
+    padding:13px;
+
+    text-align:center;
+
+    border:
+        1px solid #125276;
+
+    border-radius:10px;
+}
+
+.success-amount strong{
+    display:block;
+
+    color:#20e0a0;
+
+    font-size:24px;
+}
+
+.success-amount span{
+    display:block;
+
+    margin-top:5px;
+
+    color:#819db5;
+
+    font-size:9px;
+}
+
+
+/* ================= MY PLANS ================= */
+
+.plan-list{
+    margin-top:15px;
+}
+
+.plan-row{
+    padding:10px;
+
+    border:
+        1px solid #164c70;
+
+    border-radius:11px;
+
+    background:#071d33;
+
+    margin-bottom:7px;
+}
+
+.plan-row.gold-row{
+    border-color:#7c6118;
+
+    background:#211c0c;
+}
+
+.plan-row-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:8px;
+}
+
+.plan-row strong{
+    font-size:10px;
+}
+
+.active{
+    padding:3px 7px;
+
+    border-radius:20px;
+
+    background:#12ae78;
+
+    color:#fff;
+
+    font-size:7px;
+
+    font-weight:800;
+}
+
+.plan-info{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:5px;
+
+    margin-top:8px;
+
+    color:#708da6;
+
+    font-size:7px;
+}
+
+.plan-info b{
+    display:block;
+
+    margin-top:2px;
+
+    color:#d8e7f3;
+
+    font-size:8px;
+}
+
+.claim{
+    margin-top:9px;
+
+    margin-left:auto;
+
+    width:max-content;
+
+    padding:7px 10px;
+
+    border-radius:8px;
+
+    background:#16c58c;
+
+    color:#fff;
+
+    font-size:8px;
+
+    font-weight:800;
+}
+
+
+/* ================= FINAL ================= */
+
+.final{
+    margin-top:18px;
+
+    padding:18px;
+
+    border:
+        1px solid #15537a;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #06263b,
+            #062031
+        );
+
+    text-align:center;
+}
+
+.final-icon{
+    width:45px;
+    height:45px;
+
+    margin:
+        0 auto 10px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#13bf89;
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:900;
+}
+
+.final h3{
+    font-size:17px;
+}
+
+.final p{
+    margin-top:7px;
+
+    color:#89a6bd;
+
+    font-size:11px;
+
+    line-height:1.5;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.bottom-action{
+    margin-top:18px;
+
+    display:flex;
+
+    gap:9px;
+}
+
+.action-btn{
+    flex:1;
+
+    min-height:45px;
+
+    border-radius:12px;
+
+    border:
+        1px solid #1b587e;
+
+    background:#071d34;
+
+    color:#dcecff;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.action-btn.primary{
+    border:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #078bff,
+            #0870df
+        );
+
+    color:#fff;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+    padding:
+        22px 0 8px;
+
+    text-align:center;
+
+    color:#4e6b83;
+
+    font-size:9px;
+
+    letter-spacing:.4px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:430px){
+
+    .header{
+        gap:8px;
+    }
+
+    .logo{
+        width:39px;
+        height:39px;
+        font-size:19px;
+    }
+
+    .title-area h1{
+        font-size:16px;
+    }
+
+    .title-area p{
+        font-size:8px;
+    }
+
+    .language-select{
+        min-width:70px;
+        font-size:9px;
+        padding:8px 23px 8px 8px;
+    }
+
+}
+
+@media(max-width:390px){
+
+    .hero h2{
+        font-size:24px;
+    }
+
+    .step{
+        padding:14px;
+    }
+
+    .step h3{
+        font-size:15px;
+    }
+
+    .flow{
+        gap:3px;
+    }
+
+    .flow-line{
+        width:9px;
+    }
+
+    .mock-plans{
+        gap:6px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+<div class="container">
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <button
+        class="back-btn"
+        onclick="goBack()">
+        ‹
+    </button>
+
+    <div class="logo">
+        G
+    </div>
+
+    <div class="title-area">
+
+        <h1>
+            GLOBAL <span>PAY</span>
+        </h1>
+
+        <p>
+            SECURE • FAST • GLOBAL
+        </p>
+
+    </div>
+
+    <!-- LANGUAGE SELECTOR -->
+
+    <div class="language-box">
+
+        <select
+            id="languageSelect"
+            class="language-select">
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="hi">
+                हिन्दी
+            </option>
+
+        </select>
+
+    </div>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-badge">
+
+        <span class="dot"></span>
+
+        <span data-i18n="tutorial02">
+            TUTORIAL 02
+        </span>
+
+    </div>
+
+
+    <h2 data-i18n="heroTitle">
+        How to Buy & Claim Tokens
+    </h2>
+
+
+    <p data-i18n="heroDescription">
+
+        Choose a plan according to your budget,
+        complete the purchase, view your active plans
+        and claim your daily tokens.
+
+    </p>
+
+</section>
+
+
+
+<!-- FLOW -->
+
+<div class="flow">
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            1
+        </div>
+
+        <span data-i18n="buy">
+            Buy
+        </span>
+
+    </div>
+
+
+    <div class="flow-line"></div>
+
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            2
+        </div>
+
+        <span data-i18n="plan">
+            Plan
+        </span>
+
+    </div>
+
+
+    <div class="flow-line"></div>
+
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            3
+        </div>
+
+        <span data-i18n="confirm">
+            Confirm
+        </span>
+
+    </div>
+
+
+    <div class="flow-line"></div>
+
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            4
+        </div>
+
+        <span data-i18n="purchase">
+            Purchase
+        </span>
+
+    </div>
+
+
+    <div class="flow-line"></div>
+
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            5
+        </div>
+
+        <span data-i18n="myPlans">
+            My Plans
+        </span>
+
+    </div>
+
+
+    <div class="flow-line"></div>
+
+
+    <div class="flow-item active">
+
+        <div class="flow-circle">
+            6
+        </div>
+
+        <span data-i18n="claim">
+            Claim
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- STEP 1 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            01
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step1Title">
+                Open Buy Token
+            </h3>
+
+            <div class="step-label" data-i18n="step1Label">
+                START YOUR PURCHASE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p data-i18n="step1Text">
+
+        Open the Buy Token section.
+        Here you will see the available token plans
+        and your current wallet balance.
+
+    </p>
+
+
+    <div class="screen">
+
+        <div class="screen-head">
+
+            <span data-i18n="buyToken">
+                Buy Token
+            </span>
+
+            <small data-i18n="walletBalance">
+                Wallet Balance
+            </small>
+
+        </div>
+
+
+        <div class="mock-content">
+
+
+            <div class="mock-wallet">
+
+                <div>
+
+                    <span data-i18n="currentWallet">
+                        Current Wallet
+                    </span>
+
+                    <strong>
+                        1,120 Token
+                    </strong>
+
+                </div>
+
+                <span data-i18n="addToken">
+                    + Add Token
+                </span>
+
+            </div>
+
+
+
+            <div class="mock-tabs">
+
+                <div class="mock-tab active" data-i18n="allPlans">
+                    All Plans
+                </div>
+
+                <div class="mock-tab" data-i18n="silver">
+                    Silver
+                </div>
+
+                <div class="mock-tab" data-i18n="golden">
+                    Golden
+                </div>
+
+                <div class="mock-tab" data-i18n="free">
+                    Free
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 2 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            02
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step2Title">
+                Choose Your Plan
+            </h3>
+
+            <div class="step-label" data-i18n="step2Label">
+                SELECT ACCORDING TO YOUR BUDGET
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p>
+
+        <span data-i18n="step2Text1">
+            Select a
+        </span>
+
+        <span class="highlight" data-i18n="silver">
+            Silver
+        </span>
+
+        <span data-i18n="step2Text2">
+            or
+        </span>
+
+        <span class="gold" data-i18n="golden">
+            Golden
+        </span>
+
+        <span data-i18n="step2Text3">
+            plan according to your budget
+            and how many daily tokens you need.
+        </span>
+
+    </p>
+
+
+
+    <div class="screen">
+
+        <div class="screen-head">
+
+            <span data-i18n="availablePlans">
+                Available Plans
+            </span>
+
+            <small data-i18n="choosePlan">
+                Choose a plan
+            </small>
+
+        </div>
+
+
+        <div class="mock-content">
+
+
+            <div class="mock-plans">
+
+
+                <div class="mock-plan">
+
+                    <b>
+                        299 Token
+                    </b>
+
+                    <small data-i18n="plan299">
+                        25 Token / Daily<br>
+                        30 Days Validity<br>
+                        750 Total Token
+                    </small>
+
+                    <div class="mock-btn" data-i18n="buyNow">
+                        Buy Now →
+                    </div>
+
+                </div>
+
+
+
+                <div class="mock-plan">
+
+                    <b>
+                        499 Token
+                    </b>
+
+                    <small data-i18n="plan499">
+                        40 Token / Daily<br>
+                        30 Days Validity<br>
+                        1,200 Total Token
+                    </small>
+
+                    <div class="mock-btn" data-i18n="buyNow">
+                        Buy Now →
+                    </div>
+
+                </div>
+
+
+
+                <div class="mock-plan gold-plan">
+
+                    <b>
+                        1,200 Token
+                    </b>
+
+                    <small data-i18n="plan1200">
+                        150 Token / Daily<br>
+                        30 Days Validity<br>
+                        4,500 Total Token
+                    </small>
+
+                    <div class="mock-btn" data-i18n="buyNow">
+                        Buy Now →
+                    </div>
+
+                </div>
+
+
+
+                <div class="mock-plan gold-plan">
+
+                    <b>
+                        2,500 Token
+                    </b>
+
+                    <small data-i18n="plan2500">
+                        250 Token / Daily<br>
+                        30 Days Validity<br>
+                        7,500 Total Token
+                    </small>
+
+                    <div class="mock-btn" data-i18n="buyNow">
+                        Buy Now →
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 3 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            03
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step3Title">
+                Check Confirm Purchase
+            </h3>
+
+            <div class="step-label" data-i18n="step3Label">
+                REVIEW PLAN DETAILS
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p data-i18n="step3Text">
+
+        After selecting a plan, the Confirm Purchase
+        screen will show the important details
+        before you continue.
+
+        Check the plan price, validity,
+        daily token and total token.
+
+    </p>
+
+
+
+    <div class="screen">
+
+        <div class="modal-mock">
+
+            <div class="modal-box">
+
+
+                <div class="token">
+                    T
+                </div>
+
+
+                <h4 data-i18n="confirmPurchase">
+                    Confirm Purchase
+                </h4>
+
+
+                <p data-i18n="paymentDeduct">
+                    Payment will be deducted from
+                    your current wallet token balance.
+                </p>
+
+
+                <div class="detail-box">
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="planName">
+                            Plan
+                        </span>
+
+                        <strong data-i18n="goldenPlan">
+                            Golden Plan
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="price">
+                            Price
+                        </span>
+
+                        <strong>
+                            2,500 Token
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="dailyToken">
+                            Daily Token
+                        </span>
+
+                        <strong>
+                            250 Token
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="validity">
+                            Validity
+                        </span>
+
+                        <strong>
+                            30 Days
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="currentWallet">
+                            Current Wallet
+                        </span>
+
+                        <strong>
+                            1,120 Token
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="totalToken">
+                            Total Token
+                        </span>
+
+                        <strong>
+                            7,500 Token
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 4 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            04
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step4Title">
+                Tap Continue Buy
+            </h3>
+
+            <div class="step-label" data-i18n="step4Label">
+                COMPLETE THE PURCHASE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p>
+
+        <span data-i18n="step4Text1">
+            If all plan details are correct,
+            tap
+        </span>
+
+        <span class="highlight" data-i18n="continueBuy">
+            Continue Buy
+        </span>
+
+        <span data-i18n="step4Text2">
+            Your wallet balance will be used
+            for the selected plan.
+        </span>
+
+    </p>
+
+
+
+    <div class="screen">
+
+        <div class="modal-mock">
+
+            <div class="modal-box">
+
+
+                <div class="token">
+                    T
+                </div>
+
+
+                <h4 data-i18n="confirmPurchase">
+                    Confirm Purchase
+                </h4>
+
+
+                <p data-i18n="reviewContinue">
+                    Review the plan and continue.
+                </p>
+
+
+                <div class="detail-box">
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="planName">
+                            Plan
+                        </span>
+
+                        <strong data-i18n="goldenPlan">
+                            Golden Plan
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="dailyToken">
+                            Daily Token
+                        </span>
+
+                        <strong>
+                            250 Token
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span data-i18n="validity">
+                            Validity
+                        </span>
+
+                        <strong>
+                            30 Days
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="bottom-action">
+
+                    <button
+                        class="action-btn"
+                        data-i18n="cancel">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        class="action-btn primary"
+                        data-i18n="continueBuyArrow">
+
+                        Continue Buy →
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 5 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            05
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step5Title">
+                Purchase Successful
+            </h3>
+
+            <div class="step-label" data-i18n="step5Label">
+                YOUR PLAN IS ACTIVATED
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p>
+
+        <span data-i18n="step5Text1">
+            After a successful purchase,
+            your selected plan will be activated
+            and added to your
+        </span>
+
+        <span class="highlight" data-i18n="myPlans">
+            My Plans
+        </span>
+
+        <span data-i18n="step5Text2">
+            section.
+        </span>
+
+    </p>
+
+
+
+    <div class="screen">
+
+        <div class="modal-mock">
+
+            <div class="modal-box success-box">
+
+
+                <div class="token">
+                    ✓
+                </div>
+
+
+                <h4 data-i18n="purchaseSuccessful">
+                    Purchase Successful!
+                </h4>
+
+
+                <p data-i18n="planActivated">
+                    Your selected plan has been
+                    activated successfully.
+                </p>
+
+
+                <div class="success-amount">
+
+                    <strong data-i18n="planActivatedShort">
+                        Plan Activated
+                    </strong>
+
+                    <span>
+                        Golden Plan • 2,500 Token • 30 Days
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 6 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            06
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step6Title">
+                Open View My Plans
+            </h3>
+
+            <div class="step-label" data-i18n="step6Label">
+                CHECK YOUR PURCHASED PLANS
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p>
+
+        <span data-i18n="step6Text1">
+            Tap
+        </span>
+
+        <span class="highlight" data-i18n="viewMyPlans">
+            View My Plans
+        </span>
+
+        <span data-i18n="step6Text2">
+            to see all plans you have purchased.
+
+            You can check the purchase date,
+            expiry date, remaining days and
+            daily token amount.
+        </span>
+
+    </p>
+
+
+
+    <div class="screen">
+
+
+        <div class="screen-head">
+
+            <span data-i18n="myPlans">
+                My Plans
+            </span>
+
+            <small data-i18n="purchasedPlans">
+                Purchased Plans
+            </small>
+
+        </div>
+
+
+        <div class="mock-content plan-list">
+
+
+            <div class="plan-row">
+
+
+                <div class="plan-row-top">
+
+                    <strong>
+                        Silver Plan • 299 Token
+                    </strong>
+
+                    <span
+                        class="active"
+                        data-i18n="active">
+
+                        Active
+
+                    </span>
+
+                </div>
+
+
+                <div class="plan-info">
+
+                    <div>
+
+                        <span data-i18n="purchased">
+                            Purchased
+                        </span>
+
+                        <b>
+                            10 Sep 2026
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <span data-i18n="remaining">
+                            Remaining
+                        </span>
+
+                        <b>
+                            29 Days
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <span data-i18n="daily">
+                            Daily
+                        </span>
+
+                        <b>
+                            25 Token
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <div class="claim" data-i18n="claim25">
+                    Claim 25 Token
+                </div>
+
+
+            </div>
+
+
+
+            <div class="plan-row gold-row">
+
+
+                <div class="plan-row-top">
+
+                    <strong>
+                        Golden Plan • 2,500 Token
+                    </strong>
+
+                    <span
+                        class="active"
+                        data-i18n="active">
+
+                        Active
+
+                    </span>
+
+                </div>
+
+
+                <div class="plan-info">
+
+                    <div>
+
+                        <span data-i18n="purchased">
+                            Purchased
+                        </span>
+
+                        <b>
+                            10 Sep 2026
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <span data-i18n="remaining">
+                            Remaining
+                        </span>
+
+                        <b>
+                            29 Days
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <span data-i18n="daily">
+                            Daily
+                        </span>
+
+                        <b>
+                            250 Token
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <div class="claim" data-i18n="claim250">
+                    Claim 250 Token
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- STEP 7 -->
+
+<section class="step">
+
+    <div class="step-top">
+
+        <div class="step-number">
+            07
+        </div>
+
+        <div>
+
+            <h3 data-i18n="step7Title">
+                Claim Your Daily Tokens
+            </h3>
+
+            <div class="step-label" data-i18n="step7Label">
+                DAILY TOKEN REWARD
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p>
+
+        <span data-i18n="step7Text1">
+            When your daily claim becomes available,
+            open
+        </span>
+
+        <span class="highlight" data-i18n="myPlans">
+            My Plans
+        </span>
+
+        <span data-i18n="step7Text2">
+            and tap the
+        </span>
+
+        <span class="highlight" data-i18n="claimToken">
+            Claim Token
+        </span>
+
+        <span data-i18n="step7Text3">
+            button.
+
+            The daily token reward will be added
+            to your wallet balance.
+        </span>
+
+    </p>
+
+
+
+    <div class="screen">
+
+        <div class="modal-mock">
+
+            <div class="modal-box success-box">
+
+
+                <div class="token">
+                    T
+                </div>
+
+
+                <h4 data-i18n="claimSuccessful">
+                    Claim Successful!
+                </h4>
+
+
+                <p data-i18n="dailyAdded">
+                    Daily token added to your wallet.
+                </p>
+
+
+                <div class="success-amount">
+
+                    <strong>
+                        +250 Token
+                    </strong>
+
+                    <span data-i18n="walletBalance1370">
+                        Wallet Balance • 1,370 Token
+                    </span>
+
+                </div>
+
+
+                <div class="bottom-action">
+
+                    <button
+                        class="action-btn"
+                        data-i18n="cancel">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        class="action-btn primary"
+                        data-i18n="continue">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FINAL -->
+
+<section class="final">
+
+    <div class="final-icon">
+        ✓
+    </div>
+
+
+    <h3 data-i18n="ready">
+        You're Ready!
+    </h3>
+
+
+    <p data-i18n="readyText">
+
+        Buy a plan, check your subscription details,
+        and claim your available daily tokens
+        from My Plans.
+
+    </p>
+
+</section>
+
+
+
+<!-- BOTTOM BUTTONS -->
+
+<div class="bottom-action">
+
+    <button
+        class="action-btn"
+        onclick="goBack()"
+        data-i18n="back">
+
+        ‹ Back
+
+    </button>
+
+
+    <button
+        class="action-btn primary"
+        onclick="goToBuy()"
+        data-i18n="goBuy">
+
+        Go to Buy Token →
+
+    </button>
+
+</div>
+
+
+
+<div class="footer" data-i18n="footer">
+
+    GlobalPay • Token Purchase Guide
+
+</div>
+
+
+</div>
+</div>
+
+
+
+<script>
+
+/* =========================================
+   LANGUAGE TRANSLATION
+========================================= */
+
+const translations = {
+
+    en: {
+
+        tutorial02: "TUTORIAL 02",
+
+        heroTitle:
+            "How to Buy & Claim Tokens",
+
+        heroDescription:
+            "Choose a plan according to your budget, complete the purchase, view your active plans and claim your daily tokens.",
+
+        buy: "Buy",
+        plan: "Plan",
+        confirm: "Confirm",
+        purchase: "Purchase",
+        myPlans: "My Plans",
+        claim: "Claim",
+
+        step1Title:
+            "Open Buy Token",
+
+        step1Label:
+            "START YOUR PURCHASE",
+
+        step1Text:
+            "Open the Buy Token section. Here you will see the available token plans and your current wallet balance.",
+
+        buyToken:
+            "Buy Token",
+
+        walletBalance:
+            "Wallet Balance",
+
+        currentWallet:
+            "Current Wallet",
+
+        addToken:
+            "+ Add Token",
+
+        allPlans:
+            "All Plans",
+
+        silver:
+            "Silver",
+
+        golden:
+            "Golden",
+
+        free:
+            "Free",
+
+        step2Title:
+            "Choose Your Plan",
+
+        step2Label:
+            "SELECT ACCORDING TO YOUR BUDGET",
+
+        step2Text1:
+            "Select a",
+
+        step2Text2:
+            "or",
+
+        step2Text3:
+            "plan according to your budget and how many daily tokens you need.",
+
+        availablePlans:
+            "Available Plans",
+
+        choosePlan:
+            "Choose a plan",
+
+        plan299:
+            "25 Token / Daily<br>30 Days Validity<br>750 Total Token",
+
+        plan499:
+            "40 Token / Daily<br>30 Days Validity<br>1,200 Total Token",
+
+        plan1200:
+            "150 Token / Daily<br>30 Days Validity<br>4,500 Total Token",
+
+        plan2500:
+            "250 Token / Daily<br>30 Days Validity<br>7,500 Total Token",
+
+        buyNow:
+            "Buy Now →",
+
+        step3Title:
+            "Check Confirm Purchase",
+
+        step3Label:
+            "REVIEW PLAN DETAILS",
+
+        step3Text:
+            "After selecting a plan, the Confirm Purchase screen will show the important details before you continue. Check the plan price, validity, daily token and total token.",
+
+        confirmPurchase:
+            "Confirm Purchase",
+
+        paymentDeduct:
+            "Payment will be deducted from your current wallet token balance.",
+
+        planName:
+            "Plan",
+
+        goldenPlan:
+            "Golden Plan",
+
+        price:
+            "Price",
+
+        dailyToken:
+            "Daily Token",
+
+        validity:
+            "Validity",
+
+        totalToken:
+            "Total Token",
+
+        step4Title:
+            "Tap Continue Buy",
+
+        step4Label:
+            "COMPLETE THE PURCHASE",
+
+        step4Text1:
+            "If all plan details are correct, tap",
+
+        continueBuy:
+            "Continue Buy",
+
+        step4Text2:
+            "Your wallet balance will be used for the selected plan.",
+
+        reviewContinue:
+            "Review the plan and continue.",
+
+        cancel:
+            "Cancel",
+
+        continueBuyArrow:
+            "Continue Buy →",
+
+        step5Title:
+            "Purchase Successful",
+
+        step5Label:
+            "YOUR PLAN IS ACTIVATED",
+
+        step5Text1:
+            "After a successful purchase, your selected plan will be activated and added to your",
+
+        step5Text2:
+            "section.",
+
+        purchaseSuccessful:
+            "Purchase Successful!",
+
+        planActivated:
+            "Your selected plan has been activated successfully.",
+
+        planActivatedShort:
+            "Plan Activated",
+
+        step6Title:
+            "Open View My Plans",
+
+        step6Label:
+            "CHECK YOUR PURCHASED PLANS",
+
+        step6Text1:
+            "Tap",
+
+        viewMyPlans:
+            "View My Plans",
+
+        step6Text2:
+            "to see all plans you have purchased. You can check the purchase date, expiry date, remaining days and daily token amount.",
+
+        purchasedPlans:
+            "Purchased Plans",
+
+        active:
+            "Active",
+
+        purchased:
+            "Purchased",
+
+        remaining:
+            "Remaining",
+
+        daily:
+            "Daily",
+
+        claim25:
+            "Claim 25 Token",
+
+        claim250:
+            "Claim 250 Token",
+
+        step7Title:
+            "Claim Your Daily Tokens",
+
+        step7Label:
+            "DAILY TOKEN REWARD",
+
+        step7Text1:
+            "When your daily claim becomes available, open",
+
+        step7Text2:
+            "and tap the",
+
+        claimToken:
+            "Claim Token",
+
+        step7Text3:
+            "button. The daily token reward will be added to your wallet balance.",
+
+        claimSuccessful:
+            "Claim Successful!",
+
+        dailyAdded:
+            "Daily token added to your wallet.",
+
+        walletBalance1370:
+            "Wallet Balance • 1,370 Token",
+
+        continue:
+            "Continue",
+
+        ready:
+            "You're Ready!",
+
+        readyText:
+            "Buy a plan, check your subscription details, and claim your available daily tokens from My Plans.",
+
+        back:
+            "‹ Back",
+
+        goBuy:
+            "Go to Buy Token →",
+
+        footer:
+            "GlobalPay • Token Purchase Guide"
+    },
+
+
+    hi: {
+
+        tutorial02:
+            "ट्यूटोरियल 02",
+
+        heroTitle:
+            "Token कैसे Buy और Claim करें",
+
+        heroDescription:
+            "अपने बजट के अनुसार प्लान चुनें, खरीदारी पूरी करें, अपने Active Plans देखें और Daily Tokens Claim करें।",
+
+        buy:
+            "Buy",
+
+        plan:
+            "प्लान",
+
+        confirm:
+            "पुष्टि",
+
+        purchase:
+            "खरीदारी",
+
+        myPlans:
+            "मेरे प्लान",
+
+        claim:
+            "Claim",
+
+        step1Title:
+            "Buy Token खोलें",
+
+        step1Label:
+            "खरीदारी शुरू करें",
+
+        step1Text:
+            "Buy Token सेक्शन खोलें। यहां आपको उपलब्ध Token Plans और आपका Current Wallet Balance दिखाई देगा।",
+
+        buyToken:
+            "Buy Token",
+
+        walletBalance:
+            "Wallet Balance",
+
+        currentWallet:
+            "Current Wallet",
+
+        addToken:
+            "+ Add Token",
+
+        allPlans:
+            "सभी प्लान",
+
+        silver:
+            "Silver",
+
+        golden:
+            "Golden",
+
+        free:
+            "Free",
+
+        step2Title:
+            "अपना प्लान चुनें",
+
+        step2Label:
+            "अपने बजट के अनुसार चुनें",
+
+        step2Text1:
+            "एक",
+
+        step2Text2:
+            "या",
+
+        step2Text3:
+            "प्लान चुनें जो आपके बजट और Daily Tokens की जरूरत के अनुसार हो।",
+
+        availablePlans:
+            "उपलब्ध प्लान",
+
+        choosePlan:
+            "प्लान चुनें",
+
+        plan299:
+            "25 Token / रोज<br>30 दिन की वैधता<br>750 कुल Token",
+
+        plan499:
+            "40 Token / रोज<br>30 दिन की वैधता<br>1,200 कुल Token",
+
+        plan1200:
+            "150 Token / रोज<br>30 दिन की वैधता<br>4,500 कुल Token",
+
+        plan2500:
+            "250 Token / रोज<br>30 दिन की वैधता<br>7,500 कुल Token",
+
+        buyNow:
+            "अभी Buy करें →",
+
+        step3Title:
+            "Confirm Purchase चेक करें",
+
+        step3Label:
+            "प्लान की जानकारी देखें",
+
+        step3Text:
+            "प्लान चुनने के बाद Confirm Purchase स्क्रीन पर खरीदारी से पहले जरूरी जानकारी दिखाई देगी। Plan Price, Validity, Daily Token और Total Token को चेक करें।",
+
+        confirmPurchase:
+            "खरीदारी की पुष्टि",
+
+        paymentDeduct:
+            "पेमेंट आपके Current Wallet Token Balance से काटा जाएगा।",
+
+        planName:
+            "प्लान",
+
+        goldenPlan:
+            "Golden Plan",
+
+        price:
+            "कीमत",
+
+        dailyToken:
+            "Daily Token",
+
+        validity:
+            "वैधता",
+
+        totalToken:
+            "कुल Token",
+
+        step4Title:
+            "Continue Buy पर टैप करें",
+
+        step4Label:
+            "खरीदारी पूरी करें",
+
+        step4Text1:
+            "अगर प्लान की सारी जानकारी सही है तो",
+
+        continueBuy:
+            "Continue Buy",
+
+        step4Text2:
+            "पर टैप करें। चुने हुए प्लान के लिए आपके Wallet Balance का इस्तेमाल किया जाएगा।",
+
+        reviewContinue:
+            "प्लान चेक करें और आगे बढ़ें।",
+
+        cancel:
+            "Cancel",
+
+        continueBuyArrow:
+            "Continue Buy →",
+
+        step5Title:
+            "Purchase Successful",
+
+        step5Label:
+            "आपका प्लान एक्टिवेट हो गया",
+
+        step5Text1:
+            "खरीदारी सफल होने के बाद आपका चुना हुआ प्लान Activate हो जाएगा और",
+
+        step5Text2:
+            "में दिखाई देगा।",
+
+        purchaseSuccessful:
+            "खरीदारी सफल हुई!",
+
+        planActivated:
+            "आपका चुना हुआ प्लान सफलतापूर्वक Activate हो गया है।",
+
+        planActivatedShort:
+            "प्लान Activate हो गया",
+
+        step6Title:
+            "View My Plans खोलें",
+
+        step6Label:
+            "अपने खरीदे हुए प्लान देखें",
+
+        step6Text1:
+            "अपने खरीदे हुए सभी प्लान देखने के लिए",
+
+        viewMyPlans:
+            "View My Plans",
+
+        step6Text2:
+            "पर टैप करें। यहां आप Purchase Date, Expiry Date, Remaining Days और Daily Token Amount देख सकते हैं।",
+
+        purchasedPlans:
+            "खरीदे हुए प्लान",
+
+        active:
+            "Active",
+
+        purchased:
+            "खरीदा गया",
+
+        remaining:
+            "बाकी",
+
+        daily:
+            "रोज",
+
+        claim25:
+            "25 Token Claim करें",
+
+        claim250:
+            "250 Token Claim करें",
+
+        step7Title:
+            "अपने Daily Tokens Claim करें",
+
+        step7Label:
+            "DAILY TOKEN REWARD",
+
+        step7Text1:
+            "जब आपका Daily Claim उपलब्ध हो जाए,",
+
+        step7Text2:
+            "खोलें और",
+
+        claimToken:
+            "Claim Token",
+
+        step7Text3:
+            "बटन पर टैप करें। आपका Daily Token Reward आपके Wallet Balance में जोड़ दिया जाएगा।",
+
+        claimSuccessful:
+            "Claim सफल हुआ!",
+
+        dailyAdded:
+            "Daily Token आपके Wallet में जोड़ दिया गया है।",
+
+        walletBalance1370:
+            "Wallet Balance • 1,370 Token",
+
+        continue:
+            "Continue",
+
+        ready:
+            "अब आप तैयार हैं!",
+
+        readyText:
+            "प्लान Buy करें, अपनी Subscription Details देखें और My Plans से उपलब्ध Daily Tokens Claim करें।",
+
+        back:
+            "‹ वापस",
+
+        goBuy:
+            "Buy Token पर जाएं →",
+
+        footer:
+            "GlobalPay • Token Purchase Guide"
+    }
+
+};
+
+
+/* =========================================
+   TRANSLATION ENGINE
+========================================= */
+
+const languageSelect =
+    document.getElementById("languageSelect");
+
+
+const translatableElements =
+    document.querySelectorAll("[data-i18n]");
+
+
+function translatePage(language){
+
+    const data =
+        translations[language] || translations.en;
+
+
+    translatableElements.forEach(element => {
+
+        const key =
+            element.getAttribute("data-i18n");
+
+        if(data[key] !== undefined){
+
+            element.innerHTML =
+                data[key];
+
+        }
+
+    });
+
+
+    document.documentElement.lang =
+        language === "hi" ? "hi" : "en";
+
+
+    try{
+
+        localStorage.setItem(
+            "tutorial2Language",
+            language
+        );
+
+    }catch(error){
+
+        /* Storage unavailable - page still works */
+
+    }
+
+}
+
+
+/* =========================================
+   LANGUAGE SELECT
+========================================= */
+
+languageSelect.addEventListener(
+    "change",
+    function(){
+
+        translatePage(this.value);
+
+    }
+);
+
+
+/* =========================================
+   LOAD SAVED LANGUAGE
+========================================= */
+
+let savedLanguage = "en";
+
+try{
+
+    savedLanguage =
+        localStorage.getItem(
+            "tutorial2Language"
+        ) || "en";
+
+}catch(error){
+
+    savedLanguage = "en";
+
+}
+
+
+if(
+    savedLanguage !== "en" &&
+    savedLanguage !== "hi"
+){
+
+    savedLanguage = "en";
+
+}
+
+
+languageSelect.value =
+    savedLanguage;
+
+
+translatePage(savedLanguage);
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+function goBack(){
+
+    if(window.history.length > 1){
+
+        window.history.back();
+
+    }else{
+
+        window.location.href =
+            "home.html";
+
+    }
+
+}
+
+
+/* =========================================
+   BUY TOKEN BUTTON
+========================================= */
+
+function goToBuy(){
+
+    window.location.href =
+        "subscription.html";
+
+}
+
+</script>
+
+
+</body>
+  </html>
