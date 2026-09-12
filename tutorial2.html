@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Token Guide - GlobalPay</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020817;
+    color: #ffffff;
+    padding: 12px 10px 35px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* TOP GUIDE BAR */
+.guide-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 4px 18px;
+    padding: 0;
+}
+
+.guide-top h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.guide-top h1 span {
+    color: #159cff;
+}
+
+.language-select {
+    background: #071126;
+    color: #ffffff;
+    border: 1px solid #159cff;
+    border-radius: 8px;
+    padding: 7px 9px;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+}
+
+.language-select option {
+    background: #071126;
+    color: #ffffff;
+}
+
+
+/* STEPS */
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.step {
+    background: linear-gradient(135deg, #071b3c, #071126);
+    border: 1px solid #116fc9;
+    border-radius: 15px;
+    padding: 16px;
+    box-shadow: 0 0 15px rgba(0,119,255,0.08);
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #087cf0, #12b5ff);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 9px;
+}
+
+.step h2 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 7px;
+}
+
+.step p {
+    color: #c7d5e7;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.step strong {
+    color: #ffffff;
+}
+
+
+/* IMAGE SECTION */
+.image-section {
+    margin-top: 24px;
+    padding: 10px;
+    background: #050d20;
+    border: 1px solid #147bd1;
+    border-radius: 16px;
+    box-shadow: 0 0 22px rgba(0,132,255,0.12);
+}
+
+.image-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.image-title span {
+    color: #14a5ff;
+}
+
+.guide-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #8294ad;
+    font-size: 12px;
+}
+
+.footer strong {
+    color: #18a4ff;
+}
+
+
+/* MOBILE */
+@media (max-width: 500px) {
+
+    body {
+        padding: 10px 8px 30px;
+    }
+
+    .guide-top {
+        margin: 4px 3px 16px;
+    }
+
+    .guide-top h1 {
+        font-size: 19px;
+    }
+
+    .language-select {
+        font-size: 11px;
+        padding: 6px 7px;
+    }
+
+    .step {
+        padding: 14px;
+    }
+
+    .step-number {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .step h2 {
+        font-size: 16px;
+    }
+
+    .step p {
+        font-size: 13px;
+    }
+
+    .image-section {
+        padding: 8px;
+    }
+
+    .image-title {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- SMALL TOP TITLE -->
+    <div class="guide-top">
+
+        <h1 id="title">
+            Add Token <span>Guide</span>
+        </h1>
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            onchange="changeLanguage()"
+        >
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+        </select>
+
+    </div>
+
+
+    <!-- STEP 1 -->
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h2 id="step1Title">
+                Open the Wallet Section
+            </h2>
+
+            <p id="step1Text">
+                Log in to the app and tap on the
+                <strong>Wallet</strong> section from the bottom menu.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h2 id="step2Title">
+                Tap on Add Token
+            </h2>
+
+            <p id="step2Text">
+                In the Wallet section, you will see the
+                <strong>Add Token</strong> option. Tap on it.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h2 id="step3Title">
+                Select the Amount
+            </h2>
+
+            <p id="step3Text">
+                On the Add Token page, select your desired amount,
+                such as <strong>₹300, ₹500, ₹1,000</strong>, etc.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <h2 id="step4Title">
+                QR Code Will Appear
+            </h2>
+
+            <p id="step4Text">
+                After selecting the amount, the
+                <strong>QR Code</strong> will appear below.
+                Scan the QR code to make the payment.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+        <div class="step">
+
+            <div class="step-number">5</div>
+
+            <h2 id="step5Title">
+                Make the UPI Payment
+            </h2>
+
+            <p id="step5Text">
+                Use <strong>Google Pay, Paytm, PhonePe, Navi</strong>,
+                or any supported UPI app to complete the payment.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 6 -->
+        <div class="step">
+
+            <div class="step-number">6</div>
+
+            <h2 id="step6Title">
+                Payment Completed
+            </h2>
+
+            <p id="step6Text">
+                After the payment is successful, a
+                <strong>Payment Successful</strong> message will appear
+                on the screen.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- GUIDE IMAGE -->
+    <div class="image-section">
+
+        <div class="image-title">
+            <span id="visualText">Step-by-Step</span>
+            <span id="guideText"> Visual Guide</span>
+        </div>
+
+        <img
+            src="1000048567.png"
+            alt="GlobalPay Add Token Guide"
+            class="guide-image"
+        >
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <strong>GlobalPay</strong> —
+        <span id="footerText">Secure • Fast • Global</span>
+    </div>
+
+</div>
+
+
+<script>
+
+function changeLanguage() {
+
+    const lang =
+        document.getElementById("languageSelect").value;
+
+
+    /* =========================
+       HINDI
+    ========================= */
+
+    if (lang === "hi") {
+
+        document.getElementById("title").innerHTML =
+            "Add Token <span>Guide</span>";
+
+        document.getElementById("step1Title").innerText =
+            "Wallet Section खोलें";
+
+        document.getElementById("step1Text").innerHTML =
+            "App में Login करें और नीचे दिए गए Menu से <strong>Wallet</strong> Section पर Tap करें।";
+
+
+        document.getElementById("step2Title").innerText =
+            "Add Token पर Tap करें";
+
+        document.getElementById("step2Text").innerHTML =
+            "Wallet Section में आपको <strong>Add Token</strong> का Option दिखाई देगा। उस पर Tap करें।";
+
+
+        document.getElementById("step3Title").innerText =
+            "Amount Select करें";
+
+        document.getElementById("step3Text").innerHTML =
+            "Add Token Page पर अपना इच्छित Amount Select करें, जैसे <strong>₹300, ₹500, ₹1,000</strong> आदि।";
+
+
+        document.getElementById("step4Title").innerText =
+            "QR Code दिखाई देगा";
+
+        document.getElementById("step4Text").innerHTML =
+            "Amount Select करने के बाद नीचे <strong>QR Code</strong> दिखाई देगा। Payment करने के लिए QR Code Scan करें।";
+
+
+        document.getElementById("step5Title").innerText =
+            "UPI Payment करें";
+
+        document.getElementById("step5Text").innerHTML =
+            "<strong>Google Pay, Paytm, PhonePe, Navi</strong> या किसी Supported UPI App से Payment पूरा करें।";
+
+
+        document.getElementById("step6Title").innerText =
+            "Payment Complete होने के बाद";
+
+        document.getElementById("step6Text").innerHTML =
+            "Payment Successful होने के बाद Screen पर <strong>Payment Successful</strong> का Message दिखाई देगा।";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+    }
+
+
+    /* =========================
+       ENGLISH
+    ========================= */
+
+    else {
+
+        document.getElementById("title").innerHTML =
+            "Add Token <span>Guide</span>";
+
+        document.getElementById("step1Title").innerText =
+            "Open the Wallet Section";
+
+        document.getElementById("step1Text").innerHTML =
+            "Log in to the app and tap on the <strong>Wallet</strong> section from the bottom menu.";
+
+
+        document.getElementById("step2Title").innerText =
+            "Tap on Add Token";
+
+        document.getElementById("step2Text").innerHTML =
+            "In the Wallet section, you will see the <strong>Add Token</strong> option. Tap on it.";
+
+
+        document.getElementById("step3Title").innerText =
+            "Select the Amount";
+
+        document.getElementById("step3Text").innerHTML =
+            "On the Add Token page, select your desired amount, such as <strong>₹300, ₹500, ₹1,000</strong>, etc.";
+
+
+        document.getElementById("step4Title").innerText =
+            "QR Code Will Appear";
+
+        document.getElementById("step4Text").innerHTML =
+            "After selecting the amount, the <strong>QR Code</strong> will appear below. Scan the QR code to make the payment.";
+
+
+        document.getElementById("step5Title").innerText =
+            "Make the UPI Payment";
+
+        document.getElementById("step5Text").innerHTML =
+            "Use <strong>Google Pay, Paytm, PhonePe, Navi</strong>, or any supported UPI app to complete the payment.";
+
+
+        document.getElementById("step6Title").innerText =
+            "Payment Completed";
+
+        document.getElementById("step6Text").innerHTML =
+            "After the payment is successful, a <strong>Payment Successful</strong> message will appear on the screen.";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
