@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<title>GlobalPay - Orders</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#050b16;
+    color:#ffffff;
+    min-height:100vh;
+}
+
+
+/* HEADER */
+
+.header{
+    height:70px;
+    background:#081426;
+    border-bottom:1px solid #1b2b42;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.back-btn{
+    position:absolute;
+    left:18px;
+
+    color:#ffffff;
+    text-decoration:none;
+
+    font-size:32px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.logo small{
+    display:block;
+
+    font-size:8px;
+    letter-spacing:2px;
+
+    color:#8293a8;
+
+    margin-top:3px;
+}
+
+
+/* MAIN */
+
+.main{
+    min-height:calc(100vh - 145px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+.order-card{
+    width:100%;
+    max-width:430px;
+
+    background:#0b1728;
+
+    border:1px solid #1c314a;
+    border-radius:20px;
+
+    padding:45px 25px;
+
+    text-align:center;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35);
+}
+
+
+/* ORDER ICON */
+
+.order-icon{
+    width:78px;
+    height:78px;
+
+    margin:0 auto 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#10243d;
+
+    border:1px solid #294968;
+
+    color:#4da3ff;
+
+    font-size:30px;
+}
+
+
+/* TEXT */
+
+.order-card h2{
+    font-size:24px;
+
+    margin-bottom:12px;
+}
+
+.order-card p{
+    color:#8fa2b8;
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:75px;
+
+    background:#07111f;
+
+    border-top:1px solid #1b2b42;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-around;
+}
+
+.nav-item{
+    width:20%;
+
+    text-align:center;
+
+    color:#72869d;
+
+    text-decoration:none;
+
+    font-size:11px;
+}
+
+.nav-icon{
+    display:block;
+
+    font-size:20px;
+
+    margin-bottom:5px;
+}
+
+.nav-item.active{
+    color:#4da3ff;
+}
+
+
+/* MOBILE */
+
+@media(max-width:380px){
+
+    .order-card{
+        padding:38px 20px;
+    }
+
+    .order-card h2{
+        font-size:21px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <a href="home.html"
+       class="back-btn">
+       ‹
+    </a>
+
+    <div class="logo">
+
+        GlobalPay
+
+        <small>
+            SECURE • FAST • GLOBAL
+        </small>
+
+    </div>
+
+</div>
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <div class="order-card">
+
+        <div class="order-icon">
+            ▤
+        </div>
+
+        <h2>
+            No Order
+        </h2>
+
+        <p>
+            You don't have any orders
+            at the moment.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- BOTTOM NAV -->
+
+
+</body>
+
+  </html>
