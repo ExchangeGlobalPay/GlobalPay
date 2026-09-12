@@ -1323,7 +1323,39 @@ body{
 
     display:block;
           }
-          
+
+
+.refer-icon{
+    width:48px;
+    height:48px;
+
+    flex:0 0 48px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#8b63d9;
+
+    background:
+        linear-gradient(145deg,#f6f0ff,#ede4ff);
+
+    border:1px solid #e5d9fa;
+
+    box-shadow:
+        0 5px 14px rgba(139,99,217,.08);
+}
+
+.refer-icon svg{
+    width:27px;
+    height:27px;
+
+    display:block;
+                        }
+
+      
       
 </style>
 
@@ -1872,56 +1904,100 @@ body{
 </div>
     
 
-    <div class="menu-item"
-         onclick="openPage('refer.html')">
+<!-- ================= REFER & EARN ================= -->
 
-        <div class="menu-icon mi-orange">
-            👥
+<div class="menu-item" onclick="window.location.href='refer.html'">
+
+    <div class="menu-icon refer-icon">
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Main Person -->
+            <circle
+                cx="10"
+                cy="8"
+                r="3"
+                stroke="currentColor"
+                stroke-width="1.7"/>
+
+            <path
+                d="M4.5 19C4.5 15.96 6.96 13.5 10 13.5C12.1 13.5 13.92 14.68 14.78 16.4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"/>
+
+            <!-- Friend -->
+            <circle
+                cx="17.5"
+                cy="9"
+                r="2.2"
+                stroke="currentColor"
+                stroke-width="1.6"/>
+
+            <path
+                d="M15.2 14.7C15.9 14.25 16.7 14 17.5 14C19.55 14 21.2 15.65 21.2 17.7"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"/>
+
+            <!-- Plus -->
+            <path
+                d="M17.5 5.5V9.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"/>
+
+            <path
+                d="M15.5 7.5H19.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="menu-content">
+
+        <div class="menu-title">
+            Refer &amp; Earn
         </div>
 
-        <div class="menu-text">
-
-            <div class="menu-title">
-                Refer & Earn
-            </div>
-
-            <div class="menu-sub">
-                Invite friends and earn rewards
-            </div>
-
-        </div>
-
-        <div class="menu-arrow">
-            ›
+        <div class="menu-subtitle">
+            Invite friends and earn rewards
         </div>
 
     </div>
 
 
-    <div class="menu-item"
-         onclick="openPage('messages.html')">
+    <div class="menu-arrow">
 
-        <div class="menu-icon mi-blue">
-            🔔
-        </div>
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
 
-        <div class="menu-text">
+            <path
+                d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
 
-            <div class="menu-title">
-                Messages
-            </div>
-
-            <div class="menu-sub">
-                Notifications and important updates
-            </div>
-
-        </div>
-
-        <div class="menu-arrow">
-            ›
-        </div>
+        </svg>
 
     </div>
+
+</div>
+
+
+      
+
+    
 
 
     <div class="menu-item"
