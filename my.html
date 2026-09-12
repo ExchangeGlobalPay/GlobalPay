@@ -1123,6 +1123,18 @@ body{
     color:#f28a24;
 }      
 
+
+.q-green{
+    background:#eafaf3;
+    color:#16a875;
+}
+
+.quick-icon svg{
+    width:24px;
+    height:24px;
+    display:block;
+}
+
       
 </style>
 
@@ -1354,23 +1366,55 @@ body{
 
                   </div>
 
-    <div class="quick"
-         onclick="openPage('support.html')">
 
-        <div class="quick-icon q-green">
-            🎧
-        </div>
+<div class="quick" onclick="openPage('support.html')">
 
-        <div class="quick-title">
-            Support
-        </div>
+    <div class="quick-icon q-green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
 
-        <div class="quick-sub">
-            Get Help ›
-        </div>
+            <!-- Headset -->
+            <path d="M4 13V11C4 6.58 7.58 3 12 3C16.42 3 20 6.58 20 11V13"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
 
+            <!-- Left ear -->
+            <path d="M4 12.5C4 11.67 4.67 11 5.5 11H7V17H5.5C4.67 17 4 16.33 4 15.5V12.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"/>
+
+            <!-- Right ear -->
+            <path d="M20 12.5C20 11.67 19.33 11 18.5 11H17V17H18.5C19.33 17 20 16.33 20 15.5V12.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"/>
+
+            <!-- Support connection -->
+            <path d="M17 17C17 19.21 15.21 21 13 21H11"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+
+            <path d="M11 19.5H13"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+        </svg>
     </div>
 
+    <div class="quick-title">
+        Support
+    </div>
+
+    <div class="quick-sub">
+        Get Help
+    </div>
+
+</div>
+
+      
 
     <div class="quick"
          onclick="openPage('telegram.html')">
