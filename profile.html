@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<title>GlobalPay - Edit Profile</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e9eef5;
+    color:#19345d;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    width:100%;
+    max-width:520px;
+    min-height:100vh;
+    margin:0 auto;
+
+    padding-bottom:100px;
+
+    background:
+        radial-gradient(
+            circle at 0% 10%,
+            rgba(255,170,80,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 100% 40%,
+            rgba(70,130,255,.10),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #fbfcff 0%,
+            #f4f7fb 100%
+        );
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    height:70px;
+
+    padding:0 17px;
+
+    display:flex;
+    align-items:center;
+
+    background:rgba(255,255,255,.97);
+
+    border-bottom:1px solid #e6ebf1;
+
+    position:sticky;
+    top:0;
+
+    z-index:50;
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.back-btn{
+    width:40px;
+    height:40px;
+
+    border:0;
+    border-radius:13px;
+
+    background:#f1f4f8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#19345d;
+
+    cursor:pointer;
+
+    transition:.18s ease;
+}
+
+.back-btn:active{
+    transform:scale(.90);
+}
+
+.back-btn svg{
+    width:21px;
+    height:21px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.header-title{
+    margin-left:12px;
+
+    font-size:19px;
+    font-weight:800;
+
+    color:#19345d;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+    padding:16px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.page-heading{
+    margin:5px 2px 15px;
+}
+
+.page-heading h1{
+    font-size:24px;
+    line-height:1.2;
+
+    color:#172f56;
+
+    font-weight:800;
+}
+
+.page-heading p{
+    margin-top:6px;
+
+    font-size:12px;
+    line-height:1.5;
+
+    color:#7b899e;
+}
+
+
+/* =====================================================
+   PROFILE HERO
+===================================================== */
+
+.profile-hero{
+    width:100%;
+
+    padding:20px;
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf5ff,
+            #f1edff
+        );
+
+    border:1px solid #dfe7f1;
+
+    box-shadow:
+        0 8px 24px rgba(25,55,95,.07);
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.avatar{
+    width:68px;
+    height:68px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #dce5f1
+        );
+
+    border:4px solid #fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#426389;
+
+    box-shadow:
+        0 5px 15px rgba(30,55,90,.12);
+}
+
+.avatar svg{
+    width:34px;
+    height:34px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.hero-info{
+    min-width:0;
+    flex:1;
+}
+
+.hero-name{
+    font-size:17px;
+    font-weight:800;
+
+    color:#19345d;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.hero-phone{
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:#7b8aa0;
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.form-card{
+    margin-top:14px;
+
+    padding:18px;
+
+    background:#fff;
+
+    border:1px solid #e1e7ee;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 7px 20px rgba(30,55,90,.055);
+}
+
+.form-title{
+    font-size:16px;
+    font-weight:800;
+
+    color:#19345d;
+
+    margin-bottom:16px;
+}
+
+
+/* =====================================================
+   FIELD
+===================================================== */
+
+.field{
+    margin-bottom:16px;
+}
+
+.field:last-child{
+    margin-bottom:0;
+}
+
+.field-label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:11px;
+    font-weight:800;
+
+    color:#60718a;
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+
+    left:14px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:19px;
+    height:19px;
+
+    color:#7e91aa;
+
+    pointer-events:none;
+}
+
+.input-icon svg{
+    width:19px;
+    height:19px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.form-input{
+    width:100%;
+    height:49px;
+
+    padding:0 14px 0 43px;
+
+    border:1px solid #dce3eb;
+
+    border-radius:14px;
+
+    background:#f9fafc;
+
+    color:#19345d;
+
+    font-size:14px;
+    font-weight:600;
+
+    outline:none;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+.form-input:focus{
+    background:#fff;
+
+    border-color:#e87512;
+
+    box-shadow:
+        0 0 0 3px rgba(232,117,18,.10);
+}
+
+.form-input:disabled{
+    color:#718097;
+    background:#f0f3f7;
+
+    cursor:not-allowed;
+}
+
+.field-note{
+    margin-top:6px;
+
+    font-size:10px;
+    line-height:1.4;
+
+    color:#8995a7;
+}
+
+
+/* =====================================================
+   SAVE BUTTON
+===================================================== */
+
+.save-btn{
+    width:100%;
+    height:50px;
+
+    margin-top:17px;
+
+    border:0;
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f28a1d,
+            #df5d0b
+        );
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:800;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 18px rgba(224,101,15,.22);
+
+    transition:.18s ease;
+}
+
+.save-btn:active{
+    transform:scale(.98);
+}
+
+.save-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+.save-btn svg{
+    width:19px;
+    height:19px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   SECURITY CARD
+===================================================== */
+
+.security-card{
+    margin-top:14px;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    background:#eef8f3;
+
+    border:1px solid #d3eee0;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+}
+
+.security-icon{
+    width:39px;
+    height:39px;
+
+    flex-shrink:0;
+
+    border-radius:12px;
+
+    background:#d9f3e5;
+
+    color:#15915a;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.security-icon svg{
+    width:20px;
+    height:20px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.security-title{
+    font-size:11px;
+    font-weight:800;
+
+    color:#18744e;
+}
+
+.security-text{
+    margin-top:3px;
+
+    font-size:9px;
+    line-height:1.4;
+
+    color:#6e927f;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:92px;
+
+    transform:
+        translate(-50%,20px);
+
+    width:calc(100% - 32px);
+    max-width:480px;
+
+    min-height:55px;
+
+    padding:11px 14px;
+
+    border-radius:15px;
+
+    background:#172f56;
+    color:#fff;
+
+    box-shadow:
+        0 10px 30px rgba(15,35,65,.25);
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+        opacity .22s ease,
+        transform .22s ease,
+        visibility .22s ease;
+
+    z-index:99999;
+}
+
+.toast.show{
+    opacity:1;
+    visibility:visible;
+
+    transform:
+        translate(-50%,0);
+}
+
+.toast-icon{
+    width:30px;
+    height:30px;
+
+    flex-shrink:0;
+
+    border-radius:9px;
+
+    background:rgba(255,255,255,.12);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.toast-icon svg{
+    width:17px;
+    height:17px;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.toast-content{
+    min-width:0;
+}
+
+.toast-title{
+    font-size:11px;
+    font-weight:800;
+}
+
+.toast-message{
+    margin-top:2px;
+
+    font-size:10px;
+
+    color:#c7d5e8;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.spinner{
+    width:17px;
+    height:17px;
+
+    border:2px solid rgba(255,255,255,.35);
+    border-top-color:#fff;
+
+    border-radius:50%;
+
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:360px){
+
+    .content{
+        padding:13px;
+    }
+
+    .profile-hero{
+        padding:16px;
+    }
+
+    .avatar{
+        width:60px;
+        height:60px;
+    }
+
+    .page-heading h1{
+        font-size:22px;
+    }
+
+    .form-card{
+        padding:15px;
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:521px){
+
+    body{
+        background:#e7edf5;
+    }
+
+    .app{
+        min-height:100vh;
+
+        box-shadow:
+            0 0 35px rgba(20,40,70,.12);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <button class="back-btn"
+            onclick="goBack()"
+            aria-label="Back">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M19 12H5"></path>
+
+            <path d="M12 19L5 12L12 5"></path>
+
+        </svg>
+
+    </button>
+
+
+    <div class="header-title">
+        Edit Profile
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="content">
+
+
+<div class="page-heading">
+
+    <h1>
+        Profile Settings
+    </h1>
+
+    <p>
+        Update your profile name. Your registered phone
+        number cannot be changed from this page.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     PROFILE HERO
+===================================================== -->
+
+<section class="profile-hero">
+
+    <div class="avatar">
+
+        <svg viewBox="0 0 24 24">
+
+            <circle cx="12"
+                    cy="8"
+                    r="3.2"></circle>
+
+            <path d="M5 20c.8-3.7 3.2-5.5 7-5.5s6.2 1.8 7 5.5"></path>
+
+        </svg>
+
+    </div>
+
+
+    <div class="hero-info">
+
+        <div class="hero-name"
+             id="heroName">
+            Loading...
+        </div>
+
+        <div class="hero-phone"
+             id="heroPhone">
+            Loading...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FORM
+===================================================== -->
+
+<section class="form-card">
+
+    <div class="form-title">
+        Personal Information
+    </div>
+
+
+    <!-- NAME -->
+
+    <div class="field">
+
+        <label class="field-label"
+               for="nameInput">
+
+            Full Name
+
+        </label>
+
+
+        <div class="input-wrap">
+
+            <span class="input-icon">
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle cx="12"
+                            cy="8"
+                            r="3.2"></circle>
+
+                    <path d="M5 20c.8-3.7 3.2-5.5 7-5.5s6.2 1.8 7 5.5"></path>
+
+                </svg>
+
+            </span>
+
+
+            <input
+                type="text"
+                id="nameInput"
+                class="form-input"
+                placeholder="Enter your name"
+                maxlength="40"
+                autocomplete="name">
+
+        </div>
+
+
+        <div class="field-note">
+            This name will be displayed on your GlobalPay profile.
+        </div>
+
+    </div>
+
+
+    <!-- PHONE -->
+
+    <div class="field">
+
+        <label class="field-label">
+
+            Registered Phone Number
+
+        </label>
+
+
+        <div class="input-wrap">
+
+            <span class="input-icon">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M6.5 3.5h3l1.2 4-2 1.5a15 15 0 0 0 6.3 6.3l1.5-2 4 1.2v3c0 1-.8 1.8-1.8 1.8C10.2 19.3 4.7 13.8 4.7 6.8c0-1 .8-1.8 1.8-1.8Z"></path>
+
+                </svg>
+
+            </span>
+
+
+            <input
+                type="text"
+                id="phoneInput"
+                class="form-input"
+                disabled>
+
+        </div>
+
+
+        <div class="field-note">
+            Your registered phone number is protected and cannot be edited here.
+        </div>
+
+    </div>
+
+
+    <!-- SAVE -->
+
+    <button class="save-btn"
+            id="saveBtn"
+            onclick="saveProfile()">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M5 12.5l4 4L19 7"></path>
+
+        </svg>
+
+        <span id="saveText">
+            Save Changes
+        </span>
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     SECURITY
+===================================================== -->
+
+<section class="security-card">
+
+    <div class="security-icon">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M12 3l7 3v5c0 4.7-2.9 8.1-7 10-4.1-1.9-7-5.3-7-10V6l7-3Z"></path>
+
+            <path d="M8.5 12l2.2 2.2 4.8-5"></path>
+
+        </svg>
+
+    </div>
+
+
+    <div>
+
+        <div class="security-title">
+            Secure Profile
+        </div>
+
+        <div class="security-text">
+            Your profile information is securely stored with your
+            authenticated GlobalPay account.
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="toast"
+     id="toast">
+
+    <div class="toast-icon"
+         id="toastIcon">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M5 12.5l4 4L19 7"></path>
+
+        </svg>
+
+    </div>
+
+
+    <div class="toast-content">
+
+        <div class="toast-title"
+             id="toastTitle">
+            Success
+        </div>
+
+        <div class="toast-message"
+             id="toastMessage">
+            Profile updated successfully.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCA6cs0T8NBPNwOyA269hOfdgmt9DYDoqQ",
+
+    authDomain:
+        "globalpay-d31dd.firebaseapp.com",
+
+    projectId:
+        "globalpay-d31dd",
+
+    storageBucket:
+        "globalpay-d31dd.firebasestorage.app",
+
+    messagingSenderId:
+        "862227027913",
+
+    appId:
+        "1:862227027913:web:f643dc5cb4b014fd80ba18"
+
+};
+
+
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const phoneInput =
+    document.getElementById("phoneInput");
+
+const heroName =
+    document.getElementById("heroName");
+
+const heroPhone =
+    document.getElementById("heroPhone");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const saveText =
+    document.getElementById("saveText");
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let authReady = false;
+
+let toastTimer = null;
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+window.goBack = function(){
+
+    window.location.href =
+        "my.html";
+
+};
+
+
+/* =====================================================
+   FORMAT PHONE
+===================================================== */
+
+function formatPhone(number){
+
+    if(!number){
+
+        return "Registered number";
+
+    }
+
+    const clean =
+        String(number)
+        .replace(/\D/g,"")
+        .slice(-10);
+
+
+    if(clean.length === 10){
+
+        return (
+            "+91 " +
+            clean.slice(0,5) +
+            " " +
+            clean.slice(5)
+        );
+
+    }
+
+
+    return "+91 " + number;
+
+}
+
+
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(user){
+
+    /*
+       IMPORTANT:
+       No login.html redirect here.
+
+       Firebase Auth state has already been confirmed
+       before this function is called.
+    */
+
+    if(!user){
+
+        return;
+
+    }
+
+
+    currentUser =
+        user;
+
+
+    const uid =
+        user.uid;
+
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                uid
+            );
+
+
+        const userSnap =
+            await getDoc(userRef);
+
+
+        if(userSnap.exists()){
+
+            const data =
+                userSnap.data();
+
+
+            /* =========================================
+               NAME
+            ========================================= */
+
+            const savedName =
+                data.name
+                ? String(data.name).trim()
+                : "GlobalPay User";
+
+
+            nameInput.value =
+                savedName;
+
+
+            heroName.innerText =
+                savedName;
+
+
+            /* =========================================
+               PHONE
+
+               Supports both:
+               mobile
+               phoneNumber
+            ========================================= */
+
+            let mobile =
+                data.mobile ||
+                data.phoneNumber ||
+                "";
+
+
+            /*
+               If Firestore doesn't have mobile,
+               Firebase Auth phone number can be used.
+            */
+
+            if(!mobile && user.phoneNumber){
+
+                mobile =
+                    user.phoneNumber;
+
+            }
+
+
+            phoneInput.value =
+                formatPhone(mobile);
+
+
+            heroPhone.innerText =
+                formatPhone(mobile);
+
+        }
+        else{
+
+            /*
+               Document doesn't exist.
+            */
+
+            nameInput.value =
+                "GlobalPay User";
+
+            heroName.innerText =
+                "GlobalPay User";
+
+
+            let mobile =
+                user.phoneNumber || "";
+
+
+            phoneInput.value =
+                formatPhone(mobile);
+
+
+            heroPhone.innerText =
+                formatPhone(mobile);
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "PROFILE LOAD ERROR:",
+            error
+        );
+
+
+        showToast(
+            "Unable to load",
+            "Please try again.",
+            false
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+
+   Firebase automatically restores the existing login
+   session. We wait for that state before doing anything.
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        authReady = true;
+
+
+        if(user){
+
+            currentUser =
+                user;
+
+
+            await loadProfile(user);
+
+        }
+        else{
+
+            /*
+               Only redirect if Firebase has confirmed
+               there is genuinely no logged-in account.
+            */
+
+            showToast(
+                "Login required",
+                "Please login to edit your profile.",
+                false
+            );
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "login.html";
+
+                },
+                1200
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LIVE NAME PREVIEW
+===================================================== */
+
+nameInput.addEventListener(
+    "input",
+    function(){
+
+        const value =
+            nameInput.value.trim();
+
+
+        heroName.innerText =
+            value ||
+            "GlobalPay User";
+
+    }
+);
+
+
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
+window.saveProfile =
+async function(){
+
+    /*
+       Don't allow save before Firebase Auth
+       has finished checking the session.
+    */
+
+    if(!authReady){
+
+        showToast(
+            "Please wait",
+            "Checking your account...",
+            false
+        );
+
+        return;
+
+    }
+
+
+    if(!currentUser){
+
+        showToast(
+            "Login required",
+            "Your login session was not found.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        nameInput.value.trim();
+
+
+    /* =================================================
+       VALIDATION
+    ================================================= */
+
+    if(!name){
+
+        showToast(
+            "Name required",
+            "Please enter your name.",
+            false
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if(name.length < 2){
+
+        showToast(
+            "Name too short",
+            "Please enter at least 2 characters.",
+            false
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if(name.length > 40){
+
+        showToast(
+            "Name too long",
+            "Please keep your name within 40 characters.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    /* =================================================
+       LOADING
+    ================================================= */
+
+    saveBtn.disabled =
+        true;
+
+
+    saveText.innerText =
+        "Saving...";
+
+
+    const spinner =
+        document.createElement("span");
+
+
+    spinner.className =
+        "spinner";
+
+
+    saveBtn.prepend(
+        spinner
+    );
+
+
+    try{
+
+        const uid =
+            currentUser.uid;
+
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                uid
+            );
+
+
+        /*
+           IMPORTANT:
+
+           Only the "name" field is updated.
+
+           Phone number is NOT touched.
+        */
+
+        await updateDoc(
+            userRef,
+            {
+                name: name
+            }
+        );
+
+
+        /* =================================================
+           LOCAL CACHE
+        ================================================= */
+
+        localStorage.setItem(
+            "globalpay_user_name",
+            name
+        );
+
+
+        /* =================================================
+           SUCCESS
+        ================================================= */
+
+        showToast(
+            "Profile updated",
+            "Your name has been saved successfully.",
+            true
+        );
+
+
+        /*
+           Give Firebase update a moment,
+           then return to My page.
+        */
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "my.html";
+
+            },
+            900
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "PROFILE SAVE ERROR:",
+            error
+        );
+
+
+        let message =
+            "Unable to save your name.";
+
+
+        if(
+            error &&
+            error.code ===
+            "permission-denied"
+        ){
+
+            message =
+                "Permission denied. Check your Firestore rules.";
+
+        }
+
+
+        if(
+            error &&
+            error.code ===
+            "not-found"
+        ){
+
+            message =
+                "Your profile record was not found.";
+
+        }
+
+
+        showToast(
+            "Update failed",
+            message,
+            false
+        );
+
+
+        saveBtn.disabled =
+            false;
+
+
+        saveText.innerText =
+            "Save Changes";
+
+
+        if(spinner){
+
+            spinner.remove();
+
+        }
+
+    }
+
+};
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(
+    title,
+    message,
+    success = true
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    const toastTitle =
+        document.getElementById(
+            "toastTitle"
+        );
+
+
+    const toastMessage =
+        document.getElementById(
+            "toastMessage"
+        );
+
+
+    const toastIcon =
+        document.getElementById(
+            "toastIcon"
+        );
+
+
+    toastTitle.innerText =
+        title;
+
+
+    toastMessage.innerText =
+        message;
+
+
+    /* =================================================
+       SUCCESS ICON
+    ================================================= */
+
+    if(success){
+
+        toastIcon.innerHTML = `
+
+            <svg viewBox="0 0 24 24">
+
+                <path d="M5 12.5l4 4L19 7"></path>
+
+            </svg>
+
+        `;
+
+    }
+
+
+    /* =================================================
+       ERROR ICON
+    ================================================= */
+
+    else{
+
+        toastIcon.innerHTML = `
+
+            <svg viewBox="0 0 24 24">
+
+                <path d="M12 8v5"></path>
+
+                <circle
+                    cx="12"
+                    cy="16.5"
+                    r=".7"
+                    fill="currentColor"
+                    stroke="none">
+                </circle>
+
+            </svg>
+
+        `;
+
+    }
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+}
+
+
+</script>
+
+
+</body>
+
+  </html>
