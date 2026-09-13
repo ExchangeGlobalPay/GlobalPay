@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Withdrawal Guide - GlobalPay</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020817;
+    color: #ffffff;
+    padding: 12px 10px 35px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* TOP GUIDE BAR */
+.guide-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 4px 18px;
+}
+
+.guide-top h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.guide-top h1 span {
+    color: #159cff;
+}
+
+.language-select {
+    background: #071126;
+    color: #ffffff;
+    border: 1px solid #159cff;
+    border-radius: 8px;
+    padding: 7px 9px;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+}
+
+.language-select option {
+    background: #071126;
+    color: #ffffff;
+}
+
+
+/* STEPS */
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.step {
+    background: linear-gradient(135deg, #071b3c, #071126);
+    border: 1px solid #116fc9;
+    border-radius: 15px;
+    padding: 16px;
+    box-shadow: 0 0 15px rgba(0,119,255,0.08);
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #087cf0, #12b5ff);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 9px;
+}
+
+.step h2 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 7px;
+}
+
+.step p {
+    color: #c7d5e7;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.step strong {
+    color: #ffffff;
+}
+
+
+/* IMAGE SECTION */
+.image-section {
+    margin-top: 24px;
+    padding: 10px;
+    background: #050d20;
+    border: 1px solid #147bd1;
+    border-radius: 16px;
+    box-shadow: 0 0 22px rgba(0,132,255,0.12);
+}
+
+.image-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.image-title span {
+    color: #14a5ff;
+}
+
+.guide-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #8294ad;
+    font-size: 12px;
+}
+
+.footer strong {
+    color: #18a4ff;
+}
+
+
+/* MOBILE */
+@media (max-width: 500px) {
+
+    body {
+        padding: 10px 8px 30px;
+    }
+
+    .guide-top {
+        margin: 4px 3px 16px;
+    }
+
+    .guide-top h1 {
+        font-size: 19px;
+    }
+
+    .language-select {
+        font-size: 11px;
+        padding: 6px 7px;
+    }
+
+    .step {
+        padding: 14px;
+    }
+
+    .step-number {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .step h2 {
+        font-size: 16px;
+    }
+
+    .step p {
+        font-size: 13px;
+    }
+
+    .image-section {
+        padding: 8px;
+    }
+
+    .image-title {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- TOP TITLE -->
+    <div class="guide-top">
+
+        <h1 id="title">
+            Withdrawal <span>Guide</span>
+        </h1>
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- STEPS -->
+    <div class="steps">
+
+
+        <!-- STEP 1 -->
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h2 id="step1Title">
+                Open the Wallet Section
+            </h2>
+
+            <p id="step1Text">
+                Log in to the app and tap on the
+                <strong>Wallet</strong>
+                section from the bottom menu.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h2 id="step2Title">
+                Tap on Withdrawal
+            </h2>
+
+            <p id="step2Text">
+                In the Wallet section, find the
+                <strong>Withdrawal</strong>
+                option and tap on it to open the withdrawal page.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h2 id="step3Title">
+                Check Withdrawal Limits
+            </h2>
+
+            <p id="step3Text">
+                On the Withdrawal page, you can see the available
+                balance. The <strong>minimum withdrawal is ₹500</strong>
+                and the <strong>maximum withdrawal is ₹50,000</strong>.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <h2 id="step4Title">
+                Select Bank or UPI
+            </h2>
+
+            <p id="step4Text">
+                Choose how you want to receive your money.
+                Select either <strong>Bank</strong> or
+                <strong>UPI</strong> and continue.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+        <div class="step">
+
+            <div class="step-number">5</div>
+
+            <h2 id="step5Title">
+                Fill in Your Details
+            </h2>
+
+            <p id="step5Text">
+                Enter the required details carefully. For Bank,
+                enter your bank details. For UPI, enter your valid
+                <strong>UPI ID</strong>. Then enter the withdrawal amount
+                and tap <strong>Continue</strong>.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 6 -->
+        <div class="step">
+
+            <div class="step-number">6</div>
+
+            <h2 id="step6Title">
+                Withdrawal Request Successful
+            </h2>
+
+            <p id="step6Text">
+                After submitting the request, your
+                <strong>Withdrawal Request Successful</strong>
+                message will appear. Your request will remain
+                <strong>Pending</strong> until it is processed.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 7 -->
+        <div class="step">
+
+            <div class="step-number">7</div>
+
+            <h2 id="step7Title">
+                Receive Your Money
+            </h2>
+
+            <p id="step7Text">
+                After the withdrawal is approved and processed,
+                the money will be sent to your selected
+                <strong>Bank Account or UPI</strong>.
+                Processing may take a few hours.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 8 -->
+        <div class="step">
+
+            <div class="step-number">8</div>
+
+            <h2 id="step8Title">
+                Check Withdrawal History
+            </h2>
+
+            <p id="step8Text">
+                You can check your
+                <strong>Withdrawal History</strong>
+                to see the current status. It will show
+                <strong>Pending</strong> while processing and
+                <strong>Success</strong> after completion.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- GUIDE IMAGE -->
+    <div class="image-section">
+
+        <div class="image-title">
+
+            <span id="visualText">
+                Step-by-Step
+            </span>
+
+            <span id="guideText">
+                Visual Guide
+            </span>
+
+        </div>
+
+        <img
+            src="tutorial2.jpg"
+            alt="GlobalPay Withdrawal Guide"
+            class="guide-image">
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+        <strong>GlobalPay</strong> —
+        <span id="footerText">
+            Secure • Fast • Global
+        </span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function changeLanguage() {
+
+    const lang =
+        document.getElementById("languageSelect").value;
+
+
+    /* =========================
+       HINDI
+    ========================= */
+
+    if (lang === "hi") {
+
+        document.getElementById("title").innerHTML =
+            "Withdrawal <span>Guide</span>";
+
+
+        document.getElementById("step1Title").innerText =
+            "Wallet Section खोलें";
+
+        document.getElementById("step1Text").innerHTML =
+            "App में Login करें और नीचे दिए गए Menu से <strong>Wallet</strong> Section पर Tap करें.";
+
+
+        document.getElementById("step2Title").innerText =
+            "Withdrawal पर Tap करें";
+
+        document.getElementById("step2Text").innerHTML =
+            "Wallet Section में <strong>Withdrawal</strong> Option दिखाई देगा। Withdrawal Page खोलने के लिए उस पर Tap करें.";
+
+
+        document.getElementById("step3Title").innerText =
+            "Withdrawal Limit Check करें";
+
+        document.getElementById("step3Text").innerHTML =
+            "Withdrawal Page पर Available Balance दिखाई देगा। <strong>Minimum ₹500</strong> और <strong>Maximum ₹50,000</strong> तक Withdrawal कर सकते हैं.";
+
+
+        document.getElementById("step4Title").innerText =
+            "Bank या UPI Select करें";
+
+        document.getElementById("step4Text").innerHTML =
+            "आपको पैसा कहाँ लेना है वह Select करें। <strong>Bank</strong> या <strong>UPI</strong> में से अपना पसंदीदा Method चुनें.";
+
+
+        document.getElementById("step5Title").innerText =
+            "अपनी Details Fill करें";
+
+        document.getElementById("step5Text").innerHTML =
+            "Required Details ध्यान से Fill करें। Bank के लिए Bank Details और UPI के लिए अपना Valid <strong>UPI ID</strong> डालें। Amount डालने के बाद <strong>Continue</strong> पर Tap करें.";
+
+
+        document.getElementById("step6Title").innerText =
+            "Withdrawal Request Successful";
+
+        document.getElementById("step6Text").innerHTML =
+            "<strong>Withdrawal Request Successful</strong> का Message दिखाई देगा। Request Process होने तक Status <strong>Pending</strong> रहेगा.";
+
+
+        document.getElementById("step7Title").innerText =
+            "पैसा Receive करें";
+
+        document.getElementById("step7Text").innerHTML =
+            "Withdrawal Approve और Process होने के बाद पैसा आपके Selected <strong>Bank Account या UPI</strong> में भेज दिया जाएगा। Processing में कुछ घंटे लग सकते हैं.";
+
+
+        document.getElementById("step8Title").innerText =
+            "Withdrawal History Check करें";
+
+        document.getElementById("step8Text").innerHTML =
+            "<strong>Withdrawal History</strong> में अपने Request का Status Check कर सकते हैं। Processing के दौरान <strong>Pending</strong> और Complete होने के बाद <strong>Success</strong> दिखाई देगा.";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+
+    }
+
+
+    /* =========================
+       ENGLISH
+    ========================= */
+
+    else {
+
+        document.getElementById("title").innerHTML =
+            "Withdrawal <span>Guide</span>";
+
+
+        document.getElementById("step1Title").innerText =
+            "Open the Wallet Section";
+
+        document.getElementById("step1Text").innerHTML =
+            "Log in to the app and tap on the <strong>Wallet</strong> section from the bottom menu.";
+
+
+        document.getElementById("step2Title").innerText =
+            "Tap on Withdrawal";
+
+        document.getElementById("step2Text").innerHTML =
+            "In the Wallet section, find the <strong>Withdrawal</strong> option and tap on it to open the withdrawal page.";
+
+
+        document.getElementById("step3Title").innerText =
+            "Check Withdrawal Limits";
+
+        document.getElementById("step3Text").innerHTML =
+            "On the Withdrawal page, you can see the available balance. The <strong>minimum withdrawal is ₹500</strong> and the <strong>maximum withdrawal is ₹50,000</strong>.";
+
+
+        document.getElementById("step4Title").innerText =
+            "Select Bank or UPI";
+
+        document.getElementById("step4Text").innerHTML =
+            "Choose how you want to receive your money. Select either <strong>Bank</strong> or <strong>UPI</strong> and continue.";
+
+
+        document.getElementById("step5Title").innerText =
+            "Fill in Your Details";
+
+        document.getElementById("step5Text").innerHTML =
+            "Enter the required details carefully. For Bank, enter your bank details. For UPI, enter your valid <strong>UPI ID</strong>. Then enter the withdrawal amount and tap <strong>Continue</strong>.";
+
+
+        document.getElementById("step6Title").innerText =
+            "Withdrawal Request Successful";
+
+        document.getElementById("step6Text").innerHTML =
+            "After submitting the request, your <strong>Withdrawal Request Successful</strong> message will appear. Your request will remain <strong>Pending</strong> until it is processed.";
+
+
+        document.getElementById("step7Title").innerText =
+            "Receive Your Money";
+
+        document.getElementById("step7Text").innerHTML =
+            "After the withdrawal is approved and processed, the money will be sent to your selected <strong>Bank Account or UPI</strong>. Processing may take a few hours.";
+
+
+        document.getElementById("step8Title").innerText =
+            "Check Withdrawal History";
+
+        document.getElementById("step8Text").innerHTML =
+            "You can check your <strong>Withdrawal History</strong> to see the current status. It will show <strong>Pending</strong> while processing and <strong>Success</strong> after completion.";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+    }
+
+}
+
+</script>
+
+</body>
+  </html>
