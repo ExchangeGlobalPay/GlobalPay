@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buy & Claim Token Guide - GlobalPay</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#020817;
+    color:#fff;
+    padding:12px 10px 35px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+}
+
+/* TOP */
+.guide-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:5px 4px 18px;
+}
+
+.guide-top h1{
+    font-size:21px;
+    font-weight:700;
+    color:#fff;
+}
+
+.guide-top h1 span{
+    color:#159cff;
+}
+
+.language-select{
+    background:#071126;
+    color:#fff;
+    border:1px solid #159cff;
+    border-radius:8px;
+    padding:7px 9px;
+    font-size:12px;
+    outline:none;
+}
+
+.language-select option{
+    background:#071126;
+    color:#fff;
+}
+
+/* STEPS */
+.steps{
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+}
+
+.step{
+    background:linear-gradient(135deg,#071b3c,#071126);
+    border:1px solid #116fc9;
+    border-radius:15px;
+    padding:16px;
+    box-shadow:0 0 15px rgba(0,119,255,.08);
+}
+
+.step-number{
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,#087cf0,#12b5ff);
+    color:#fff;
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:9px;
+}
+
+.step h2{
+    font-size:18px;
+    color:#fff;
+    margin-bottom:7px;
+}
+
+.step p{
+    color:#c7d5e7;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.step strong{
+    color:#fff;
+}
+
+.green{
+    color:#20e0a0;
+    font-weight:700;
+}
+
+/* IMAGE */
+.image-section{
+    margin-top:24px;
+    padding:10px;
+    background:#050d20;
+    border:1px solid #147bd1;
+    border-radius:16px;
+    box-shadow:0 0 22px rgba(0,132,255,.12);
+}
+
+.image-title{
+    text-align:center;
+    font-size:17px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.image-title span{
+    color:#14a5ff;
+}
+
+.guide-image{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:10px;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:22px;
+    color:#8294ad;
+    font-size:12px;
+}
+
+.footer strong{
+    color:#18a4ff;
+}
+
+/* MOBILE */
+@media(max-width:500px){
+
+    body{
+        padding:10px 8px 30px;
+    }
+
+    .guide-top{
+        margin:4px 3px 16px;
+    }
+
+    .guide-top h1{
+        font-size:19px;
+    }
+
+    .language-select{
+        font-size:11px;
+        padding:6px 7px;
+    }
+
+    .step{
+        padding:14px;
+    }
+
+    .step-number{
+        width:34px;
+        height:34px;
+        font-size:14px;
+    }
+
+    .step h2{
+        font-size:16px;
+    }
+
+    .step p{
+        font-size:13px;
+    }
+
+    .image-section{
+        padding:8px;
+    }
+
+    .image-title{
+        font-size:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TOP TITLE -->
+    <div class="guide-top">
+
+        <h1 id="title">
+            Buy & Claim <span>Token Guide</span>
+        </h1>
+
+        <select id="languageSelect"
+                class="language-select"
+                onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="steps">
+
+        <!-- STEP 1 -->
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h2 id="step1Title">
+                Open Buy Token
+            </h2>
+
+            <p id="step1Text">
+                Log in to GlobalPay and open the
+                <strong>Buy Token</strong> section.
+                Here you can view the available plans
+                and token options.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h2 id="step2Title">
+                Choose Your Plan
+            </h2>
+
+            <p id="step2Text">
+                Select the plan that suits you.
+                Check the <strong>price, validity,
+                daily token and total token</strong>
+                before continuing.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h2 id="step3Title">
+                Check Plan Details
+            </h2>
+
+            <p id="step3Text">
+                Review the selected plan carefully.
+                Make sure the displayed plan details
+                are correct before confirming the purchase.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <h2 id="step4Title">
+                Confirm Your Purchase
+            </h2>
+
+            <p id="step4Text">
+                After checking the details, tap
+                <strong>Continue Buy</strong>
+                to complete the purchase.
+                Follow the instructions shown on the screen.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+        <div class="step">
+
+            <div class="step-number">5</div>
+
+            <h2 id="step5Title">
+                Check My Plans
+            </h2>
+
+            <p id="step5Text">
+                After a successful purchase, open
+                <strong>My Plans</strong>.
+                Your active plan and its available
+                daily token information will be displayed there.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 6 -->
+        <div class="step">
+
+            <div class="step-number">6</div>
+
+            <h2 id="step6Title">
+                Claim Your Token
+            </h2>
+
+            <p id="step6Text">
+                When your daily claim becomes available,
+                open <strong>My Plans</strong> and tap
+                <span class="green">Claim Token</span>.
+                The available token reward will then be
+                added to your wallet according to the plan.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 7 -->
+        <div class="step">
+
+            <div class="step-number">7</div>
+
+            <h2 id="step7Title">
+                Check Your Wallet
+            </h2>
+
+            <p id="step7Text">
+                After claiming, open your
+                <strong>Wallet</strong> and check the
+                updated token balance and transaction history.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- GUIDE IMAGE -->
+    <div class="image-section">
+
+        <div class="image-title">
+
+            <span id="visualText">
+                Step-by-Step
+            </span>
+
+            <span id="guideText">
+                Visual Guide
+            </span>
+
+        </div>
+
+        <img
+            src="tutorial3.jpg"
+            alt="GlobalPay Buy and Claim Token Guide"
+            class="guide-image">
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+        <strong>GlobalPay</strong> —
+        <span id="footerText">
+            Secure • Fast • Global
+        </span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function changeLanguage(){
+
+    const lang =
+        document.getElementById("languageSelect").value;
+
+    if(lang === "hi"){
+
+        document.getElementById("title").innerHTML =
+            "Buy & Claim <span>Token Guide</span>";
+
+        document.getElementById("step1Title").innerText =
+            "Buy Token खोलें";
+
+        document.getElementById("step1Text").innerHTML =
+            "GlobalPay में Login करें और <strong>Buy Token</strong> Section खोलें। यहां आपको उपलब्ध Plans और Token Options दिखाई देंगे।";
+
+
+        document.getElementById("step2Title").innerText =
+            "अपना Plan चुनें";
+
+        document.getElementById("step2Text").innerHTML =
+            "अपने अनुसार Plan Select करें। Purchase से पहले <strong>Price, Validity, Daily Token और Total Token</strong> जरूर Check करें।";
+
+
+        document.getElementById("step3Title").innerText =
+            "Plan Details Check करें";
+
+        document.getElementById("step3Text").innerHTML =
+            "Selected Plan की सभी Details ध्यान से Check करें और Confirm करने से पहले सुनिश्चित करें कि दिखाई गई जानकारी सही है।";
+
+
+        document.getElementById("step4Title").innerText =
+            "Purchase Confirm करें";
+
+        document.getElementById("step4Text").innerHTML =
+            "Details सही होने के बाद <strong>Continue Buy</strong> पर Tap करें और स्क्रीन पर दिए गए Instructions के अनुसार Purchase पूरा करें।";
+
+
+        document.getElementById("step5Title").innerText =
+            "My Plans Check करें";
+
+        document.getElementById("step5Text").innerHTML =
+            "Purchase सफल होने के बाद <strong>My Plans</strong> खोलें। यहां आपका Active Plan और Daily Token की जानकारी दिखाई देगी।";
+
+
+        document.getElementById("step6Title").innerText =
+            "अपना Token Claim करें";
+
+        document.getElementById("step6Text").innerHTML =
+            "जब Daily Claim उपलब्ध हो जाए तो <strong>My Plans</strong> खोलें और <span class='green'>Claim Token</span> पर Tap करें। उपलब्ध Token Reward आपके Plan के अनुसार Wallet में जोड़ दिया जाएगा।";
+
+
+        document.getElementById("step7Title").innerText =
+            "Wallet Check करें";
+
+        document.getElementById("step7Text").innerHTML =
+            "Claim करने के बाद <strong>Wallet</strong> खोलें और अपना Updated Token Balance तथा Transaction History Check करें।";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+
+    }
+
+    else{
+
+        document.getElementById("title").innerHTML =
+            "Buy & Claim <span>Token Guide</span>";
+
+        document.getElementById("step1Title").innerText =
+            "Open Buy Token";
+
+        document.getElementById("step1Text").innerHTML =
+            "Log in to GlobalPay and open the <strong>Buy Token</strong> section. Here you can view the available plans and token options.";
+
+
+        document.getElementById("step2Title").innerText =
+            "Choose Your Plan";
+
+        document.getElementById("step2Text").innerHTML =
+            "Select the plan that suits you. Check the <strong>price, validity, daily token and total token</strong> before continuing.";
+
+
+        document.getElementById("step3Title").innerText =
+            "Check Plan Details";
+
+        document.getElementById("step3Text").innerHTML =
+            "Review the selected plan carefully. Make sure the displayed plan details are correct before confirming the purchase.";
+
+
+        document.getElementById("step4Title").innerText =
+            "Confirm Your Purchase";
+
+        document.getElementById("step4Text").innerHTML =
+            "After checking the details, tap <strong>Continue Buy</strong> to complete the purchase. Follow the instructions shown on the screen.";
+
+
+        document.getElementById("step5Title").innerText =
+            "Check My Plans";
+
+        document.getElementById("step5Text").innerHTML =
+            "After a successful purchase, open <strong>My Plans</strong>. Your active plan and its available daily token information will be displayed there.";
+
+
+        document.getElementById("step6Title").innerText =
+            "Claim Your Token";
+
+        document.getElementById("step6Text").innerHTML =
+            "When your daily claim becomes available, open <strong>My Plans</strong> and tap <span class='green'>Claim Token</span>. The available token reward will then be added to your wallet according to the plan.";
+
+
+        document.getElementById("step7Title").innerText =
+            "Check Your Wallet";
+
+        document.getElementById("step7Text").innerHTML =
+            "After claiming, open your <strong>Wallet</strong> and check the updated token balance and transaction history.";
+
+
+        document.getElementById("visualText").innerText =
+            "Step-by-Step";
+
+        document.getElementById("guideText").innerText =
+            " Visual Guide";
+
+        document.getElementById("footerText").innerText =
+            "Secure • Fast • Global";
+
+    }
+}
+
+</script>
+
+</body>
+  </html>
