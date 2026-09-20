@@ -269,7 +269,7 @@ button{border:0}
   <div class="balance-label">Available Premium Balance</div>
   <div class="balance-value" id="walletBalance">₹0.00</div>
   <div class="balance-meta">
-    <span>Minimum ₹500</span>
+    <span>Minimum ₹1500</span>
     <span>Maximum ₹50,000</span>
   </div>
 </section>
@@ -290,7 +290,7 @@ button{border:0}
     <label for="bankAmount">Withdrawal Amount</label>
     <div class="input-wrap">
       <span class="prefix">₹</span>
-      <input class="input amount" id="bankAmount" inputmode="decimal" placeholder="500">
+      <input class="input amount" id="bankAmount" inputmode="decimal" placeholder="1500">
     </div>
     <div class="error" id="bankAmountError"></div>
   </div>
@@ -567,7 +567,7 @@ function validateAmount(value,inputId,errorId){
     showFieldError(inputId,errorId,"Enter a valid withdrawal amount.");
     return null;
   }
-  if(amount < 500){
+  if(amount < 1500){
     showFieldError(inputId,errorId,"Minimum withdrawal amount is ₹500.");
     return null;
   }
