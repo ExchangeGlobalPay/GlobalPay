@@ -568,7 +568,7 @@ function validateAmount(value,inputId,errorId){
     return null;
   }
   if(amount < 1500){
-    showFieldError(inputId,errorId,"Minimum withdrawal amount is ₹500.");
+    showFieldError(inputId,errorId,"Minimum withdrawal amount is ₹1500.");
     return null;
   }
   if(amount > 50000){
